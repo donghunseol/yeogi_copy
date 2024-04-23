@@ -1,0 +1,123 @@
+{{> layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/user/join">가입현황</a></li>
+                    <li class="tab-link current"><a href="/user/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/user/question">문의사항</a></li>
+                    <li class="tab-link "><a href="/user/faq">자주묻는 질문</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰신고</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="#" method="#" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 신고사항 <em> 20 </em>개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div class=" duration">
+                                        <label for="daterange">기간</label>
+                                        <input type="text" name="daterange" value="" id="daterange" />
+                                    </div>
+                                    <div>
+                                        <label for="comp-state">문의상태</label>
+                                        <select name="state" id="comp-state">
+                                            <option value="">전체</option>
+                                            <option value="승인">승인</option>
+                                            <option value="거절">거절</option>
+                                            <option value="대기중">대기중</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="40%">
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="10%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">신고제목</th>
+                                <th scope="col">등록상호명</th>
+                                <th scope="col">기업명</th>
+                                <th scope="col">처리상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="review">
+                                <td class="title">리뷰 내용이 이상해요!</td>
+                                <td class="content">M to M</td>
+                                <td>Agoda Company Pte</td>
+                                <td><span class="state wait">대기중</span></td>
+                                <td class="link">
+                                    <a href="/user/report-detail"></a>
+                                </td>
+                            </tr>
+                            <tr class="review">
+                                <td class="title">Agoda Company Pte</td>
+                                <td>186665658207</td>
+                                <td>Omri Mogenstem</td>
+                                <td><span class="state refuse">거절</span></td>
+                                <td class="link">
+                                    <a href="/user/report-detail"></a>
+                                </td>
+                            </tr>
+                            <tr class="review">
+                                <td class="title">Agoda Company Pte</td>
+                                <td>186665658207</td>
+                                <td>Omri Mogenstem</td>
+                                <td><span class="state approval">승인</span></td>
+                                <td class="link">
+                                    <a href="/user/report-detail"></a>
+                                </td>
+                            </tr>
+                            <tr class="review">
+                                <td class="title">Agoda Company Pte</td>
+                                <td>186665658207</td>
+                                <td>Omri Mogenstem</td>
+                                <td><span class="state wait">대기중</span></td>
+                                <td class="link">
+                                    <a href="/user/report-detail"></a>
+                                </td>
+                            </tr>
+                            <tr class="review">
+                                <td class="title">Agoda Company Pte</td>
+                                <td>186665658207</td>
+                                <td>Omri Mogenstem</td>
+                                <td><span class="state wait">대기중</span></td>
+                                <td class="link">
+                                    <a href="/user/report-detail"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
