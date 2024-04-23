@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception500;
-import com.example.final_project._core.util.JwtUtil;
+import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.admin.SessionAdmin;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;

@@ -1,4 +1,4 @@
-package com.example.final_project._core.util;
+package com.example.final_project._core.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -22,7 +22,7 @@ public class JwtUtil {
                 .withClaim("id", user.getId())
                 .withClaim("email", user.getEmail())
                 .withClaim("role", "user")
-                .sign(Algorithm.HMAC512("yeoeotteohno")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
+                .sign(Algorithm.HMAC512("yeoeotteoghno")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
         return jwt;
     }
 
