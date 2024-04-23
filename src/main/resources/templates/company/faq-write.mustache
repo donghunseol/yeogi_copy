@@ -1,0 +1,55 @@
+
+
+{{> layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+       {{> layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/company/join">가입현황</a></li>
+                    <li class="tab-link"><a href="/company/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/company/question">문의사항</a></li>
+                    <li class="tab-link current"><a href="/company/faq">자주묻는 질문</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>자주묻는 질문</p>
+                    </div>
+                    <div class="tab-item detail">
+                        <div class="review-detail-wrapper">
+                            <div class="detail-head">
+                                <div>
+                                    <p class="title">작성</p>
+                                </div>
+                            </div>
+                            <form action="#" method="#">
+                                <div class="detail-content">
+                                    <span class="review-title">제목</span>
+                                    <p class="review-content">
+                                        <input type="text" class="input">
+                                    </p>
+                                    <span class="review-title">내용</span>
+                                    <p class="review-content">
+                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                    </p>
+                                    <!-- <span class="review-title">답변 내용</span> -->
+                                    <!-- <input type="text"> -->
+                                </div>
+                                <div class="report-button-wrapper">
+                                    <button class="btn black" type="button" onclick="history.back()">작성완료</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+</body>
+
+</html>
