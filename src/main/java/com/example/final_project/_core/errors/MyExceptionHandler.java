@@ -1,7 +1,7 @@
 package com.example.final_project._core.errors;
 
 import com.example.final_project._core.errors.exception.*;
-import com.example.final_project._core.util.ApiUtil;
+import com.example.final_project._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
