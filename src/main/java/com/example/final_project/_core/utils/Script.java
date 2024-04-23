@@ -1,4 +1,4 @@
-package com.example.final_project._core.util;
+package com.example.final_project._core.utils;
 
 public class Script {
 

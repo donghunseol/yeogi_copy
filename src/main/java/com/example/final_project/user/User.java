@@ -1,10 +1,12 @@
 package com.example.final_project.user;
 
+import com.example.final_project._core.enums.UserEnum;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -30,14 +32,10 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserState state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
-
-    enum UserState {
-        ACTIVE, QUIT, BLACK // 상태 종류
-    }
+    private UserEnum state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
 
     @Column(nullable = false)
-    private LocalDateTime birth; // 생년월일
+    private LocalDate birth; // 생년월일
 
     @Column(nullable = false)
     private Integer reportCount = 0; // 신고 받은 횟수
@@ -46,7 +44,7 @@ public class User {
     private LocalDateTime createdAt; // 유저 가입 일자
 
     @Builder
-    public User(Integer id, String email, String password, String name, String phone, UserState state, LocalDateTime birth, Integer reportCount, LocalDateTime createdAt) {
+    public User(Integer id, String email, String password, String name, String phone, UserEnum state, LocalDate birth, Integer reportCount, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;

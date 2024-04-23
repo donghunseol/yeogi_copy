@@ -1,5 +1,6 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -38,11 +39,7 @@ public class Company {
     private String name; // 사업자 이름
 
     @Column(nullable = false)
-    private CompanyState state; // 상태 (ACTIVE : 기업 유지, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업)
-
-    enum CompanyState {
-        ACTIVE, QUIT, BLACK // 상태 종류
-    }
+    private CompanyEnum state; // 상태 (ACTIVE : 기업 유지, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업)
 
     @Column(nullable = false)
     private Integer reportCount = 0; // 신고 받은 횟수
@@ -51,7 +48,7 @@ public class Company {
     private LocalDateTime createdAt; // 기업 가입 일자
 
     @Builder
-    public Company(Integer id, String email, String password, String businessName, String businessNumber, String businessAddress, String phone, String name, LocalDateTime createdAt, CompanyState state, Integer reportCount) {
+    public Company(Integer id, String email, String password, String businessName, String businessNumber, String businessAddress, String phone, String name, LocalDateTime createdAt, CompanyEnum state, Integer reportCount) {
         this.id = id;
         this.email = email;
         this.password = password;

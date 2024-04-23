@@ -1,4 +1,4 @@
-package com.example.final_project._core.util;
+package com.example.final_project._core.utils;
 
 import com.example.final_project.reservation.Reservation;
 
