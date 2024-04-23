@@ -1,0 +1,64 @@
+{{> layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link" ><a href="/company/join">가입현황</a></li>
+                    <li class="tab-link current"><a href="/company/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/company/question">문의사항</a></li>
+                    <li class="tan-link"><a href="/company/faq">자주묻는 질문</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰신고</p>
+                    </div>
+                    <div class="tab-item detail">
+                        <div class="review-detail-wrapper">
+                            <form action="#" method="#">
+                                <div class="detail-head">
+                                    <div><p class="title">리뷰내용이 이상해요!</p><span>2024.04.21 15:41:21</span></div>
+                                </div>
+                                <div class="detail-content">
+                                    <span class="review-title">신고한 리뷰</span>
+                                    <p class="review-content">
+                                        <b>여기진짜 서비스최악이고 방안에 벌레나와요!!</b>
+                                        <br>
+                                        <em>작성자 : cos</em>
+                                        <em>작성한 별점 : 2점</em>
+                                        <em>신고당한 횟수 : 2회</em>
+                                    </p>
+                                    <span class="review-title">신고 내용</span>
+                                    <p class="review-content">
+                                        <b> "해당 리뷰는 숙박업체와 관련이 없는 욕설이 포함되어 있습니다. 이러한 내용은 숙박업체의 평판을 손상시키고 고객들에게 오해를 불러일으킬 수 있습니다. 따라서 즉시 조치를 취해주시기 바랍니다."</b>
+                                        <em>등록 상호명 : M to M</em>
+                                        <em>신고당한 횟수 : 0회</em>
+                                    </p>
+                                    <!-- <span class="review-title">답변 내용</span> -->
+                                    <!-- <input type="text"> -->
+                                </div>
+                                <div class="report-button-wrapper">
+                                    <button class ="btn approval" type="button" onclick="history.back()">승인</button>
+                                    <button class="btn refuse" type="button" onclick="history.back()">거절</button>
+                                </div>
+                                <!-- <div class="back-button-wrapper">
+                                    <button class="btn" type="button" onclick="history.back()">뒤로</button>
+                                </div> -->
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

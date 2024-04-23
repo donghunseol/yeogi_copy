@@ -1,0 +1,68 @@
+{{> layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/user/join">가입현황</a></li>
+                    <li class="tab-link"><a href="/user/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/user/question">문의사항</a></li>
+                    <li class="tab-link current"><a href="/user/faq">자주묻는 질문</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>자주묻는 질문</p>
+                    </div>
+                    <div class="tab-item detail">
+                        <div class="review-detail-wrapper">
+                            <div class="detail-head">
+                                <div>
+                                    <p class="title">작성</p>
+                                </div>
+                            </div>
+                            <form action="#" method="#">
+                                <div class="detail-content">
+                                    <span class="review-title">제목</span>
+                                    <p class="review-content">
+                                        <input type="text" class="input">
+                                    </p>
+                                    <span class="review-title">내용</span>
+                                    <p class="review-content">
+                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                    </p>
+                                    <!-- <span class="review-title">답변 내용</span> -->
+                                    <!-- <input type="text"> -->
+                                </div>
+                                    <div class="report-button-wrapper">
+                                        <button class="btn black">작성완료</button>
+                                    </div>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+<script>
+
+    // 사이드 메뉴바
+    $(function () {
+        const sidemenu = $(".side-menu .head-menu");
+        sidemenu.click(function () {
+            sidemenu.removeClass('active');
+            $(this).addClass('active');
+            $(this).parent().siblings().find('.sub').removeClass('active');
+            $(this).parent().find('.sub').toggleClass('active');
+        });
+    })
+
+</script>
+</body>
+
+</html>
