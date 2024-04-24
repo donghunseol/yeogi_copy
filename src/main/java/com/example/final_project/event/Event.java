@@ -33,27 +33,27 @@ public class Event {
     private String imagePath; // 이벤트 이미지 경로
 
     @Column(nullable = false)
-    private LocalDate start; // 이벤트 시작일
+    private LocalDate startDate; // 이벤트 시작일
 
     @Column(nullable = false)
-    private LocalDate end; // 이벤트 종료일
+    private LocalDate endDate; // 이벤트 종료일
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EventEnum state; // 이벤트 상태 / Enable 진행 중, Disable 종료
 
     @Column(nullable = false)
-    private String createdAt; // 작성일
+    private LocalDateTime createdAt; // 작성일
 
     @Builder
-    public Event(Integer id, Admin admin, String name, String imageName, String imagePath, LocalDate start, LocalDate end, EventEnum state, String createdAt) {
+    public Event(Integer id, Admin admin, String name, String imageName, String imagePath, LocalDate start, LocalDate end, EventEnum state, LocalDateTime createdAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
         this.imageName = imageName;
         this.imagePath = imagePath;
-        this.start = start;
-        this.end = end;
+        this.startDate = start;
+        this.endDate = end;
         this.state = state;
         this.createdAt = createdAt;
     }
