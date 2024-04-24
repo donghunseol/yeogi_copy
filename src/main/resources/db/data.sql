@@ -69,3 +69,11 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (2, 3, 3, '보통이에요.', 'FLAWLESS', now()),
        (2, 4, 5, '다시 오고 싶어요!', 'FLAWLESS', now()),
        (3, 5, 4, '좋았습니다!', 'FLAWLESS', now());
+
+-- review_comment 더미 생성
+insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
+values (1, 1, '감사합니다!', 'FLAWLESS', now()),
+       (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
+       (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
+       (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
+       (5, 3, '고마워요!', 'FLAWLESS', now());
