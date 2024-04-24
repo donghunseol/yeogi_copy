@@ -99,3 +99,12 @@ insert into report_tb(review_comment_id, company_id, result, created_at)
 values ('1', '2', 'PROCEEDING', now()),
        ('2', '3', 'PROCEEDING', now()),
        ('3', '1', 'PROCEEDING', now());
+
+-- pay 더미 생성
+insert into pay_tb(reservation_id, amount, way, state, created_at)
+values ('1', 0, 'Credit Card', 'PROCESSING', now()),
+       ('1', 0, 'Debit Card', 'PROCESSING', now()),
+       ('1', 0, 'Bank Transfer', 'REFUND', now()),
+       ('1', 0, 'Mobile Payment', 'CANCELLATION', now()),
+       ('1', 100000, 'Kakao Pay', 'COMPLETION', now()),
+       ('1', 100000, 'Naver Pay', 'COMPLETION', now());
