@@ -13,8 +13,8 @@ public class DateUtil {
     // start 일 과 end 일 사이의 모든 날짜 반환
     public static List<LocalDate> getDate(Reservation reservation) {
         // LocalDateTime 에 데이터 넣기
-        LocalDateTime startDateTime = reservation.getCheckIn();
-        LocalDateTime endDateTime = reservation.getCheckOut();
+        LocalDateTime startDateTime = reservation.getCheckInDate();
+        LocalDateTime endDateTime = reservation.getCheckOutDate();
 
         // 두 객체 간의 차이를 계산
         Duration duration = Duration.between(startDateTime, endDateTime);
