@@ -111,6 +111,28 @@ values
     ('3', '6', '2024-06-23', '2025-06-27', now());
 
 
+-- pay 더미 생성
+insert into pay_tb(reservation_id, amount, way, state, created_at)
+values
+    -- 5월 24일 이전 결제
+    ('1', 150000, 'Credit Card', 'COMPLETION', now()),
+    ('2', 150000, 'Credit Card', 'COMPLETION', now()),
+    ('3', 100000, 'Kakao Pay', 'COMPLETION', now()),
+    ('4', 120000, 'Bank Transfer', 'COMPLETION', now()),
+    ('5', 80000, 'Kakao Pay', 'COMPLETION', now()),
+    ('6', 200000, 'Naver Pay', 'COMPLETION', now()),
+    ('7', 180000, 'Naver Pay', 'COMPLETION', now()),
+
+    -- 5월 24일 이후 결제
+    -- On Site Payment 는 현장 결제
+    ('8', 0, 'On Site Payment', 'PROCESSING', now()),
+    ('9', 0, 'On Site Payment', 'PROCESSING', now()),
+    ('10', 120000, 'Kakao Pay', 'REFUND', now()),
+    ('11', 80000, 'Kakao Pay', 'CANCELLATION', now()),
+    ('12', 200000, 'Kakao Pay', 'COMPLETION', now()),
+    ('13', 180000, 'Naver Pay', 'COMPLETION', now());
+
+
 -- scrap 더미 생성
 insert into scrap_tb(user_id, stay_id, created_at)
 values ('1', '1', now()),

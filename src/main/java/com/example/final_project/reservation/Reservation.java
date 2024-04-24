@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -28,16 +29,16 @@ public class Reservation {
     private Room room; // 예약한 객실 번호
 
     @Column(nullable = false)
-    private LocalDateTime checkInDate; // 입실 날짜
+    private LocalDate checkInDate; // 입실 날짜
 
     @Column(nullable = false)
-    private LocalDateTime checkOutDate; // 퇴실 날짜
+    private LocalDate checkOutDate; // 퇴실 날짜
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 예약완료된 시간
 
     @Builder
-    public Reservation(Integer id, User user, Room room, LocalDateTime checkInDate, LocalDateTime checkOutDate, LocalDateTime createdAt) {
+    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.room = room;

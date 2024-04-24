@@ -1,11 +1,13 @@
 package com.example.final_project._core.utils;
 
 
+import com.example.final_project._core.enums.RoomEnum;
+import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.reservation.Reservation;
+import com.example.final_project.room.Room;
+import com.example.final_project.user.User;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class DateUtilTest {
@@ -14,13 +16,29 @@ public class DateUtilTest {
     public void getDateCount_test() {
         // given
         int id = 1;
-        LocalDateTime startDateTime = LocalDateTime.of(2024, 4, 28, 12, 0, 0);
-        LocalDateTime endDateTime = LocalDateTime.of(2024, 5, 2, 18, 0, 0);
+        User user = User.builder()
+                .email("ssar@nate.com")
+                .password("1234")
+                .phone("01012341234")
+                .state(UserEnum.ACTIVE)
+                .birth(LocalDate.of(2000, 01, 01))
+                .reportCount(0)
+                .build();
+        Room room = Room.builder()
+                .name("객실 이름")
+                .tier("등급")
+                .roomNumber("101")
+                .price(100000)
+                .specialState(RoomEnum.NOT_APPLIED)
+                .build();
+        LocalDate startDate = LocalDate.of(2024, 4, 28);
+        LocalDate endDate = LocalDate.of(2024, 5, 2);
 
         Reservation reservation = Reservation.builder()
-                .id(id)
-                .checkInDate(startDateTime)
-                .checkOutDate(endDateTime)
+                .user(user)
+                .room(room)
+                .checkInDate(startDate)
+                .checkOutDate(endDate)
                 .build();
 
         // when
