@@ -30,6 +30,7 @@ public class ReviewComment {
     @Column(nullable = false)
     private String content; // 내용
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReviewCommentEnum isDelete; // 삭제 여부(DELETE: 삭제 됨, NOT_DELETE: 삭제 되지 않음)
 
