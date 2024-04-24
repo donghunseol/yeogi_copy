@@ -26,7 +26,7 @@ public class Company {
     @Column(nullable = false)
     private String businessName; // 등록 상호명
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 12)
     private String businessNumber; // 사업자 번호
 
     @Column(nullable = false)
@@ -38,11 +38,12 @@ public class Company {
     @Column(nullable = false)
     private String name; // 사업자 이름
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CompanyEnum state; // 상태 (ACTIVE : 기업 유지, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업)
 
     @Column(nullable = false)
-    private Integer reportCount = 0; // 신고 받은 횟수
+    private Integer reportCount; // 신고 받은 횟수
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 기업 가입 일자
