@@ -38,7 +38,7 @@ public class User {
     private LocalDate birth; // 생년월일
 
     @Column(nullable = false)
-    private Integer reportCount = 0; // 신고 받은 횟수
+    private Integer reportCount; // 신고 받은 횟수
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 유저 가입 일자

@@ -1,5 +1,6 @@
 package com.example.final_project.room;
 
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project.stay.Stay;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Data
-@Table(name = "rooms_tb")
+@Table(name = "room_tb")
 @Entity
 public class Room {
     @Id
@@ -27,24 +28,16 @@ public class Room {
     private String tier; // 객실 등급
 
     @Column(nullable = false)
+    private String roomNumber; // 호실
+
+    @Column(nullable = false)
     private Integer price; // 객실 가격
 
     private Integer specialPrice; // 특가
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean specialState; // 특가 적용 여부(true: 특가 적용 함, false: 특가 적용 안 함)
-
-    @Column(nullable = false)
-    private Integer count; // 잔여 객실 수
-
-    @Column(nullable = false)
-    private String information; // 객실 이용 정보
-
-    @Column(nullable = false)
-    private Integer minPerson; // 최소 인원
-
-    @Column(nullable = false)
-    private Integer maxPerson; // 최대 인원
+    private RoomEnum specialState; // 특가 적용 여부(APPLIED: 특가 적용 함, NOT_APPLIED: 특가 적용 안 함)
 
     private String imageName; // 이미지 파일명
 
@@ -54,18 +47,15 @@ public class Room {
     private LocalDateTime createdAt; // 객실 등록 날짜
 
     @Builder
-    public Room(Integer id, Stay stay, String name, String tier, Integer price, Integer specialPrice, Boolean specialState, Integer count, String information, Integer minPerson, Integer maxPerson, String imageName, String imagePath, LocalDateTime createdAt) {
+    public Room(Integer id, Stay stay, String name, String tier, String roomNumber, Integer price, Integer specialPrice, RoomEnum specialState, String imageName, String imagePath, LocalDateTime createdAt) {
         this.id = id;
         this.stay = stay;
         this.name = name;
         this.tier = tier;
+        this.roomNumber = roomNumber;
         this.price = price;
         this.specialPrice = specialPrice;
         this.specialState = specialState;
-        this.count = count;
-        this.information = information;
-        this.minPerson = minPerson;
-        this.maxPerson = maxPerson;
         this.imageName = imageName;
         this.imagePath = imagePath;
         this.createdAt = createdAt;
