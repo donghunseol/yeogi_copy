@@ -3,6 +3,7 @@ package com.example.final_project.report;
 import com.example.final_project._core.enums.ReportEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.review.Review;
+import com.example.final_project.review_comment.ReviewComment;
 import com.example.final_project.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -11,8 +12,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-
-import static com.example.final_project._core.enums.ReportEnum.Proceeding;
 
 @NoArgsConstructor
 @Data
@@ -27,13 +26,17 @@ public class Report {
     private Review review; // 리뷰 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
+    private ReviewComment reviewComment; // 리뷰 댓글 번호
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user; // 유저 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company; // 기업 번호
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReportEnum result = Proceeding; // Proceeding 신고 진행 중, Complete 신고 완료, Fail 신고 실패
+    private ReportEnum result; // Proceeding 신고 진행 중, Complete 신고 완료, Fail 신고 실패
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자

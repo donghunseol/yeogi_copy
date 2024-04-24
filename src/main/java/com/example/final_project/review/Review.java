@@ -1,5 +1,6 @@
 package com.example.final_project.review;
 
+import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project.room.Room;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,20 +33,21 @@ public class Review {
     @Column(nullable = false)
     private String content; // 내용
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean delete; // 삭제 여부(true: 삭제 됨, false: 삭제 안 됨)
+    private ReviewEnum isDelete; // 삭제 여부(FLAWLESS : 문제 없는 댓글, COMPLETE: 삭제 됨, FAIL: 삭제 안 됨)
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 리뷰 작성 날짜
 
     @Builder
-    public Review(Integer id, User user, Room room, Integer score, String content, Boolean delete, LocalDateTime createdAt) {
+    public Review(Integer id, User user, Room room, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.room = room;
         this.score = score;
         this.content = content;
-        this.delete = delete;
+        this.isDelete = isDelete;
         this.createdAt = createdAt;
     }
 }

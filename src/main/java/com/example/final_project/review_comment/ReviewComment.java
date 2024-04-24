@@ -1,5 +1,6 @@
 package com.example.final_project.review_comment;
 
+import com.example.final_project._core.enums.ReviewCommentEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,20 +24,21 @@ public class ReviewComment {
     @OneToOne(fetch = FetchType.LAZY, optional = false) // optional = false를 적어야 Not Null이 된다.
     private Review review; // 리뷰 번호
 
-    @ManyToOne(fetch = FetchType.LAZY,  optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Company company; // 기업 번호
 
     @Column(nullable = false)
     private String content; // 내용
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean isDelete; // 삭제 여부(true: 삭제 됨, false: 삭제 되지 않음)
+    private ReviewCommentEnum isDelete; // 삭제 여부(DELETE: 삭제 됨, NOT_DELETE: 삭제 되지 않음)
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 댓글 생성 일자
 
     @Builder
-    public ReviewComment(Integer id, Review review, Company company, String content, Boolean isDelete, LocalDateTime createdAt) {
+    public ReviewComment(Integer id, Review review, Company company, String content, ReviewCommentEnum isDelete, LocalDateTime createdAt) {
         this.id = id;
         this.review = review;
         this.company = company;

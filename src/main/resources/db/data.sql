@@ -79,6 +79,26 @@ values (1,'국내숙소 쿠폰팩','2024-04-04','2024-04-15',now(),'Disable'),
        (4,'인기 호텔 최대 5만원할인','2024-04-04','2024-04-20',now(),'Enable'),
        (4,'피크닉여행 블랙어때','2024-03-15','2024-04-27',now(),'Enable');
 
+-- reservation 더미 생성
+insert into reservation_tb(user_id, room_id, check_in_date, check_out_date, created_at)
+values
+    -- 5월 24일 이전 예약
+    ('1', '1', '2023-12-31', '2024-01-01', now()),
+    ('1', '1', '2024-01-01', '2024-01-02', now()),
+    ('1', '2', '2024-02-01', '2024-02-02', now()),
+    ('2', '3', '2024-02-03', '2024-02-05', now()),
+    ('2', '4', '2024-02-29', '2024-03-02', now()),
+    ('3', '5', '2024-03-17', '2024-03-21', now()),
+    ('3', '6', '2024-04-23', '2025-04-24', now()),
+    -- 5월 24일 이후 예약
+    ('1', '1', '2024-05-24', '2024-05-25', now()),
+    ('1', '2', '2024-05-25', '2024-05-30', now()),
+    ('2', '3', '2024-05-31', '2024-06-02', now()),
+    ('2', '4', '2024-06-10', '2024-06-11', now()),
+    ('3', '5', '2024-06-20', '2024-05-25', now()),
+    ('3', '6', '2024-06-23', '2025-06-27', now());
+
+
 -- scrap 더미 생성
 insert into scrap_tb(user_id, stay_id, created_at)
 values ('1', '1', now()),
@@ -86,3 +106,41 @@ values ('1', '1', now()),
        ('2', '2', now()),
        ('2', '3', now()),
        ('3', '3', now());
+
+-- review 더미 생성
+insert into review_tb(user_id, room_id, score, content, is_delete, created_at)
+values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
+       (1, 2, 4, '괜찮은 편이에요.', 'FLAWLESS', now()),
+       (2, 3, 3, '보통이에요.', 'FLAWLESS', now()),
+       (2, 4, 5, '다시 오고 싶어요!', 'FLAWLESS', now()),
+       (3, 5, 4, '좋았습니다!', 'FLAWLESS', now());
+
+-- review_comment 더미 생성
+insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
+values (1, 1, '감사합니다!', 'FLAWLESS', now()),
+       (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
+       (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
+       (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
+       (5, 3, '고마워요!', 'FLAWLESS', now());
+
+-- report 더미 생성
+-- user 가 user review 신고
+insert into report_tb(review_id, user_id, result, created_at)
+values ('1', '2', 'PROCEEDING', now()),
+       ('2', '3', 'PROCEEDING', now()),
+       ('3', '1', 'PROCEEDING', now());
+-- company 가 user review 신고
+insert into report_tb(review_id, company_id, result, created_at)
+values ('1', '1', 'PROCEEDING', now()),
+       ('2', '2', 'PROCEEDING', now()),
+       ('3', '3', 'PROCEEDING', now());
+-- user 가 company review 신고
+insert into report_tb(review_comment_id, user_id, result, created_at)
+values ('1', '1', 'PROCEEDING', now()),
+       ('2', '2', 'PROCEEDING', now()),
+       ('3', '3', 'PROCEEDING', now());
+-- company 가 company review 신고
+insert into report_tb(review_comment_id, company_id, result, created_at)
+values ('1', '2', 'PROCEEDING', now()),
+       ('2', '3', 'PROCEEDING', now()),
+       ('3', '1', 'PROCEEDING', now());
