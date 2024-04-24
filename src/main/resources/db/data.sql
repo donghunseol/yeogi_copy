@@ -77,3 +77,25 @@ values (1, 1, '감사합니다!', 'FLAWLESS', now()),
        (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
        (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
        (5, 3, '고마워요!', 'FLAWLESS', now());
+
+-- report 더미 생성
+-- user 가 user review 신고
+insert into report_tb(review_id, user_id, result, created_at)
+values ('1', '2', 'PROCEEDING', now()),
+       ('2', '3', 'PROCEEDING', now()),
+       ('3', '1', 'PROCEEDING', now());
+-- company 가 user review 신고
+insert into report_tb(review_id, company_id, result, created_at)
+values ('1', '1', 'PROCEEDING', now()),
+       ('2', '2', 'PROCEEDING', now()),
+       ('3', '3', 'PROCEEDING', now());
+-- user 가 company review 신고
+insert into report_tb(review_comment_id, user_id, result, created_at)
+values ('1', '1', 'PROCEEDING', now()),
+       ('2', '2', 'PROCEEDING', now()),
+       ('3', '3', 'PROCEEDING', now());
+-- company 가 company review 신고
+insert into report_tb(review_comment_id, company_id, result, created_at)
+values ('1', '2', 'PROCEEDING', now()),
+       ('2', '3', 'PROCEEDING', now()),
+       ('3', '1', 'PROCEEDING', now());
