@@ -62,3 +62,10 @@ values ('1', '1', now()),
        ('2', '3', now()),
        ('3', '3', now());
 
+-- review 더미 생성
+insert into review_tb(user_id, room_id, score, content, delete, created_at)
+values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
+       (1, 2, 4, '괜찮은 편이에요.', 'FLAWLESS', now()),
+       (2, 3, 3, '보통이에요.', 'FLAWLESS', now()),
+       (2, 4, 5, '다시 오고 싶어요!', 'FLAWLESS', now()),
+       (3, 5, 4, '좋았습니다!', 'FLAWLESS', now());
