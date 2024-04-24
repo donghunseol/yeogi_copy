@@ -1,13 +1,11 @@
 package com.example.final_project.pay;
 
-import com.example.final_project.room.Room;
-import com.example.final_project.user.User;
+import com.example.final_project.reservation.Reservation;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -17,13 +15,10 @@ import java.time.LocalDateTime;
 public class Pay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 숙소 번호
+    private Integer id; // 결제 번호
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user; // 숙소를 결제한 유저
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Room room; // 결제를 진행한 방
+    @OneToOne(fetch = FetchType.LAZY, optional = false) // optional = false를 적어야 Not Null이 된다.
+    private Reservation reservation; // 예약 번호
 
     @Column(nullable = false)
     private Integer amount; // 결제 금액
@@ -32,16 +27,15 @@ public class Pay {
     private String way; // 결제 방식
 
     @Column(nullable = false)
-    private Boolean state; // 결제 유무 / 현장 결제 카카오결제 토스결제 카드 결제
+    private String state; // 결제 유무 (ex. Credit Card, Debit Card, Bank Transfer, Mobile Payment ...)
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 결제 일자
 
     @Builder
-    public Pay(Integer id, User user, Room room, Integer amount, String way, Boolean state, LocalDateTime createdAt) {
+    public Pay(Integer id, Reservation reservation, Integer amount, String way, String state, LocalDateTime createdAt) {
         this.id = id;
-        this.user = user;
-        this.room = room;
+        this.reservation = reservation;
         this.amount = amount;
         this.way = way;
         this.state = state;
