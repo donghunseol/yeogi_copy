@@ -60,3 +60,10 @@ values
     ('5', '14:00:00', '12:00:00', 2, 4, '조식, 중식 제공', now()),
     ('6', '14:00:00', '12:00:00', 2, 6, '조식 제공, 애견 동반 가능', now());
 
+-- admin_tb 더미 생성
+insert into admin_tb(name,password,created_at)
+values ('admin1@naver.com','1234',now()),
+       ('admin2@daum.com','1234',now()),
+       ('admin3@gmail.com','1234',now()),
+       ('admin4@naver.com','1234',now()),
+       ('admin5@daum.com','1234',now());
