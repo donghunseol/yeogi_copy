@@ -28,21 +28,21 @@ public class Reservation {
     private Room room; // 예약한 객실 번호
 
     @Column(nullable = false)
-    private LocalDateTime checkIn; // 입실 날짜
+    private LocalDateTime checkInDate; // 입실 날짜
 
     @Column(nullable = false)
-    private LocalDateTime checkOut; // 퇴실 날짜
+    private LocalDateTime checkOutDate; // 퇴실 날짜
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 예약완료된 시간
 
     @Builder
-    public Reservation(Integer id, User user, Room room, LocalDateTime checkIn, LocalDateTime checkOut, LocalDateTime createdAt) {
+    public Reservation(Integer id, User user, Room room, LocalDateTime checkInDate, LocalDateTime checkOutDate, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.room = room;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
         this.createdAt = createdAt;
     }
 }
