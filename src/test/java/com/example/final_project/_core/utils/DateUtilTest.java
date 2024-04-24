@@ -19,8 +19,8 @@ public class DateUtilTest {
 
         Reservation reservation = Reservation.builder()
                 .id(id)
-                .checkIn(startDateTime)
-                .checkOut(endDateTime)
+                .checkInDate(startDateTime)
+                .checkOutDate(endDateTime)
                 .build();
 
         // when
