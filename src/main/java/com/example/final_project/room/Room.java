@@ -40,12 +40,6 @@ public class Room {
     @Column(nullable = false)
     private String information; // 객실 이용 정보
 
-    @Column(nullable = false)
-    private Integer minPerson; // 최소 인원
-
-    @Column(nullable = false)
-    private Integer maxPerson; // 최대 인원
-
     private String imageName; // 이미지 파일명
 
     private String imagePath; // 이미지 경로명
@@ -54,7 +48,7 @@ public class Room {
     private LocalDateTime createdAt; // 객실 등록 날짜
 
     @Builder
-    public Room(Integer id, Stay stay, String name, String tier, Integer price, Integer specialPrice, Boolean specialState, Integer count, String information, Integer minPerson, Integer maxPerson, String imageName, String imagePath, LocalDateTime createdAt) {
+    public Room(Integer id, Stay stay, String name, String tier, Integer price, Integer specialPrice, Boolean specialState, Integer count, String information, String imageName, String imagePath, LocalDateTime createdAt) {
         this.id = id;
         this.stay = stay;
         this.name = name;
@@ -64,8 +58,6 @@ public class Room {
         this.specialState = specialState;
         this.count = count;
         this.information = information;
-        this.minPerson = minPerson;
-        this.maxPerson = maxPerson;
         this.imageName = imageName;
         this.imagePath = imagePath;
         this.createdAt = createdAt;

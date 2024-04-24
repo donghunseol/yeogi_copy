@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -27,7 +28,10 @@ public class RoomInformation {
     private LocalTime checkOut; // 퇴실 시간
 
     @Column(nullable = false)
-    private String roomInfo; // 객실 정보 (ex. 인원제한)
+    private Integer minPerson; // 최소 인원
+
+    @Column(nullable = false)
+    private Integer maxPerson; // 최대 인원
 
     private String moreInfo; // 추가 정보 (ex. 조식 제공)
 
@@ -35,12 +39,13 @@ public class RoomInformation {
     private LocalDateTime createdAt; // 방 이용 정보 생성 일자
 
     @Builder
-    public RoomInformation(Integer id, Room room, LocalTime checkIn, LocalTime checkOut, String roomInfo, String moreInfo, LocalDateTime createdAt) {
+    public RoomInformation(Integer id, Room room, LocalTime checkIn, LocalTime checkOut, Integer minPerson, Integer maxPerson, String moreInfo, LocalDateTime createdAt) {
         this.id = id;
         this.room = room;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.roomInfo = roomInfo;
+        this.minPerson = minPerson;
+        this.maxPerson = maxPerson;
         this.moreInfo = moreInfo;
         this.createdAt = createdAt;
     }

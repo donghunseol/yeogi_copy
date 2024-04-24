@@ -57,4 +57,3 @@ insert into option_tb(stay_id, name, iconName, created_at)
 values ('3', '와이파이', 'wifi', now());
 
 -- room 더미 생성
-insert into room(stay_id, name, tier, price, specialPrice, specialState, )
