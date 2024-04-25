@@ -3,11 +3,14 @@ package com.example.final_project.reservation;
 
 import com.example.final_project.room.Room;
 import com.example.final_project.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,9 +24,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 예약 번호
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false) // optional = false를 적어야 Not Null이 된다.
     private User user; // 예약한 유저 번호
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Room room; // 예약한 객실 번호
 
@@ -39,7 +44,7 @@ public class Reservation {
     @Column(nullable = false, length = 11)
     private String reservationTel; // 예약자 대표 연락처
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 예약완료된 시간
 
     @Builder

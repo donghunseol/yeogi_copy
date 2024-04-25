@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Stay {
     @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Room> rooms = new ArrayList<>(); // 방(객실) 옵션 리스트
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 숙소 등록 일자
 
     @Builder

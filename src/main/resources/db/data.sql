@@ -150,7 +150,7 @@ values
     ('8', 0, 'On Site Payment', 'PROCESSING', now()),
     ('9', 0, 'On Site Payment', 'PROCESSING', now()),
     ('10', 120000, 'Kakao Pay', 'REFUND', now()),
-    ('11', 80000, 'Kakao Pay', 'CANCELLATION', now()),
+    ('11', 80000, 'Kakao Pay', 'REFUND', now()),
     ('12', 200000, 'Kakao Pay', 'COMPLETION', now()),
     ('13', 180000, 'Naver Pay', 'COMPLETION', now());
 

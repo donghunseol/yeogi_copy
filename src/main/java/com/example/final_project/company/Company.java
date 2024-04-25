@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -45,7 +46,7 @@ public class Company {
     @Column(nullable = false)
     private Integer reportCount; // 신고 받은 횟수
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 기업 가입 일자
 
     @Builder

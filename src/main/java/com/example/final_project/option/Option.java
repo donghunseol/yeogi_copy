@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +29,7 @@ public class Option {
     @Column(nullable = false)
     private String iconName; // 옵션 아이콘 이름
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder

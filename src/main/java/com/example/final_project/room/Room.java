@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +44,7 @@ public class Room {
 
     private String imagePath; // 이미지 경로명
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 객실 등록 날짜
 
     @Builder

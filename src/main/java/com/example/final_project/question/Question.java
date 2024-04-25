@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -34,7 +35,7 @@ public class Question {
 
     private String answer; // 답변 (null 여부에 따라 답변 여부 판단)
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 문의사항 작성 일자
 
     @Builder
