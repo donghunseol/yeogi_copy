@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +38,7 @@ public class Review {
     @Column(nullable = false)
     private ReviewEnum isDelete; // 삭제 여부(FLAWLESS : 문제 없는 댓글, COMPLETE: 삭제 됨, FAIL: 삭제 안 됨)
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 리뷰 작성 날짜
 
     @Builder

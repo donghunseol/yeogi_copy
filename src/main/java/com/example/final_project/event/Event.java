@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ public class Event {
     @Column(nullable = false)
     private EventEnum state; // 이벤트 상태 / Enable 진행 중, Disable 종료
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 작성일
 
     @Builder

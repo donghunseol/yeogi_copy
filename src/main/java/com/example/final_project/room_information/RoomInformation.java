@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,7 +36,7 @@ public class RoomInformation {
 
     private String moreInfo; // 추가 정보 (ex. 조식 제공)
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 방 이용 정보 생성 일자
 
     @Builder
