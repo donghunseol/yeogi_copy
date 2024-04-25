@@ -29,6 +29,12 @@ public class Reservation {
     private Room room; // 예약한 객실 번호
 
     @Column(nullable = false)
+    private String reservationName; // 예약자 대표 이름
+
+    @Column(nullable = false)
+    private String reservationTel; // 예약자 대표 전화번호
+
+    @Column(nullable = false)
     private LocalDate checkInDate; // 입실 날짜
 
     @Column(nullable = false)
