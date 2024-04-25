@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CompanyRestController {
 
+    private final CompanyService companyService;
 
-//    //로그인
-//    @PostMapping("/comp/login")
-//    public ResponseEntity<?> login(@RequestBody CompanyRequest.LoginDTO reqDTO){
-//
-//        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt)
-//                .body(new ApiUtil<>(null));
-//    }
+    //로그인
+   @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody CompanyRequest.LoginDTO reqDTO){
+
+        String jwt = companyService.login(reqDTO);
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt)
+               .body(new ApiUtil<>(null));
+    }
 }

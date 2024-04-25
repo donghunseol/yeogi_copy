@@ -16,7 +16,7 @@ public class StayRestController {
     private final HttpSession session;
 
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public ResponseEntity<?> save(@RequestBody StayRequest.SaveDTO reqDTO){
         SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
 

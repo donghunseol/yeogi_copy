@@ -17,4 +17,9 @@ public class AdminController {
         return "/admin/login";
     }
 
+    @GetMapping("/admin/join")
+    public String join(){
+        return "/admin/customer-c/report";
+    }
+
 }
