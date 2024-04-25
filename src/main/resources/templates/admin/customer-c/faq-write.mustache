@@ -1,17 +1,16 @@
+{{> admin/layout/head}}
 
-
-{{> layout/head}}
 <body>
 <main role="main">
     <section id="section n1">
-       {{> layout/side}}
+        {{> admin/layout/side}}
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
-                    <li class="tab-link"><a href="/company/join">가입현황</a></li>
-                    <li class="tab-link"><a href="/company/report">리뷰신고</a></li>
-                    <li class="tab-link"><a href="/company/question">문의사항</a></li>
-                    <li class="tab-link current"><a href="/company/faq">자주묻는 질문</a></li>
+                    <li class="tab-link"><a href="/user/join">가입현황</a></li>
+                    <li class="tab-link"><a href="/user/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/user/question">문의사항</a></li>
+                    <li class="tab-link current"><a href="/user/faq">자주묻는 질문</a></li>
                 </ul>
                 <div class="tab-content current">
                     <div class="tab-head">
@@ -37,9 +36,10 @@
                                     <!-- <span class="review-title">답변 내용</span> -->
                                     <!-- <input type="text"> -->
                                 </div>
-                                <div class="report-button-wrapper">
-                                    <button class="btn black" type="button" onclick="history.back()">작성완료</button>
-                                </div>
+                                    <div class="report-button-wrapper">
+                                        <button class="btn black">작성완료</button>
+                                    </div>
+                                </form>
                             </form>
                         </div>
                     </div>
@@ -49,7 +49,20 @@
 
     </section>
 </main>
+<script>
 
+    // 사이드 메뉴바
+    $(function () {
+        const sidemenu = $(".side-menu .head-menu");
+        sidemenu.click(function () {
+            sidemenu.removeClass('active');
+            $(this).addClass('active');
+            $(this).parent().siblings().find('.sub').removeClass('active');
+            $(this).parent().find('.sub').toggleClass('active');
+        });
+    })
+
+</script>
 </body>
 
 </html>

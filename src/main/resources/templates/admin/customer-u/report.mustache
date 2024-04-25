@@ -1,31 +1,31 @@
-{{> layout/head}}
+{{> admin/layout/head}}
 
 <body>
 <main role="main">
     <section id="section n1">
-        {{> layout/side}}
+        {{> admin/layout/side}}
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
-                    <li class="tab-link"><a href="/user/join">가입현황</a></li>
-                    <li class="tab-link"><a href="/user/report">리뷰신고</a></li>
-                    <li class="tab-link current"><a href="/user/question">문의사항</a></li>
-                    <li class="tab-link"><a href="/user/faq">자주묻는 질문</a></li>
+                    <li class="tab-link"><a href="/company/join">가입현황</a></li>
+                    <li class="tab-link current"><a href="/company/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/company/question">문의사항</a></li>
+                    <li class="tab-link "><a href="/company/faq">자주묻는 질문</a></li>
                 </ul>
                 <div class="tab-content current">
                     <div class="tab-head">
-                        <p>문의사항</p>
+                        <p>리뷰신고</p>
                     </div>
                     <div class="tab-item">
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 문의사항 <em> 20 </em>개</span>
+                                    <span>총 신고사항 <em> 20 </em>개</span>
                                 </li>
                                 <li class="search-right">
                                     <div class=" duration">
                                         <label for="daterange">기간</label>
-                                        <input type="text" name="daterange" value="" id="daterange" />
+                                        <input type="text" name="daterange" value="" id="daterange"/>
                                     </div>
                                     <div>
                                         <label for="comp-state">문의상태</label>
@@ -55,20 +55,22 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">문의제목</th>
+                                <th scope="col">신고제목</th>
                                 <th scope="col">등록상호명</th>
                                 <th scope="col">기업명</th>
-                                <th scope="col">상태</th>
+                                <th scope="col">처리상태</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="review">
-                                <td class="title">특가 설정 어떻게 하는지 궁금합니다!</td>
+                                <td class="title">리뷰 내용이 이상해요!</td>
                                 <td class="content">M to M</td>
                                 <td>Agoda Company Pte</td>
                                 <td><span class="state wait">대기중</span></td>
                                 <td class="link">
-                                    <a href="/user/question-detail"></a>
+                                    <form action="#" method="#">
+                                        <a href="/company/report-detail"></a>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
