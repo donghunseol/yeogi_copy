@@ -1,6 +1,7 @@
 package com.example.final_project.stay;
 
 import com.example.final_project._core.errors.exception.Exception401;
+import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
@@ -41,4 +42,31 @@ public class StayService {
 
         return new StayResponse.Save(stay,stay.getOptions());
     }
+
+    @Transactional
+    //숙소 수정폼
+    public StayResponse.UpdateForm updateForm(Integer stayId){
+
+        Stay stay = stayRepository.findByStayId(stayId)
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
+
+        return new StayResponse.UpdateForm(stay,stay.getOptions());
+    }
+
+    @Transactional
+    //숙소 수정
+    public StayResponse.Update update(Integer stayId, SessionCompany sessionCompany, StayRequest.UpdateDTO reqDTO){
+        //1. 인증처리
+        Stay stay = stayRepository.findByStayId(stayId)
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
+        //2. 권한처리
+        if (stay.getCompany().getId() != sessionCompany.getId()){
+            throw new Exception403("해당 숙소를 수정할 권한이 없습니다.");
+        }
+        //3. 수정
+        stay.upDateStay(reqDTO);
+
+        return new StayResponse.Update(stay);
+    }
+
 }
