@@ -66,4 +66,5 @@ public class Stay {
         this.options = options;
         this.createdAt = createdAt;
     }
+
 }
