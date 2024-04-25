@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +28,7 @@ public class Scrap {
     @ManyToOne(fetch = FetchType.LAZY)
     private Stay stay; // 스크랩된 숙소 번호
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 스크랩 생성 일자
 
     @Builder
