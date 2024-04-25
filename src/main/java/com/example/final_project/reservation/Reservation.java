@@ -29,27 +29,29 @@ public class Reservation {
     private Room room; // 예약한 객실 번호
 
     @Column(nullable = false)
-    private String reservationName; // 예약자 대표 이름
-
-    @Column(nullable = false)
-    private String reservationTel; // 예약자 대표 전화번호
-
-    @Column(nullable = false)
     private LocalDate checkInDate; // 입실 날짜
 
     @Column(nullable = false)
     private LocalDate checkOutDate; // 퇴실 날짜
 
     @Column(nullable = false)
+    private String reservationName; // 예약자 대표 이름
+
+    @Column(nullable = false, length = 11)
+    private String reservationTel; // 예약자 대표 연락처
+
+    @Column(nullable = false)
     private LocalDateTime createdAt; // 예약완료된 시간
 
     @Builder
-    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, LocalDateTime createdAt) {
+    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, String reservationName, String reservationTel, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.reservationName = reservationName;
+        this.reservationTel = reservationTel;
         this.createdAt = createdAt;
     }
 }
