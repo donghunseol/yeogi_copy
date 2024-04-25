@@ -3,11 +3,11 @@ package com.example.final_project.reservation;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ReservationController {
     private final ReservationService reservationService;
     private final HttpSession session;
