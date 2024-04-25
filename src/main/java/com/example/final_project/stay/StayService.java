@@ -24,6 +24,7 @@ public class StayService {
     private final RoomRepository roomRepository;
     private final StayRepository stayRepository;
     private final CompanyRepository companyRepository;
+
     //숙소등록
     @Transactional
     public StayResponse.Save register(StayRequest.SaveDTO reqDTO, SessionCompany sessionCompany){
@@ -36,9 +37,8 @@ public class StayService {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
         }
 
-        List<Option> optionList = optionRepository.findByStayId(company.getId());
-        Stay stay = reqDTO.toEntity(company,optionList);
+        Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
-        return new StayResponse.Save(stay);
+        return new StayResponse.Save(stay,stay.getOptions());
     }
 }

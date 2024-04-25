@@ -18,10 +18,10 @@ public class StayRequest {
         private String information;
         private String imageName;
         private String imagePath;
-        private List<Option> options;
+        private List<Option> optionList;
         private LocalDateTime createdAt;
 
-        public Stay toEntity(Company company, List<Option> options){
+        public Stay toEntity(Company company){
             return Stay.builder()
                     .name(name)
                     .category(category)
@@ -32,7 +32,7 @@ public class StayRequest {
                     .imagePath(imagePath)
                     .createdAt(createdAt)
                     .company(company)
-                    .options(options)
+                    .options(optionList)
                     .build();
         }
     }

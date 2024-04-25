@@ -1,5 +1,6 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.user.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,8 @@ public class CompanyRepositoryTest {
             String email = "com1@nate.com";
             String password = "1234";
             // when
-            Company sessionUser = companyRepository.findByIdAndPassword(email,password);
+            Company sessionUser = companyRepository.findByIdAndPassword(email,password)
+                    .orElseThrow(() -> new Exception404("해당 아이디 및 패스워드를 찾을 수 없습니다."));
             // then
             Assertions.assertThat(sessionUser.getEmail()).isEqualTo("com1@nate.com");
         }
