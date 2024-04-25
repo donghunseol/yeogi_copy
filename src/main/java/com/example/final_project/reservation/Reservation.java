@@ -34,7 +34,7 @@ public class Reservation {
     private LocalDate checkOutDate; // 퇴실 날짜
 
     @Column(nullable = false)
-    private String reservationName ; // 예약자 대표 이름
+    private String reservationName; // 예약자 대표 이름
 
     @Column(nullable = false, length = 11)
     private String reservationTel; // 예약자 대표 연락처
