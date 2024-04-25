@@ -38,7 +38,7 @@ public class Reservation {
     private String reservationName ; // 예약자 대표 이름
 
     @Column(nullable = false, length = 11)
-    private String reservationTel; // 예약자 대표 연락처dd .
+    private String reservationTel; // 예약자 대표 연락처
 
     @Column(nullable = false)
     private LocalDateTime createdAt; // 예약완료된 시간
