@@ -5,9 +5,7 @@ import com.example.final_project.company.SessionCompany;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,4 +23,20 @@ public class StayRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    @GetMapping("/api/modify-form/{stayId}")
+    public ResponseEntity<?> updateForm(@PathVariable Integer stayId){
+
+       StayResponse.UpdateForm respDTO = stayService.updateForm(stayId);
+
+       return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @PutMapping("/api/modify/{stayId}")
+    public ResponseEntity<?> update(@PathVariable Integer stayId,@RequestBody StayRequest.UpdateDTO reqDTO){
+        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+
+        StayResponse.Update respDTO = stayService.update(stayId,sessionCompany,reqDTO);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 }
