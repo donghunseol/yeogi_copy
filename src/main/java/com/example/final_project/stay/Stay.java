@@ -12,8 +12,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Data
@@ -42,10 +40,6 @@ public class Stay {
     @Column(nullable = false)
     private String information; // 숙소 이용 정보
 
-    private String imageName; // 이미지 파일명
-
-    private String imagePath; // 이미지 경로명
-
     @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Option> options = new ArrayList<>(); // 옵션 리스트
 
@@ -56,7 +50,7 @@ public class Stay {
     private LocalDateTime createdAt; // 숙소 등록 일자
 
     @Builder
-    public Stay(Integer id, Company company, String name, String category, String address, String intro, String information, String imageName, String imagePath, List<Option> options, LocalDateTime createdAt) {
+    public Stay(Integer id, Company company, String name, String category, String address, String intro, String information, List<Option> options, LocalDateTime createdAt) {
         this.id = id;
         this.company = company;
         this.name = name;
@@ -64,18 +58,14 @@ public class Stay {
         this.address = address;
         this.intro = intro;
         this.information = information;
-        this.imageName = imageName;
-        this.imagePath = imagePath;
         this.options = options;
         this.createdAt = createdAt;
     }
 
 
-    public void upDateStay(StayRequest.UpdateDTO reqDTO){
+    public void upDateStay(StayRequest.UpdateDTO reqDTO) {
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
-        this.imageName = reqDTO.getImageName();
-        this.imagePath = reqDTO.getImagePath();
         this.options.clear();
         reqDTO.getOptionList().forEach(option -> option.setStay(this));
         this.options.addAll(reqDTO.getOptionList());
