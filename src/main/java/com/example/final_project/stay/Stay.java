@@ -1,5 +1,7 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import com.example.final_project.room.Room;
@@ -34,6 +36,10 @@ public class Stay {
     @Column(nullable = false)
     private String address; // 숙소 주소
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StayEnum state; // 상태 (TRUE : 사용 / FALSE : 탈퇴)
+
     @Column(nullable = false)
     private String intro; // 숙소 소개
 
@@ -50,7 +56,7 @@ public class Stay {
     private LocalDateTime createdAt; // 숙소 등록 일자
 
     @Builder
-    public Stay(Integer id, Company company, String name, String category, String address, String intro, String information, List<Option> options, LocalDateTime createdAt) {
+    public Stay(Integer id, Company company, String name, String category, String address, String intro, String information, List<Option> options, LocalDateTime createdAt, StayEnum state) {
         this.id = id;
         this.company = company;
         this.name = name;
@@ -60,8 +66,8 @@ public class Stay {
         this.information = information;
         this.options = options;
         this.createdAt = createdAt;
+        this.state = state;
     }
-
 
     public void upDateStay(StayRequest.UpdateDTO reqDTO) {
         this.intro = reqDTO.getIntro();
@@ -69,5 +75,10 @@ public class Stay {
         this.options.clear();
         reqDTO.getOptionList().forEach(option -> option.setStay(this));
         this.options.addAll(reqDTO.getOptionList());
+    }
+
+
+    public void deleteStay(StayRequest.DeleteDTO reqDTO){
+        this.state = reqDTO.getState();
     }
 }

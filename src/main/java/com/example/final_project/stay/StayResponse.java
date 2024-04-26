@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import lombok.Builder;
 import lombok.Data;
@@ -77,7 +78,6 @@ public class StayResponse {
         }
     }
 
-
     // 숙소수정 응답DTO
     @Data
     public static class Update {
@@ -92,16 +92,27 @@ public class StayResponse {
             this.optionList = stay.getOptions().stream().map(OptionDTO::new).toList();
             this.createdAt = stay.getCreatedAt();
         }
+
+        @Data
+        public static class OptionDTO {
+            private String name;
+            private String iconName;
+
+            public OptionDTO(Option option) {
+                this.name = option.getName();
+                this.iconName = option.getIconName();
+            }
+
+        }
     }
 
+    // 숙소삭제 응답DTO
     @Data
-    public static class OptionDTO {
-        private String name;
-        private String iconName;
+    public static class Delete{
+        private StayEnum state;
 
-        public OptionDTO(Option option) {
-            this.name = option.getName();
-            this.iconName = option.getIconName();
+        public Delete(Stay stay) {
+            this.state = stay.getState();
         }
     }
 }

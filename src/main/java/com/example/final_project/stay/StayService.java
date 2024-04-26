@@ -43,8 +43,8 @@ public class StayService {
         return new StayResponse.Save(stay,stay.getOptions());
     }
 
-    @Transactional
     //숙소 수정폼
+    @Transactional
     public StayResponse.UpdateForm updateForm(Integer stayId){
 
         Stay stay = stayRepository.findByStayId(stayId)
@@ -53,8 +53,8 @@ public class StayService {
         return new StayResponse.UpdateForm(stay,stay.getOptions());
     }
 
-    @Transactional
     //숙소 수정
+    @Transactional
     public StayResponse.Update update(Integer stayId, SessionCompany sessionCompany, StayRequest.UpdateDTO reqDTO){
         //1. 인증처리
         Stay stay = stayRepository.findByStayId(stayId)
@@ -71,4 +71,29 @@ public class StayService {
         return new StayResponse.Update(stay);
     }
 
+    //숙소 삭제
+    @Transactional
+    public StayResponse.Delete delete(Integer stayId ,SessionCompany sessionCompany,StayRequest.DeleteDTO reqDTO){
+        //1. 인증처리
+
+        if (sessionCompany.getId() == null){
+            throw new Exception401("로그인이 필요한 서비스입니다.");
+        }
+
+        Stay stay = stayRepository.findByStayId(stayId)
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
+
+        //2. 권한처리
+        Company company = companyRepository.findByStayId(stayId)
+                .orElseThrow(() ->  new Exception404("해당 기업을 찾을 수 업습니다."));
+
+        if (sessionCompany.getId() != company.getId()){
+            throw new Exception403("삭제할 권한이 없습니다");
+        }
+
+        //3. 삭제(state 업데이트)
+        stay.deleteStay(reqDTO);
+
+        return  new StayResponse.Delete(stay);
+    }
 }
