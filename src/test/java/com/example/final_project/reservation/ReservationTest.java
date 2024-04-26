@@ -34,7 +34,7 @@ public class ReservationTest {
         List<Reservation> reservationList = reservationRepository.findByUserId(userId);
 
         // eye
-        System.out.println("findByUserId_test : " + reservationList.size());
+        System.out.println("findByUserId_test size: " + reservationList.size());
 
         // then
         Assertions.assertThat(reservationList.getFirst().getCheckInDate()).isEqualTo(LocalDate.of(2023, 12, 31));
