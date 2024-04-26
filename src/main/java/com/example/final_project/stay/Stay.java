@@ -77,4 +77,8 @@ public class Stay {
         this.options.addAll(reqDTO.getOptionList());
     }
 
+
+    public void deleteStay(StayRequest.DeleteDTO reqDTO){
+        this.state = reqDTO.getState();
+    }
 }

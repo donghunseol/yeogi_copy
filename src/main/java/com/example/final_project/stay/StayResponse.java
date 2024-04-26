@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import lombok.Builder;
 import lombok.Data;
@@ -105,4 +106,13 @@ public class StayResponse {
         }
     }
 
+    // 숙소삭제 응답DTO
+    @Data
+    public static class Delete{
+        private StayEnum state;
+
+        public Delete(Stay stay) {
+            this.state = stay.getState();
+        }
+    }
 }
