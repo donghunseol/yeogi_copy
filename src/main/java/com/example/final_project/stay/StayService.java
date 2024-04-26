@@ -66,6 +66,8 @@ public class StayService {
         //3. 수정
         stay.upDateStay(reqDTO);
 
+        System.out.println("결과값 ================== "+stay.getCreatedAt());
+
         return new StayResponse.Update(stay);
     }
 
