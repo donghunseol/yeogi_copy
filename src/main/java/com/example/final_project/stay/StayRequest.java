@@ -47,6 +47,6 @@ public class StayRequest {
         private String imageName;
         private String imagePath;
         private List<Option> optionList;
-        private LocalDateTime createdAt;
+
     }
 }

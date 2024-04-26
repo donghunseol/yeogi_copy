@@ -99,8 +99,7 @@ public class StayResponse {
             this.information = stay.getInformation();
             this.imageName = stay.getImageName();
             this.imagePath = stay.getImagePath();
-            this.optionList = stay.getOptions().stream()
-                    .map(OptionDTO::new).collect(Collectors.toList());
+            this.optionList = stay.getOptions().stream().map(OptionDTO::new).toList();
             this.createdAt = stay.getCreatedAt();
         }
     }

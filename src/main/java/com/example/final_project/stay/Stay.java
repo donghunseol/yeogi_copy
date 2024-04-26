@@ -46,7 +46,7 @@ public class Stay {
 
     private String imagePath; // 이미지 경로명
 
-    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Option> options = new ArrayList<>(); // 옵션 리스트
 
     @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -76,17 +76,8 @@ public class Stay {
         this.information = reqDTO.getInformation();
         this.imageName = reqDTO.getImageName();
         this.imagePath = reqDTO.getImagePath();
-
-        // Option 리스트를 업데이트
-        List<Option> updatedOptions = new ArrayList<>();
-        Map<Integer, Option> optionMap = reqDTO.getOptionList().stream()
-                .collect(Collectors.toMap(Option::getId, option -> option));
-        for (Option option : this.options) {
-
-            if (optionMap.containsKey(option.getId())) {
-                updatedOptions.add(optionMap.get(option.getId()));
-            }
-        }
-        this.options = updatedOptions;
+        this.options.clear();
+        reqDTO.getOptionList().forEach(option -> option.setStay(this));
+        this.options.addAll(reqDTO.getOptionList());
     }
 }
