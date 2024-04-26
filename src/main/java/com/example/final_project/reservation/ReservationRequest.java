@@ -30,4 +30,18 @@ public class ReservationRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class UpdateDTO {
+        private String reservationName; // 예약자 대표 이름
+        private String reservationTel; // 예약자 전화번호
+
+        // 예약자 대표 이름과 예약자 전화 번호만 수정이 가능해서 매개변수를 받지 않는다
+        public Reservation toEntity() {
+            return Reservation.builder()
+                    .reservationName(this.reservationName)
+                    .reservationTel(this.reservationTel)
+                    .build();
+        }
+    }
 }

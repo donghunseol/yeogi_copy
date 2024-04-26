@@ -5,10 +5,7 @@ import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,10 +14,19 @@ public class ReservationController {
     private final HttpSession session;
 
     // 예약 하기 페이지
-    @PostMapping("/reservation/{roomId}")
+    @PostMapping("/book/{roomId}")
     public ResponseEntity<?> save(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DTO respDTO = reservationService.save(reqDTO, sessionUser, roomId);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // 예약 수정 페이지
+    @PutMapping("/book/{reservationId}")
+    public ResponseEntity<?> update(@PathVariable Integer reservationId, @RequestBody ReservationRequest.UpdateDTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        ReservationResponse.DTO respDTO = reservationService.update(reqDTO, sessionUser, reservationId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
