@@ -8,6 +8,7 @@ import java.util.List;
 
 public class StayRequest {
 
+    //숙소등록
     @Data
     public static class SaveDTO{
         private Integer companyId;
@@ -18,10 +19,10 @@ public class StayRequest {
         private String information;
         private String imageName;
         private String imagePath;
-        private List<Option> options;
+        private List<Option> optionList;
         private LocalDateTime createdAt;
 
-        public Stay toEntity(Company company, List<Option> options){
+        public Stay toEntity(Company company){
             return Stay.builder()
                     .name(name)
                     .category(category)
@@ -32,8 +33,20 @@ public class StayRequest {
                     .imagePath(imagePath)
                     .createdAt(createdAt)
                     .company(company)
-                    .options(options)
+                    .options(optionList)
                     .build();
         }
+    }
+
+    //숙소수정
+    // 이름,분류,주소 등은 삭제 후 등록하는게 맞는거 같아서 뺐어요!!
+    @Data
+    public static class UpdateDTO{
+        private String intro;
+        private String information;
+        private String imageName;
+        private String imagePath;
+        private List<Option> optionList;
+        private LocalDateTime createdAt;
     }
 }

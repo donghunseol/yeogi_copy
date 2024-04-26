@@ -12,6 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Data
@@ -68,4 +70,23 @@ public class Stay {
         this.createdAt = createdAt;
     }
 
+
+    public void upDateStay(StayRequest.UpdateDTO reqDTO){
+        this.intro = reqDTO.getIntro();
+        this.information = reqDTO.getInformation();
+        this.imageName = reqDTO.getImageName();
+        this.imagePath = reqDTO.getImagePath();
+
+        // Option 리스트를 업데이트
+        List<Option> updatedOptions = new ArrayList<>();
+        Map<Integer, Option> optionMap = reqDTO.getOptionList().stream()
+                .collect(Collectors.toMap(Option::getId, option -> option));
+        for (Option option : this.options) {
+
+            if (optionMap.containsKey(option.getId())) {
+                updatedOptions.add(optionMap.get(option.getId()));
+            }
+        }
+        this.options = updatedOptions;
+    }
 }
