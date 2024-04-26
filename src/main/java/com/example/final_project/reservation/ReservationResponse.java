@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class ReservationResponse {
 
     // 에약 하기 후 데이터
+    // 예약 수정 후 데이터
     @Data
     public static class DTO {
         private Integer id; // 예약 번호
