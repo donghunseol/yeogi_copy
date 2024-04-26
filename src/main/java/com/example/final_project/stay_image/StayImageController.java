@@ -7,6 +7,6 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 @Controller
 public class StayImageController {
-    private final StayImageService scrapService;
+    private final StayImageService stayImageService;
     private final HttpSession session;
 }

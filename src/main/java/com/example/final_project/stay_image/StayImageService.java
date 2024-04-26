@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class StayImageService {
 
-    private final StayImageRepository scrapRepository;
+    private final StayImageRepository stayImageRepository;
 }
