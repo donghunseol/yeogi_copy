@@ -1,6 +1,5 @@
 package com.example.final_project.stay;
 
-import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +19,9 @@ public class StayResponse {
         private String address;
         private String intro;
         private String information;
-        private String imageName;
-        private String imagePath;
         private List<OptionDTO> optionList;
         private LocalDateTime createdAt;
+
         @Builder
         public Save(Stay stay, List<Option> optionList) {
             this.companyId = stay.getCompany().getId();
@@ -32,8 +30,6 @@ public class StayResponse {
             this.address = stay.getAddress();
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
-            this.imageName = imageName;
-            this.imagePath = imagePath;
             this.createdAt = stay.getCreatedAt();
             this.optionList = optionList.stream()
                     .map(OptionDTO::new)
@@ -41,9 +37,10 @@ public class StayResponse {
         }
 
         @Data
-        public static class OptionDTO{
+        public static class OptionDTO {
             private String name;
             private String iconName;
+
             public OptionDTO(Option option) {
                 this.name = option.getName();
                 this.iconName = option.getIconName();
@@ -53,19 +50,15 @@ public class StayResponse {
 
     // 숙소수정Form 응답DTO
     @Data
-    public static class UpdateForm{
+    public static class UpdateForm {
         private String intro;
         private String information;
-        private String imageName;
-        private String imagePath;
         private List<OptionDTO> optionList;
         private LocalDateTime createdAt;
 
         public UpdateForm(Stay stay, List<Option> optionList) {
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
-            this.imageName = stay.getImageName();
-            this.imagePath = stay.getImagePath();
             this.createdAt = stay.getCreatedAt();
             this.optionList = optionList.stream()
                     .map(OptionDTO::new)
@@ -73,9 +66,10 @@ public class StayResponse {
         }
 
         @Data
-        public static class OptionDTO{
+        public static class OptionDTO {
             private String name;
             private String iconName;
+
             public OptionDTO(Option option) {
                 this.name = option.getName();
                 this.iconName = option.getIconName();
@@ -85,30 +79,29 @@ public class StayResponse {
 
     // 숙소수정 응답DTO
     @Data
-    public static class Update{
+    public static class Update {
         private String intro;
         private String information;
-        private String imageName;
-        private String imagePath;
         private List<OptionDTO> optionList;
         private LocalDateTime createdAt;
 
         public Update(Stay stay) {
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
-            this.imageName = stay.getImageName();
-            this.imagePath = stay.getImagePath();
             this.optionList = stay.getOptions().stream().map(OptionDTO::new).toList();
             this.createdAt = stay.getCreatedAt();
         }
+
         @Data
-        public static class OptionDTO{
+        public static class OptionDTO {
             private String name;
             private String iconName;
+
             public OptionDTO(Option option) {
                 this.name = option.getName();
                 this.iconName = option.getIconName();
             }
+
         }
     }
 
