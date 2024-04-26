@@ -2,6 +2,7 @@ package com.example.final_project.room;
 
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project.stay.Stay;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "room_tb")
 @Entity
+@JsonIgnoreProperties({"stay"})
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
