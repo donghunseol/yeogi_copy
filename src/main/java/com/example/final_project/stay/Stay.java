@@ -70,7 +70,7 @@ public class Stay {
         this.createdAt = createdAt;
     }
 
-
+    // 숙소수정 매서드
     public void upDateStay(StayRequest.UpdateDTO reqDTO){
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
@@ -80,4 +80,7 @@ public class Stay {
         reqDTO.getOptionList().forEach(option -> option.setStay(this));
         this.options.addAll(reqDTO.getOptionList());
     }
+
+
+
 }

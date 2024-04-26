@@ -83,7 +83,6 @@ public class StayResponse {
         }
     }
 
-
     // 숙소수정 응답DTO
     @Data
     public static class Update{
@@ -102,15 +101,15 @@ public class StayResponse {
             this.optionList = stay.getOptions().stream().map(OptionDTO::new).toList();
             this.createdAt = stay.getCreatedAt();
         }
-    }
-
-    @Data
-    public static class OptionDTO{
-        private String name;
-        private String iconName;
-        public OptionDTO(Option option) {
-            this.name = option.getName();
-            this.iconName = option.getIconName();
+        @Data
+        public static class OptionDTO{
+            private String name;
+            private String iconName;
+            public OptionDTO(Option option) {
+                this.name = option.getName();
+                this.iconName = option.getIconName();
+            }
         }
     }
+
 }

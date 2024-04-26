@@ -49,4 +49,7 @@ public class StayRequest {
         private List<Option> optionList;
 
     }
+
+    //숙소삭제
+
 }

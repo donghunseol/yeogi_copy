@@ -39,4 +39,12 @@ public class StayRestController {
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
+
+//    @PutMapping("/api/cancel/{stayId}")
+//    public ResponseEntity<?> delete(@PathVariable Integer stayId){
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//        stayService.(stayId,sessionCompany);
+//
+//        return ResponseEntity.ok().body(new ApiUtil<>(null));
+//    }
 }

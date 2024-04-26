@@ -24,4 +24,15 @@ public class CompanyRepositoryTest {
             // then
             Assertions.assertThat(sessionUser.getEmail()).isEqualTo("com1@nate.com");
         }
+
+    @Test
+    public void findByStayId_test() {
+            // given
+            Integer stayId = 1;
+            // when
+            Company company = companyRepository.findByStayId(stayId)
+                    .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다."));
+            // then
+            System.out.println("결과 값============================"+company);
+        }
 }
