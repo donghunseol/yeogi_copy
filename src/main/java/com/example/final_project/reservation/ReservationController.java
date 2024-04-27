@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class ReservationController {
@@ -31,5 +33,12 @@ public class ReservationController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 예약 상세보기
+    @GetMapping("/my-reservations/{reservationId}")
+    public ReservationResponse.DetailDTO reservationList(@PathVariable Integer reservationId) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
+        return respDTO;
+    }
 
 }

@@ -46,7 +46,7 @@ public class ReservationServiceTest {
         System.out.println("reservationDetail_test detail : " + respDTO);
 
         // then
-
+        Assertions.assertThat(respDTO.getAmount()).isEqualTo(150000);
 
     }
 }
