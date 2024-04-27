@@ -9,4 +9,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     // 로그인시 - 이메일, 비밀번호 조회
     Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
+    // 회원 가입
+    Optional<User> findByEmail(@Param("email") String email);
 }
