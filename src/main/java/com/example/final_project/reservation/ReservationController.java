@@ -13,20 +13,20 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-    // 예약 하기 페이지
+    // 예약 하기
     @PostMapping("/book/{roomId}")
-    public ResponseEntity<?> save(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
+    public ResponseEntity<?> makeReservation(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ReservationResponse.DTO respDTO = reservationService.save(reqDTO, sessionUser, roomId);
+        ReservationResponse.DTO respDTO = reservationService.makeReservation(reqDTO, sessionUser, roomId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 예약 수정 페이지
+    // 예약 수정
     @PutMapping("/book/{reservationId}")
-    public ResponseEntity<?> update(@PathVariable Integer reservationId, @RequestBody ReservationRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> modifyReservation(@PathVariable Integer reservationId, @RequestBody ReservationRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ReservationResponse.DTO respDTO = reservationService.update(reqDTO, sessionUser, reservationId);
+        ReservationResponse.DTO respDTO = reservationService.modifyReservation(reqDTO, sessionUser, reservationId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

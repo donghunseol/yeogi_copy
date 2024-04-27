@@ -26,7 +26,7 @@ public class Pay {
     private Integer amount; // 결제 금액
 
     @Column(nullable = false)
-    private String way; // 결제 방식 (ex. Credit Card, Debit Card, Bank Transfer, Mobile Payment ...)
+    private String way; // 결제 방식 (ex. Credit Card, Debit Card, Bank Transfer, Mobile Payment ...), 결제 안됨 (No payment)
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
