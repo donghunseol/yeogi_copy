@@ -35,7 +35,7 @@ public class ReservationController {
 
     // 예약 상세보기
     @GetMapping("/my-reservations/{reservationId}")
-    public ReservationResponse.DetailDTO reservationList(@PathVariable Integer reservationId) {
+    public ReservationResponse.DetailDTO reservationDetail(@PathVariable Integer reservationId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
         return respDTO;
