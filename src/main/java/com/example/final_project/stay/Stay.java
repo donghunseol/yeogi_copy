@@ -4,6 +4,7 @@ import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import com.example.final_project.room.Room;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.util.List;
 @Data
 @Table(name = "stay_tb")
 @Entity
+@JsonIgnoreProperties({"company"})
 public class Stay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

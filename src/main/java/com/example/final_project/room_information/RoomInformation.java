@@ -1,6 +1,7 @@
 package com.example.final_project.room_information;
 
 import com.example.final_project.room.Room;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 @Data
 @Table(name = "room_information_tb")
 @Entity
+@JsonIgnoreProperties({"room"})
 public class RoomInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
