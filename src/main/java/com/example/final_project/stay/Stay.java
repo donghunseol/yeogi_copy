@@ -1,6 +1,5 @@
 package com.example.final_project.stay;
 
-import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
@@ -69,7 +68,7 @@ public class Stay {
         this.state = state;
     }
 
-    public void upDateStay(StayRequest.UpdateDTO reqDTO) {
+    public void updateStay(StayRequest.UpdateDTO reqDTO) {
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
         this.options.clear();
@@ -78,7 +77,7 @@ public class Stay {
     }
 
 
-    public void deleteStay(StayRequest.DeleteDTO reqDTO){
+    public void deleteStay(StayRequest.DeleteDTO reqDTO) {
         this.state = reqDTO.getState();
     }
 }
