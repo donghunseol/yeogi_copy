@@ -35,7 +35,6 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil(null));
     }
 
-
     // 예약 내역 페이지 - 목록
     @GetMapping("/my-reservations")
     public List<ReservationResponse.ListDTO> reservationList() {

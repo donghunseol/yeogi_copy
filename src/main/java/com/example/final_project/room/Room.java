@@ -44,7 +44,6 @@ public class Room {
     private RoomEnum specialState; // 특가 적용 여부(APPLIED: 특가 적용 함, NOT_APPLIED: 특가 적용 안 함)
 
     private String imageName; // 이미지 파일명
-
     private String imagePath; // 이미지 경로명
 
     @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)

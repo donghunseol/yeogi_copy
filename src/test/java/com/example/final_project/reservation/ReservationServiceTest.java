@@ -25,9 +25,9 @@ public class ReservationServiceTest {
 
         // eye
         System.out.println("reservationList_test size : " + respDTO.size());
+        System.out.println("reservationList_test getFirst : " + respDTO.getFirst());
 
         // then
         Assertions.assertThat(respDTO.getLast().getDate()).isEqualTo(5);
-
     }
 }

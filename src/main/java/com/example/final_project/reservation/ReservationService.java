@@ -86,10 +86,10 @@ public class ReservationService {
     public List<ReservationResponse.ListDTO> reservationList(SessionUser sessionUser){
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
 
-        List<ReservationResponse.ListDTO> result = reservationList.stream().map(reservation -> {
+        List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
             return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
         }).collect(Collectors.toList());
 
-        return result;
+        return respDTO;
     }
 }
