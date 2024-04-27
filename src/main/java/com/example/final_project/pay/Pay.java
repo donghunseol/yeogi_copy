@@ -26,11 +26,13 @@ public class Pay {
     private Integer amount; // 결제 금액
 
     @Column(nullable = false)
-    private String way; // 결제 방식 (ex. Credit Card, Debit Card, Bank Transfer, Mobile Payment ...)
+    private String way; // 결제 방식 (ex. Credit Card, Debit Card, Bank Transfer, Mobile Payment ...), 결제 안됨 (No payment)
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PayEnum state; // PROCESSING : 처리 중, COMPLETION : 완료, CANCELLATION : 취소, REFUND : 환불
+
+    private LocalDateTime refundDate; // 결제 환불 및 예약 취소 일자
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 결제 일자
@@ -43,5 +45,11 @@ public class Pay {
         this.way = way;
         this.state = state;
         this.createdAt = createdAt;
+    }
+
+    public void updatePay(PayRequest.DTO reqDTO) {
+        this.amount = reqDTO.getAmount();
+        this.way = reqDTO.getWay();
+        this.state = reqDTO.getState();
     }
 }
