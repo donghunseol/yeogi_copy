@@ -32,6 +32,8 @@ public class Pay {
     @Column(nullable = false)
     private PayEnum state; // PROCESSING : 처리 중, COMPLETION : 완료, CANCELLATION : 취소, REFUND : 환불
 
+    private LocalDateTime refundDate; // 결제 환불 및 예약 취소 일자
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 결제 일자
 
