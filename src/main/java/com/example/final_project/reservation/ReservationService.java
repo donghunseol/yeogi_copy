@@ -2,6 +2,7 @@ package com.example.final_project.reservation;
 
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project.pay.PayRepository;
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.user.SessionUser;
@@ -18,6 +19,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
+    private final PayRepository payRepository;
 
     // 예약 하기
     @Transactional

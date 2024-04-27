@@ -31,12 +31,5 @@ public class ReservationController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 예약 취소
-    @PutMapping("/book/{reservationId}/{payId}")
-    public ResponseEntity<?> cancel(@PathVariable Integer reservationId, @PathVariable Integer payId) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
 
-
-        return ResponseEntity.ok(new ApiUtil<>(null));
-    }
 }
