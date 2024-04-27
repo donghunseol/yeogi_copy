@@ -14,10 +14,18 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    // 회원 로그인
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         User sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
+        return ResponseEntity.ok(new ApiUtil(null));
+    }
+
+    // 회원 가입
+    @PostMapping("/users/join")
+    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
+        userService.join(reqDTO);
         return ResponseEntity.ok(new ApiUtil(null));
     }
 }
