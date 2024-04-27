@@ -82,7 +82,7 @@ public class ReservationService {
         return new ReservationResponse.DTO(reservation);
     }
 
-    // 예약 내역 조회(목록)
+    // 예약 내역 조회 (목록)
     public List<ReservationResponse.ListDTO> reservationList(SessionUser sessionUser){
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
 
@@ -91,5 +91,13 @@ public class ReservationService {
         }).collect(Collectors.toList());
 
         return respDTO;
+    }
+
+    // 예약 내역 조회 (상세보기)
+    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer roomId){
+        Reservation reservation = reservationRepository.findByUserIdAndReservationIdWithRoomAndStay(sessionUser.getId(), roomId);
+        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+
+        return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), payOP.get());
     }
 }
