@@ -1,6 +1,7 @@
 package com.example.final_project.room;
 
 import com.example.final_project._core.enums.RoomEnum;
+import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.stay.Stay;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "room_tb")
 @Entity
-@JsonIgnoreProperties({"stay"})
+@JsonIgnoreProperties({"stay", "roomInformation"})
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,11 +47,14 @@ public class Room {
 
     private String imagePath; // 이미지 경로명
 
+    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
+    private RoomInformation roomInformation;
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 객실 등록 날짜
 
     @Builder
-    public Room(Integer id, Stay stay, String name, String tier, String roomNumber, Integer price, Integer specialPrice, RoomEnum specialState, String imageName, String imagePath, LocalDateTime createdAt) {
+    public Room(Integer id, Stay stay, String name, String tier, String roomNumber, Integer price, Integer specialPrice, RoomEnum specialState, String imageName, String imagePath, RoomInformation roomInformation, LocalDateTime createdAt) {
         this.id = id;
         this.stay = stay;
         this.name = name;
@@ -61,6 +65,7 @@ public class Room {
         this.specialState = specialState;
         this.imageName = imageName;
         this.imagePath = imagePath;
+        this.roomInformation = roomInformation;
         this.createdAt = createdAt;
     }
 }

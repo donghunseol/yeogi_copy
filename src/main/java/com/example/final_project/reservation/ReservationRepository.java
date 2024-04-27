@@ -15,7 +15,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     Optional<List<Reservation>> findReservationsByDateRangeAndRoomId(@Param("roomId") Integer roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     // 로그인한 유저의 예약 내역 조회 (목록)
-    @Query("select r from Reservation r join fetch r.user u where u.id = :userId")
-    List<Reservation> findByUserId(@Param("userId") Integer userId);
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.room ro JOIN FETCH ro.stay WHERE r.user.id = :userId")
+    List<Reservation> findByUserIdWithRoomAndStay(@Param("userId") Integer userId);
 
 }

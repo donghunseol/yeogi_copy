@@ -9,6 +9,8 @@ import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -28,5 +30,16 @@ public class ReservationService {
 
         Reservation reservation = reservationRepository.save(reqDTO.toEntity(user, room));
         return new ReservationResponse.DTO(reservation);
+    }
+
+    // 예약 내역 조회(목록)
+    public List<ReservationResponse.ListDTO> reservationList(SessionUser sessionUser){
+        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
+
+        List<ReservationResponse.ListDTO> result = reservationList.stream().map(reservation -> {
+            return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
+        }).collect(Collectors.toList());
+
+        return result;
     }
 }

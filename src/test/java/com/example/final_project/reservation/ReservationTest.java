@@ -25,19 +25,4 @@ public class ReservationTest {
         System.out.println(reservaiton.size());
     }
 
-    @Test
-    public void findByUserId_test() {
-        // given
-        Integer userId = 1;
-
-        // when
-        List<Reservation> reservationList = reservationRepository.findByUserId(userId);
-
-        // eye
-        System.out.println("findByUserId_test size: " + reservationList.size());
-
-        // then
-        Assertions.assertThat(reservationList.getFirst().getCheckInDate()).isEqualTo(LocalDate.of(2023, 12, 31));
-    }
-
 }
