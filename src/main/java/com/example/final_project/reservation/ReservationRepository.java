@@ -18,4 +18,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("SELECT r FROM Reservation r JOIN FETCH r.room ro JOIN FETCH ro.stay WHERE r.user.id = :userId")
     List<Reservation> findByUserIdWithRoomAndStay(@Param("userId") Integer userId);
 
+    // 로그인한 유저의 예약 내역 중 하나를 선택해서 조회(상세보기)
+    @Query("SELECT r FROM Reservation r JOIN FETCH r.room ro JOIN FETCH ro.stay WHERE r.id = :reservationId")
+    Reservation findByReservationIdWithRoomAndStay(@Param("reservationId") Integer reservationId);
+
 }

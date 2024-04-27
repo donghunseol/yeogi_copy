@@ -30,4 +30,23 @@ public class ReservationServiceTest {
         // then
         Assertions.assertThat(respDTO.getLast().getDate()).isEqualTo(5);
     }
+
+    @Test
+    public void reservationDetail_test(){
+        // given
+        SessionUser sessionUser = SessionUser.builder()
+                .id(1)
+                .build();
+        Integer roomId = 1;
+
+        // when
+        ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, roomId);
+
+        // eye
+        System.out.println("reservationDetail_test detail : " + respDTO);
+
+        // then
+        Assertions.assertThat(respDTO.getAmount()).isEqualTo(150000);
+
+    }
 }
