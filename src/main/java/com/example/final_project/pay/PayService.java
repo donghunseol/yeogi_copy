@@ -5,6 +5,7 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.user.SessionUser;
+import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,26 @@ import static com.example.final_project._core.enums.PayEnum.REFUND;
 @Service
 public class PayService {
 
+    private final UserRepository userRepository;
     private final PayRepository payRepository;
     private final ReservationRepository reservationRepository;
+
+    // 예약 후 결제 정보 수정
+    @Transactional
+    public PayResponse.DTO modifyPay(PayRequest.DTO reqDTO, SessionUser sessionUser, Integer payId) {
+        Pay pay = payRepository.findById(payId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 결제 정보입니다"));
+
+        // 결제 권한 체크
+        if (sessionUser.getId() != pay.getReservation().getUser().getId()) {
+            throw new Exception401("결제를 진행할 권한이 없습니다");
+        }
+
+        // 예약 결제 정보 수정
+        pay.updatePay(reqDTO);
+
+        return new PayResponse.DTO(pay);
+    }
 
     // 결제 환불 및 예약 취소
     @Transactional

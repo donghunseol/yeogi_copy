@@ -55,4 +55,9 @@ public class Reservation {
         this.reservationTel = reservationTel;
         this.createdAt = createdAt;
     }
+
+    public void updateReservation(ReservationRequest.UpdateDTO reqDTO) {
+        this.reservationName = reqDTO.getReservationName();
+        this.reservationTel = reqDTO.getReservationTel();
+    }
 }

@@ -46,4 +46,10 @@ public class Pay {
         this.state = state;
         this.createdAt = createdAt;
     }
+
+    public void updatePay(PayRequest.DTO reqDTO) {
+        this.amount = reqDTO.getAmount();
+        this.way = reqDTO.getWay();
+        this.state = reqDTO.getState();
+    }
 }

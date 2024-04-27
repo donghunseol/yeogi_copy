@@ -1,6 +1,7 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.pay.Pay;
@@ -42,7 +43,7 @@ public class ReservationService {
         System.out.println(reservationsOP.get().size());
 
         if (reservationsOP.get().size() != 0) {
-            throw new Exception401("이미 예약된 날짜 입니다");
+            throw new Exception400("이미 예약된 날짜 입니다");
         }
 
         Reservation reservation = reservationRepository.save(reqDTO.toEntity(user, room));
@@ -72,10 +73,10 @@ public class ReservationService {
             throw new Exception401("예약을 수정할 권한이 없습니다");
         }
 
-        reservation.setReservationName(reqDTO.getReservationName());
-        reservation.setReservationTel(reqDTO.getReservationTel());
+        // 수정
+        reservation.updateReservation(reqDTO);
 
         // 수정 후 뿌려줄 데이터를 리턴
         return new ReservationResponse.DTO(reservation);
-    } // 더티 체킹
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,6 +21,15 @@ public class PayController {
     public ResponseEntity<?> cancel(@PathVariable Integer payId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PayResponse.RefundAndCancelReservationDTO respDTO = payService.refundAndCancel(payId, sessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // 결제 진행 (예약 시 결제 데이터 생성 / 이로인해 Put 으로 데이터 수정)
+    @PutMapping("/book/pay/{payId}")
+    public ResponseEntity<?> progress(@PathVariable Integer payId, @RequestBody PayRequest.DTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        PayResponse.DTO respDTO = payService.modifyPay(reqDTO, sessionUser, payId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
