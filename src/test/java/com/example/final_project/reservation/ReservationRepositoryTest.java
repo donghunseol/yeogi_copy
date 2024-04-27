@@ -39,6 +39,22 @@ public class ReservationRepositoryTest {
     }
 
     @Test
+    public void findByUserIdWithRoomAndStay_test(){
+        // given
+        Integer userId = 1;
+
+        // when
+        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
+
+        // eye
+        System.out.println("findByUserIdWithRoomAndStay_test size : " + reservationList.size());
+
+        // then
+        Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
+
+    }
+
+    @Test
     public void findByReservationIdWithRoomAndStay_test(){
         // given
         Integer reservationId = 1;
