@@ -1,11 +1,19 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.errors.exception.Exception401;
+import com.example.final_project.pay.Pay;
+import com.example.final_project.pay.PayRepository;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.reservation.ReservationRepository;
+import com.example.final_project.reservation.ReservationResponse;
+import com.example.final_project.reservation.ReservationService;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import com.example.final_project.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -14,6 +22,8 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
+    private final ReservationRepository reservationRepository;
+    private final PayRepository payRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -26,4 +36,18 @@ public class AdminService {
         return respDTO;
     }
 
+    // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
+    public List<ReservationResponse.DetailDTO> adminReservationList(Integer userId){
+        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
+
+        List<ReservationResponse.DetailDTO> respDTO = reservationList.stream().map(r -> {
+            Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(r.getId());
+            Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+            Pay pay = null;
+            if (payOP.isPresent()) pay = payOP.get();
+            return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
 }
