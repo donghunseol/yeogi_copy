@@ -49,9 +49,9 @@ public class UserController {
 
     // 예약 내역 페이지 - 목록
     @GetMapping("/my-reservations")
-    public List<ReservationResponse.ListDTO> reservationList() {
+    public List<ReservationResponse.ListDTO> userReservationList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<ReservationResponse.ListDTO> respDTO = reservationService.reservationList(sessionUser);
+        List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
         return respDTO;
     }
 

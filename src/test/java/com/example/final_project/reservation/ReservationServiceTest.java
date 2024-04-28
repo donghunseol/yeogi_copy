@@ -1,5 +1,7 @@
 package com.example.final_project.reservation;
 
+import com.example.final_project.company.Company;
+import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ public class ReservationServiceTest {
                 .build();
 
         // when
-        List<ReservationResponse.ListDTO> respDTO = reservationService.reservationList(sessionUser);
+        List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
 
         // eye
         System.out.println("reservationList_test size : " + respDTO.size());
@@ -47,6 +49,25 @@ public class ReservationServiceTest {
 
         // then
         Assertions.assertThat(respDTO.getAmount()).isEqualTo(150000);
+
+    }
+
+    @Test
+    public void compReservationList_test(){
+        // given
+        SessionCompany sessionCompany = SessionCompany.builder()
+                .id(3)
+                .build();
+
+        // when
+        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
+
+        // eye
+        System.out.println("compReservationList_test size : " + respDTO.size());
+        System.out.println("compReservationList_test getFirst : " + respDTO.getFirst());
+
+        // then
+        Assertions.assertThat(respDTO.getLast().getReservationId()).isEqualTo(13);
 
     }
 }
