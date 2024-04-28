@@ -56,6 +56,12 @@ public class User {
         this.reportCount = reportCount;
         this.createdAt = createdAt;
     }
+
+    // 회원 정보 수정
+    public void updateUser(UserRequest.UpdateDTO reqDTO) {
+        this.name = reqDTO.getName();
+        this.phone = reqDTO.getPhone();
+    }
 }
 
 

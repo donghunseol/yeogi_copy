@@ -4,12 +4,10 @@ import com.example.final_project._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
     private final UserService userService;
     private final HttpSession session;
@@ -17,15 +15,28 @@ public class UserController {
     // 회원 로그인
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
-        User sessionUser = userService.login(reqDTO);
+        SessionUser sessionUser = userService.login(reqDTO);
         session.setAttribute("sessionUser", sessionUser);
-        return ResponseEntity.ok(new ApiUtil(null));
+
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
-    // 회원 가입
+    // 회원 가입 후 로그인
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
-        userService.join(reqDTO);
-        return ResponseEntity.ok(new ApiUtil(null));
+        SessionUser sessionUser = userService.joinAndLogin(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(null));
+    }
+
+    // 회원 정보 수정
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<?> update(@PathVariable Integer userId, @RequestBody UserRequest.UpdateDTO reqDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        SessionUser newSessionUser = userService.update(sessionUser, reqDTO, userId);
+        session.setAttribute("sessionUser", newSessionUser);
+
+        return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 }
