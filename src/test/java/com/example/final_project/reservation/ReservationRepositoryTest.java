@@ -1,6 +1,7 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.errors.exception.Exception404;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -34,6 +35,38 @@ public class ReservationRepositoryTest {
 
 
         // then
+
+    }
+
+    @Test
+    public void findByUserIdWithRoomAndStay_test(){
+        // given
+        Integer userId = 1;
+
+        // when
+        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
+
+        // eye
+        System.out.println("findByUserIdWithRoomAndStay_test size : " + reservationList.size());
+
+        // then
+        Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
+
+    }
+
+    @Test
+    public void findByReservationIdWithRoomAndStay_test(){
+        // given
+        Integer reservationId = 1;
+
+        // when
+        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
+
+        // eye
+        System.out.println("findByReservationIdWithRoomAndStay_test reservationName : "+reservation.getReservationName());
+
+        // then
+        Assertions.assertThat(reservation.getUser().getId()).isEqualTo(1);
 
     }
 }

@@ -1,17 +1,24 @@
 package com.example.final_project.user;
 
 import com.example.final_project._core.utils.ApiUtil;
+import com.example.final_project.reservation.ReservationResponse;
+import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 public class UserController {
     private final UserService userService;
+    private final ReservationService reservationService;
     private final HttpSession session;
 
+    
     // 회원 로그인
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
@@ -39,4 +46,13 @@ public class UserController {
 
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
+
+    // 예약 내역 페이지 - 목록
+    @GetMapping("/my-reservations")
+    public List<ReservationResponse.ListDTO> reservationList() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<ReservationResponse.ListDTO> respDTO = reservationService.reservationList(sessionUser);
+        return respDTO;
+    }
+
 }
