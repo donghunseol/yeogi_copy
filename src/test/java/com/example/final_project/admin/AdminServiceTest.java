@@ -44,4 +44,22 @@ public class AdminServiceTest {
         Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
 
     }
+
+
+    @Test
+    public void adminCompanyList_test(){
+        // given
+
+
+        // when
+        List<AdminResponse.companyListDTO> companyList = adminService.adminCompanyList();
+
+        // eye
+        System.out.println("adminCompanyList_test size : " + companyList.size());
+        System.out.println("adminCompanyList_test companyList : " + companyList);
+
+        // then
+        Assertions.assertThat(companyList.getLast().getName()).isEqualTo("박회사");
+
+    }
 }

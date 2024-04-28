@@ -1,6 +1,8 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.errors.exception.Exception401;
+import com.example.final_project.company.Company;
+import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
 import com.example.final_project.reservation.Reservation;
@@ -24,6 +26,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
     private final PayRepository payRepository;
+    private final CompanyRepository companyRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -46,6 +49,18 @@ public class AdminService {
             Pay pay = null;
             if (payOP.isPresent()) pay = payOP.get();
             return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
+
+
+    // 모든 기업 정보 리스트
+    public List<AdminResponse.companyListDTO> adminCompanyList(){
+        List<Company> companyList = companyRepository.findAll();
+
+        List<AdminResponse.companyListDTO> respDTO = companyList.stream().map(company -> {
+            return new AdminResponse.companyListDTO(company);
         }).collect(Collectors.toList());
 
         return respDTO;
