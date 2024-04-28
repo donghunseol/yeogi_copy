@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
@@ -76,5 +77,13 @@ public class AdminService {
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         user.setState(BLACK);
         userRepository.save(user);
+    }
+
+    // 블랙 리스트에 추가 (기업)
+    public void addCompanyBlackList(Integer companyId){
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        company.setState(CompanyEnum.BLACK);
+        companyRepository.save(company);
     }
 }
