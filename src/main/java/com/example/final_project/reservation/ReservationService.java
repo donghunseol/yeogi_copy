@@ -4,6 +4,8 @@ import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project.company.Company;
+import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
 import com.example.final_project.room.Room;
@@ -83,7 +85,7 @@ public class ReservationService {
     }
 
     // 예약 내역 조회 (목록)
-    public List<ReservationResponse.ListDTO> reservationList(SessionUser sessionUser){
+    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser){
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
 
         List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
@@ -103,5 +105,16 @@ public class ReservationService {
         Pay pay = null;
         if (payOP.isPresent()) pay = payOP.get();
         return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+    }
+
+    // 기업의 예약 현황 확인
+    public List<ReservationResponse.ListDTO> compReservationList(SessionCompany sessionCompany){
+        List<Reservation> reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(sessionCompany.getId());
+
+        List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
+            return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
+        }).collect(Collectors.toList());
+
+        return respDTO;
     }
 }

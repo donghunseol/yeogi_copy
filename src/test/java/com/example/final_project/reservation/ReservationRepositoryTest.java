@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @DataJpaTest
@@ -67,6 +68,23 @@ public class ReservationRepositoryTest {
 
         // then
         Assertions.assertThat(reservation.getUser().getId()).isEqualTo(1);
+
+    }
+
+    @Test
+    public void findByCompanyIdWithRoomAndStay_test(){
+        // given
+        Integer companyId = 3;
+
+        // when
+        List<Reservation> reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(companyId);
+
+        // eye
+        System.out.println("findByCompanyIdWithRoomAndStay_test size : " + reservationList.size());
+        System.out.println("findByCompanyIdWithRoomAndStay_test First_reservationName : " + reservationList.getFirst().getReservationName());
+
+        // then
+        Assertions.assertThat(reservationList.getLast().getCheckOutDate()).isEqualTo(LocalDate.of(2025,6,27));
 
     }
 }
