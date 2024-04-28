@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project.reservation.ReservationResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,19 @@ public class AdminServiceTest {
 
     }
 
+    @Test
+    public void adminReservationList_test(){
+        // given
+        Integer userId = 1;
+
+        // when
+        List<ReservationResponse.DetailDTO> reservationList = adminService.adminReservationList(userId);
+
+        // eye
+        System.out.println("adminReservationList_test size : " + reservationList.size());
+
+        // then
+        Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
+
+    }
 }
