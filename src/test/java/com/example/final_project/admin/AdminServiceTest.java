@@ -1,6 +1,9 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.UserEnum;
+import com.example.final_project.company.Company;
+import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
@@ -15,9 +18,10 @@ import java.util.Optional;
 public class AdminServiceTest {
     @Autowired
     AdminService adminService;
-
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CompanyRepository companyRepository;
 
     @Test
     public void adminUserList_test(){
@@ -88,6 +92,27 @@ public class AdminServiceTest {
 
         // then
         Assertions.assertThat(user.getState()).isEqualTo(UserEnum.BLACK);
+
+    }
+
+    @Test
+    public void addCompanyBlackList_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        adminService.addCompanyBlackList(companyId);
+
+        // eye
+        Optional<Company> companyOP = companyRepository.findById(companyId);
+        Company company = null;
+        if(companyOP.isPresent()){
+            company = companyOP.get();
+        }
+        System.out.println("addCompanyBlackList_test : " + company);
+
+        // then
+        Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.BLACK);
 
     }
 }
