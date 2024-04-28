@@ -1,6 +1,8 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project._core.errors.exception.Exception401;
+import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.pay.Pay;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.final_project._core.enums.UserEnum.BLACK;
 
 @RequiredArgsConstructor
 @Service
@@ -64,5 +68,13 @@ public class AdminService {
         }).collect(Collectors.toList());
 
         return respDTO;
+    }
+
+    // 블랙 리스트에 추가 (개인)
+    public void addUserBlackList(Integer userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        user.setState(BLACK);
+        userRepository.save(user);
     }
 }

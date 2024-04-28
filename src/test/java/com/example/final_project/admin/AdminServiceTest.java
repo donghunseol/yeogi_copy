@@ -1,16 +1,23 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.reservation.ReservationResponse;
+import com.example.final_project.user.User;
+import com.example.final_project.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class AdminServiceTest {
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Test
     public void adminUserList_test(){
@@ -60,6 +67,27 @@ public class AdminServiceTest {
 
         // then
         Assertions.assertThat(companyList.getLast().getName()).isEqualTo("박회사");
+
+    }
+
+    @Test
+    public void addUserBlackList_test(){
+        // given
+        Integer userId = 1;
+
+        // when
+        adminService.addUserBlackList(userId);
+
+        // eye
+        Optional<User> userOP = userRepository.findById(userId);
+        User user = null;
+        if(userOP.isPresent()){
+            user = userOP.get();
+        }
+        System.out.println("addUserBlackList_test : " + user);
+
+        // then
+        Assertions.assertThat(user.getState()).isEqualTo(UserEnum.BLACK);
 
     }
 }
