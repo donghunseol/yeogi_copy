@@ -6,6 +6,8 @@ import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
+import com.example.final_project.room.Room;
+import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -51,6 +53,7 @@ public class AdminServiceTest {
 
         // eye
         System.out.println("adminReservationList_test size : " + reservationList.size());
+        System.out.println("adminReservationList_test getLast.id : " + reservationList.getLast().getReservationId());
 
         // then
         Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
@@ -130,6 +133,25 @@ public class AdminServiceTest {
 
         // then
         Assertions.assertThat(reviewList.getLast().getContent()).isEqualTo("괜찮은 편이에요.");
+
+    }
+
+    @Test
+    public void adminCompanyStayList_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
+
+        // eye
+        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
+        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
+        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
+        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
+
+        // then
+        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
 
     }
 }

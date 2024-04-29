@@ -20,6 +20,8 @@ public class RoomRepositoryTest {
         // when
         List<Room> roomList = roomRepository.findByStayId(stayId);
         // then
-        System.out.println(roomList.size());
+        System.out.println("findByStayId_test size : " + roomList.size());
+        System.out.println("findByStayId_test getFirst.id : " + roomList.getFirst().getId());
+        System.out.println("findByStayId_test getLast.id : " + roomList.getLast().getId());
     }
 }
