@@ -13,13 +13,15 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Data
 @Table(name = "stay_tb")
 @Entity
-@JsonIgnoreProperties({"company"})
+@JsonIgnoreProperties({"company", "options", "rooms"})
 public class Stay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
