@@ -5,6 +5,7 @@ import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.reservation.ReservationResponse;
+import com.example.final_project.review.Review;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -113,6 +114,22 @@ public class AdminServiceTest {
 
         // then
         Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.BLACK);
+
+    }
+
+    @Test
+    public void adminUserReviewList_test(){
+        // given
+        Integer userId = 1;
+
+        // when
+        List<Review> reviewList = adminService.adminUserReviewList(userId);
+
+        // eye
+        System.out.println("adminUserReviewList_test size : " + reviewList.size());
+
+        // then
+        Assertions.assertThat(reviewList.getLast().getContent()).isEqualTo("괜찮은 편이에요.");
 
     }
 }
