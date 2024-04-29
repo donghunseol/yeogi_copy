@@ -6,6 +6,8 @@ import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
+import com.example.final_project.room.Room;
+import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -132,4 +134,27 @@ public class AdminServiceTest {
         Assertions.assertThat(reviewList.getLast().getContent()).isEqualTo("괜찮은 편이에요.");
 
     }
+
+//    @Test
+//    public void adminCompanyStayList_test(){
+//        // given
+//        Integer companyId = 1;
+//
+//        // when
+//        List<Stay> stayList = adminService.adminCompanyStayList(companyId);
+//
+//        // eye
+//        System.out.println("adminCompanyStayList_test size : " + stayList.size());
+//
+//        // then
+//        Optional<Room> firstRoomOptional = stayList.stream()
+//                .findFirst() // StayList에서 첫 번째 Stay 객체를 가져옴
+//                .map(stay -> stay.getRooms().stream().findFirst().orElse(null)); // Rooms Set에서 첫 번째 Room 객체를 Optional로 반환
+//
+//        // Optional이 비어있지 않은 경우에만 검증을 수행
+//        firstRoomOptional.ifPresent(room ->
+//                Assertions.assertThat(room.getName()).isEqualTo("스위트룸")
+//        );
+//
+//    }
 }

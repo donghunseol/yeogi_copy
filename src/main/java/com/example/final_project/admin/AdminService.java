@@ -13,6 +13,8 @@ import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
+import com.example.final_project.stay.Stay;
+import com.example.final_project.stay.StayRepository;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ public class AdminService {
     private final PayRepository payRepository;
     private final CompanyRepository companyRepository;
     private final ReviewRepository reviewRepository;
+    private final StayRepository stayRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -92,4 +95,11 @@ public class AdminService {
     public List<Review> adminUserReviewList(Integer userId){
         return reviewRepository.findByUserIdWithUserAndRoom(userId);
     }
+
+//    // 특정 기업의 숙소 리스트
+//    public List<Stay> adminCompanyStayList(Integer companyId){
+//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+//
+//        return stayRepository.findByCompanyId(companyId);
+//    }
 }

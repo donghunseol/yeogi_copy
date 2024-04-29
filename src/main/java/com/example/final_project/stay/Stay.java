@@ -13,13 +13,15 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Data
 @Table(name = "stay_tb")
 @Entity
-@JsonIgnoreProperties({"company"})
+@JsonIgnoreProperties({"company", "options", "rooms"})
 public class Stay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +52,8 @@ public class Stay {
     @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Option> options = new ArrayList<>(); // 옵션 리스트
 
-    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Room> rooms = new ArrayList<>(); // 방(객실) 옵션 리스트
+//    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+//    private List<Room> rooms = new ArrayList<>(); // 방(객실) 옵션 리스트
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 숙소 등록 일자

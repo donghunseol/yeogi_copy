@@ -1,13 +1,18 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
+import com.example.final_project.option.Option;
+import com.example.final_project.room.Room;
+import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminResponse {
 
@@ -61,6 +66,34 @@ public class AdminResponse {
             this.state = company.getState();
             this.reportCount = company.getReportCount();
             this.createdAt = company.getCreatedAt();
+        }
+    }
+
+    // 관리자 페이지에서 출력할 특정 기업의 숙소 정보
+    @Data
+    public static class companyStayListDTO{
+        private Integer id; // 숙소 번호
+        private Company company; // 해당 숙소의 기업
+        private String name; // 숙소 이름
+        private String category; // 숙소 분류
+        private String address; // 숙소 주소
+        private StayEnum state; // 상태 (TRUE : 사용 / FALSE : 탈퇴)
+        private String intro; // 숙소 소개
+        private String information; // 숙소 이용 정보
+        private List<Option> options = new ArrayList<>(); // 옵션 리스트
+        private LocalDateTime createdAt; // 숙소 등록 일자
+
+        public companyStayListDTO(Stay stay){
+            this.id = stay.getId();
+            this.company = stay.getCompany();
+            this.name = stay.getName();
+            this.category = stay.getCategory();
+            this.address = stay.getAddress();
+            this.state = stay.getState();
+            this.intro = stay.getIntro();
+            this.information = stay.getInformation();
+            this.options = stay.getOptions();
+            this.createdAt = stay.getCreatedAt();
         }
     }
 }
