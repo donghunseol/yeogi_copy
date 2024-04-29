@@ -81,9 +81,10 @@ public class AdminResponse {
         private String intro; // 숙소 소개
         private String information; // 숙소 이용 정보
         private List<Option> options = new ArrayList<>(); // 옵션 리스트
+        private List<Room> rooms = new ArrayList<>(); // 객실 리스트
         private LocalDateTime createdAt; // 숙소 등록 일자
 
-        public companyStayListDTO(Stay stay){
+        public companyStayListDTO(Stay stay, List<Room> rooms){
             this.id = stay.getId();
             this.company = stay.getCompany();
             this.name = stay.getName();
@@ -93,6 +94,7 @@ public class AdminResponse {
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
             this.options = stay.getOptions();
+            this.rooms = rooms;
             this.createdAt = stay.getCreatedAt();
         }
     }

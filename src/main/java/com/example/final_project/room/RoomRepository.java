@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-    @Query("select r from Room r join fetch Stay s on r.stay.id = s.id where s.id = :stayId order by r.id desc ")
+    @Query("select r from Room r join fetch Stay s on r.stay.id = s.id where s.id = :stayId order by r.id")
     List<Room> findByStayId(@Param("stayId")Integer stayId);
 
 }

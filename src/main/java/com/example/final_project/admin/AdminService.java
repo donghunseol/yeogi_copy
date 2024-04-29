@@ -13,6 +13,8 @@ import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
+import com.example.final_project.room.Room;
+import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.user.User;
@@ -36,6 +38,7 @@ public class AdminService {
     private final CompanyRepository companyRepository;
     private final ReviewRepository reviewRepository;
     private final StayRepository stayRepository;
+    private final RoomRepository roomRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -96,10 +99,14 @@ public class AdminService {
         return reviewRepository.findByUserIdWithUserAndRoom(userId);
     }
 
-//    // 특정 기업의 숙소 리스트
-//    public List<Stay> adminCompanyStayList(Integer companyId){
-//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
-//
-//        return stayRepository.findByCompanyId(companyId);
-//    }
+    // 특정 기업의 숙소 리스트
+    public List<AdminResponse.companyStayListDTO> adminCompanyStayList(Integer companyId){
+        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+        List<AdminResponse.companyStayListDTO> respDTO = stayList.stream().map(stay -> {
+            List<Room> rooms = roomRepository.findByStayId(stay.getId());
+            return new AdminResponse.companyStayListDTO(stay,rooms);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
 }

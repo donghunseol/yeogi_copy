@@ -52,8 +52,8 @@ public class Stay {
     @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Option> options = new ArrayList<>(); // 옵션 리스트
 
-//    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private List<Room> rooms = new ArrayList<>(); // 방(객실) 옵션 리스트
+    @OneToMany(mappedBy = "stay", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Room> rooms = new ArrayList<>(); // 방(객실) 옵션 리스트
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 숙소 등록 일자

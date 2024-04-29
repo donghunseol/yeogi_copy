@@ -53,6 +53,7 @@ public class AdminServiceTest {
 
         // eye
         System.out.println("adminReservationList_test size : " + reservationList.size());
+        System.out.println("adminReservationList_test getLast.id : " + reservationList.getLast().getReservationId());
 
         // then
         Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
@@ -135,26 +136,22 @@ public class AdminServiceTest {
 
     }
 
-//    @Test
-//    public void adminCompanyStayList_test(){
-//        // given
-//        Integer companyId = 1;
-//
-//        // when
-//        List<Stay> stayList = adminService.adminCompanyStayList(companyId);
-//
-//        // eye
-//        System.out.println("adminCompanyStayList_test size : " + stayList.size());
-//
-//        // then
-//        Optional<Room> firstRoomOptional = stayList.stream()
-//                .findFirst() // StayList에서 첫 번째 Stay 객체를 가져옴
-//                .map(stay -> stay.getRooms().stream().findFirst().orElse(null)); // Rooms Set에서 첫 번째 Room 객체를 Optional로 반환
-//
-//        // Optional이 비어있지 않은 경우에만 검증을 수행
-//        firstRoomOptional.ifPresent(room ->
-//                Assertions.assertThat(room.getName()).isEqualTo("스위트룸")
-//        );
-//
-//    }
+    @Test
+    public void adminCompanyStayList_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
+
+        // eye
+        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
+        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
+        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
+        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
+
+        // then
+        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
+
+    }
 }
