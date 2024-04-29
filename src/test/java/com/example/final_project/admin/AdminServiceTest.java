@@ -6,8 +6,6 @@ import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
-import com.example.final_project.room.Room;
-import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -77,7 +75,7 @@ public class AdminServiceTest {
         System.out.println("adminCompanyList_test companyList : " + companyList);
 
         // then
-        Assertions.assertThat(companyList.getLast().getName()).isEqualTo("박회사");
+        Assertions.assertThat(companyList.getFirst().getName()).isEqualTo("김회사");
 
     }
 
