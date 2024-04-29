@@ -166,10 +166,12 @@ public class AdminServiceTest {
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(companyId);
+
         Company company = null;
         if(companyOP.isPresent()){
             company = companyOP.get();
         }
+
         System.out.println("rejectJoinCompany_test company : " + company);
 
         // then
