@@ -117,4 +117,12 @@ public class AdminService {
         company.setState(CompanyEnum.REJECT);
         companyRepository.save(company);
     }
+
+    // 기업 가입 승인
+    public void activeJoinCompany(Integer companyId){
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        company.setState(CompanyEnum.ACTIVE);
+        companyRepository.save(company);
+    }
 }
