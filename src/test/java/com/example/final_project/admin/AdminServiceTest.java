@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.final_project._core.enums.CompanyEnum.PROGRESSING;
 import static com.example.final_project._core.enums.CompanyEnum.REJECT;
 
 @SpringBootTest
@@ -159,23 +161,68 @@ public class AdminServiceTest {
     @Test
     public void rejectJoinCompany_test(){
         // given
-        Integer companyId = 1;
+        Company company = Company.builder()
+                .id(4)
+                .email("com4@nate.com")
+                .password("1234")
+                .businessName("서스테이회사")
+                .businessNumber("723-78-12743")
+                .businessAddress("부산광역시")
+                .phone("01044443333")
+                .name("서회사")
+                .state(PROGRESSING)
+                .reportCount(0)
+                .build();
+        companyRepository.save(company);
 
         // when
-        adminService.rejectJoinCompany(companyId);
+        adminService.rejectJoinCompany(company.getId());
 
         // eye
-        Optional<Company> companyOP = companyRepository.findById(companyId);
+        Optional<Company> companyOP = companyRepository.findById(company.getId());
 
-        Company company = null;
+        Company updatedCompany = null;
         if(companyOP.isPresent()){
-            company = companyOP.get();
+            updatedCompany = companyOP.get();
         }
 
-        System.out.println("rejectJoinCompany_test company : " + company);
+        System.out.println("rejectJoinCompany_test company : " + updatedCompany);
 
         // then
-        Assertions.assertThat(company.getState()).isEqualTo(REJECT);
+        Assertions.assertThat(updatedCompany.getState()).isEqualTo(REJECT);
+
+    }
+
+    @Test
+    public void activeJoinCompany_test(){
+        // given
+        Company company = Company.builder()
+                .id(4)
+                .email("com4@nate.com")
+                .password("1234")
+                .businessName("서스테이회사")
+                .businessNumber("723-78-12743")
+                .businessAddress("부산광역시")
+                .phone("01044443333")
+                .name("서회사")
+                .state(PROGRESSING)
+                .reportCount(0)
+                .build();
+        companyRepository.save(company);
+
+        // when
+        adminService.activeJoinCompany(company.getId());
+
+        // eye
+        Optional<Company> updatedcompanyOP = companyRepository.findById(company.getId());
+        Company updatedcompany = null;
+        if (updatedcompanyOP.isPresent()){
+            updatedcompany = updatedcompanyOP.get();
+        }
+        System.out.println("activeJoinCompany_test : " + updatedcompany);
+
+        // then
+
 
     }
 }
