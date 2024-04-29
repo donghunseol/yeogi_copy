@@ -66,7 +66,6 @@ public class AdminServiceTest {
     public void adminCompanyList_test(){
         // given
 
-
         // when
         List<AdminResponse.companyListDTO> companyList = adminService.adminCompanyList();
 
