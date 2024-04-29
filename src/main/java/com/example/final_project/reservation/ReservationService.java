@@ -95,6 +95,7 @@ public class ReservationService {
         return respDTO;
     }
 
+
     // 예약 내역 조회 (상세보기)
     public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId){
         Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
