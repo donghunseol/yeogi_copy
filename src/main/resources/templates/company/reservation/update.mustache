@@ -1,0 +1,104 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>예약내역</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">예약상세</p>
+                        <div class="room-tab_menu">
+                            <div class="cont_area">
+                                <span class="img-txt">호실 이미지</span>
+                                <div class="img-wrapper">
+                                    <img src="image/room1.jpg" alt="호실 사진">
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="room-number">호실</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="room-number" value="405호실" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="loging-name">예약자이름</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="reservation-name" value="홍길동" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="loging-name">체크인</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="reservation-start-date" value="24.05.01 토 15:00"
+                                               disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="loging-name">체크아웃</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="reservation-end-date" value="24.05.03 월 11:00"
+                                               disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="loging-name">특가적용</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="special" value="적용안됨" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="loging-name">결제금액</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="loging-name" placeholder="가격" value="50,000원"
+                                               disabled
+                                               oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                    </div>
+                                </div>
+                                <div class="button-wrapper">
+                                    <button type="submit" class="btn black join"
+                                            onclick="history.back()">뒤로가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    const tabList = document.querySelectorAll('.room-tab_menu .list li');
+    const contents = document.querySelectorAll('.room-tab_menu .cont_area .cont')
+    let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+
+
+    // 탭메뉴
+    for (var i = 0; i < tabList.length; i++) {
+        tabList[i].querySelector('.btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            for (var j = 0; j < tabList.length; j++) {
+                // 나머지 버튼 클래스 제거
+                tabList[j].classList.remove('is_on');
+
+                // 나머지 컨텐츠 display:none 처리
+                contents[j].style.display = 'none';
+            }
+
+            // 버튼 관련 이벤트
+            this.parentNode.classList.add('is_on');
+
+            // 버튼 클릭시 컨텐츠 전환
+            activeCont = this.getAttribute('href');
+            document.querySelector(activeCont).style.display = 'block';
+        });
+    }
+</script>
+</body>
+
+</html>

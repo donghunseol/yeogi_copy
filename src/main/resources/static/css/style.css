@@ -44,7 +44,7 @@
 
 .input-wrapper input {
     height: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid #ddd;
     padding: 0 10px;
     transition: 0.4s ease;
@@ -62,7 +62,7 @@
     color: #fff;
     border: none;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 18px;
     font-weight: 700;
 }
@@ -75,7 +75,7 @@
     color: #fff;
     border: none;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 18px;
     font-weight: 700;
     align-items: center;
@@ -111,8 +111,8 @@
 }
 
 .side-content.info a:hover {
-    background: #2c85e5;
-    border-color: #2c85e5;
+    background: #f45858;
+    border-color: #f45858;
 }
 
 .side-content figure {
@@ -173,8 +173,8 @@
 }
 
 .side-menu>.head-menu.active {
-    border-color: #2c85e5;
-    background: #2c85e5;
+    border-color: #f45858;
+    background: #f45858;
     font-weight: 700;
 }
 
@@ -216,8 +216,8 @@ ul.tab-nav li {
 }
 
 ul.tab-nav li.current {
-    border-bottom: 3px solid #2c85e5;
-    color: #2c85e5;
+    border-bottom: 3px solid #f45858;
+    color: #f45858;
 }
 
 .tab-content {
@@ -279,7 +279,7 @@ ul.tab-nav li.current {
     color: #fff;
     font-weight: 700;
     border: 1px solid #ddd;
-    color: #2385e5;
+    color: #f45858;
 }
 
 .tab-item table tbody tr {}
@@ -306,7 +306,7 @@ ul.tab-nav li.current {
 }
 
 .wait {
-    background: #2c85e5;
+    background: #f45858;
 }
 
 .refuse {
@@ -548,7 +548,7 @@ ul.tab-nav li.current {
 
 .detail-content .review-title {
     font-size: 16px;
-    color: #2c85e5;
+    color: #f45858;
     display: block;
     margin-bottom: 10px;
 }
@@ -634,7 +634,7 @@ input[type="text" i] {
 }
 
 .search-left em {
-    color: #2385e5;
+    color: #f45858;
 }
 
 .faq-button-wrapper {
@@ -652,4 +652,745 @@ input[type="text" i] {
     border-radius: 5px;
     outline: none;
     padding: 0 10px;
+}
+
+
+
+
+
+/* 비즈니스 CSS */
+p.login-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.login-bottom {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+
+    padding-top: 20px;
+}
+
+.login-bottom p {
+    text-align: center;
+    color: #666;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+.login-bottom a {
+    position: relative;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    color: #000;
+    font-weight: 700;
+    margin: 0 auto;
+}
+
+.login-bottom a:before {
+    content: "";
+    height: 1px;
+    position: absolute;
+    background-color: #222;
+    bottom: -4px;
+    text-align: center;
+}
+
+.login-bottom a:hover:before {
+
+    width: 100%;
+}
+
+.comp-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+}
+
+.comp-header .logo-wrapper {
+    width: 100px;
+}
+
+.comp-header .logo-wrapper img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.comp-header .right-content {}
+
+.comp-header .right-content span {
+    color: #666;
+}
+
+.join-wrapper {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.join-wrapper .step {
+    display: flex;
+    justify-content: center;
+}
+
+.join-wrapper .step .step-number {
+    margin-right: 20px;
+}
+
+.join-wrapper .step .step-number span {
+    width: 25px;
+    height: 25px;
+    background: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #999;
+}
+
+.join-wrapper .step .step-number span.active {
+    background: #f45858;
+    color: #fff;
+}
+
+.join-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.join-content p.title {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.join-form-wrapper {}
+
+.join-form-wrapper .input-wrapper {}
+
+.join-form-wrapper .input-wrapper.email {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.join-form-wrapper .input-wrapper input {
+    padding: 0 10px;
+}
+
+.join-form-wrapper .input-wrapper.email input {
+    max-width: 110px;
+}
+
+.join-form-wrapper .input-wrapper span {
+    padding: 0 5px;
+}
+
+.join-form-wrapper .input-wrapper select {
+    height: 40px;
+    border-radius: 5px;
+    border-color: #ddd;
+    margin: 0 10px;
+    padding: 0 10px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #ddd;
+    color: #666;
+    font-size: 15px;
+}
+
+.join-form-wrapper .input-wrapper select option {}
+
+.join-form-wrapper .input-wrapper button {
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    background: rgb(244 88 88);
+    color: #fff;
+    height: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.join-form-wrapper .input-wrapper button:hover {
+    background: rgb(244 88 88);
+}
+
+.join-form-item {}
+
+.join-form-item label {
+    display: block;
+    padding-bottom: 10px;
+    font-size: 14px;
+    color: #888;
+}
+
+.password-content {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.join-form-wrapper button.join {}
+
+.join-form-wrapper .button-wrapper {
+    text-align: center;
+}
+
+#sample6_postcode {
+    margin-bottom: 10px;
+}
+
+#sample6_detailAddress {
+    margin-bottom: 10px;
+}
+
+.button-wrapper {
+    text-align: center;
+}
+
+.button-wrapper a.black.border {
+    color: #333;
+    border: 1px solid #333;
+}
+
+.button-wrapper a.black {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button-wrapper .border {
+    background: none;
+    color: #333;
+    font-weight: 700;
+    border: 1px solid #333;
+}
+
+.join-form-item .input-wrapper input {
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+p.tab-title {
+    font-size: 22px;
+    margin: 20px 0;
+}
+
+.tab-item.company {
+    margin: 0 auto;
+    align-items: unset;
+}
+
+.tab-item.company.info {
+    width: 500px;
+}
+
+.tab-item.company.stay {
+    width: 1400px;
+}
+
+.loging-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.loging-list li {
+    width: calc(33.3333% - 20px);
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+    margin-bottom: 20px;
+}
+
+.loging-list li .loging-item {
+    display: flex;
+}
+
+.loging-list li .loging-item .img-wrapper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.loging-list li .loging-item .img-wrapper img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.loging-list li .loging-item .loging-content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 220px);
+    margin-left: 20px;
+    justify-content: space-between;
+
+}
+
+.loging-list li .loging-item .loging-content .name {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.loging-list li .loging-item .loging-content span {
+    font-size: 14px;
+    color: #666;
+    padding-top: 10px;
+    display: block;
+}
+
+.loging-list li .loging-item .loging-content .button-wrapper {
+    text-align: left;
+}
+
+.loging-list li .loging-item .loging-content .button-wrapper button {
+    border: none;
+    background: #333;
+    color: #fff;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.loging-list li .loging-item .loging-content .button-wrapper button:hover {
+    background: #000;
+}
+
+.link-wrapper {
+    margin-bottom: 20px;
+}
+
+.link-wrapper a {
+    display: block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    background: #f45858;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.register-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-detail-wrapper .content-wrapper .content {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.register-detail-wrapper .content-wrapper .img-wrapper {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.register-detail-wrapper .content-wrapper .img-wrapper img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.register-detail-wrapper .content-wrapper .right-text {}
+
+.register-detail-wrapper .content-wrapper .right-text .join-form-item {}
+
+.register-detail-wrapper .content-wrapper .right-text .join-form-item label {}
+
+.register-detail-wrapper .content-wrapper .right-text .join-form-item .input-wrapper {}
+
+.register-detail-wrapper .content-wrapper .right-text .join-form-item .input-wrapper input {}
+
+.register-detail-wrapper .content-wrapper .right-text .join-form-item .input-wrapper textarea {}
+
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-preview li:nth-child(1) {
+    width: 100%;
+    height: 350px;
+    margin-right: 0;
+}
+
+.image-preview.only li {
+    width: 100%;
+    height: 350px;
+    margin-right: 0;
+}
+
+.image-preview li:nth-child(4n) {
+    margin-right: 0;
+}
+
+.image-preview li {
+    width: calc((100% - 40px) / 3);
+    height: 146px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.image-preview li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.real-upload {}
+
+.upload {}
+
+.file-box .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: calc(100% - 120px);
+    margin-right: 16px;
+    color: #999999;
+    border-radius: 5px;
+    outline: none;
+}
+
+.file-box span {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.file-box label {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    color: #333;
+    border: 1px solid #333;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.file-box input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.input-wrapper .margin-n {
+    margin: 0;
+    border-color: #ddd;
+    color: #666;
+    outline: none;
+}
+
+.input-wrapper textarea {
+    outline: none;
+;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 100%;
+}
+
+/* 숙소상세 */
+.stay-detail {}
+
+.stay-detail .content {}
+
+.stay-detail .content.top {
+    display: flex;
+}
+
+.stay-detail .content.top .img-wrapper {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.stay-detail .content.top .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stay-detail .content.top .text-wrapper {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 370px);
+}
+
+.stay-detail .content.top .text-wrapper p.text-item {
+
+    border-bottom: 1px solid #ddd;
+    height: calc(100% / 3);
+    display: flex;
+    align-items: center;
+
+}
+
+.stay-detail .content.top .text-wrapper p.text-item:nth-child(1) {
+    border-top: 1px solid #ddd;
+}
+
+.stay-detail .content .text-wrapper p.text-item span.head {}
+
+.stay-detail .content .text-wrapper p.text-item span.head i {
+    color: #888;
+    font-size: 14px;
+}
+
+.stay-detail .content .text-wrapper p.text-item span.head em {
+    margin-right: 10px;
+    margin-left: 5px;
+    color: #888;
+}
+
+.stay-detail .content .text-wrapper p.text-item span.body {
+    width: 70px;
+    padding: 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stay-detail .content.bottom {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.stay-detail .content.bottom ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stay-detail .content.bottom ul li.unkwon {}
+
+.stay-detail .content.bottom ul li {
+    width: calc((100% - 40px) / 3);
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    height: fit-content;
+}
+
+.stay-detail .content.bottom ul li:nth-child(3n) {
+    margin-right: 0;
+}
+
+.stay-detail .content.bottom ul li .item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stay-detail .content.bottom ul li .item .button-wrapper {
+    margin-top: 20px;
+}
+
+.stay-detail .content.bottom ul li .item .button-wrapper button {
+    width: 100%;
+}
+
+.stay-detail .content.bottom ul li .item .img-wrapper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.stay-detail .content.bottom ul li .item .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 220px);
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item {
+    height: calc(100% / 4);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item:last-child {
+    margin-bottom: 0;
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .head {}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .head i {
+    color: #888;
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .head em {
+    margin-right: 10px;
+}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .body {}
+
+
+.stay-detail .room-head {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stay-detail .room-head .sub-title {
+    font-size: 18px;
+}
+
+.stay-detail .room-head a {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    background: #f45858;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* 객실등록 */
+.room-tab_menu {
+    position: relative;
+    padding: 20px;
+    background: #fff;
+}
+
+.room-tab_menu .list {
+    overflow: hidden;
+    margin-bottom: 40px;
+    display: flex;
+}
+
+.room-tab_menu .list li {
+    width: calc((100% - 40px) / 3);
+    margin-right: 20px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.room-tab_menu .list li:nth-child(3) {
+    margin-right: 0;
+}
+
+.room-tab_menu .list li.is_on .btn {
+    font-weight: bold;
+    background: #f45858;
+    border-color: #f45858;
+    color: #fff;
+}
+
+.room-tab_menu .list .btn {
+    font-size: 14px;
+    border: 1px solid #888;
+    display: block;
+    width: 100%;
+    color: #888;
+}
+
+.room-tab_menu .cont_area {
+    margin-top: 10px;
+}
+
+.room-tab_menu .cont_area .cont {
+    display: none;
+    width: 100%;
+    background: #fff;
+}
+
+em.guide {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+em.guide b {}
+
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .body.wait {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 0;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.room-tab_menu {}
+
+.room-tab_menu .img-wrapper {
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.room-tab_menu .img-txt {
+    margin-bottom: 10px;
+    display: block;
+    font-size: 14px;
+    color: #888;
+}
+
+.room-tab_menu .img-wrapper img {
+    width: 100%;
+    object-fit: cover;
 }
