@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
+import static com.example.final_project._core.enums.CompanyEnum.REJECT;
 
 @SpringBootTest
 public class AdminServiceTest {
@@ -152,6 +153,27 @@ public class AdminServiceTest {
 
         // then
         Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
+
+    }
+
+    @Test
+    public void rejectJoinCompany_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        adminService.rejectJoinCompany(companyId);
+
+        // eye
+        Optional<Company> companyOP = companyRepository.findById(companyId);
+        Company company = null;
+        if(companyOP.isPresent()){
+            company = companyOP.get();
+        }
+        System.out.println("rejectJoinCompany_test company : " + company);
+
+        // then
+        Assertions.assertThat(company.getState()).isEqualTo(REJECT);
 
     }
 }

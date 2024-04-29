@@ -109,4 +109,12 @@ public class AdminService {
 
         return respDTO;
     }
+
+    // 기업 가입 거절
+    public void rejectJoinCompany(Integer companyId){
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        company.setState(CompanyEnum.REJECT);
+        companyRepository.save(company);
+    }
 }
