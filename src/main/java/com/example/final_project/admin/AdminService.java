@@ -11,10 +11,10 @@ import com.example.final_project.pay.PayRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.reservation.ReservationResponse;
-import com.example.final_project.reservation.ReservationService;
+import com.example.final_project.review.Review;
+import com.example.final_project.review.ReviewRepository;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
-import com.example.final_project.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -32,6 +32,7 @@ public class AdminService {
     private final ReservationRepository reservationRepository;
     private final PayRepository payRepository;
     private final CompanyRepository companyRepository;
+    private final ReviewRepository reviewRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -85,5 +86,10 @@ public class AdminService {
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.BLACK);
         companyRepository.save(company);
+    }
+
+    // 특정 개인이 쓴 리뷰 내역 조회
+    public List<Review> adminUserReviewList(Integer userId){
+        return reviewRepository.findByUserIdWithUserAndRoom(userId);
     }
 }
