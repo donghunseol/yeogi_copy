@@ -70,4 +70,8 @@ public class CompanyService {
         return respDTO;
     }
 
+
+//    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+//    public List<CompanyResponse.>
+
 }
