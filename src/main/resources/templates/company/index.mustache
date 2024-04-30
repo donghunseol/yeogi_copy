@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{{> company/layout/head}}
 <body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>숙소관리</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">숙소리스트</p>
+                        <div class="link-wrapper">
+                            <a href="/stay/register">숙소등록</a>
+                        </div>
+                        <ul class="loging-list">
+                            <li>
+                                <div class="loging-item">
+                                    <div class="img-wrapper">
+                                        <img src="/image/hotel.png" alt="숙소사진">
+                                    </div>
+                                    <div class="loging-content">
+                                        <div class="txt-wrapper">
+                                            <p class="name">여어떻노 호텔(부산)</p>
+                                            <span class="address">주소 : 분당 주소</span>
+                                            <span class="category">분류 : 호텔</span>
+                                        </div>
+                                        <form action="/stay/detail" method="get">
+                                            <div class="button-wrapper">
+                                                <button>상세 보기</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
 
+</script>
 </body>
+
 </html>

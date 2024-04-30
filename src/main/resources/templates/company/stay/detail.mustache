@@ -1,0 +1,154 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>숙소 상세보기</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">여어떻노(호텔)</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="img-wrapper">
+                                    <img src="image/caption.jpg" alt="호텔 이미지">
+                                </div>
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-house"></i><em>숙소이름</em></span>
+                                        <span class="body">여어떻노</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i
+                                                    class="fa-solid fa-location-dot"></i><em>숙소주소</em></span>
+                                        <span class="body">경기 성남시 수정구 분당수서로 1181-24</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i
+                                                    class="fa-solid fa-layer-group"></i><em>숙소분류</em></span>
+                                        <span class="body">호텔</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="content bottom">
+                                <div class="room-head">
+                                    <p class="sub-title">객실리스트</p>
+                                    <a href="/room/register">객실추가하기</a>
+                                </div>
+                                <ul>
+                                    <!-- <li class="unknown">
+                                        <div class="item">
+                                            <span>등록된 객실이 없습니다.</span>
+                                        </div>
+                                    </li> -->
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room1.jpg" alt="객실 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실유형</em></span>
+                                                    <span class="body">스탠다드</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최소인원</em></span>
+                                                    <span class="body">2명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최대인원</em></span>
+                                                    <span class="body">3명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실갯수</em></span>
+                                                    <span class="body">5개</span>
+                                                </p>
+                                            </div>
+                                            <form action="/room/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">상세보기</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room2.jpg" alt="객실 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실유형</em></span>
+                                                    <span class="body">프리미엄</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최소인원</em></span>
+                                                    <span class="body">3명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최대인원</em></span>
+                                                    <span class="body">4명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실갯수</em></span>
+                                                    <span class="body">7개</span>
+                                                </p>
+                                            </div>
+                                            <form action="/room/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">상세보기</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room1.jpg" alt="객시 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실유형</em></span>
+                                                    <span class="body">디럭스</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최소인원</em></span>
+                                                    <span class="body">4명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>최대인원</em></span>
+                                                    <span class="body">5명</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><i></i><em>객실갯수</em></span>
+                                                    <span class="body">7개</span>
+                                                </p>
+                                            </div>
+                                            <form action="/room/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">상세보기</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

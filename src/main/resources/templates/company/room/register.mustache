@@ -1,0 +1,295 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>객실추가</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">객실추가</p>
+                        <div class="room-tab_menu">
+                            <ul class="list">
+                                <li class="is_on">
+                                    <a href="#tab1" class="btn">스탠다드</a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" class="btn">프리미엄</a>
+                                </li>
+                                <li>
+                                    <a href="#tab3" class="btn">디럭스</a>
+                                </li>
+                            </ul>
+
+                            <div class="cont_area">
+                                <div id="tab1" class="cont" style="display:block;">
+                                    <form action="#" method="post">
+                                        <div class="file-box">
+                                            <span>이미지등록</span>
+                                            <ul class="image-preview only"></ul>
+
+                                            <input type="file" id="file01" class="real-upload" accept="image/*"
+                                                   required multiple>
+                                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                                            <label for="file01">파일찾기</label>
+                                            <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="room-number">호실</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-number" placeholder="호실">
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최소인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-min-person" value="2명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최대인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-max-person" value="3명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">가격</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="가격"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="특가"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가상태</label>
+                                            <div class="input-wrapper">
+                                                <select id="select" name="select" class="margin-n">
+                                                    <option value="" disabled selected>특가분류</option>
+                                                    <option value="활성화" id="on">활성화</option>
+                                                    <option value="비활성화" id="off">비활성화</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="button-wrapper">
+                                            <button type="submit" class="btn black join">등록하기</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab2" class="cont">
+                                    <form action="#" method="post">
+                                        <div class="file-box">
+                                            <span>이미지등록</span>
+                                            <ul class="image-preview only"></ul>
+
+                                            <input type="file" id="file02" class="real-upload" accept="image/*"
+                                                   required multiple>
+                                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                                            <label for="file02">파일찾기</label>
+                                            <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="room-number">호실</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-number" placeholder="호실">
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최소인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-min-person" value="2명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최대인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-max-person" value="3명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">가격</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="가격"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="특가"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가상태</label>
+                                            <div class="input-wrapper">
+                                                <select id="select" name="select" class="margin-n">
+                                                    <option value="" disabled selected>특가분류</option>
+                                                    <option value="활성화" id="on">활성화</option>
+                                                    <option value="비활성화" id="off">비활성화</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="button-wrapper">
+                                            <button type="submit" class="btn black join">등록하기</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab3" class="cont">
+                                    <form action="#" method="post">
+                                        <div class="file-box">
+                                            <span>이미지등록</span>
+                                            <ul class="image-preview only"></ul>
+
+                                            <input type="file" id="file03" class="real-upload" accept="image/*"
+                                                   required multiple>
+                                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                                            <label for="file03">파일찾기</label>
+                                            <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="room-number">호실</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-number" placeholder="호실">
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최소인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-min-person" value="2명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">최대인원</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="room-max-person" value="3명" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">가격</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="가격"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="loging-name" placeholder="특가"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">특가상태</label>
+                                            <div class="input-wrapper">
+                                                <select id="select" name="select" class="margin-n">
+                                                    <option value="" disabled selected>특가분류</option>
+                                                    <option value="활성화" id="on">활성화</option>
+                                                    <option value="비활성화" id="off">비활성화</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="button-wrapper">
+                                            <button type="submit" class="btn black join">등록하기</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    // 이미지 다중 업로드
+
+    function getImageFiles(e) {
+        const files = e.currentTarget.files;
+        const imagePreview = e.currentTarget.parentElement.querySelector('.image-preview');
+
+        // 이미지 개수 검사
+        if ([...files].length > 1) {
+            console.log("이미지 개수가 최대 개수를 초과합니다");
+            alert('이미지는 최대 1개 까지 업로드가 가능합니다.');
+            return;
+        }
+
+        // 이미지 타입 및 미리보기 처리
+        const file = files[0]; // 첫 번째 이미지만 처리
+        if (!file.type.match("image/.*")) {
+            alert('이미지 파일만 업로드가 가능합니다.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = createElement(e.target.result, file.name);
+            imagePreview.innerHTML = ''; // 기존 이미지 제거
+            imagePreview.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+
+        // 파일 이름을 업로드 필드에 표시하고 필드를 비활성화
+        const uploadName = e.currentTarget.parentElement.querySelector('.upload-name');
+        uploadName.value = file.name;
+        uploadName.disabled = true;
+    }
+
+    document.querySelectorAll('.real-upload').forEach(input => {
+        input.addEventListener('change', getImageFiles);
+    });
+
+    function createElement(src, fileName) {
+        const li = document.createElement('li');
+        const img = document.createElement('img');
+        img.src = src;
+        img.setAttribute('data-file', fileName);
+        li.appendChild(img);
+
+        return li;
+    }
+
+    // 탭메뉴
+
+    const tabList = document.querySelectorAll('.room-tab_menu .list li');
+    const contents = document.querySelectorAll('.room-tab_menu .cont_area .cont')
+    let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+
+
+    for (var i = 0; i < tabList.length; i++) {
+        tabList[i].querySelector('.btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            for (var j = 0; j < tabList.length; j++) {
+                // 나머지 버튼 클래스 제거
+                tabList[j].classList.remove('is_on');
+
+                // 나머지 컨텐츠 display:none 처리
+                contents[j].style.display = 'none';
+            }
+
+            // 버튼 관련 이벤트
+            this.parentNode.classList.add('is_on');
+
+            // 버튼 클릭시 컨텐츠 전환
+            activeCont = this.getAttribute('href');
+            document.querySelector(activeCont).style.display = 'block';
+        });
+    }
+
+</script>
+</body>
+
+</html>
