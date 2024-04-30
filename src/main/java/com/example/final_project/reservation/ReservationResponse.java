@@ -74,14 +74,13 @@ public class ReservationResponse {
         private Integer reservationId; // 예약 번호
         private Integer userId; // 예약한 유저의 번호
         private String stayName; // 예약한 숙소의 이름
-        private Integer roomId; // 예약한 객실의 번호
-        private String roomName; // 예약한 객실의 이름
-        private Integer date; // 숙박하는 날짜 수 (ex.5박)
+        private String stayAddress; // 숙소 주소
         private LocalDate checkInDate; // 체크인 날짜
         private LocalTime checkInTime; // 체크인 시간
         private LocalDate checkOutDate; // 체크아웃 날짜
         private LocalTime checkOutTime; // 체크아웃 시간
-        private String stayAddress; // 숙소 주소
+        private Integer roomId; // 예약한 객실의 번호
+        private String roomName; // 예약한 객실의 이름
         private String reservationName; // 예약자 대표 이름
         private String reservationTel; // 예약자 대표 연락처
         private LocalDateTime payAt; // 결제 일자
@@ -92,14 +91,13 @@ public class ReservationResponse {
             this.reservationId = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.stayName = room.getStay().getName();
-            this.roomId = reservation.getRoom().getId();
-            this.roomName = room.getName();
-            this.date = DateUtil.getDateCount(reservation);
+            this.stayAddress =  room.getStay().getAddress();
             this.checkInDate = reservation.getCheckInDate();
             this.checkInTime = room.getRoomInformation().getCheckIn();
             this.checkOutDate = reservation.getCheckOutDate();
             this.checkOutTime = room.getRoomInformation().getCheckOut();
-            this.stayAddress =  room.getStay().getAddress();
+            this.roomId = reservation.getRoom().getId();
+            this.roomName = room.getName();
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.payAt = pay.getCreatedAt();
