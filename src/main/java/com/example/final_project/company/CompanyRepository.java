@@ -8,6 +8,9 @@ import java.util.Optional;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
+    // 회원가입
+    Optional<Company> findByEmail(@Param("email")String email);
+
     // 로그인 인증 쿼리
     @Query("select c from Company c where c.email = :email and c.password = :password")
     Optional<Company> findByIdAndPassword(@Param("email") String email, @Param("password") String password);

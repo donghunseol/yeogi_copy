@@ -14,12 +14,12 @@ public class CompanyRestController {
     private final CompanyService companyService;
 
     //로그인
-   @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody CompanyRequest.LoginDTO reqDTO){
-
-        String jwt = companyService.login(reqDTO);
-
-        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt)
-               .body(new ApiUtil<>(null));
-    }
+//   @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody CompanyRequest.LoginDTO reqDTO){
+//
+//        String jwt = companyService.login(reqDTO);
+//
+//        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt)
+//               .body(new ApiUtil<>(null));
+//    }
 }

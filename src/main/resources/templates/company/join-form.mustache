@@ -13,11 +13,13 @@
         <div class="join-content">
             <p class="title">비즈니스 회원가입</p>
             <div class="join-form-wrapper">
-                <form id="emailForm" method="post" action="ProcessEmailServlet">
+                <form method="post" action="/company/join" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="reportCount" value="0">
+                    <input type="hidden" name ="state" value="PROGRESSING">
                     <div class="join-form-item">
                         <label for="emailId">이메일</label>
                         <div class="input-wrapper email">
-                            <input type="text" id="emailId" name="emailId" value="" placeholder="이메일 입력">
+                            <input type="text" id="emailId" name="email" value="" placeholder="이메일 입력">
                             <span>@</span>
                             <input id="textEmail" name="textEmail" placeholder="이메일을 선택하세요.">
                             <select id="select" name="select">
@@ -34,40 +36,52 @@
                     <div class="join-form-item">
                         <label for="join-password">비밀번호</label>
                         <div class="input-wrapper password">
-                            <input type="password" id="join-password" oninput="pwCheck()" placeholder="비밀번호">
+                            <input type="password" id="join-password" oninput="pwCheck()" placeholder="비밀번호" name="password" value="1234">
                         </div>
                     </div>
                     <div class="join-form-item">
                         <label for="join-password2">비밀번호 확인</label>
                         <div class="input-wrapper password">
-                            <input type="password" id="join-password2" oninput="pwCheck()" placeholder="비밀번호 확인">
+                            <input type="password" id="join-password2" oninput="pwCheck()" placeholder="비밀번호 확인" value="1234">
                             <span  class="password-content"></span>
+                        </div>
+                    </div>
+                    <div class="join-form-item">
+                        <label for="join-password">사업자 이름</label>
+                        <div class="input-wrapper phone">
+                            <input type="text" id="name" name="name" value="김지훈">
+                        </div>
+                    </div>
+                    <div class="join-form-item">
+                        <label for="join-password">등록 상호명</label>
+                        <div class="input-wrapper phone">
+                            <input type="text" id="businessName" name="businessName" value="야놀자">
                         </div>
                     </div>
                     <div class="join-form-item">
                         <label for="join-password">전화번호</label>
                         <div class="input-wrapper phone">
-                            <input type="text" id="phoneNumber" oninput="hypenTel(this)" maxlength="13">
+                            <input type="text" id="phoneNumber" oninput="hypenTel(this)" maxlength="13" name="phone" value="010-3332-5252">
                         </div>
                     </div>
                     <div class="join-form-item">
                         <label for="join-password">사업자 등록번호</label>
                         <div class="input-wrapper business-number">
-                            <input type="text" id="businessNumber" oninput="hypenTel2(this)" maxlength="12">
+                            <input type="text" id="businessNumber" oninput="hypenTel2(this)" maxlength="12" name="businessNumber" value="12-205-54123">
                         </div>
                     </div>
                     <div class="join-form-item">
                         <label for="join-password">주소찾기</label>
                         <div class="input-wrapper address">
-                            <input type="text" id="sample6_postcode" placeholder="우편번호">
+                            <input type="text" id="sample6_postcode" placeholder="우편번호" >
                             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                            <input type="text" id="sample6_address" placeholder="주소"><br>
+                            <input type="text" id="sample6_address" placeholder="주소" name="businessAddress" value="주소에용"><br>
                             <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                             <input type="text" id="sample6_extraAddress" placeholder="참고항목">
                         </div>
                     </div>
                     <div class="button-wrapper">
-                        <button type="submit" class="btn black join">제출하기</button>
+                        <button id="emailForm"  type="submit" class="btn black join">제출하기</button>
                     </div>
                 </form>
             </div>
@@ -275,12 +289,12 @@
     }
 
     // 폼 제출 방지 및 폼 제출 함수 호출
-    $(function() {
-        $('#emailForm').submit(function(e) {
-            e.preventDefault();
-            submitForm();
-        });
-    });
+    // $(function() {
+    //     $('#emailForm').submit(function(e) {
+    //         e.preventDefault();
+    //         submitForm();
+    //     });
+    // });
 
 </script>
 </html>

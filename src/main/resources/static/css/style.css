@@ -1182,13 +1182,16 @@ p.tab-title {
 }
 
 .stay-detail .content .text-wrapper p.text-item span.body {
+
+}
+
+.stay-detail .content .text-wrapper p.text-item span.body.room-txt{
     width: 70px;
     padding: 0 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .stay-detail .content.bottom {
     display: flex;
     flex-direction: column;

@@ -3,7 +3,7 @@
 <body>
 <main role="main">
     <div class="login-form">
-        <form action="#" method="post">
+        <form action="/company/login" method="post">
             <div class="form-wrapper">
                 <figure>
                     <img src="image/main_logo.jpg" alt="로고이미지">
@@ -11,21 +11,16 @@
                 <p class="login-title">비즈니스 회원 로그인</p>
                 <div class="input-wrapper">
                     <label for="admin-id">아이디</label>
-                    <input type="text" id="admin-id" class="input">
+                    <input type="text" id="admin-id" class="input" name="email">
                 </div>
                 <div class="input-wrapper">
                     <label for="admin-password">비밀번호</label>
-                    <input type="password" id="admin-password">
+                    <input type="password" id="admin-password" name="password">
                 </div>
-
-                <!-- <button method="post" type="submit" action="index.html">
-                  로그인
-                </button>
-                -->
-                <a class="login-btn" href="index.html">로그인</a>
+                <button class="btn black">로그인</button>
                 <div class="login-bottom">
                     <p>계정이 없으신가요?</p>
-                    <a href="join.html">비즈니스 회원가입</a>
+                    <a href="/company/join-form">비즈니스 회원가입</a>
                 </div>
             </div>
         </form>
