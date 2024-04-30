@@ -1,0 +1,159 @@
+{{> company/layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>객실 상세보기</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">스탠다드</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="img-wrapper">
+                                    <img src="image/room1.jpg" alt="룸 이미지">
+                                </div>
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-house"></i><em>객실유형</em></span>
+                                        <span class="body">스탠다드</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i
+                                                    class="fa-solid fa-location-dot"></i><em>최소인원</em></span>
+                                        <span class="body">2명</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i
+                                                    class="fa-solid fa-layer-group"></i><em>최대인원</em></span>
+                                        <span class="body">3명</span>
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="content bottom">
+                                <div class="room-head">
+                                    <p class="sub-title">호실리스트</p>
+                                    <form action="/room/register" method="get">
+                                        <button class="btn black">객실 추가하기</button>
+                                    </form>
+                                </div>
+                                <ul>
+                                    <!-- <li class="unknown">
+                                        <div class="item">
+                                            <span>등록된 객실이 없습니다.</span>
+                                        </div>
+                                    </li> -->
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room1.jpg" alt="객실 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+
+                                                <p class="text-item">
+                                                    <span class="head"><em>숙박호실</em></span>
+                                                    <span class="body">405호</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약상태</em></span>
+                                                    <span class="body">예약가능</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>결제상태</em></span>
+                                                    <span class="body">대기중</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약날짜</em></span>
+                                                    <span class="body"></span>
+                                                </p>
+                                            </div>
+                                            <form action="/reservation/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">예약 상세내역</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room1.jpg" alt="객실 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+
+                                                <p class="text-item">
+                                                    <span class="head"><em>숙박호실</em></span>
+                                                    <span class="body">406호</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약상태</em></span>
+                                                    <span class="body">예약완료</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>결제상태</em></span>
+                                                    <span class="body">결제완료</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약날짜</em></span>
+                                                    <span class="body">24.05.25 ~ 24.05.27</span>
+                                                </p>
+                                            </div>
+                                            <form action="/reservation/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">예약 상세내역</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item">
+                                            <div class="img-wrapper">
+                                                <img src="image/room1.jpg" alt="객실 이미지">
+                                            </div>
+                                            <div class="text-wrapper">
+
+                                                <p class="text-item">
+                                                    <span class="head"><em>숙박호실</em></span>
+                                                    <span class="body">407호</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약상태</em></span>
+                                                    <span class="body">예약완료</span>
+                                                    <!-- wait -->
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>결제상태</em></span>
+                                                    <span class="body">만나서 결제</span>
+                                                </p>
+                                                <p class="text-item">
+                                                    <span class="head"><em>예약날짜</em></span>
+                                                    <span class="body">24.04.09 ~ 24.04.15</span>
+                                                </p>
+                                            </div>
+                                            <form action="/reservation/detail" method="get" style="width: 100%;">
+                                                <div class="button-wrapper">
+                                                    <button class="btn black">예약 상세내역</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
