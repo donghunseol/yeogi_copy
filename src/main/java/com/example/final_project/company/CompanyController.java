@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +28,6 @@ public class CompanyController {
         List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
         return respDTO;
     }
-
 
     // 로그인
     @PostMapping("/company/login")
@@ -77,7 +73,6 @@ public class CompanyController {
 
         return "/company/stay/main";
     }
-
 
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")

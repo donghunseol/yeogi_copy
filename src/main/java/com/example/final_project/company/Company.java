@@ -77,4 +77,10 @@ public class Company {
         this.reportCount = company.getReportCount();
         this.createdAt = company.getCreatedAt();
     }
+
+    public void updateCompany(CompanyRequest.UpdateDTO reqDTO){
+        this.id = reqDTO.getCompanyId();
+        this.password = reqDTO.getPassword();
+        this.phone = reqDTO.getPhone();
+    }
 }
