@@ -1,6 +1,5 @@
 package com.example.final_project.reservation;
 
-import com.example.final_project.company.Company;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import org.assertj.core.api.Assertions;
@@ -16,7 +15,7 @@ public class ReservationServiceTest {
     ReservationService reservationService;
 
     @Test
-    public void reservationList_test(){
+    public void userReservationList_test(){
         // given
         SessionUser sessionUser = SessionUser.builder()
                 .id(1)

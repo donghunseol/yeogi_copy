@@ -71,7 +71,7 @@ public class AdminResponse {
 
     // 관리자 페이지에서 출력할 특정 기업의 숙소 정보
     @Data
-    public static class companyStayListDTO{
+    public static class companyStayDetailDTO{
         private Integer id; // 숙소 번호
         private Company company; // 해당 숙소의 기업
         private String name; // 숙소 이름
@@ -84,7 +84,7 @@ public class AdminResponse {
         private List<Room> rooms = new ArrayList<>(); // 객실 리스트
         private LocalDateTime createdAt; // 숙소 등록 일자
 
-        public companyStayListDTO(Stay stay, List<Room> rooms){
+        public companyStayDetailDTO(Stay stay, List<Room> rooms){
             this.id = stay.getId();
             this.company = stay.getCompany();
             this.name = stay.getName();

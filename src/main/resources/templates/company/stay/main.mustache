@@ -34,6 +34,26 @@
                                         </form>
                                     </div>
                                 </div>
+
+                                {{#stayList}}
+                                    <div class="loging-item">
+                                        <div class="img-wrapper">
+                                            <img src="{{imagePath}}" alt="숙소사진">
+                                        </div>
+                                        <div class="loging-content">
+                                            <div class="txt-wrapper">
+                                                <p class="name">{{stayName}}</p>
+                                                <span class="address">주소 : {{stayAddress}}</span>
+                                                <span class="category">분류 : {{stayCategory}}</span>
+                                            </div>
+                                            <form action="/stay/detail" method="get">
+                                                <div class="button-wrapper">
+                                                    <button>상세 보기</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {{/stayList}}
                             </li>
                         </ul>
                     </div>
