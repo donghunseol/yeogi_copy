@@ -36,7 +36,7 @@ public class CompanyController {
         Company company = companyService.login(reqDTO);
         session.setAttribute("sessionUser",company);
 
-        return "redirect:/company/main";
+        return "redirect:/manage/stays";
     }
 
     // 회원가입
@@ -44,7 +44,7 @@ public class CompanyController {
     public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
         Company company = companyService.joinAndLogin(reqDTO);
         session.setAttribute("sessionUser", company);
-        return "redirect:/company/main";
+        return "redirect:/manage/stays";
     }
 
     // 로그인 폼
@@ -67,33 +67,30 @@ public class CompanyController {
         return "redirect:/company";
     }
 
-    // 숙소관리 메인페이지
-    @GetMapping("/company/main")
-    public String main(){
-
-        return "/company/stay/main";
-    }
-
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")
     public String companyStayList(HttpServletRequest request) {
-        SessionCompany sessionCompany = new SessionCompany.SessionCompanyBuilder()
-                .id(1)
-                .email("com1@nate.com")
-                .businessName("김숙박회사")
-                .businessNumber("108-32-34324")
-                .businessAddress("부산시 해운대구")
-                .phone("01011112222")
-                .name("김회사")
-                .state(ACTIVE)
-                .reportCount(0)
-                .createdAt(now())
-                .build();
-        session.setAttribute("sessionCompany", sessionCompany);
-//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-        List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(sessionCompany.getId());
+        Company company = (Company) session.getAttribute("sessionUser");
+        List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(company.getId());
         request.setAttribute("stayList", respDTO);
         return "/company/stay/main";
+    }
+
+    // 정보수정 폼
+    @GetMapping("/company/information")
+    public String lnformation(){
+
+        return "/company/information/information";
+    }
+
+    // 정보수정
+    @PostMapping("/information/update/{companyId}")
+    public String infoUpdate(@PathVariable Integer companyId,CompanyRequest.UpdateDTO reqDTO){
+
+        Company company = companyService.updateCompany(companyId,reqDTO);
+        session.setAttribute("sessionUser",company);
+
+        return "redirect:/manage/stays";
     }
 
 }
