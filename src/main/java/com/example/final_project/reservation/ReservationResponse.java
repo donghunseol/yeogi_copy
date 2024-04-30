@@ -42,6 +42,8 @@ public class ReservationResponse {
         private Integer reservationId; // 예약 번호
         private Integer userId; // 예약한 유저의 번호
         private String stayName; // 예약한 숙소의 이름
+        private String stayAddress; // 예약한 숙소의 주소
+        private Integer price; // 예약한 객실의 가격
         private Integer roomId; // 예약한 객실의 번호
         private String roomName; // 예약한 객실의 이름
         private Integer date; // 숙박하는 날짜 수 (ex.5박)
@@ -54,6 +56,8 @@ public class ReservationResponse {
             this.reservationId = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.stayName = room.getStay().getName();
+            this.stayAddress = room.getStay().getAddress();
+            this.price = room.getPrice();
             this.roomId = reservation.getRoom().getId();
             this.roomName = room.getName();
             this.date = DateUtil.getDateCount(reservation);
