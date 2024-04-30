@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +28,6 @@ public class CompanyController {
         List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
         return respDTO;
     }
-
 
     // 로그인
     @PostMapping("/company/login")
@@ -78,6 +74,23 @@ public class CompanyController {
         List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(company.getId());
         request.setAttribute("stayList", respDTO);
         return "/company/stay/main";
+    }
+
+    // 정보수정 폼
+    @GetMapping("/company/information")
+    public String lnformation(){
+
+        return "/company/information/information";
+    }
+
+    // 정보수정
+    @PostMapping("/information/update/{companyId}")
+    public String infoUpdate(@PathVariable Integer companyId,CompanyRequest.UpdateDTO reqDTO){
+
+        Company company = companyService.updateCompany(companyId,reqDTO);
+        session.setAttribute("sessionUser",company);
+
+        return "redirect:/manage/stays";
     }
 
 }

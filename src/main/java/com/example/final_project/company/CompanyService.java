@@ -40,7 +40,6 @@ public class CompanyService {
         return sessionUser;
     }
 
-
     // 회원가입
     @Transactional
     public Company joinAndLogin(CompanyRequest.JoinDTO reqDTO) {
@@ -68,6 +67,19 @@ public class CompanyService {
         }).collect(Collectors.toList());
 
         return respDTO;
+    }
+
+    // 회원수정
+    @Transactional
+    public Company updateCompany(Integer companyId,CompanyRequest.UpdateDTO reqDTO){
+        // 인증처리
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception400("로그인이 필요한 서비스 입니다."));
+        System.out.println("결과 값 =====================================" +reqDTO);
+        // 수정
+        company.updateCompany(reqDTO);
+
+        return company;
     }
 
 
