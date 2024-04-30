@@ -183,21 +183,32 @@ values (1, 1, '감사합니다!', 'FLAWLESS', now()),
 -- report 더미 생성
 -- user 가 user review 신고
 insert into report_tb(review_id, user_id, result, created_at)
-values ('1', '2', 'PROCEEDING', now()),
-       ('2', '3', 'PROCEEDING', now()),
-       ('3', '1', 'PROCEEDING', now());
+values (1, 2, 'PROCEEDING', now()),
+       (2, 3, 'PROCEEDING', now()),
+       (3, 1, 'PROCEEDING', now());
 -- company 가 user review 신고
 insert into report_tb(review_id, company_id, result, created_at)
-values ('1', '1', 'PROCEEDING', now()),
-       ('2', '2', 'PROCEEDING', now()),
-       ('3', '3', 'PROCEEDING', now());
+values (1, 1, 'PROCEEDING', now()),
+       (2, 2, 'PROCEEDING', now()),
+       (3, 3, 'PROCEEDING', now());
 -- user 가 company review 신고
 insert into report_tb(review_comment_id, user_id, result, created_at)
-values ('1', '1', 'PROCEEDING', now()),
-       ('2', '2', 'PROCEEDING', now()),
-       ('3', '3', 'PROCEEDING', now());
+values (1, 1, 'PROCEEDING', now()),
+       (2, 2, 'PROCEEDING', now()),
+       (3, 3, 'PROCEEDING', now());
 -- company 가 company review 신고
 insert into report_tb(review_comment_id, company_id, result, created_at)
-values ('1', '2', 'PROCEEDING', now()),
-       ('2', '3', 'PROCEEDING', now()),
-       ('3', '1', 'PROCEEDING', now());
+values (1, 2, 'PROCEEDING', now()),
+       (2, 3, 'PROCEEDING', now()),
+       (3, 1, 'PROCEEDING', now());
+
+-- stayImage 더미 생성
+insert into stay_image_tb(stay_id, name, path, created_at)
+values (1, 'hotel.png', '/images/hotel.png', now()),
+       (1, 'room1.jpg', '/images/room1.jpg', now()),
+       (1, 'room2.jpg', '/images/room2.jpg', now()),
+       (2, 'hotel.png', '/images/hotel.png', now()),
+       (2, 'room1.jpg', '/images/room1.jpg', now()),
+       (2, 'caption.jpg', '/images/caption.jpg', now()),
+       (3, 'room1.jpg', '/images/room1.jpg', now()),
+       (3, 'room2.jpg', '/images/room2.jpg', now());

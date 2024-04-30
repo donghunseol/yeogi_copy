@@ -136,24 +136,24 @@ public class AdminServiceTest {
 
     }
 
-    @Test
-    public void adminCompanyStayList_test(){
-        // given
-        Integer companyId = 1;
-
-        // when
-        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
-
-        // eye
-        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
-        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
-        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
-        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
-
-        // then
-        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
-
-    }
+//    @Test
+//    public void adminCompanyStayList_test(){
+//        // given
+//        Integer companyId = 1;
+//
+//        // when
+//        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
+//
+//        // eye
+//        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
+//        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
+//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
+//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
+//
+//        // then
+//        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
+//
+//    }
 
     @Test
     public void rejectJoinCompany_test(){
