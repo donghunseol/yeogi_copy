@@ -6,7 +6,6 @@ import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +46,12 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 
-    // 예약 내역 페이지 - 목록
+    // 로그인한 회원의 예약 내역 페이지 - 목록
     @GetMapping("/my-reservations")
-    public List<ReservationResponse.ListDTO> userReservationList() {
+    public ResponseEntity<?> userReservationList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
-        return respDTO;
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 }
