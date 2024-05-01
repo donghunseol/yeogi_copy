@@ -27,11 +27,11 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false) // optional = false를 적어야 Not Null이 된다.
     @JoinColumn(name = "user_id")
-    private User writer; // 리뷰 남긴 유저 번호
+    private User writer; // 리뷰쓴 유저
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "stay_id")
-    private Stay stay; // 리뷰한 객실 번호
+    private Stay stay; // 리뷰한 숙소
 
     @Column(nullable = false)
     private Integer score; // 평점
@@ -48,10 +48,10 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    private Review parent;
+    private Review parent; // 부모댓글
 
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private List<Review> children = new ArrayList<>();
+    private List<Review> children = new ArrayList<>(); //자식댓글 (대댓글)
 
     @Builder
     public Review(Integer id, User user, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
