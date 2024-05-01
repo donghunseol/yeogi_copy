@@ -18,10 +18,11 @@ values ('admin1', '1234', now()),
        ('admin3', '1234', now());
 
 -- stay 더미 생성
-insert into stay_tb(company_id, name, category, address, intro, information, created_at,state)
-values (1, '호텔 블루 하버', '호텔', '부산시 해운대구 좌동순환로 99 (좌동)', '해운대 최고의 오션뷰를 자랑하는 숙소!', '객실 내 취사 금지', now(),'TRUE'),
-       (2, '호텔 오아시스', '호텔', '경상남도 창원시 원이대로 998 (상남동)', '창원시 최고의 반쪽 숙소!', '객실 내 취사 금지', now(),'TRUE'),
-       (3, '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(),'TRUE');
+insert into stay_tb(company_id, name, category, address, intro, information, created_at, state)
+values ('1', '호텔 블루 하버', '호텔', '부산시 해운대구 좌동순환로 99 (좌동)', '해운대 최고의 오션뷰를 자랑하는 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
+       ('2', '호텔 오아시스', '호텔', '경상남도 창원시 원이대로 998 (상남동)', '창원시 최고의 반쪽 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
+       ('3', '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
+       ('3', '모텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(), 'TRUE');
 
 -- option 더미 생성
 insert into option_tb(stay_id, name, icon_name, created_at)
