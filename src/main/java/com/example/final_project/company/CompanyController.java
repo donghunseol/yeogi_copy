@@ -6,15 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-import static com.example.final_project._core.enums.CompanyEnum.ACTIVE;
-import static java.time.LocalDateTime.now;
 
 @RequiredArgsConstructor
 @Controller
@@ -78,6 +71,18 @@ public class CompanyController {
         List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(company.getId());
         request.setAttribute("stayList", respDTO);
         return "/company/stay/main";
+    }
+
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+    @GetMapping("/manage/stays/{stayId}/rooms")
+    public String companyRoomList(HttpServletRequest request, @PathVariable Integer stayId) {
+        Company company = (Company) session.getAttribute("sessionUser");
+        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+        request.setAttribute("stayList", stayRespDTO);
+
+        List<CompanyResponse.companyStayDetailDTO> roomRespDTO = companyService.companyStayDetailList(stayId);
+        request.setAttribute("roomList", roomRespDTO);
+        return "/company/stay/detail";
     }
 
 }

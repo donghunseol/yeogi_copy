@@ -1,12 +1,8 @@
 package com.example.final_project.company;
 
-import com.example.final_project._core.errors.exception.Exception400;
-import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
-import com.example.final_project._core.utils.JwtUtil;
-import com.example.final_project.user.SessionUser;
-import com.example.final_project.user.User;
-import com.example.final_project.user.UserRequest;
+import com.example.final_project.room.Room;
+import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.stay_image.StayImage;
@@ -26,6 +22,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final StayRepository stayRepository;
     private final StayImageRepository stayImageRepository;
+    private final RoomRepository roomRepository;
 
     //로그인
     @Transactional
@@ -71,7 +68,14 @@ public class CompanyService {
     }
 
 
-//    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-//    public List<CompanyResponse.>
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
+        List<Room> roomList = roomRepository.findByStayId(stayId);
 
+        List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
+            return new CompanyResponse.companyStayDetailDTO(room);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
 }

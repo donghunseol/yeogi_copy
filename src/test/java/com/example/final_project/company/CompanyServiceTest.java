@@ -31,4 +31,19 @@ public class CompanyServiceTest {
 
     }
 
+    @Test
+    public void companyStayDetailList_test(){
+        // given
+        Integer stayId = 1;
+
+        // when
+        List<CompanyResponse.companyStayDetailDTO> companyStayDetailList = companyService.companyStayDetailList(stayId);
+
+        // eye
+        System.out.println("companyStayDetailList_test getFirst : " + companyStayDetailList.getFirst());
+
+        // then
+
+
+    }
 }
