@@ -19,17 +19,17 @@ public class StayRequest {
         private String address; // 숙소 지역 v
         private Integer price; // 숙소 가격 v
         private Integer person; // 인원 수 V
-        private LocalDate checkIn; // 입실 날짜
-        private LocalDate checkOut; // 퇴실 날짜
+        private LocalDate checkInDate; // 입실 날짜
+        private LocalDate checkOutDate; // 퇴실 날짜
 
         @Builder
-        public SearchDTO(String name, String address, Integer price, LocalDate checkIn, LocalDate checkOut, Integer person) {
+        public SearchDTO(String name, String address, Integer price, Integer person, LocalDate checkInDate, LocalDate checkOutDate) {
             this.name = name;
             this.address = address;
             this.price = price;
-            this.checkIn = checkIn;
-            this.checkOut = checkOut;
             this.person = person;
+            this.checkInDate = checkInDate;
+            this.checkOutDate = checkOutDate;
         }
     }
 

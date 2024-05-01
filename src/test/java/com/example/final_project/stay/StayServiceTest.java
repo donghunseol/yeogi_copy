@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
@@ -16,6 +17,8 @@ public class StayServiceTest {
         // given
         StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
                 .person(3)
+                .checkInDate(LocalDate.of(2024, 5, 24))
+                .checkOutDate(LocalDate.of(2024, 6, 2))
                 .build();
 
         // when
