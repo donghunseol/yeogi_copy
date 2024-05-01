@@ -15,8 +15,7 @@ public class StayServiceTest {
     public void getSearchStayList_test() {
         // given
         StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
-                .address("서울")
-                .price(190000)
+                .person(3)
                 .build();
 
         // when
@@ -24,7 +23,10 @@ public class StayServiceTest {
 
         // eye
         for (StayResponse.SearchListDTO stay : stays) {
-            System.out.println("getSearchStayList_test/stay/name : " + stay.getName());
+            // System.out.println("getSearchStayList_test/stay/id : " + stay.getId());
+            // System.out.println("getSearchStayList_test/stay/name : " + stay.getName());
+            // System.out.println("getSearchStayList_test/stay/intro : " + stay.getIntro());
+            System.out.println("getSearchStayList_test/stay : " + stay);
         }
 
         // then

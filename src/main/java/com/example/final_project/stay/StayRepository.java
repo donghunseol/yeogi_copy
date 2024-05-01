@@ -18,11 +18,16 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
 
     // 숙소 검색
     @Query("""
-            SELECT s, r FROM Stay s
+            SELECT s FROM Stay s
             JOIN FETCH Room r ON s.id = r.stay.id
+            JOIN FETCH RoomInformation ri ON s.id = ri.room.stay.id
             WHERE (:stayName IS NULL OR s.name LIKE %:stayName%)
             AND (:stayArea IS NULL OR s.address LIKE %:stayArea%)
             AND (:roomPrice IS NULL OR r.price <= :roomPrice)
+            AND (:person IS NULL OR :person <= ri.maxPerson)
             """)
-    List<Stay> findBySearchStay(@Param("stayName") String stayName, @Param("stayArea") String stayArea, @Param("roomPrice") Integer roomPrice);
+    List<Stay> findBySearchStay(@Param("stayName") String stayName,
+                                @Param("stayArea") String stayArea,
+                                @Param("roomPrice") Integer roomPrice,
+                                @Param("person") Integer person);
 }
