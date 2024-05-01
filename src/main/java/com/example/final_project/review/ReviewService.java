@@ -51,7 +51,7 @@ public class ReviewService {
         return  new ReviewResponse.Save(stayId, new ReviewResponse.Save.UserDTO(user), review.getContent(), review.getScore());
     }
 
-    // 리뷰 조회
+    // 댓글 조회
     @Transactional
     public List<ReviewResponse.Find> select(Integer stayId) {
         // 리스트 조회
@@ -83,4 +83,21 @@ public class ReviewService {
 
         return roots;
     }
+
+    //댓글 삭제
+    @Transactional
+    public ReviewResponse.Delete delete(Integer reviewId){
+
+        // 리뷰찾기
+        Review review = reviewRepository.findReviewByIdWithParent(reviewId);
+
+        //삭제
+        review.changeIsDeleted(review.getIsDelete());
+
+        return new ReviewResponse.Delete(review.getIsDelete());
+    }
+
+
+
+
 }

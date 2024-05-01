@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -48,6 +50,9 @@ public class Review {
     @JoinColumn(name = "parent_id")
     private Review parent;
 
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Review> children = new ArrayList<>();
+
     @Builder
     public Review(Integer id, User user, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
 
@@ -77,6 +82,9 @@ public class Review {
     }
 
     public void changeIsDeleted(ReviewEnum isDelete) {
-        this.isDelete = isDelete;
+        if (isDelete == ReviewEnum.FLAWLESS){
+            this.isDelete = ReviewEnum.COMPLETE;
+        }
     }
+
 }

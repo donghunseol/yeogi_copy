@@ -36,4 +36,14 @@ public class ReviewRestController {
         return ResponseEntity.ok()
                 .body(new ApiUtil<>(respDTO));
     }
+
+    // 댓글삭제
+    @PutMapping("/api/review/{reviewId}")
+    public ResponseEntity<?> delete(@PathVariable Integer reviewId){
+
+        ReviewResponse.Delete respDTO = reviewService.delete(reviewId);
+
+        return ResponseEntity.ok()
+                .body(new ApiUtil<>(respDTO));
+    }
 }

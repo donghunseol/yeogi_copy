@@ -88,4 +88,14 @@ public class ReviewResponse {
             }
         }
     }
+
+    //리뷰삭제 응답 DTO
+    @Data
+    public static class Delete{
+        private ReviewEnum state;
+
+        public Delete(ReviewEnum state) {
+            this.state = state;
+        }
+    }
 }
