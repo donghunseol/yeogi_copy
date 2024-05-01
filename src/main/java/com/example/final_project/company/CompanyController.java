@@ -17,14 +17,13 @@ public class CompanyController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-    // 예약 현황 확인 (목록)
-    @GetMapping("/reservations/status")
-    public List<ReservationResponse.ListDTO> compReservationList() {
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
-        return respDTO;
-    }
-
+//    // 예약 현황 확인 (목록)
+//    @GetMapping("/reservations/status")
+//    public List<ReservationResponse.ListDTO> compReservationList() {
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
+//        return respDTO;
+//    }
 
     // 로그인
     @PostMapping("/company/login")
@@ -83,6 +82,23 @@ public class CompanyController {
         List<CompanyResponse.companyStayDetailDTO> roomRespDTO = companyService.companyStayDetailList(stayId);
         request.setAttribute("roomList", roomRespDTO);
         return "/company/stay/detail";
+    }
+
+    // 정보수정 폼
+    @GetMapping("/company/information")
+    public String information(){
+
+        return "/company/information/information";
+    }
+
+    // 정보수정
+    @PostMapping("/information/update/{companyId}")
+    public String infoUpdate(@PathVariable Integer companyId,CompanyRequest.UpdateDTO reqDTO){
+
+        Company company = companyService.updateCompany(companyId,reqDTO);
+        session.setAttribute("sessionUser",company);
+
+        return "redirect:/manage/stays";
     }
 
 }

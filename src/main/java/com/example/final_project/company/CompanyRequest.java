@@ -69,4 +69,17 @@ public class CompanyRequest {
         private String password;
     }
 
+    // 업데이트
+    @Data
+    public static class UpdateDTO{
+        private Integer companyId;
+        @NotEmpty(message = "비밀번호를 입력해주세요")
+        @Size(min = 3, max = 20, message = "비밀번호는 3자 이상이거나 20자를 초과할 수 없습니다")
+        private String password;
+
+        @NotEmpty(message = "전화번호를 입력해주세요")
+        @Pattern(regexp = "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}")
+        private String phone;
+
+    }
 }
