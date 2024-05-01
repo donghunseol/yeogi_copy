@@ -11,15 +11,13 @@ public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
 
-    @GetMapping("/")
-    public String login(){
-
+    @GetMapping("/admin")
+    public String login() {
         return "/admin/login";
     }
 
     @GetMapping("/admin/join")
-    public String join(){
+    public String join() {
         return "/admin/customer-c/report";
     }
-
 }
