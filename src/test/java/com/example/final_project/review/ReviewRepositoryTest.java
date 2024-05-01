@@ -27,4 +27,14 @@ public class ReviewRepositoryTest {
         Assertions.assertThat(reviewList.getFirst().getContent()).isEqualTo("정말 좋았어요!");
 
     }
+
+    @Test
+    public void findAllByStayId_test(){
+        //given
+        Integer stayId = 1;
+        //when
+        List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
+        //then
+        Assertions.assertThat(reviewList.getFirst().getContent()).isEqualTo("정말 좋았어요!");
+    }
 }
