@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class RoomInformationService {
-
     private final RoomInformationRepository roomInformationRepository;
 }
