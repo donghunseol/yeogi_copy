@@ -93,7 +93,7 @@ public class StayService {
     public List<StayResponse.SearchListDTO> getSearchStayList(StayRequest.SearchDTO reqDTO) {
         List<StayResponse.SearchListDTO> resultList;
 
-        resultList = stayRepository.findBySearchStay(reqDTO.getName(), reqDTO.getAddress(), reqDTO.getPrice()).stream()
+        resultList = stayRepository.findBySearchStay(reqDTO.getName(), reqDTO.getAddress(), reqDTO.getPrice(), reqDTO.getPerson()).stream()
                 .map(StayResponse.SearchListDTO::new)
                 .toList();
 

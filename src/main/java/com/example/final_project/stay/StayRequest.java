@@ -15,25 +15,21 @@ public class StayRequest {
     // 검색 요청 DTO
     @Data
     public static class SearchDTO {
-        private String name; // 숙소 이름
-        private String address; // 숙소 지역
-        private String state; // 숙소 예약 여부
-        private Integer price; // 숙소 가격
-        private LocalDate checkIn; // 입실 시간
-        private LocalDate checkOut; // 퇴실 시간
-        private Integer minPerson; // 최소 인원
-        private Integer maxPerson; // 최대 인원
+        private String name; // 숙소 이름 v
+        private String address; // 숙소 지역 v
+        private Integer price; // 숙소 가격 v
+        private Integer person; // 인원 수 V
+        private LocalDate checkIn; // 입실 날짜
+        private LocalDate checkOut; // 퇴실 날짜
 
         @Builder
-        public SearchDTO(String name, String address, String state, Integer price, LocalDate checkIn, LocalDate checkOut, Integer minPerson, Integer maxPerson) {
+        public SearchDTO(String name, String address, Integer price, LocalDate checkIn, LocalDate checkOut, Integer person) {
             this.name = name;
             this.address = address;
-            this.state = state;
             this.price = price;
             this.checkIn = checkIn;
             this.checkOut = checkOut;
-            this.minPerson = minPerson;
-            this.maxPerson = maxPerson;
+            this.person = person;
         }
     }
 
