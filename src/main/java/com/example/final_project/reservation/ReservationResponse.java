@@ -36,6 +36,7 @@ public class ReservationResponse {
         }
     }
 
+    // 로그인한 회원의 예약 내역 페이지 - 목록
     // 예약 목록 뷰에 필요한 데이터
     @Data
     public static class ListDTO{
@@ -68,6 +69,7 @@ public class ReservationResponse {
         }
     }
 
+    // 예약 내역 조회 (상세보기)
     // 예약 상세보기 뷰에 필요한 데이터
     @Data
     public static class DetailDTO{
@@ -83,6 +85,8 @@ public class ReservationResponse {
         private String roomName; // 예약한 객실의 이름
         private String reservationName; // 예약자 대표 이름
         private String reservationTel; // 예약자 대표 연락처
+
+        // pay 관련 내용은 만약 플러터 쪽에서 안 되면 빼는 걸로
         private LocalDateTime payAt; // 결제 일자
         private Integer amount; // 결제 금액
         private String way; // 결제 수단

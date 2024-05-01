@@ -1,8 +1,6 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
-import com.example.final_project._core.enums.UserEnum;
-import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
@@ -13,10 +11,9 @@ import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
-import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
-import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
+import com.example.final_project.stay_image.StayImageRepository;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +36,7 @@ public class AdminService {
     private final ReviewRepository reviewRepository;
     private final StayRepository stayRepository;
     private final RoomRepository roomRepository;
+    private final StayImageRepository stayImageRepository;
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.userListDTO> adminUserList(){
@@ -99,16 +97,16 @@ public class AdminService {
         return reviewRepository.findByUserIdWithUserAndRoom(userId);
     }
 
-    // 특정 기업의 숙소 리스트
-    public List<AdminResponse.companyStayListDTO> adminCompanyStayList(Integer companyId){
-        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
-        List<AdminResponse.companyStayListDTO> respDTO = stayList.stream().map(stay -> {
-            List<Room> rooms = roomRepository.findByStayId(stay.getId());
-            return new AdminResponse.companyStayListDTO(stay,rooms);
-        }).collect(Collectors.toList());
 
-        return respDTO;
-    }
+//    public List<AdminResponse.companyStayListDTO> adminCompanyStayList(Integer companyId){
+//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+//        List<AdminResponse.companyStayListDTO> respDTO = stayList.stream().map(stay -> {
+//            List<Room> rooms = roomRepository.findByStayId(stay.getId());
+//            return new AdminResponse.companyStayListDTO(stay,rooms);
+//        }).collect(Collectors.toList());
+//
+//        return respDTO;
+//    }
 
     // 기업 가입 거절
     public void rejectJoinCompany(Integer companyId){

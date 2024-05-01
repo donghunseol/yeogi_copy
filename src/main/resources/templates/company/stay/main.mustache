@@ -1,0 +1,51 @@
+{{> company/layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>숙소관리</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">숙소리스트</p>
+                        <div class="link-wrapper">
+                            <a href="/stay/register">숙소등록</a>
+                        </div>
+                        <ul class="loging-list">
+                            <li>
+                                {{#stayList}}
+                                    <div class="loging-item">
+                                        <div class="img-wrapper">
+                                            <img src="{{imagePath}}" alt="숙소사진">
+                                        </div>
+                                        <div class="loging-content">
+                                            <div class="txt-wrapper">
+                                                <p class="name">{{stayName}}</p>
+                                                <span class="address">주소 : {{stayAddress}}</span>
+                                                <span class="category">분류 : {{stayCategory}}</span>
+                                            </div>
+                                            <form action="/manage/stays/{{stayId}}/rooms" method="get">
+                                                <div class="button-wrapper">
+                                                    <button>상세 보기</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {{/stayList}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

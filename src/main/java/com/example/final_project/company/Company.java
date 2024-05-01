@@ -63,4 +63,24 @@ public class Company {
         this.reportCount = reportCount;
         this.createdAt = createdAt;
     }
+
+    public Company(Company company) {
+        this.id = company.getId();
+        this.email = company.getEmail();
+        this.password = company.getPassword();
+        this.businessName = company.getBusinessName();
+        this.businessNumber = company.getBusinessNumber();
+        this.businessAddress = company.getBusinessAddress();
+        this.phone = company.getPhone();
+        this.name = company.getName();
+        this.state = company.getState();
+        this.reportCount = company.getReportCount();
+        this.createdAt = company.getCreatedAt();
+    }
+
+    public void updateCompany(CompanyRequest.UpdateDTO reqDTO){
+        this.id = reqDTO.getCompanyId();
+        this.password = reqDTO.getPassword();
+        this.phone = reqDTO.getPhone();
+    }
 }
