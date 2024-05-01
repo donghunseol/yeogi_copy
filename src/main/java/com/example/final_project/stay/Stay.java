@@ -81,7 +81,9 @@ public class Stay {
     }
 
 
-    public void deleteStay(StayRequest.DeleteDTO reqDTO) {
-        this.state = reqDTO.getState();
+    public void deleteStay(StayEnum state) {
+       if (state == StayEnum.TRUE){
+           this.state = StayEnum.FALSE;
+       }
     }
 }

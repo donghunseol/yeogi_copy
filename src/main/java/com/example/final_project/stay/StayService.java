@@ -65,7 +65,7 @@ public class StayService {
 
     //숙소 삭제
     @Transactional
-    public StayResponse.Delete delete(Integer stayId, SessionCompany sessionCompany, StayRequest.DeleteDTO reqDTO) {
+    public StayResponse.Delete delete(Integer stayId, SessionCompany sessionCompany) {
         //1. 인증처리
 
         if (sessionCompany.getId() == null) {
@@ -84,7 +84,7 @@ public class StayService {
         }
 
         //3. 삭제(state 업데이트)
-        stay.deleteStay(reqDTO);
+        stay.deleteStay(stay.getState());
 
         return new StayResponse.Delete(stay);
     }

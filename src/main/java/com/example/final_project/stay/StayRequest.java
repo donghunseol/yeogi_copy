@@ -68,9 +68,4 @@ public class StayRequest {
         private List<Option> optionList;
     }
 
-    //숙소삭제
-    @Data
-    public static class DeleteDTO {
-        private StayEnum state;
-    }
 }

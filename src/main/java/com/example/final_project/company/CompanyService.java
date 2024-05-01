@@ -2,6 +2,7 @@ package com.example.final_project.company;
 
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
@@ -24,6 +25,20 @@ public class CompanyService {
     private final StayRepository stayRepository;
     private final StayImageRepository stayImageRepository;
     private final RoomRepository roomRepository;
+
+
+    //JWT - 로그인
+    @Transactional
+    public String jwtlogin(CompanyRequest.LoginDTO reqDTO){
+        //1. 아이디 체크
+        Company sessionUser = companyRepository.findByIdAndPassword(reqDTO.getEmail(),reqDTO.getPassword())
+                .orElseThrow( () -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
+
+        String jwt = JwtUtil.companyCreate(sessionUser);
+
+        return jwt;
+
+    }
 
     //로그인
     @Transactional
