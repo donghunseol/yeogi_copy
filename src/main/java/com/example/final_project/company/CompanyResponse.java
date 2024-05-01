@@ -1,9 +1,14 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project.pay.Pay;
+import com.example.final_project.reservation.Reservation;
 import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 public class CompanyResponse {
 
@@ -30,18 +35,49 @@ public class CompanyResponse {
    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
    @Data
    public static class companyStayDetailDTO {
+      private Integer stayId; // 숙소 번호
+      private Integer roomId; // 객실 번호
       private String roomImagePath; // 객실 이미지 경로
       private String roomName; // 객실 이름(=객실 유형)
       private Integer minPerson; // 최소 인원
       private Integer maxPerson; // 최대 인원
       private String roomTier; // 객실 등급
 
-      public companyStayDetailDTO(Room room){
+      public companyStayDetailDTO(Integer stayId, Room room){
+         this.stayId = stayId;
+         this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
          this.roomName = room.getName();
          this.minPerson = room.getRoomInformation().getMinPerson();
          this.maxPerson = room.getRoomInformation().getMaxPerson();
          this.roomTier = room.getTier();
+      }
+   }
+
+   // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
+   @Data
+   public static class companyRoomDetailDto{
+      private Integer roomId; // 객실 번호
+      private String roomImagePath; // 객실 이미지 경로
+      private String roomNumber; // 호실
+      private Boolean isReservation; // 예약 가능 여부
+      private PayEnum payState; // 결제 상태
+      private String checkOutDate; // 체크아웃 날짜
+
+
+      public companyRoomDetailDto(Room room, Pay pay) { // resevation을 조회해서 넣으면 예약여부를 체크할 수 없어서 pay에서 getReservation해서 확인
+         this.roomId = room.getId();
+         this.roomImagePath = room.getImagePath();
+         this.roomNumber = room.getRoomNumber();
+         this.isReservation = pay.getReservation() != null; // null이 아니면 true, null이면 false
+         this.payState = pay.getState();
+         if(pay.getReservation()!=null){
+            this.checkOutDate = pay.getReservation().getCheckOutDate().toString();
+         }else{
+            this.checkOutDate = "";
+         }
+
+
       }
    }
 }

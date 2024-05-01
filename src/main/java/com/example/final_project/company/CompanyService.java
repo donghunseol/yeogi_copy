@@ -2,6 +2,8 @@ package com.example.final_project.company;
 
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project.pay.Pay;
+import com.example.final_project.pay.PayRepository;
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
@@ -15,6 +17,8 @@ import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.time.LocalDate.now;
+
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +28,7 @@ public class CompanyService {
     private final StayRepository stayRepository;
     private final StayImageRepository stayImageRepository;
     private final RoomRepository roomRepository;
+    private final PayRepository payRepository;
 
     //로그인
     @Transactional
@@ -86,8 +91,21 @@ public class CompanyService {
         List<Room> roomList = roomRepository.findByStayId(stayId);
 
         List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
-            return new CompanyResponse.companyStayDetailDTO(room);
+            return new CompanyResponse.companyStayDetailDTO(stayId, room);
         }).collect(Collectors.toList());
+
+        return respDTO;
+    }
+
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
+    public CompanyResponse.companyRoomDetailDto companyRoomDetail(Integer roomId){
+        Optional<Room> roomOP = roomRepository.findById(roomId);
+        Room room = null;
+        if(roomOP.isPresent()){
+            room = roomOP.get();
+        }
+        Pay pay = payRepository.findByRoomId(roomId, now());
+        CompanyResponse.companyRoomDetailDto respDTO = new CompanyResponse.companyRoomDetailDto(room, pay);
 
         return respDTO;
     }

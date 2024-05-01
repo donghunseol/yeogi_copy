@@ -84,6 +84,16 @@ public class CompanyController {
         return "/company/stay/detail";
     }
 
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
+    @GetMapping("/manage/stays/{stayId}/rooms/{roomId}")
+    public String roomDetail(HttpServletRequest request, @PathVariable Integer stayId, @PathVariable Integer roomId){
+
+        CompanyResponse.companyRoomDetailDto respDTO = companyService.companyRoomDetail(roomId);
+        request.setAttribute("roomDetailList", respDTO);
+
+        return "/company/room/detail";
+    }
+
     // 정보수정 폼
     @GetMapping("/company/information")
     public String information(){
