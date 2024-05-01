@@ -7,11 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-import static com.example.final_project._core.enums.CompanyEnum.ACTIVE;
-import static java.time.LocalDateTime.now;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,13 +17,13 @@ public class CompanyController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-    // 예약 현황 확인 (목록)
-    @GetMapping("/reservations/status")
-    public List<ReservationResponse.ListDTO> compReservationList() {
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
-        return respDTO;
-    }
+//    // 예약 현황 확인 (목록)
+//    @GetMapping("/reservations/status")
+//    public List<ReservationResponse.ListDTO> compReservationList() {
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
+//        return respDTO;
+//    }
 
     // 로그인
     @PostMapping("/company/login")
@@ -76,9 +72,21 @@ public class CompanyController {
         return "/company/stay/main";
     }
 
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+    @GetMapping("/manage/stays/{stayId}/rooms")
+    public String companyRoomList(HttpServletRequest request, @PathVariable Integer stayId) {
+        Company company = (Company) session.getAttribute("sessionUser");
+        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+        request.setAttribute("stayList", stayRespDTO);
+
+        List<CompanyResponse.companyStayDetailDTO> roomRespDTO = companyService.companyStayDetailList(stayId);
+        request.setAttribute("roomList", roomRespDTO);
+        return "/company/stay/detail";
+    }
+
     // 정보수정 폼
     @GetMapping("/company/information")
-    public String lnformation(){
+    public String information(){
 
         return "/company/information/information";
     }

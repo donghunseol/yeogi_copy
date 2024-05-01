@@ -19,40 +19,40 @@ values ('admin1', '1234', now()),
 
 -- stay 더미 생성
 insert into stay_tb(company_id, name, category, address, intro, information, created_at,state)
-values ('1', '호텔 블루 하버', '호텔', '부산시 해운대구 좌동순환로 99 (좌동)', '해운대 최고의 오션뷰를 자랑하는 숙소!', '객실 내 취사 금지', now(),'TRUE'),
-       ('2', '호텔 오아시스', '호텔', '경상남도 창원시 원이대로 998 (상남동)', '창원시 최고의 반쪽 숙소!', '객실 내 취사 금지', now(),'TRUE'),
-       ('3', '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(),'TRUE');
+values (1, '호텔 블루 하버', '호텔', '부산시 해운대구 좌동순환로 99 (좌동)', '해운대 최고의 오션뷰를 자랑하는 숙소!', '객실 내 취사 금지', now(),'TRUE'),
+       (2, '호텔 오아시스', '호텔', '경상남도 창원시 원이대로 998 (상남동)', '창원시 최고의 반쪽 숙소!', '객실 내 취사 금지', now(),'TRUE'),
+       (3, '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(),'TRUE');
 
 -- option 더미 생성
 insert into option_tb(stay_id, name, icon_name, created_at)
-values ('1', '피트니스', 'dumbbell', now()),
-       ('1', '침대', 'bad', now()),
-       ('1', '미니바', 'glassEmpty', now()),
-       ('1', '와이파이', 'wifi', now()),
-       ('1', '수영장', 'waterLadder', now()),
-       ('2', '침대', 'bed', now()),
-       ('2', '와이파이', 'wifi', now()),
-       ('2', '피트니스', 'dumbbell', now()),
-       ('3', '침대', 'bed', now()),
-       ('3', '와이파이', 'wifi', now());
+values (1, '피트니스', 'dumbbell', now()),
+       (1, '침대', 'bad', now()),
+       (1, '미니바', 'glassEmpty', now()),
+       (1, '와이파이', 'wifi', now()),
+       (1, '수영장', 'waterLadder', now()),
+       (2, '침대', 'bed', now()),
+       (2, '와이파이', 'wifi', now()),
+       (2, '피트니스', 'dumbbell', now()),
+       (3, '침대', 'bed', now()),
+       (3, '와이파이', 'wifi', now());
 
 -- room 더미 생성
-insert into room_tb(stay_id, name, tier, room_number, price, special_price, special_state, created_at)
-values ('1', '스위트룸', 'Deluxe', 'A101', 150000, 130000, 'APPLIED', now()),
-       ('1', '스탠다드룸', 'Standard', 'A102', 100000, 90000, 'APPLIED', now()),
-       ('2', '더블룸', 'Deluxe', '101', 120000, 100000, 'APPLIED', now()),
-       ('2', '싱글룸', 'Standard', '102', 80000, 70000, 'NOT_APPLIED', now()),
-       ('3', '프리미엄룸', 'Premium', '샛별동', 200000, 180000, 'APPLIED', now()),
-       ('3', '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', now());
+insert into room_tb(stay_id, name, tier, room_number, price, special_price, special_state, image_name, image_path, created_at)
+values (1, '스위트룸', 'Deluxe', 'A101', 150000, 130000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (1, '스탠다드룸', 'Standard', 'A102', 100000, 90000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (2, '더블룸', 'Deluxe', '101', 120000, 100000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (2, '싱글룸', 'Standard', '102', 80000, 70000, 'NOT_APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (3, '프리미엄룸', 'Premium', '샛별동', 200000, 180000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (3, '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now());
 
 -- room_information 더미 생성
 insert into room_information_tb(room_id, check_in, check_out, min_person, max_person, more_info, created_at)
-values ('1', '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
-       ('2', '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
-       ('3', '15:00:00', '13:00:00', 2, 3, '조식 제공', now()),
-       ('4', '16:00:00', '13:00:00', 1, 2, '조식 제공', now()),
-       ('5', '14:00:00', '12:00:00', 2, 4, '조식, 중식 제공', now()),
-       ('6', '14:00:00', '12:00:00', 2, 6, '조식 제공, 애견 동반 가능', now());
+values (1, '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
+       (2, '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
+       (3, '15:00:00', '13:00:00', 2, 3, '조식 제공', now()),
+       (4, '16:00:00', '13:00:00', 1, 2, '조식 제공', now()),
+       (5, '14:00:00', '12:00:00', 2, 4, '조식, 중식 제공', now()),
+       (6, '14:00:00', '12:00:00', 2, 6, '조식 제공, 애견 동반 가능', now());
 
 -- admin_tb 더미 생성
 insert into admin_tb(name, password, created_at)
@@ -118,51 +118,51 @@ insert into reservation_tb(user_id, room_id, reservation_name, reservation_tel, 
                            created_at)
 values
     -- 5월 24일 이전 예약
-    ('1', '1', '홍길동', '01012344321', '2023-12-31', '2024-01-01', now()),
-    ('1', '1', '홍길동', '01012344321', '2024-01-01', '2024-01-02', now()),
-    ('1', '2', '홍길동', '01012344321', '2024-02-01', '2024-02-02', now()),
-    ('2', '3', '임꺽정', '01056788765', '2024-02-03', '2024-02-05', now()),
-    ('2', '4', '임꺽정', '01056788765', '2024-02-29', '2024-03-02', now()),
-    ('3', '5', '이순신', '01087654321', '2024-03-17', '2024-03-21', now()),
-    ('3', '6', '이순신', '01087654321', '2024-04-23', '2025-04-24', now()),
+    (1, 1, '홍길동', '01012344321', '2023-12-31', '2024-01-01', now()),
+    (1, 1, '홍길동', '01012344321', '2024-01-01', '2024-01-02', now()),
+    (1, 2, '홍길동', '01012344321', '2024-02-01', '2024-02-02', now()),
+    (2, 3, '임꺽정', '01056788765', '2024-02-03', '2024-02-05', now()),
+    (2, 4, '임꺽정', '01056788765', '2024-02-29', '2024-03-02', now()),
+    (3, 5, '이순신', '01087654321', '2024-03-17', '2024-03-21', now()),
+    (3, 6, '이순신', '01087654321', '2024-04-23', '2025-04-24', now()),
     -- 5월 24일 이후 예약
-    ('1', '1', '홍길동', '01012344321', '2024-05-24', '2024-05-25', now()),
-    ('1', '2', '홍길동', '01012344321', '2024-05-25', '2024-05-30', now()),
-    ('2', '3', '임꺽정', '01056788765', '2024-05-31', '2024-06-02', now()),
-    ('2', '4', '임꺽정', '01056788765', '2024-06-10', '2024-06-11', now()),
-    ('3', '5', '이순신', '01087654321', '2024-06-20', '2024-05-25', now()),
-    ('3', '6', '이순신', '01087654321', '2024-06-23', '2025-06-27', now());
+    (1, 1, '홍길동', '01012344321', '2024-05-24', '2024-05-25', now()),
+    (1, 2, '홍길동', '01012344321', '2024-05-25', '2024-05-30', now()),
+    (2, 3, '임꺽정', '01056788765', '2024-05-31', '2024-06-02', now()),
+    (2, 4, '임꺽정', '01056788765', '2024-06-10', '2024-06-11', now()),
+    (3, 5, '이순신', '01087654321', '2024-06-20', '2024-05-25', now()),
+    (3, 6, '이순신', '01087654321', '2024-06-23', '2025-06-27', now());
 
 
 -- pay 더미 생성
 insert into pay_tb(reservation_id, amount, way, state, created_at)
 values
     -- 5월 24일 이전 결제
-    ('1', 150000, 'Credit Card', 'COMPLETION', now()),
-    ('2', 150000, 'Credit Card', 'COMPLETION', now()),
-    ('3', 100000, 'Kakao Pay', 'COMPLETION', now()),
-    ('4', 120000, 'Bank Transfer', 'COMPLETION', now()),
-    ('5', 80000, 'Kakao Pay', 'COMPLETION', now()),
-    ('6', 200000, 'Naver Pay', 'COMPLETION', now()),
-    ('7', 180000, 'Naver Pay', 'COMPLETION', now()),
+    (1, 150000, 'Credit Card', 'COMPLETION', now()),
+    (2, 150000, 'Credit Card', 'COMPLETION', now()),
+    (3, 100000, 'Kakao Pay', 'COMPLETION', now()),
+    (4, 120000, 'Bank Transfer', 'COMPLETION', now()),
+    (5, 80000, 'Kakao Pay', 'COMPLETION', now()),
+    (6, 200000, 'Naver Pay', 'COMPLETION', now()),
+    (7, 180000, 'Naver Pay', 'COMPLETION', now()),
 
     -- 5월 24일 이후 결제
     -- On Site Payment 는 현장 결제
-    ('8', 0, 'On Site Payment', 'PROCESSING', now()),
-    ('9', 0, 'On Site Payment', 'PROCESSING', now()),
-    ('10', 120000, 'Kakao Pay', 'REFUND', now()),
-    ('11', 80000, 'Kakao Pay', 'REFUND', now()),
-    ('12', 200000, 'Kakao Pay', 'COMPLETION', now()),
-    ('13', 180000, 'Naver Pay', 'COMPLETION', now());
+    (8, 0, 'On Site Payment', 'PROCESSING', now()),
+    (9, 0, 'On Site Payment', 'PROCESSING', now()),
+    (10, 120000, 'Kakao Pay', 'REFUND', now()),
+    (11, 80000, 'Kakao Pay', 'REFUND', now()),
+    (12, 200000, 'Kakao Pay', 'COMPLETION', now()),
+    (13, 180000, 'Naver Pay', 'COMPLETION', now());
 
 
 -- scrap 더미 생성
 insert into scrap_tb(user_id, stay_id, created_at)
-values ('1', '1', now()),
-       ('1', '2', now()),
-       ('2', '2', now()),
-       ('2', '3', now()),
-       ('3', '3', now());
+values (1, 1, now()),
+       (1, 2, now()),
+       (2, 2, now()),
+       (2, 3, now()),
+       (3, 3, now());
 
 -- review 더미 생성
 insert into review_tb(user_id, room_id, score, content, is_delete, created_at)
