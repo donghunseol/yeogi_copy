@@ -6,17 +6,15 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
-import com.example.final_project.option.OptionRepository;
-import com.example.final_project.room.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class StayService {
-    private final OptionRepository optionRepository;
-    private final RoomRepository roomRepository;
     private final StayRepository stayRepository;
     private final CompanyRepository companyRepository;
 
@@ -67,7 +65,7 @@ public class StayService {
 
     //숙소 삭제
     @Transactional
-    public StayResponse.Delete delete(Integer stayId, SessionCompany sessionCompany, StayRequest.DeleteDTO reqDTO) {
+    public StayResponse.Delete delete(Integer stayId, SessionCompany sessionCompany) {
         //1. 인증처리
 
         if (sessionCompany.getId() == null) {
@@ -86,8 +84,19 @@ public class StayService {
         }
 
         //3. 삭제(state 업데이트)
-        stay.deleteStay(reqDTO);
+        stay.deleteStay(stay.getState());
 
         return new StayResponse.Delete(stay);
+    }
+
+    // 숙소 검색 기능
+    public List<StayResponse.SearchListDTO> getSearchStayList(StayRequest.SearchDTO reqDTO) {
+        List<StayResponse.SearchListDTO> resultList;
+
+        resultList = stayRepository.findBySearchStay(reqDTO.getName(), reqDTO.getAddress(), reqDTO.getPrice(), reqDTO.getPerson(), reqDTO.getCheckInDate(), reqDTO.getCheckOutDate()).stream()
+                .map(StayResponse.SearchListDTO::new)
+                .toList();
+
+        return resultList;
     }
 }

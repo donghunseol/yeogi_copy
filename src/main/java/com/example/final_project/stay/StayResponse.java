@@ -11,6 +11,22 @@ import java.util.stream.Collectors;
 
 public class StayResponse {
 
+    // 숙소 검색 응답 DTO
+    @Data
+    public static class SearchListDTO {
+        private Integer id; // 숙소 번호
+        private String name; // 숙소 이름
+        private String address; // 숙소 주소
+        private String intro; // 숙소 소개
+
+        public SearchListDTO(Stay stay) {
+            this.id = stay.getId();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
+
     // 숙소등록 응답DTO
     @Data
     public static class Save {
@@ -108,7 +124,7 @@ public class StayResponse {
 
     // 숙소삭제 응답DTO
     @Data
-    public static class Delete{
+    public static class Delete {
         private StayEnum state;
 
         public Delete(Stay stay) {

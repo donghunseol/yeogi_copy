@@ -13,9 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @Data
@@ -81,7 +79,9 @@ public class Stay {
     }
 
 
-    public void deleteStay(StayRequest.DeleteDTO reqDTO) {
-        this.state = reqDTO.getState();
+    public void deleteStay(StayEnum state) {
+       if (state == StayEnum.TRUE){
+           this.state = StayEnum.FALSE;
+       }
     }
 }
