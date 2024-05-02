@@ -117,10 +117,7 @@ public class CompanyService {
             Pay pay = null;
             if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
                 pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
-            }else{
-
             }
-
             return new CompanyResponse.companyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
         return respDTO;

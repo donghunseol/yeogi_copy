@@ -62,14 +62,11 @@ public class CompanyResponse {
          this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
          this.roomNumber = room.getRoomNumber();
-         if(pay.getReservation().getId()!=null){
+         if (pay != null && pay.getReservation() != null) {
             this.isReservation = "예약 완료";
-         }else{
-            this.isReservation = "예약 가능";
-         }
-         if(pay.getReservation().getId()!=null){
             this.checkOutDate = pay.getReservation().getCheckOutDate().toString();
-         }else{
+         } else {
+            this.isReservation = "예약 가능";
             this.checkOutDate = "";
          }
          this.payState = pay.getState();
