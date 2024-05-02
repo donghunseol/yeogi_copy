@@ -53,8 +53,11 @@ public class ReviewResponse {
 
 
     //리뷰찾기 응답 DTO
+
+
     @Data
     public static class Find{
+        private Integer reviewCount;
         private Integer id;
         private UserDTO writer;
         private String content;
@@ -63,12 +66,13 @@ public class ReviewResponse {
         private List<Find> children = new ArrayList<>();
 
 
-        public Find(Integer id , UserDTO writer, String content, LocalDateTime createdAt, Integer score) {
+        public Find(Integer id , UserDTO writer, String content, LocalDateTime createdAt, Integer score, Integer reviewCount) {
             this.id = id;
             this.writer = writer;
             this.content = content;
             this.createdAt = createdAt;
             this.score = score;
+            this.reviewCount = reviewCount;
         }
 
         @Data
@@ -77,6 +81,7 @@ public class ReviewResponse {
             private String name;
             private String state;
             private Integer reportCount;
+
 
             public UserDTO(User user) {
                 this.email = user.getEmail();
