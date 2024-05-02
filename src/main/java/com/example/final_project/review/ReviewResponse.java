@@ -59,15 +59,16 @@ public class ReviewResponse {
         private UserDTO writer;
         private String content;
         private LocalDateTime createdAt;
+        private Integer score;
         private List<Find> children = new ArrayList<>();
 
 
-        public Find(Integer id , UserDTO writer, String content, LocalDateTime createdAt) {
+        public Find(Integer id , UserDTO writer, String content, LocalDateTime createdAt, Integer score) {
             this.id = id;
             this.writer = writer;
             this.content = content;
             this.createdAt = createdAt;
-
+            this.score = score;
         }
 
         @Data
