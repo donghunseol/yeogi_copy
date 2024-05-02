@@ -16,9 +16,9 @@ public class StayServiceTest {
     public void getSearchStayList_test() {
         // given
         StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
-                .person(3)
+                .person(4)
                 .checkInDate(LocalDate.of(2024, 5, 24))
-                .checkOutDate(LocalDate.of(2024, 6, 2))
+                .checkOutDate(LocalDate.of(2024, 5, 30))
                 .build();
 
         // when

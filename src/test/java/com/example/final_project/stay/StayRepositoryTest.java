@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @DataJpaTest
@@ -25,6 +26,33 @@ public class StayRepositoryTest {
 
         // then
         Assertions.assertThat(stayList.getFirst().getName()).isEqualTo("호텔 블루 하버");
+    }
+
+    // 검색 쿼리 테스트
+    @Test
+    public void findBySearchStay_test() {
+        // given
+        LocalDate startDate = LocalDate.of(2024, 5, 30);
+        LocalDate endDate = LocalDate.of(2024, 6, 11);
+        StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
+                .checkInDate(startDate)
+                .checkOutDate(endDate)
+                .build();
+
+        // when
+        List<Stay> stays = stayRepository.findBySearchStay(reqDTO.getName(),
+                reqDTO.getAddress(),
+                reqDTO.getPrice(),
+                reqDTO.getPerson(),
+                reqDTO.getCheckInDate(),
+                reqDTO.getCheckOutDate());
+
+        // eye
+        System.out.println("findBySearchStay_test/size : " + stays.size());
+        stays.forEach(stay -> System.out.println("findBySearchStay_test : " + stay.getName()));
+
+        // then
+
     }
 
 //    // 검색 이름 쿼리 테스트
