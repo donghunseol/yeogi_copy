@@ -2,6 +2,7 @@ package com.example.final_project.review;
 
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.company.CompanyRequest;
+import com.example.final_project.company.SessionCompany;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,9 @@ public class ReviewRestController {
 
     // 댓글조회
     @GetMapping("/api/review/stay/{stayId}")
-    public ResponseEntity<?> findByStayId(@PathVariable Integer stayId){
+    public ResponseEntity<?> findByStayId(@PathVariable Integer stayId, SessionCompany sessionCompany){
 
-        List<ReviewResponse.Find> respDTO = reviewService.select(stayId);
+        List<ReviewResponse.Find> respDTO = reviewService.select(stayId,sessionCompany);
 
         return ResponseEntity.ok()
                 .body(new ApiUtil<>(respDTO));

@@ -1,6 +1,10 @@
 package com.example.final_project.review;
 
+import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project.company.Company;
+import com.example.final_project.company.CompanyRepository;
+import com.example.final_project.company.SessionCompany;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.user.User;
@@ -22,8 +26,9 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final StayRepository stayRepository;
+    private final CompanyRepository companyRepository;
 
-    //리뷰 작성 및 대댓글 작성
+    //API 리뷰 작성 및 대댓글 작성
     @Transactional
     public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO) {
 
@@ -53,7 +58,23 @@ public class ReviewService {
 
     // 댓글 조회
     @Transactional
-    public List<ReviewResponse.Find> select(Integer stayId) {
+    public List<ReviewResponse.Find> select(Integer stayId , SessionCompany sessionUser) {
+
+        //인증 처리
+        if (sessionUser == null){
+            new Exception401("로그인이 필요한 서비스입니다.");
+        }
+        //권한 처리
+        Stay stay = stayRepository.findById(stayId)
+                .orElseThrow(() -> new Exception401("조회할 권한이 없습니다"));
+
+        Company company = companyRepository.findByStayId(stay.getId())
+                .orElseThrow(() -> new Exception404("해당 기없을 찾을 수 없습니다"));
+
+        if (sessionUser.getId() != company.getId()){
+            new Exception401("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
+        }
+
         // 리스트 조회
         List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
 
@@ -66,7 +87,8 @@ public class ReviewService {
                     review.getId(),
                     new ReviewResponse.Find.UserDTO(review.getWriter()),
                     review.getContent(),
-                    review.getCreatedAt()
+                    review.getCreatedAt(),
+                    review.getScore()
             );
 
             reviewMap.put(reviewFind.getId(), reviewFind);

@@ -29,7 +29,8 @@ public class CompanyController {
     @PostMapping("/company/login")
     public String login(CompanyRequest.LoginDTO reqDTO){
 
-        Company company = companyService.login(reqDTO);
+        SessionCompany company= companyService.login(reqDTO);
+
         session.setAttribute("sessionUser",company);
 
         return "redirect:/manage/stays";
@@ -38,7 +39,7 @@ public class CompanyController {
     // 회원가입
     @PostMapping("/company/join")
     public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
-        Company company = companyService.joinAndLogin(reqDTO);
+        SessionCompany company = companyService.joinAndLogin(reqDTO);
         session.setAttribute("sessionUser", company);
         return "redirect:/manage/stays";
     }
@@ -66,7 +67,7 @@ public class CompanyController {
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")
     public String companyStayList(HttpServletRequest request) {
-        Company company = (Company) session.getAttribute("sessionUser");
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
         List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(company.getId());
         request.setAttribute("stayList", respDTO);
         return "/company/stay/main";
@@ -75,7 +76,7 @@ public class CompanyController {
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
     @GetMapping("/manage/stays/{stayId}/rooms")
     public String companyRoomList(HttpServletRequest request, @PathVariable Integer stayId) {
-        Company company = (Company) session.getAttribute("sessionUser");
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
         List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
         request.setAttribute("stayList", stayRespDTO);
 
@@ -95,7 +96,7 @@ public class CompanyController {
     @PostMapping("/information/update/{companyId}")
     public String infoUpdate(@PathVariable Integer companyId,CompanyRequest.UpdateDTO reqDTO){
 
-        Company company = companyService.updateCompany(companyId,reqDTO);
+        SessionCompany company = companyService.updateCompany(companyId,reqDTO);
         session.setAttribute("sessionUser",company);
 
         return "redirect:/manage/stays";

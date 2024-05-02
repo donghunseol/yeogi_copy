@@ -19,6 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.stay.id = :stayId")
     List<Review> findAllByStayIdWithDetails(@Param("stayId") Integer stayId);
 
+    // 기업의 모든 리뷰
     @Query("SELECT r from Review r LEFT JOIN FETCH r.parent WHERE r.id = :id ")
     Review findReviewByIdWithParent(@Param("id") Integer id);
 }
