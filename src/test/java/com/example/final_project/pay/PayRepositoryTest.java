@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import static java.time.LocalDate.now;
 
 @DataJpaTest
 public class PayRepositoryTest {
@@ -17,7 +14,7 @@ public class PayRepositoryTest {
     PayRepository payRepository;
 
     @Test
-    public void findByReservationOfCheckInDate_test(){
+    public void findByRoomId_test(){
         // given
         Integer roomId = 1;
         LocalDate now = LocalDate.of(2023,12,31);
@@ -27,9 +24,11 @@ public class PayRepositoryTest {
 
         // eye
         System.out.println("findByRoomId_test pay : " + pay.getWay());
+        System.out.println("findByRoomId_test getReservation_id : " + pay.getReservation().getId());
 
         // then
         Assertions.assertThat(pay.getAmount()).isEqualTo(150000);
 
     }
+
 }

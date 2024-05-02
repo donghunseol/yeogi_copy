@@ -49,26 +49,30 @@ public class CompanyResponse {
 
    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
    @Data
-   public static class companyRoomDetailDto{
+   public static class companyRoomDetailDTO{
       private Integer roomId; // 객실 번호
       private String roomImagePath; // 객실 이미지 경로
       private String roomNumber; // 호실
-      private Boolean isReservation; // 예약 가능 여부
-      private PayEnum payState; // 결제 상태
+      private String isReservation; // 예약 가능 여부
       private String checkOutDate; // 체크아웃 날짜
+      private PayEnum payState; // 결제 상태
 
 
-      public companyRoomDetailDto(Room room, Pay pay) { // resevation을 조회해서 넣으면 예약여부를 체크할 수 없어서 pay에서 getReservation해서 확인
+      public companyRoomDetailDTO(Room room, Pay pay) { // resevation을 조회해서 넣으면 예약여부를 체크할 수 없어서 pay에서 getReservation해서 확인
          this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
          this.roomNumber = room.getRoomNumber();
-         this.isReservation = pay.getReservation() != null; // null이 아니면 true, null이면 false
-         this.payState = pay.getState();
-         if(pay.getReservation()!=null){
+         if(pay.getReservation().getId()!=null){
+            this.isReservation = "예약 완료";
+         }else{
+            this.isReservation = "예약 가능";
+         }
+         if(pay.getReservation().getId()!=null){
             this.checkOutDate = pay.getReservation().getCheckOutDate().toString();
          }else{
             this.checkOutDate = "";
          }
+         this.payState = pay.getState();
       }
    }
 }

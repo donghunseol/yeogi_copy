@@ -63,7 +63,8 @@
                                                         <span class="body">{{tierCount}}개</span>
                                                     </p>
                                                 </div>
-                                                <form action="/manage/stays/{{stayId}}/rooms/{{roomId}}" method="get" style="width: 100%;">
+                                                <form action="/manage/stays/{{stayId}}/rooms" method="get" style="width: 100%;">
+                                                    <input type="hidden" name="tier" value="{{roomTier}}"/>
                                                     <div class="button-wrapper">
                                                         <button class="btn black">상세보기</button>
                                                     </div>

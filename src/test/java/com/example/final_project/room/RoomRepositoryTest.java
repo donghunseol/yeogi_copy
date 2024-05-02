@@ -43,4 +43,21 @@ public class RoomRepositoryTest {
         Assertions.assertThat(respDTO.getFirst().getRoomTier()).isEqualTo("Deluxe");
 
     }
+
+    @Test
+    public void findByStayIdAndTier_test(){
+        // given
+        Integer stayId = 1;
+        String tier = "Deluxe";
+
+        // when
+        List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
+
+        // eye
+        System.out.println("findByStayIdAndTier_test size : " + roomList.size());
+
+        // then
+        Assertions.assertThat(roomList.getFirst().getPrice()).isEqualTo(150000);
+
+    }
 }
