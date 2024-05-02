@@ -1403,3 +1403,147 @@ em.guide b {}
     width: 100%;
     object-fit: cover;
 }
+
+
+/* 리뷰관련 CSS */
+
+.review-table {
+    width: 100%;
+}
+
+.review-table li {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    margin-top: 50px;
+}
+
+.review-table li .review-user-info {
+    font-size: 14px;
+    color: #888;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.review-table li span {
+    padding: 0 5px;
+    position: relative;
+    display: block;
+}
+
+.review-table li span:nth-child(1) {
+    padding: 0 5px 0 0;
+}
+
+.review-table li span:last-child:after {
+    width: 0;
+    height: 0;
+}
+
+.review-table li span::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: #888;
+    content: "";
+}
+
+.review-table li .review-content {}
+
+.review-table li .review-content p.text {}
+
+.review-table li .review-content p.text {}
+
+.review-table li .review-content .reply-content {
+    padding: 20px;
+    background: #f8f8f8;
+    margin-top: 20px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.review-table li .review-content .reply-content .reply-user-info {
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.review-table li .review-content .reply-content .reply-user-info span {}
+
+.review-table li .review-content .reply-content p.text {}
+
+.review-table li .review-content .reply-content textarea {
+    min-height: 30px !important;
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 10px;
+    overflow-y: hidden;
+    line-height: 1.3;
+}
+
+.review-table li .review-content .button-wrapper {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.review-table li .review-content .button-wrapper button {
+    width: 60px;
+    font-size: 12px;
+    height: 30px;
+    border-radius: 5px;
+    background: #f45858;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.reply-icon {
+    width: 50px;
+    font-size: 12px;
+    border: 1px solid #f45858;
+    background: #fff;
+    color: #f45858;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.reply-icon.black {
+    border-color: #333;
+    color: #333;
+}
+
+.review-detail-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.review-detail-head h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.review-detail-head .button-wrapper {}
+
+.review-detail-head .button-wrapper a {}
+
+textarea.input {
+    min-height: 30px !important;
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 10px;
+    overflow-y: hidden;
+    line-height: 1.3;
+}

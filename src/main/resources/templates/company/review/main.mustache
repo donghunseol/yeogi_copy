@@ -1,0 +1,72 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰관리</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="#" method="#" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 리뷰<em> 20 </em>개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="45%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="25%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">내용</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">평점</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="review">
+                                <td class="title"><span>여기 방벽에 곰팡이가 피어있어요 냄새가 너무나요!! 그리고 어쩌고 저쩌고</span></td>
+                                <td class="content">김지훈</td>
+                                <td>1점</td>
+                                <td>2024.05.03</td>
+                                <td class="link">
+                                    <a href="/review/detail"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
+
+
+
+
+
