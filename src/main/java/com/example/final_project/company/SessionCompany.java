@@ -15,7 +15,7 @@ public class SessionCompany {
     private String businessAddress; // 사업자 주소
     private String phone; // 사업자 전화번호
     private String name; // 사업자 이름
-    private CompanyEnum state; // 상태 (ACTIVE : 기업 유지, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업)
+    private CompanyEnum state; // 상태 (ACTIVE : 기업 유지, PROGRESSING : 승인 진행 중, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업, REJECT : 가입 거절된 기업)
     private Integer reportCount; // 신고 받은 횟수
     private LocalDateTime createdAt; // 기업 가입 일자
 
