@@ -89,7 +89,7 @@ public class StayService {
         return new StayResponse.Delete(stay);
     }
 
-    // 숙소 검색 기능
+    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수 별 검색)
     public List<StayResponse.SearchListDTO> getSearchStayList(StayRequest.SearchDTO reqDTO) {
         List<StayResponse.SearchListDTO> resultList;
 

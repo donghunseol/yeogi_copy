@@ -17,17 +17,24 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     @Query("SELECT DISTINCT s FROM Stay s JOIN FETCH s.company c LEFT JOIN FETCH s.options o WHERE c.id = :companyId")
     List<Stay> findByCompanyId(@Param("companyId") Integer companyId);
 
-    // 숙소 검색
+    // 숙소 검색 (이름, 지역, 날짜, 가격, 인원 수 별 검색)
     @Query("""
-            SELECT s FROM Stay s
-            JOIN FETCH Room r ON s.id = r.stay.id
-            JOIN FETCH RoomInformation ri ON s.id = ri.room.stay.id
-            JOIN FETCH Reservation re ON s.id = re.room.stay.id
-            WHERE (:stayName IS NULL OR s.name LIKE %:stayName%)
-            AND (:stayArea IS NULL OR s.address LIKE %:stayArea%)
-            AND (:roomPrice IS NULL OR r.price <= :roomPrice)
-            AND (:person IS NULL OR :person <= ri.maxPerson)
-            AND NOT (re.checkInDate < :endDate AND re.checkOutDate > :startDate)
+            SELECT DISTINCT s FROM Stay s
+                 LEFT JOIN FETCH s.rooms r
+                 LEFT JOIN FETCH r.roomInformation ri
+                 LEFT JOIN Reservation re ON r.id = re.room.id
+                 WHERE (:stayName IS NULL OR s.name LIKE %:stayName%)
+                 AND (:stayArea IS NULL OR s.address LIKE %:stayArea%)
+                 AND (:roomPrice IS NULL OR r.price <= :roomPrice)
+                 AND (:person IS NULL OR :person <= ri.maxPerson)
+                 AND (
+                       :startDate IS NULL OR :endDate IS NULL
+                       OR NOT EXISTS (
+                           SELECT 1 FROM Reservation reCheck
+                           WHERE reCheck.room.id = r.id
+                           AND (reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
+                      )
+                )
             """)
     List<Stay> findBySearchStay(@Param("stayName") String stayName,
                                 @Param("stayArea") String stayArea,
