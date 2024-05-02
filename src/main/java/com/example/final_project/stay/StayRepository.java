@@ -17,7 +17,7 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     @Query("SELECT DISTINCT s FROM Stay s JOIN FETCH s.company c LEFT JOIN FETCH s.options o WHERE c.id = :companyId")
     List<Stay> findByCompanyId(@Param("companyId") Integer companyId);
 
-    // 숙소 검색 (이름, 지역, 날짜, 가격, 인원 수 별 검색)
+    // 숙소 검색 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
     @Query("""
             SELECT DISTINCT s FROM Stay s
                  LEFT JOIN FETCH s.rooms r
