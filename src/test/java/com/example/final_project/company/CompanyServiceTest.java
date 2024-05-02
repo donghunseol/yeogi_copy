@@ -41,6 +41,23 @@ public class CompanyServiceTest {
 
         // eye
         System.out.println("companyStayDetailList_test getFirst : " + companyStayDetailList.getFirst());
+        System.out.println("companyStayDetailList_test getLast : " + companyStayDetailList.getLast());
+
+        // then
+        Assertions.assertThat(companyStayDetailList.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void companyRoomDetail_test(){
+        // given
+        Integer stayId = 1;
+        String tier = "Deluxe";
+
+        // when
+        List<CompanyResponse.companyRoomDetailDTO> roomList = companyService.companyRoomDetail(stayId, tier);
+
+        // eye
+        System.out.println("companyRoomDetail_test size : " + roomList.size());
 
         // then
 

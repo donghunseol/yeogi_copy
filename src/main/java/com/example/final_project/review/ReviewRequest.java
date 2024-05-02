@@ -1,9 +1,7 @@
 package com.example.final_project.review;
 
-import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

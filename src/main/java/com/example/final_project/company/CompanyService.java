@@ -2,6 +2,8 @@ package com.example.final_project.company;
 
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project.pay.Pay;
+import com.example.final_project.pay.PayRepository;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
@@ -12,9 +14,13 @@ import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.time.LocalDate.now;
 
 
 @RequiredArgsConstructor
@@ -25,6 +31,7 @@ public class CompanyService {
     private final StayRepository stayRepository;
     private final StayImageRepository stayImageRepository;
     private final RoomRepository roomRepository;
+    private final PayRepository payRepository;
 
 
     //JWT - 로그인
@@ -98,12 +105,24 @@ public class CompanyService {
 
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
     public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
-        List<Room> roomList = roomRepository.findByStayId(stayId);
+        List<CompanyResponse.companyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
+        return respDTO;
+    }
 
-        List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
-            return new CompanyResponse.companyStayDetailDTO(room);
+
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
+    public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier){
+        List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
+        List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
+            Pay pay = null;
+            if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
+                pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
+            }else{
+
+            }
+
+            return new CompanyResponse.companyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
-
         return respDTO;
     }
 }

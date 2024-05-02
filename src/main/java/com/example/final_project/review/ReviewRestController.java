@@ -1,7 +1,6 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.utils.ApiUtil;
-import com.example.final_project.company.CompanyRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

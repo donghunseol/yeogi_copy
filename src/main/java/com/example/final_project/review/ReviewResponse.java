@@ -1,10 +1,7 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
-import com.example.final_project._core.enums.StayEnum;
-import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;

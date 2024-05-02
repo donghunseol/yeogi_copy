@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
@@ -18,4 +19,5 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     // StayId로 Company찾기 쿼리
     @Query("select c from Company c join fetch Stay s on c.id = s.company.id  where c.id = :stayId ")
     Optional<Company> findByStayId(@Param("stayId") Integer stayId);
+
 }

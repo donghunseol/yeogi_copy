@@ -1,6 +1,5 @@
 package com.example.final_project.stay;
 
-import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import lombok.Builder;

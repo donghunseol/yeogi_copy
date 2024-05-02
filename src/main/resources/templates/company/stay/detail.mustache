@@ -47,7 +47,7 @@
                                             <span>등록된 객실이 없습니다.</span>
                                         </div>
                                     </li> -->
-                                    {{#roomList}}
+                                    {{#detailList}}
                                         <li>
                                             <div class="item">
                                                 <div class="img-wrapper">
@@ -55,30 +55,23 @@
                                                 </div>
                                                 <div class="text-wrapper">
                                                     <p class="text-item">
-                                                        <span class="head"><i></i><em>객실 유형</em></span>
-                                                        <span class="body">{{roomName}}</span>
-                                                    </p>
-                                                    <p class="text-item">
-                                                        <span class="head"><i></i><em>최소 인원</em></span>
-                                                        <span class="body">{{minPerson}}명</span>
-                                                    </p>
-                                                    <p class="text-item">
-                                                        <span class="head"><i></i><em>최대 인원</em></span>
-                                                        <span class="body">{{maxPerson}}명</span>
-                                                    </p>
-                                                    <p class="text-item">
                                                         <span class="head"><i></i><em>객실 등급</em></span>
                                                         <span class="body">{{roomTier}}</span>
                                                     </p>
+                                                    <p class="text-item">
+                                                        <span class="head"><i></i><em>객실 갯수</em></span>
+                                                        <span class="body">{{tierCount}}개</span>
+                                                    </p>
                                                 </div>
-                                                <form action="/room/detail" method="get" style="width: 100%;">
+                                                <form action="/manage/stays/{{stayId}}/rooms" method="get" style="width: 100%;">
+                                                    <input type="hidden" name="tier" value="{{roomTier}}"/>
                                                     <div class="button-wrapper">
                                                         <button class="btn black">상세보기</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </li>
-                                    {{/roomList}}
+                                    {{/detailList}}
                                 </ul>
                             </div>
                         </div>
