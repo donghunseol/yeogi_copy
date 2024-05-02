@@ -957,6 +957,7 @@ p.tab-title {
 
 .loging-list li .loging-item .loging-content .button-wrapper {
     text-align: left;
+    display: flex;
 }
 
 .loging-list li .loging-item .loging-content .button-wrapper button {
@@ -964,13 +965,25 @@ p.tab-title {
     background: #333;
     color: #fff;
     height: 40px;
-    width: 100px;
+    width: calc(50% - 5px);
+    margin-right: 10px;
     border-radius: 5px;
     font-weight: 700;
     cursor: pointer;
     transition: 0.4s ease;
 }
-
+.loging-list li .loging-item .loging-content .button-wrapper a.orange{
+    background: #f45858;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    width: calc(50% - 5px);
+    transition: 0.4s ease;
+    font-size: 14px;
+}
+.loging-list li .loging-item .loging-content .button-wrapper a.orange:hover{
+    background: #f13636;
+}
 .loging-list li .loging-item .loging-content .button-wrapper button:hover {
     background: #000;
 }
