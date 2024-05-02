@@ -2,13 +2,10 @@ package com.example.final_project.company;
 
 import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project.pay.Pay;
-import com.example.final_project.reservation.Reservation;
 import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 public class CompanyResponse {
 
@@ -44,17 +41,6 @@ public class CompanyResponse {
          this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
          this.roomTier = room.getTier();
-         this.tierCount = tierCount;
-      }
-   }
-
-   @Data
-   public static class roomCountByStayIdAndTierDTO{
-      private String tier; // 티어 이름
-      private Integer tierCount; // 티어 갯수
-
-      public roomCountByStayIdAndTierDTO(String tier, Integer tierCount){
-         this.tier = tier;
          this.tierCount = tierCount;
       }
    }

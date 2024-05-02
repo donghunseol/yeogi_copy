@@ -20,7 +20,4 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Query("select c from Company c join fetch Stay s on c.id = s.company.id  where c.id = :stayId ")
     Optional<Company> findByStayId(@Param("stayId") Integer stayId);
 
-    @Query("SELECT new com.example.final_project.company.CompanyResponse$companyStayDetailDTO(r, COUNT(r)) FROM Room r JOIN r.stay s JOIN r.roomInformation ri WHERE s.id = :stayId GROUP BY r.tier")
-    List<CompanyResponse.companyStayDetailDTO> findAndCountByStayId(@Param("stayId") Integer stayId);
-
 }

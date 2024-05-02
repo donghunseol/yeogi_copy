@@ -36,10 +36,11 @@ public class RoomRepositoryTest {
         List<CompanyResponse.companyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
 
         // eye
+        System.out.println("<<<findAndCountByStayId_test>>>");
         respDTO.forEach(System.out::println);
 
         // then
-
+        Assertions.assertThat(respDTO.getFirst().getRoomTier()).isEqualTo("Deluxe");
 
     }
 }
