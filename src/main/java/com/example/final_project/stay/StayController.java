@@ -16,11 +16,10 @@ public class StayController {
     private final StayService stayService;
     private final HttpSession session;
 
-    // 숙소 검색 기능
+    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수 별 검색)
     @GetMapping("/stay")
     public ResponseEntity<?> searchStay(@RequestBody StayRequest.SearchDTO reqDTO) {
         List<StayResponse.SearchListDTO> respDTO = stayService.getSearchStayList(reqDTO);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }
