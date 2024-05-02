@@ -123,7 +123,6 @@ public class CompanyService {
 
             return new CompanyResponse.companyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
-
         return respDTO;
     }
 }

@@ -154,8 +154,7 @@ values
     (10, 120000, 'Kakao Pay', 'REFUND', now()),
     (11, 80000, 'Kakao Pay', 'REFUND', now()),
     (12, 200000, 'Kakao Pay', 'COMPLETION', now()),
-    (13, 180000, 'Naver Pay', 'COMPLETION', now()),
-    (14, 150000, 'Credit Card', 'COMPLETION', now());
+    (13, 180000, 'Naver Pay', 'COMPLETION', now());
 
 
 -- scrap 더미 생성
