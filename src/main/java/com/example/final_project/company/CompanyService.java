@@ -85,17 +85,18 @@ public class CompanyService {
         return company;
     }
 
+//
+//    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+//    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
+//        List<Room> roomList = roomRepository.findByStayId(stayId);
+//
+//        List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
+//            Integer count = roomRepository.countByStayIdAndTier(stayId, room.getTier());
+////            return new CompanyResponse.companyStayDetailDTO(stayId, room);
+//        }).collect(Collectors.toList());
+//        return respDTO;
+//    }
 
-    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
-        List<Room> roomList = roomRepository.findByStayId(stayId);
-
-        List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
-            return new CompanyResponse.companyStayDetailDTO(stayId, room);
-        }).collect(Collectors.toList());
-
-        return respDTO;
-    }
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
     public CompanyResponse.companyRoomDetailDto companyRoomDetail(Integer roomId){

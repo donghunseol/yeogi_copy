@@ -38,19 +38,24 @@ public class CompanyResponse {
       private Integer stayId; // 숙소 번호
       private Integer roomId; // 객실 번호
       private String roomImagePath; // 객실 이미지 경로
-      private String roomName; // 객실 이름(=객실 유형)
-      private Integer minPerson; // 최소 인원
-      private Integer maxPerson; // 최대 인원
       private String roomTier; // 객실 등급
 
       public companyStayDetailDTO(Integer stayId, Room room){
          this.stayId = stayId;
          this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
-         this.roomName = room.getName();
-         this.minPerson = room.getRoomInformation().getMinPerson();
-         this.maxPerson = room.getRoomInformation().getMaxPerson();
          this.roomTier = room.getTier();
+      }
+   }
+
+   @Data
+   public static class roomCountByStayIdAndTierDTO{
+      private String tier; // 티어 이름
+      private Integer tierCount; // 티어 갯수
+
+      public roomCountByStayIdAndTierDTO(String tier, Integer tierCount){
+         this.tier = tier;
+         this.tierCount = tierCount;
       }
    }
 
@@ -76,8 +81,6 @@ public class CompanyResponse {
          }else{
             this.checkOutDate = "";
          }
-
-
       }
    }
 }
