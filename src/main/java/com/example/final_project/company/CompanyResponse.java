@@ -32,12 +32,14 @@ public class CompanyResponse {
    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
    @Data
    public static class companyStayDetailDTO {
+      private Integer stayId; // 숙소 번호
       private Integer roomId; // 객실 번호
       private String roomImagePath; // 객실 이미지 경로
       private String roomTier; // 객실 등급
       private Long tierCount; // 티어 갯수
 
       public companyStayDetailDTO(Room room, Long tierCount){
+         this.stayId = room.getStay().getId();
          this.roomId = room.getId();
          this.roomImagePath = room.getImagePath();
          this.roomTier = room.getTier();
