@@ -111,19 +111,19 @@ public class CompanyService {
 
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
-//    public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier){
-//        List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
-//        List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
-//            Pay pay = null;
-//            if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
-//                pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
-//            }else{
-//
-//            }
-//
-//            return new CompanyResponse.companyRoomDetailDTO(room, pay);
-//        }).collect(Collectors.toList());
-//
-//        return respDTO;
-//    }
+    public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier){
+        List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
+        List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
+            Pay pay = null;
+            if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
+                pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
+            }else{
+
+            }
+
+            return new CompanyResponse.companyRoomDetailDTO(room, pay);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
 }

@@ -89,8 +89,8 @@ public class CompanyController {
 
             return "/company/stay/detail";
         }else{
-//            List<CompanyResponse.companyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
-//            request.setAttribute("roomDetailList", respDTO);
+            List<CompanyResponse.companyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
+            request.setAttribute("roomDetailList", respDTO);
 
             return "/company/room/detail";
         }
