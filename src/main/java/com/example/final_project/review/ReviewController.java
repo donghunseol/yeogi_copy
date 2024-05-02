@@ -18,12 +18,6 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
     private final HttpSession session;
-//
-//    @GetMapping("/review")
-//    public String main(){
-//        SessionCompany company = (SessionCompany) session.getAttribute("sessionCompany");
-//
-//    }
 
     @GetMapping("/review/{stayId}")
     public String reviewList(@PathVariable Integer stayId, HttpServletRequest request){
