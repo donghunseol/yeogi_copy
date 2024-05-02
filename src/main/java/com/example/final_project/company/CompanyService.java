@@ -101,15 +101,17 @@ public class CompanyService {
     }
 
 
-    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
-        List<Room> roomList = roomRepository.findByStayId(stayId);
-
-        List<CompanyResponse.companyStayDetailDTO> respDTO = roomList.stream().map(room -> {
-            return new CompanyResponse.companyStayDetailDTO(stayId, room);
-        }).collect(Collectors.toList());
-        return respDTO;
-    }
+//    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+//    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId){
+//        List<Object[]> objectList = roomRepository.findAndCountByStayId(stayId);
+//
+//        List<CompanyResponse.companyStayDetailDTO> respDTO = objectList.stream().map(o -> {
+//            Room room = (Room) o[0];
+//            Long count = (Long) o[1];
+//            return new CompanyResponse.companyStayDetailDTO(room, count);
+//        }).collect(Collectors.toList());
+//        return respDTO;
+//    }
 
     public List<CompanyResponse.roomCountByStayIdAndTierDTO> countByStayIdAndTierList(Integer stayId){
         List<Room> roomList = roomRepository.findByStayId(stayId);

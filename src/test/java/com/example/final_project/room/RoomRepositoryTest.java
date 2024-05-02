@@ -28,21 +28,18 @@ public class RoomRepositoryTest {
     }
 
     @Test
-    public void countByStayIdAndTier_test(){
+    public void findAndCountByStayId_test(){
         // given
         Integer stayId = 1;
 
         // when
-        List<Room> roomList = roomRepository.findByStayId(stayId);
-        List<CompanyResponse.roomCountByStayIdAndTierDTO> respDTO = roomList.stream().map(room -> {
-            return new CompanyResponse.roomCountByStayIdAndTierDTO(room.getTier(), stayId);
-        }).toList();
+        List<CompanyResponse.companyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
 
         // eye
-        System.out.println("countByStayIdAndTier_test : " + respDTO);
+        respDTO.forEach(System.out::println);
 
         // then
-        Assertions.assertThat(respDTO.getFirst().getTierCount()).isEqualTo(1);
+
 
     }
 }

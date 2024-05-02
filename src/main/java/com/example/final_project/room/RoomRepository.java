@@ -6,16 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     @Query("select r from Room r join fetch Stay s on r.stay.id = s.id  join fetch RoomInformation ri on r.roomInformation.id = ri.id where s.id = :stayId order by r.id")
     List<Room> findByStayId(@Param("stayId") Integer stayId);
 
-    @Query("SELECT COUNT(r) FROM Room r JOIN FETCH Stay s ON r.stay.id = s.id JOIN FETCH RoomInformation ri ON r.roomInformation.id = ri.id WHERE s.id = :stayId AND r.tier = :tier")
-    Integer findByStayIdAndTier(@Param("stayId") Integer stayId, @Param("tier") String tier);
-
-    @Query("SELECT r.tier, COUNT(r) FROM Room r WHERE r.stay.id = :stayId AND r.tier = :tier GROUP BY r.tier")
-    List<CompanyResponse.roomCountByStayIdAndTierDTO> countByStayIdAndTier(@Param("stayId") Integer stayId, @Param("tier") String tier);
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기(bottom 부분 데이터)
+    // 빨간 선이 생기는게 정상! DTO 경로가 잘 인식된다.
+    @Query("SELECT new com.example.final_project.company.CompanyResponse$companyStayDetailDTO(r, COUNT(r)) FROM Room r JOIN r.stay s JOIN r.roomInformation ri WHERE s.id = :stayId GROUP BY r.tier")
+    List<CompanyResponse.companyStayDetailDTO> findAndCountByStayId(@Param("stayId") Integer stayId);
 
 }

@@ -73,20 +73,20 @@ public class CompanyController {
     }
 
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-    @GetMapping("/manage/stays/{stayId}/rooms")
-    public String companyRoomList(HttpServletRequest request, @PathVariable Integer stayId) {
-        Company company = (Company) session.getAttribute("sessionUser");
-
-        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
-        request.setAttribute("stayList", stayRespDTO);
-
-        List<CompanyResponse.companyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
-        request.setAttribute("detailList", detailRespDTO);
-
-        List<CompanyResponse.roomCountByStayIdAndTierDTO> roomRespDTO = companyService.countByStayIdAndTierList(stayId);
-        request.setAttribute("countList", roomRespDTO);
-        return "/company/stay/detail";
-    }
+//    @GetMapping("/manage/stays/{stayId}/rooms")
+//    public String companyRoomList(HttpServletRequest request, @PathVariable Integer stayId) {
+//        Company company = (Company) session.getAttribute("sessionUser");
+//
+//        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+//        request.setAttribute("stayList", stayRespDTO);
+//
+//        List<CompanyResponse.companyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
+//        request.setAttribute("detailList", detailRespDTO);
+//
+//        List<CompanyResponse.roomCountByStayIdAndTierDTO> roomRespDTO = companyService.countByStayIdAndTierList(stayId);
+//        request.setAttribute("countList", roomRespDTO);
+//        return "/company/stay/detail";
+//    }
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
     @GetMapping("/manage/stays/{stayId}/rooms/{roomId}")
