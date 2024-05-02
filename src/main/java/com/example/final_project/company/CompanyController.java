@@ -96,7 +96,6 @@ public class CompanyController {
 
             return "/company/room/detail";
         }
-
     }
 
     // 정보수정 폼
