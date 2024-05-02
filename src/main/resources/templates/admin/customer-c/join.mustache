@@ -1,4 +1,3 @@
-
 {{> admin/layout/head}}
 <body>
 <main role="main">
@@ -139,8 +138,23 @@
                             <input disabled type="text" name="createdAt" value="2024-03-03">
                         </div>
                         <div class="modal-button-wrapper">
-                            <button class="approval btn-closer">승인</button>
-                            <button class="refuse btn-closer">거절</button>
+                            {{#isBlack}}
+                                {{#isBlackCancel}}
+                                    <button class="btn-light btn-closer"
+                                            onclick="location.href='/admin/company/black/cancel/{{companyId}}'">블랙리스트
+                                        취소
+                                    </button>
+                                {{/isBlackCancel}}
+                                {{^isBlackCancel}}
+                                    <button class="black btn-closer"
+                                            onclick="location.href='/admin/company/black/{{companyId}}'">블랙리스트 등록
+                                    </button>
+                                {{/isBlackCancel}}
+                            {{/isBlack}}
+                            {{^isBlack}}
+                                <button class="approval btn-closer">승인</button>
+                                <button class="refuse btn-closer">거절</button>
+                            {{/isBlack}}
                         </div>
                     </div>
                 </form>
@@ -156,7 +170,7 @@
         const closeBtn = document.querySelector('.btn-cls');
         const modal = document.querySelector('.modal-bg');
         const closerBtn1 = document.querySelector('.btn-closer.refuse');
-        const closerBtn2= document.querySelector('.btn-closer.approval');
+        const closerBtn2 = document.querySelector('.btn-closer.approval');
 
         detailButtons.forEach(function (button) {
             button.addEventListener('click', showModal);
@@ -179,6 +193,7 @@
         function closerAticon1() {
             closeModal();
         }
+
         function closerAticon2() {
             closeModal();
         }
