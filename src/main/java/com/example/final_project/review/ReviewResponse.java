@@ -107,16 +107,19 @@ public class ReviewResponse {
     public static class Detail{
         private Integer id;
         private UserDTO writer;
+        private Integer stayId;
+        private String title;
         private String content;
-        private Review parent;
+        private Integer parentId;
         private LocalDateTime createdAt;
         private Integer score;
         private List<Detail> children = new ArrayList<>();
 
         public Detail(Review review ,UserDTO writer) {
             this.id = review.getId();
+            this.stayId = review.getStay().getId();
             this.writer = writer;
-            this.parent = review.getParent();
+            this.title = review.getStay().getName();
             this.content = review.getContent();
             this.createdAt = review.getCreatedAt();
             this.score = review.getScore();
