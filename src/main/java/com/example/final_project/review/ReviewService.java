@@ -5,6 +5,10 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.reservation.ReservationRepository;
+import com.example.final_project.room.Room;
+import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.user.User;
@@ -26,8 +30,10 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final StayRepository stayRepository;
     private final CompanyRepository companyRepository;
+    private final RoomRepository roomRepository;
+    private final ReservationRepository reservationRepository;
 
-    //API 리뷰 작성 및 대댓글 작성
+    //리뷰 작성 및 대댓글 작성
     @Transactional
     public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO) {
 
@@ -55,7 +61,7 @@ public class ReviewService {
         return  new ReviewResponse.Save(stayId, new ReviewResponse.Save.UserDTO(user), review.getContent(), review.getScore());
     }
 
-    // 댓글 조회
+    // 댓글 목록
     @Transactional
     public List<ReviewResponse.Find> select(Integer stayId , SessionCompany sessionUser) {
 
@@ -104,9 +110,35 @@ public class ReviewService {
                 roots.add(reviewFind);
             }
         }
-        System.out.println("결과------------" + reviewConunt);
         return roots;
 
+    }
+
+    // 댓글 디테일
+    @Transactional
+    public ReviewResponse.Detail detail(Integer reviewId, SessionCompany sessionUser) {
+        // 1. 인증 처리
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요한 서비스입니다.");
+        }
+
+        // 2. 리뷰 조회
+        Review review = reviewRepository.findByReviewId(reviewId);
+
+
+        // 4. 리뷰 디테일 정보 생성
+        ReviewResponse.Detail.UserDTO writerDTO = new ReviewResponse.Detail.UserDTO(review.getWriter());
+        ReviewResponse.Detail detail = new ReviewResponse.Detail(review, writerDTO);
+
+        // 5. 리뷰의 자식 댓글 리스트 구성
+        for (Review childReview : review.getChildren()) {
+            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, new ReviewResponse.Detail.UserDTO(childReview.getWriter()));
+            detail.getChildren().add(childDetail);
+        }
+
+        // 6. 리뷰 디테일 정보 반환
+
+        return detail;
     }
 
     //댓글 삭제
@@ -121,8 +153,5 @@ public class ReviewService {
 
         return new ReviewResponse.Delete(review.getIsDelete());
     }
-
-
-
 
 }

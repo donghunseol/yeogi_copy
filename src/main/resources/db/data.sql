@@ -173,6 +173,10 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (2, 3, 5, '다시 오고 싶어요!', 'FLAWLESS', now()),
        (3, 3, 4, '좋았습니다!', 'FLAWLESS', now());
 
+-- review 대댓글 더미생성
+insert into review_tb(user_id,stay_id, content, is_delete, created_at, parent_id)
+values (1,1,'고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!','FLAWLESS',now(), 1);
+
 -- review_comment 더미 생성
 insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
 values (1, 1, '감사합니다!', 'FLAWLESS', now()),

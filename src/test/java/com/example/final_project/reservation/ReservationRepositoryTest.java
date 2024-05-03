@@ -89,6 +89,21 @@ public class ReservationRepositoryTest {
     }
 
     @Test
+
+    public void findByStayIdWithUserId_test() {
+            // given
+            Integer stayId =1;
+            Integer userId = 1;
+            Integer roomId = 1;
+            // when
+            Reservation reservation =  reservationRepository.findByStayIdWithUserId(stayId,userId,roomId);
+            // eye
+            System.out.println("왜 통과하는건데 ==============" +reservation.getReservationName());
+            // then
+            Assertions.assertThat(reservation.getReservationName().equals("감자머리"));
+        }
+
+    @Test
     public void findByIdWithRoomAndRoomInformation_test(){
         // given
         Integer reservationId = 1;
@@ -103,4 +118,5 @@ public class ReservationRepositoryTest {
         Assertions.assertThat(reservation.getRoom().getId()).isEqualTo(1);
 
     }
+
 }
