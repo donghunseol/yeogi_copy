@@ -30,7 +30,7 @@ public class AdminController {
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/company")
     public String company(HttpServletRequest request, Integer companyId) {
-        SessionCompany sessionCompany = adminService.adminCompanyBlack(companyId);
+//        SessionCompany sessionCompany = adminService.adminCompanyBlack(companyId);
 
         // 블랙 리스트 정보 저장
         Boolean isBlack = false; // true 면 블랙 등록 / false 면 블랙 미등록
@@ -42,13 +42,13 @@ public class AdminController {
         // 블랙 취소 버튼 -> BLACK (true)
         // 블랙 버튼을 활성화 해야 하는 경우 -> ACTIVE 만 (false)
         // 블랙 버튼 비활성화 -> PROGRESSING, QUIT, REJECT (false)
-        if (sessionCompany.getState().equals(BLACK)) {
-            isBlack = true;
-            isBlackCancel = false;
-        } else {
-            isBlack = false;
-            isBlackCancel = true;
-        }
+//        if (sessionCompany.getState().equals(BLACK)) {
+//            isBlack = true;
+//            isBlackCancel = false;
+//        } else {
+//            isBlack = false;
+//            isBlackCancel = true;
+//        }
 
         request.setAttribute("isBlack", isBlack);
         request.setAttribute("isBlackCancel", isBlackCancel);
@@ -68,5 +68,12 @@ public class AdminController {
     public String companyBlackCancel(@PathVariable Integer companyId) {
         adminService.adminCompanyBlackCancel(companyId);
         return "redirect:/admin/company";
+    }
+
+    //
+    @GetMapping("/admin/user")
+    public String user(){
+
+        return "/admin/customer-u/join";
     }
 }
