@@ -1522,6 +1522,11 @@ em.guide b {
 .review-table li span:nth-child(1) {
     padding: 0 5px 0 0;
 }
+.review-table li .review-content .reply-content .reply-user-info span:after{
+    width: 0;
+    height: 0;
+}
+
 
 .review-table li span:last-child:after {
     width: 0;
@@ -1549,19 +1554,20 @@ em.guide b {
 
 .review-table li .review-content .reply-content {
     padding: 20px;
-    background: #f8f8f8;
     margin-top: 20px;
     border-radius: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .review-table li .review-content .reply-content .reply-user-info {
     font-size: 14px;
     margin-bottom: 10px;
     display: flex;
+    flex-direction: column;
 }
 
 .review-table li .review-content .reply-content .reply-user-info span {
+    color: #f45858;
 }
 
 .review-table li .review-content .reply-content p.text {
@@ -1572,9 +1578,11 @@ em.guide b {
     width: 100%;
     resize: none;
     outline: none;
-    padding: 10px;
+    padding: 20px;
     overflow-y: hidden;
     line-height: 1.3;
+    background: #f8f8f8;
+    border-radius: 5px;
 }
 
 .review-table li .review-content .button-wrapper {
@@ -1640,4 +1648,10 @@ textarea.input {
     padding: 10px;
     overflow-y: hidden;
     line-height: 1.3;
+}
+.review-content-reply{
+    margin-top: 10px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 5px;
 }

@@ -119,4 +119,14 @@ public class CompanyController {
         return "redirect:/manage/stays";
     }
 
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
+    @GetMapping("/reservations/{reservationId}/detail")
+    public String companyReservationDetail(HttpServletRequest request,
+                                           @PathVariable Integer reservationId){
+        CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+        request.setAttribute("reservationDetail", respDTO);
+
+        return "/company/reservation/detail";
+    }
+
 }

@@ -19,6 +19,8 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final HttpSession session;
 
+
+    //리뷰 테이블
     @GetMapping("/review/{stayId}")
     public String reviewList(@PathVariable Integer stayId, HttpServletRequest request){
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
@@ -27,4 +29,17 @@ public class ReviewController {
 
         return "/company/review/main";
     }
+
+
+    //리뷰 디테일
+    @GetMapping("/review/detail/{reviewId}")
+    public String reviewDetail(@PathVariable Integer reviewId , HttpServletRequest request){
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+        ReviewResponse.Detail respDTO = reviewService.detail(reviewId,company);
+        request.setAttribute("review",respDTO);
+
+        return "/company/review/detail";
+    }
+
+
 }
