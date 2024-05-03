@@ -1,11 +1,16 @@
 package com.example.final_project.company;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project.pay.Pay;
+import com.example.final_project.reservation.Reservation;
 import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Data;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CompanyResponse {
 
@@ -93,6 +98,44 @@ public class CompanyResponse {
          this.stayAddress = stay.getAddress();
          this.stayCategory = stay.getCategory();
          this.roomTier = tier;
+      }
+   }
+
+   // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
+   @Data
+   public static class companyReservationDetailDTO {
+      private Integer reservationId; // 예약 아이디
+      private Integer roomId; // 객실 아이디
+      private Integer payId; // 결제 아이디
+      private String roomImagePath; // 객실 이미지 경로
+      private String roomName; // 객실 이름(호실)
+      private String reservationName; // 예약자 이름
+      private String reservationTel; // 예약자 전화번호
+      private LocalDate checkInDate; // 체크인 날짜
+      private LocalTime checkInTime; // 체크인 시간
+      private LocalDate checkOutDate; // 체크아웃 날짜
+      private LocalTime checkOutTime; // 체크아웃 시간
+      private String isDiscount; // 특가 적용
+      private Integer payAmount; // 결제 금액
+
+      public companyReservationDetailDTO(Reservation reservation, Pay pay){
+         this.reservationId = reservation.getId();
+         this.roomId = reservation.getRoom().getId();
+         this.payId = pay.getId();
+         this.roomImagePath = reservation.getRoom().getImagePath();
+         this.roomName = reservation.getRoom().getName();
+         this.reservationName = reservation.getReservationName();
+         this.reservationTel = reservation.getReservationTel();
+         this.checkInDate = reservation.getCheckInDate();
+         this.checkInTime = reservation.getRoom().getRoomInformation().getCheckIn();
+         this.checkOutDate = reservation.getCheckOutDate();
+         this.checkOutTime = reservation.getRoom().getRoomInformation().getCheckOut();
+         if(reservation.getRoom().getSpecialState() == RoomEnum.APPLIED){
+            this.isDiscount = "O";
+         }else{
+            this.isDiscount = "X";
+         }
+         this.payAmount = pay.getAmount();
       }
    }
 }

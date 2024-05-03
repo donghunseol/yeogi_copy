@@ -87,4 +87,20 @@ public class ReservationRepositoryTest {
         Assertions.assertThat(reservationList.getLast().getCheckOutDate()).isEqualTo(LocalDate.of(2025,6,27));
 
     }
+
+    @Test
+    public void findByIdWithRoomAndRoomInformation_test(){
+        // given
+        Integer reservationId = 1;
+
+        // when
+        Reservation reservation = reservationRepository.findByIdWithRoomAndRoomInformation(reservationId);
+
+        // eye
+        System.out.println("findByIdWithRoomAndRoomInformation_test getReservationName : " + reservation.getReservationName());
+
+        // then
+        Assertions.assertThat(reservation.getRoom().getId()).isEqualTo(1);
+
+    }
 }
