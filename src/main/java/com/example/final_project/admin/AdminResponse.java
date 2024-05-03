@@ -9,6 +9,7 @@ import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AdminResponse {
 
     // 관리자 페이지에서 출력할 유저 정보
     @Data
-    public static class userListDTO{
+    public static class userListDTO {
         private Integer id; // 유저 번호
         private String email; // 이메일 (로그인 할 때 아이디로 사용)
         private String name; // 회원 이름
@@ -43,35 +44,47 @@ public class AdminResponse {
 
     // 관리자 페이지에서 출력할 기업 정보
     @Data
-    public static class companyListDTO{
+    public static class companyListDTO {
         private Integer id; // 기업 번호
-        private String email; // 이메일 (로그인 할 때 아이디로 사용)
         private String businessName; // 등록 상호명
-        private String businessNumber; // 사업자 번호
-        private String businessAddress; // 사업자 주소
         private String phone; // 사업자 전화번호
         private String name; // 사업자 이름
-        private CompanyEnum state; // 상태 (ACTIVE : 기업 유지, QUIT : 기업 탈퇴, BLACK : 신고 받아서 제한된 기업)
-        private Integer reportCount; // 신고 받은 횟수
-        private LocalDateTime createdAt; // 기업 가입 일자
+        private String stateMessage; // 상태 메시지 한글
+        private String stateColor; // 상태 메시지 색
+        Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
+        Boolean isBlackCancel; // true 면 블랙 취소 버튼 활성 / false 면 블랙 취소 버튼 비활성
 
         public companyListDTO(Company company) {
             this.id = company.getId();
-            this.email = company.getEmail();
             this.businessName = company.getBusinessName();
-            this.businessNumber = company.getBusinessNumber();
-            this.businessAddress = company.getBusinessAddress();
             this.phone = company.getPhone();
             this.name = company.getName();
-            this.state = company.getState();
-            this.reportCount = company.getReportCount();
-            this.createdAt = company.getCreatedAt();
+            isBlack = false;
+            isBlackCancel = true;
+            if (company.getState() == CompanyEnum.ACTIVE) {
+                this.stateMessage = "승인";
+                this.stateColor = "approval";
+            } else if (company.getState() == CompanyEnum.PROGRESSING) {
+                this.stateMessage = "대기중";
+                this.stateColor = "wait";
+            } else if (company.getState() == CompanyEnum.QUIT) {
+                this.stateMessage = "탈퇴";
+                this.stateColor = "drop-out";
+            } else if (company.getState() == CompanyEnum.REJECT) {
+                this.stateMessage = "거절";
+                this.stateColor = "refuse";
+            } else if (company.getState() == CompanyEnum.BLACK) {
+                this.stateMessage = "블랙";
+                this.stateColor = "black-list";
+                this.isBlack = true;
+                this.isBlackCancel = false;
+            }
         }
     }
 
     // 관리자 페이지에서 출력할 특정 기업의 숙소 정보
     @Data
-    public static class companyStayDetailDTO{
+    public static class companyStayDetailDTO {
         private Integer id; // 숙소 번호
         private Company company; // 해당 숙소의 기업
         private String name; // 숙소 이름
@@ -84,7 +97,7 @@ public class AdminResponse {
         private List<Room> rooms = new ArrayList<>(); // 객실 리스트
         private LocalDateTime createdAt; // 숙소 등록 일자
 
-        public companyStayDetailDTO(Stay stay, List<Room> rooms){
+        public companyStayDetailDTO(Stay stay, List<Room> rooms) {
             this.id = stay.getId();
             this.company = stay.getCompany();
             this.name = stay.getName();
