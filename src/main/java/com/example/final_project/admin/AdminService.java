@@ -8,6 +8,7 @@ import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
+import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.reservation.ReservationResponse;
@@ -65,7 +66,6 @@ public class AdminService {
 
         return respDTO;
     }
-
 
     // 모든 기업 정보 리스트
     public List<AdminResponse.companyListDTO> adminCompanyList() {
@@ -151,5 +151,38 @@ public class AdminService {
         companyRepository.save(company);
 
         return new SessionCompany(company);
+    }
+
+    // 기업 수익 전체 조회
+    public PayResponse.TotalIncomeDTO findIncomeByStayAndTotalIncome(SessionCompany sessionCompany) {
+        Company company = companyRepository.findById(sessionCompany.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+
+        // 전체 수익 가져오기
+        PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
+
+        // 만약 수익이 전혀 없으면 0을 반환
+        if (respDTO == null) {
+            respDTO = new PayResponse.TotalIncomeDTO(company.getId(), 0L, 0L);
+        }
+
+        return respDTO;
+    }
+
+    // 숙소 수익 전체 조회
+    public PayResponse.TotalIncomeDTO findIncomeByStayAndTotalIncome(SessionCompany sessionCompany, Integer stayId) {
+        Company company = companyRepository.findById(sessionCompany.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        //Stay stay = stayRepository.findById()
+
+        // 전체 수익 가져오기
+        PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
+
+        // 만약 수익이 전혀 없으면 0을 반환
+        if (respDTO == null) {
+            //respDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), ,0L, 0L);
+        }
+
+        return respDTO;
     }
 }

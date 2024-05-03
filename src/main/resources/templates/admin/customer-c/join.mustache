@@ -59,41 +59,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state refuse">거절</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state approval">승인</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
+                            {{#companyList}}
+                                <div hidden="hidden" id="id"></div>
+                                <tr>
+                                    <td class="title" id="businessName">{{businessName}}</td>
+                                    <td id="phone">{{phone}}</td>
+                                    <td id="name">{{name}}</td>
+                                    <td><span class="state {{stateColor}}" id="stateMessage">{{stateMessage}}</span>
+                                    </td>
+                                    <td><span class="detail">상세보기</span></td>
+                                </tr>
+                            {{/companyList}}
                             </tbody>
                         </table>
                     </div>
@@ -138,23 +114,24 @@
                             <input disabled type="text" name="createdAt" value="2024-03-03">
                         </div>
                         <div class="modal-button-wrapper">
-                            {{#isBlack}}
-                                {{#isBlackCancel}}
+                            {{#companyList.isBlack}}
+                                {{#companyList.isBlackCancel}}
                                     <button class="btn-light btn-closer"
-                                            onclick="location.href='/admin/company/black/cancel/{{companyId}}'">블랙리스트
+                                            onclick="location.href='/admin/company/black/cancel/{{companyList.id}}'">
+                                        블랙리스트
                                         취소
                                     </button>
-                                {{/isBlackCancel}}
-                                {{^isBlackCancel}}
+                                {{/companyList.isBlackCancel}}
+                                {{^companyList.isBlackCancel}}
                                     <button class="black btn-closer"
-                                            onclick="location.href='/admin/company/black/{{companyId}}'">블랙리스트 등록
+                                            onclick="location.href='/admin/company/black/{{companyList.id}}'">블랙리스트 등록
                                     </button>
-                                {{/isBlackCancel}}
-                            {{/isBlack}}
-                            {{^isBlack}}
+                                {{/companyList.isBlackCancel}}
+                            {{/companyList.isBlack}}
+                            {{^companyList.isBlack}}
                                 <button class="approval btn-closer">승인</button>
                                 <button class="refuse btn-closer">거절</button>
-                            {{/isBlack}}
+                            {{/companyList.isBlack}}
                         </div>
                     </div>
                 </form>

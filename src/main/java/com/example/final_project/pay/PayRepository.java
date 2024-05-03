@@ -16,5 +16,29 @@ public interface PayRepository extends JpaRepository<Pay, Integer> {
     Pay findByRoomId(@Param("roomId") Integer roomId, @Param("now") LocalDate now);
 
     // 전체 수익 조회
-    Optional<Pay> findByTotalIncome(@Param("companyId") Integer companyId);
+    @Query("""
+            SELECT new com.example.final_project.pay.PayResponse$TotalIncomeDTO
+            (p.reservation.room.stay.company.id, SUM(p.amount), count (p.reservation.id))
+            FROM Pay p
+            JOIN FETCH Reservation re ON p.reservation.id = re.id
+            JOIN FETCH Room r ON re.room.id = r.id
+            JOIN FETCH Stay s ON r.stay.id = s.id
+            JOIN FETCH Company c ON s.company.id = c.id
+            WHERE c.id = :companyId AND p.state = 'COMPLETION'
+            """)
+    PayResponse.TotalIncomeDTO findTotalIncome(@Param("companyId") Integer companyId);
+
+    // 숙소 수익 조회
+    @Query("""
+            SELECT new com.example.final_project.pay.PayResponse$StayTotalIncomeDTO
+            (p.reservation.room.stay.company.id, p.reservation.room.stay.id, SUM(p.amount), count (p.reservation.id))
+            FROM Pay p
+            JOIN FETCH Reservation re ON p.reservation.id = re.id
+            JOIN FETCH Room r ON re.room.id = r.id
+            JOIN FETCH Stay s ON r.stay.id = s.id
+            JOIN FETCH Company c ON s.company.id = c.id
+            WHERE c.id = :companyId AND p.state = 'COMPLETION' AND s.id = :stayId
+            GROUP BY p.reservation.room.stay.company.id, p.reservation.room.stay.id
+            """)
+    PayResponse.StayTotalIncomeDTO findIncomeByStay(@Param("companyId") Integer companyId, @Param("stayId") Integer stayId);
 }
