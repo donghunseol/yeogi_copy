@@ -11,6 +11,7 @@
                         <p>리뷰관리</p>
                     </div>
                     <div class="tab-item company stay">
+                        {{#review}}
                         <ul class="review-table">
                             <li>
                                 <div class="review-detail-head">
@@ -21,19 +22,29 @@
                                 </div>
                                 <p class="reply-icon black">댓글</p>
                                 <div class="review-user-info">
-                                    <span>작성자 : 김지훈</span>
-                                    <span>작성일자 : 2024.02.05</span>
-                                    <span>누적신고횟수 : 0 회</span>
-                                    <span>별점 : 5점</span>
+                                    <span>작성자 : {{writer.name}}</span>
+                                    <span>작성일자 : {{createdAt}}</span>
+                                    <span>누적신고횟수 :{{writer.reportCount}} 회</span>
+                                    <span>별점 : {{score}}점</span>
                                 </div>
                                 <div class="review-content">
-                                    <p class="text">여기 진짜 최악이에요 가지마세요 벽에 곰팡이 있어요...!</p>
-                                    <form action="#" method="#">
-                                        <input type="hidden" value="{{parentId}}">
+                                    <p class="text">{{content}}</p>
+                                    {{#children}}
                                         <div class="reply-content">
                                             <p class="reply-icon">답글</p>
                                             <div class="reply-user-info">
-                                                <span>작성자 : 야놀자</span>
+                                                <span>작성자 : {{sessionUser.businessName}}</span>
+                                                <div class="review-content-reply">{{content}}</div>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    {{/children}}
+                                    {{^children}}
+                                    <form action="#" method="#">
+                                        <div class="reply-content">
+                                            <p class="reply-icon">답글</p>
+                                            <div class="reply-user-info">
+                                                <span>작성자 : {{sessionUser.businessName}}</span>
                                             </div>
                                             <textarea id="newTweetContent" placeholder="답글을 적어주세요."
                                                       onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
@@ -41,6 +52,7 @@
                                                 <button>답글달기</button>
                                             </div>
                                         </div>
+                                    {{/children}}
                                     </form>
                                 </div>
                                 <div class="button-wrapper">
@@ -48,6 +60,7 @@
                                 </div>
                             </li>
                         </ul>
+                        {{/review}}
                     </div>
 
                 </div>

@@ -1,6 +1,8 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
+import com.example.final_project.company.Company;
+import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
 
@@ -51,10 +53,7 @@ public class ReviewResponse {
 
     }
 
-
     //리뷰찾기 응답 DTO
-
-
     @Data
     public static class Find{
         private Integer reviewCount;
@@ -92,6 +91,7 @@ public class ReviewResponse {
         }
     }
 
+
     //리뷰삭제 응답 DTO
     @Data
     public static class Delete{
@@ -101,4 +101,40 @@ public class ReviewResponse {
             this.state = state;
         }
     }
+
+    //리뷰디테일 응답 DTO
+    @Data
+    public static class Detail{
+        private Integer id;
+        private UserDTO writer;
+        private String content;
+        private Review parent;
+        private LocalDateTime createdAt;
+        private Integer score;
+        private List<Detail> children = new ArrayList<>();
+
+        public Detail(Review review ,UserDTO writer) {
+            this.id = review.getId();
+            this.writer = writer;
+            this.parent = review.getParent();
+            this.content = review.getContent();
+            this.createdAt = review.getCreatedAt();
+            this.score = review.getScore();
+        }
+        @Data
+        public static class UserDTO{
+            private String name;
+            private String state;
+            private Integer reportCount;
+
+            public UserDTO(User user) {
+                this.name = user.getName();
+                this.state = String.valueOf(user.getState());
+                this.reportCount = user.getReportCount();
+            }
+
+        }
+    }
+
+
 }
