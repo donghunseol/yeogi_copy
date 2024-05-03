@@ -106,7 +106,6 @@ public class CompanyResponse {
    public static class companyReservationDetailDTO {
       private Integer reservationId; // 예약 아이디
       private Integer roomId; // 객실 아이디
-      private Integer payId; // 결제 아이디
       private String roomImagePath; // 객실 이미지 경로
       private String roomName; // 객실 이름(호실)
       private String reservationName; // 예약자 이름
@@ -116,12 +115,11 @@ public class CompanyResponse {
       private LocalDate checkOutDate; // 체크아웃 날짜
       private LocalTime checkOutTime; // 체크아웃 시간
       private String isDiscount; // 특가 적용
-      private Integer payAmount; // 결제 금액
+      private Integer price; // 결제 금액
 
-      public companyReservationDetailDTO(Reservation reservation, Pay pay){
+      public companyReservationDetailDTO(Reservation reservation){
          this.reservationId = reservation.getId();
          this.roomId = reservation.getRoom().getId();
-         this.payId = pay.getId();
          this.roomImagePath = reservation.getRoom().getImagePath();
          this.roomName = reservation.getRoom().getName();
          this.reservationName = reservation.getReservationName();
@@ -132,10 +130,11 @@ public class CompanyResponse {
          this.checkOutTime = reservation.getRoom().getRoomInformation().getCheckOut();
          if(reservation.getRoom().getSpecialState() == RoomEnum.APPLIED){
             this.isDiscount = "O";
+            this.price = reservation.getRoom().getSpecialPrice();
          }else{
             this.isDiscount = "X";
+            this.price = reservation.getRoom().getPrice();
          }
-         this.payAmount = pay.getAmount();
       }
    }
 }
