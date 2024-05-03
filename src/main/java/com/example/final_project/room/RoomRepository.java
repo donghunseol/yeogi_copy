@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
@@ -20,4 +21,6 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
     @Query("SELECT r FROM Room r JOIN r.stay s JOIN r.roomInformation ri WHERE s.id = :stayId AND r.tier = :tier")
     List<Room> findByStayIdAndTier(@Param("stayId") Integer stayId, @Param("tier") String tier);
+
+
 }

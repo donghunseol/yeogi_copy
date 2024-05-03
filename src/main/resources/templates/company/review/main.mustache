@@ -43,15 +43,16 @@
                             </thead>
                             <tbody>
                             {{#reviewList}}
-                            <tr class="review">
-                                <td class="title"><span>{{content}}</span></td>
-                                <td class="content">{{writer.name}}</td>
-                                <td>{{score}}점</td>
-                                <td>{{createdAt}}</td>
-                                <td class="link">
-                                    <a href="/review/detail"></a>
-                                </td>
-                            </tr>
+
+                                <tr class="review">
+                                    <td class="title"><span>{{content}}</span></td>
+                                    <td class="content">{{writer.name}}</td>
+                                    <td>{{score}}점</td>
+                                    <td>{{createdAt}}</td>
+                                    <td class="link">
+                                        <a href="/review/detail/{{id}}"></a>
+                                    </td>
+                                </tr>
                             {{/reviewList}}
                             </tbody>
                         </table>
