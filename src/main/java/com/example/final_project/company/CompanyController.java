@@ -1,6 +1,5 @@
 package com.example.final_project.company;
 
-import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -82,15 +81,20 @@ public class CompanyController {
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
-        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
-        request.setAttribute("stayList", stayRespDTO);
+
 
         if(tier.isBlank()){
+            List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+            request.setAttribute("stayList", stayRespDTO);
+
             List<CompanyResponse.companyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
             request.setAttribute("detailList", detailRespDTO);
 
             return "/company/stay/detail";
         }else{
+            CompanyResponse.companyStayListAndTierDTO stayRespDTO = companyService.companyStayListAndTier(stayId, tier);
+            request.setAttribute("stayList", stayRespDTO);
+
             List<CompanyResponse.companyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
             request.setAttribute("roomDetailList", respDTO);
 

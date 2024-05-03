@@ -114,12 +114,21 @@ public class CompanyService {
     public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier){
         List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
         List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
-            Pay pay = null;
-            if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
-                pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
-            }
+            Pay pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
             return new CompanyResponse.companyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
         return respDTO;
     }
+
+    public CompanyResponse.companyStayListAndTierDTO companyStayListAndTier(Integer stayId, String tier){
+        Optional<Stay> stayOP = stayRepository.findById(stayId);
+        Stay stay = null;
+        if(stayOP.isPresent()){
+            stay = stayOP.get();
+        }
+        StayImage stayImage = stayImageRepository.findByStayId(stayId).getFirst();
+
+        return new CompanyResponse.companyStayListAndTierDTO(stay, stayImage, tier);
+    }
+
 }
