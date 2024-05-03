@@ -65,11 +65,34 @@ public class CompanyResponse {
          if (pay != null && pay.getReservation() != null) {
             this.isReservation = "예약 완료";
             this.checkOutDate = pay.getReservation().getCheckOutDate().toString();
+            this.payState = pay.getState();
          } else {
             this.isReservation = "예약 가능";
             this.checkOutDate = "";
+            this.payState = null;
          }
-         this.payState = pay.getState();
+      }
+   }
+
+   // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 숙소 정보 + 객실의 티어
+   @Data
+   public static class companyStayListAndTierDTO {
+      private Integer stayId; // 숙소 번호
+      private String stayName; // 숙소 이름
+      private Integer imageId; // 숙소 이미지 번호
+      private String imagePath; // 이미지 경로
+      private String stayAddress; // 숙소 주소
+      private String stayCategory; // 숙소 분류 (ex.호텔)
+      private String roomTier; // 객실의 티어
+
+      public companyStayListAndTierDTO(Stay stay, StayImage stayImage, String tier){
+         this.stayId = stay.getId();
+         this.stayName = stay.getName();
+         this.imageId = stayImage.getId();
+         this.imagePath = stayImage.getPath();
+         this.stayAddress = stay.getAddress();
+         this.stayCategory = stay.getCategory();
+         this.roomTier = tier;
       }
    }
 }
