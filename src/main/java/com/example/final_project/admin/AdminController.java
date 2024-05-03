@@ -47,4 +47,13 @@ public class AdminController {
         adminService.adminCompanyBlackCancel(companyId);
         return "redirect:/admin/company";
     }
+
+    // 개인 회원 정보 조회 View
+    @GetMapping("/admin/user")
+    public String user(HttpServletRequest request) {
+        List<AdminResponse.userListDTO> respDTO = adminService.adminUserList();
+        request.setAttribute("userCount", respDTO.size());
+        request.setAttribute("userList", respDTO);
+        return "/admin/customer-u/join";
+    }
 }

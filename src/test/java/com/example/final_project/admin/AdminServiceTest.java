@@ -40,7 +40,7 @@ public class AdminServiceTest {
         System.out.println("adminUserList_test userList : " + userList);
 
         // then
-        Assertions.assertThat(userList.getFirst().getEmail()).isEqualTo("ssar@nate.com");
+        Assertions.assertThat(userList.getFirst().getPhone()).isEqualTo("01012341234");
 
     }
 

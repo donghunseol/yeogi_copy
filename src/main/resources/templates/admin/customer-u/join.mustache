@@ -19,18 +19,9 @@
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 대기 및 등록업체<em> 20 </em>개</span>
+                                    <span>총 회원<em> {{userCount}}</em>명</span>
                                 </li>
                                 <li class="search-right">
-                                    <div>
-                                        <label for="comp-state">문의상태</label>
-                                        <select name="state" id="comp-state">
-                                            <option value="">전체</option>
-                                            <option value="승인">승인</option>
-                                            <option value="거절">거절</option>
-                                            <option value="대기중">대기중</option>
-                                        </select>
-                                    </div>
                                     <div>
                                         <div class="tab-input-wrapper">
                                             <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
@@ -51,49 +42,23 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">기업명</th>
+                                <th scope="col">회원명</th>
                                 <th scope="col">전화번호</th>
-                                <th scope="col">대표이름</th>
+                                <th scope="col">신고 받은 횟수</th>
                                 <th scope="col">상태</th>
                                 <th scope="col">상세보기</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state refuse">거절</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state approval">승인</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
+                                {{#userList}}
+                                    <tr>
+                                        <td class="title">{{name}}</td>
+                                        <td>{{phone}}</td>
+                                        <td>{{reportCount}}</td>
+                                        <td><span class="state wait">{{state}}</span></td>
+                                        <td><span class="detail">상세보기</span></td>
+                                    </tr>
+                                {{/userList}}
                             </tbody>
                         </table>
                     </div>
