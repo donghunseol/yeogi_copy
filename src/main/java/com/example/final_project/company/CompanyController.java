@@ -1,6 +1,5 @@
 package com.example.final_project.company;
 
-import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -82,15 +81,20 @@ public class CompanyController {
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
-        List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
-        request.setAttribute("stayList", stayRespDTO);
+
 
         if(tier.isBlank()){
+            List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+            request.setAttribute("stayList", stayRespDTO);
+
             List<CompanyResponse.companyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
             request.setAttribute("detailList", detailRespDTO);
 
             return "/company/stay/detail";
         }else{
+            CompanyResponse.companyStayListAndTierDTO stayRespDTO = companyService.companyStayListAndTier(stayId, tier);
+            request.setAttribute("stayList", stayRespDTO);
+
             List<CompanyResponse.companyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
             request.setAttribute("roomDetailList", respDTO);
 
@@ -113,6 +117,16 @@ public class CompanyController {
         session.setAttribute("sessionUser",company);
 
         return "redirect:/manage/stays";
+    }
+
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
+    @GetMapping("/reservations/{reservationId}/detail")
+    public String companyReservationDetail(HttpServletRequest request,
+                                           @PathVariable Integer reservationId){
+        CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+        request.setAttribute("reservationDetail", respDTO);
+
+        return "/company/reservation/detail";
     }
 
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @SpringBootTest
@@ -61,6 +62,22 @@ public class CompanyServiceTest {
 
         // then
 
+
+    }
+
+    @Test
+    public void companyReservationDetail_test(){
+        // given
+        Integer reservationId = 1;
+
+        // when
+        CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+
+        // eye
+        System.out.println("companyReservationDetail_test getPrice : " + respDTO.getPrice());
+
+        // then
+        Assertions.assertThat(respDTO.getCheckInTime()).isEqualTo(LocalTime.of(15,0));
 
     }
 }

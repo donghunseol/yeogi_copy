@@ -5,6 +5,8 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
@@ -20,8 +22,6 @@ import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.time.LocalDate.now;
-
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +32,7 @@ public class CompanyService {
     private final StayImageRepository stayImageRepository;
     private final RoomRepository roomRepository;
     private final PayRepository payRepository;
+    private final ReservationRepository reservationRepository;
 
 
     //JWT - 로그인
@@ -114,12 +115,27 @@ public class CompanyService {
     public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier){
         List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
         List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
-            Pay pay = null;
-            if(payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31)) != null){
-                pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
-            }
+            Pay pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023,12,31));
             return new CompanyResponse.companyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
         return respDTO;
+    }
+
+    public CompanyResponse.companyStayListAndTierDTO companyStayListAndTier(Integer stayId, String tier){
+        Optional<Stay> stayOP = stayRepository.findById(stayId);
+        Stay stay = null;
+        if(stayOP.isPresent()){
+            stay = stayOP.get();
+        }
+        StayImage stayImage = stayImageRepository.findByStayId(stayId).getFirst();
+
+        return new CompanyResponse.companyStayListAndTierDTO(stay, stayImage, tier);
+    }
+
+
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
+    public CompanyResponse.companyReservationDetailDTO companyReservationDetail(Integer reservationId){
+        Reservation reservation = reservationRepository.findByIdWithRoomAndRoomInformation(reservationId);
+        return new CompanyResponse.companyReservationDetailDTO(reservation);
     }
 }

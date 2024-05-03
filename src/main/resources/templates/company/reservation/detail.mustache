@@ -13,56 +13,58 @@
                     <div class="tab-item company info">
                         <p class="tab-title">예약상세</p>
                         <div class="room-tab_menu">
-                            <div class="cont_area">
-                                <span class="img-txt">호실 이미지</span>
-                                <div class="img-wrapper">
-                                    <img src="image/room1.jpg" alt="호실 사진">
-                                </div>
-                                <div class="join-form-item">
-                                    <label for="room-number">호실</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="room-number" value="405호실" disabled>
+                            {{#reservationDetail}}
+                                <div class="cont_area">
+                                    <span class="img-txt">호실 이미지</span>
+                                    <div class="img-wrapper">
+                                        <img src="{{roomImagePath}}" alt="호실 사진">
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="room-number">호실</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="room-number" value="{{roomName}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="loging-name">예약자이름</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="reservation-name" value="{{reservationName}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="loging-name">체크인</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="reservation-start-date" value="{{checkInDate}} {{checkInTime}}"
+                                                   disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="loging-name">체크아웃</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="reservation-end-date" value="{{checkOutDate}} {{checkOutTime}}"
+                                                   disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="loging-name">특가적용</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="special" value="{{isDiscount}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="loging-name">결제금액</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="loging-name" placeholder="가격" value="{{price}}원"
+                                                   disabled
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
+                                        </div>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <button type="submit" class="btn black join"
+                                                onclick="history.back()">뒤로가기</button>
                                     </div>
                                 </div>
-                                <div class="join-form-item">
-                                    <label for="loging-name">예약자이름</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="reservation-name" value="홍길동" disabled>
-                                    </div>
-                                </div>
-                                <div class="join-form-item">
-                                    <label for="loging-name">체크인</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="reservation-start-date" value="24.05.01 토 15:00"
-                                               disabled>
-                                    </div>
-                                </div>
-                                <div class="join-form-item">
-                                    <label for="loging-name">체크아웃</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="reservation-end-date" value="24.05.03 월 11:00"
-                                               disabled>
-                                    </div>
-                                </div>
-                                <div class="join-form-item">
-                                    <label for="loging-name">특가적용</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="special" value="적용안됨" disabled>
-                                    </div>
-                                </div>
-                                <div class="join-form-item">
-                                    <label for="loging-name">결제금액</label>
-                                    <div class="input-wrapper">
-                                        <input type="text" id="loging-name" placeholder="가격" value="50,000원"
-                                               disabled
-                                               oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
-                                    </div>
-                                </div>
-                                <div class="button-wrapper">
-                                    <button type="submit" class="btn black join"
-                                            onclick="history.back()">뒤로가기</button>
-                                </div>
-                            </div>
+                            {{/reservationDetail}}
                         </div>
                     </div>
 

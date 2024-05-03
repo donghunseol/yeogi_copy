@@ -11,7 +11,7 @@
                     </div>
                     <div class="tab-item company stay">
                         {{#stayList}}
-                            <p class="tab-title">{{stayName}}({{stayCategory}}) - (티어넣자 지민아)</p>
+                            <p class="tab-title">{{stayName}}({{stayCategory}}) - {{roomTier}}</p>
                         <div class="stay-detail">
                             <div class="content top">
                                 <div class="img-wrapper">
@@ -34,17 +34,17 @@
                                     </p>
                                 </div>
                             </div>
-                        {{/stayList}}
                             <div class="content bottom">
                                 <div class="room-head">
                                     <div class = "head-text-wrapper">
-                                        <p class="sub-title">(티어넣자 지민아) 객실 리스트</p>
+                                        <p class="sub-title">{{roomTier}} 객실 리스트</p>
                                         <p class="sub-info">2024-05-01 기준</p>
                                     </div>
                                     <form action="/room/register" method="get">
                                         <button class="btn black">객실 추가하기</button>
                                     </form>
                                 </div>
+                        {{/stayList}}
                                 <ul>
                                     <!-- <li class="unknown">
                                         <div class="item">
@@ -72,14 +72,17 @@
                                                 </p>
                                                 <p class="text-item">
                                                     <span class="head"><em>결제상태</em></span>
-                                                    <span class="body room-txt">{{payState}}</span>
+                                                    <span class="body room-txt">{{#payState}}{{.}}{{/payState}}{{^payState}}{{/payState}}</span>
                                                 </p>
                                             </div>
-                                            <form action="/reservation/detail" method="get" style="width: 100%;">
-                                                <div class="room button-wrapper">
-                                                    <button class="btn black">예약 상세내역</button>
-                                                </div>
-                                            </form>
+                                            {{#payState}}
+                                                <form action="/reservations/{{reservationId}}/detail" method="get" style="width: 100%;">
+                                                    <div class="room button-wrapper">
+                                                        <button class="btn black">예약 상세내역</button>
+                                                    </div>
+                                                </form>
+                                            {{/payState}}
+                                            {{^payState}}{{/payState}}
                                         </div>
                                         {{/roomDetailList}}
                                     </li>
