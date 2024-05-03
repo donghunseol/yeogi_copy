@@ -1241,12 +1241,28 @@ p.tab-title {
     flex-wrap: wrap;
 }
 
+.stay-detail .content.bottom ul li .room.item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stay-detail .content.bottom ul li .room.item .button-wrapper {
+    margin-top: 10px;
+}
+
 .stay-detail .content.bottom ul li .item .button-wrapper {
     margin-top: 10px;
 }
 
 .stay-detail .content.bottom ul li .item .button-wrapper button {
     width: 100%;
+}
+
+.stay-detail .content.bottom ul li .room.item .img-wrapper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .stay-detail .content.bottom ul li .item .img-wrapper {
@@ -1262,12 +1278,32 @@ p.tab-title {
     object-fit: cover;
 }
 
+.stay-detail .content.bottom ul li .room.item .text-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 20px;
+    width: calc(100% - 220px);
+    justify-content: space-between;
+}
+
 .stay-detail .content.bottom ul li .item .text-wrapper {
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 100%;
     justify-content: space-between;
+}
+
+.stay-detail .content.bottom ul li .room.item .text-wrapper .text-item {
+    margin-top: 10px;
+    width: calc((100% - 5px));
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item {
