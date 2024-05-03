@@ -56,6 +56,7 @@ public class CompanyResponse {
    @Data
    public static class companyRoomDetailDTO{
       private Integer roomId; // 객실 번호
+      private Integer reservationId; // 예약 번호
       private String roomImagePath; // 객실 이미지 경로
       private String roomNumber; // 호실
       private String isReservation; // 예약 가능 여부
@@ -68,10 +69,12 @@ public class CompanyResponse {
          this.roomImagePath = room.getImagePath();
          this.roomNumber = room.getRoomNumber();
          if (pay != null && pay.getReservation() != null) {
+            this.reservationId = pay.getReservation().getId();
             this.isReservation = "예약 완료";
             this.checkOutDate = pay.getReservation().getCheckOutDate().toString();
             this.payState = pay.getState();
          } else {
+            this.reservationId = null;
             this.isReservation = "예약 가능";
             this.checkOutDate = "";
             this.payState = null;
@@ -129,10 +132,10 @@ public class CompanyResponse {
          this.checkOutDate = reservation.getCheckOutDate();
          this.checkOutTime = reservation.getRoom().getRoomInformation().getCheckOut();
          if(reservation.getRoom().getSpecialState() == RoomEnum.APPLIED){
-            this.isDiscount = "O";
+            this.isDiscount = "적용됨";
             this.price = reservation.getRoom().getSpecialPrice();
          }else{
-            this.isDiscount = "X";
+            this.isDiscount = "적용 안 됨";
             this.price = reservation.getRoom().getPrice();
          }
       }
