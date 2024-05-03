@@ -75,11 +75,14 @@
                                                     <span class="body room-txt">{{#payState}}{{.}}{{/payState}}{{^payState}}{{/payState}}</span>
                                                 </p>
                                             </div>
-                                            <form action="/reservation/detail" method="get" style="width: 100%;">
-                                                <div class="room button-wrapper">
-                                                    <button class="btn black">예약 상세내역</button>
-                                                </div>
-                                            </form>
+                                            {{#payState}}
+                                                <form action="/reservations/{{reservationId}}/detail" method="get" style="width: 100%;">
+                                                    <div class="room button-wrapper">
+                                                        <button class="btn black">예약 상세내역</button>
+                                                    </div>
+                                                </form>
+                                            {{/payState}}
+                                            {{^payState}}{{/payState}}
                                         </div>
                                         {{/roomDetailList}}
                                     </li>
