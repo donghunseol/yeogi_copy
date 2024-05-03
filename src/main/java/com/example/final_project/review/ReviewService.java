@@ -77,6 +77,8 @@ public class ReviewService {
         // 리스트 조회
         List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
 
+        Integer reviewConunt = reviewList.size();
+
         // ReviewResponse.Find 객체로 변환하여 반환
         Map<Integer, ReviewResponse.Find> reviewMap = new HashMap<>();
         List<ReviewResponse.Find> roots = new ArrayList<>();
@@ -87,7 +89,8 @@ public class ReviewService {
                     new ReviewResponse.Find.UserDTO(review.getWriter()),
                     review.getContent(),
                     review.getCreatedAt(),
-                    review.getScore()
+                    review.getScore(),
+                    reviewConunt
             );
 
             reviewMap.put(reviewFind.getId(), reviewFind);
@@ -101,8 +104,9 @@ public class ReviewService {
                 roots.add(reviewFind);
             }
         }
-
+        System.out.println("결과------------" + reviewConunt);
         return roots;
+
     }
 
     //댓글 삭제
