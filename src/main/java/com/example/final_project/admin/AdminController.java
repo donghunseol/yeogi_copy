@@ -4,9 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +29,6 @@ public class AdminController {
     public String company(HttpServletRequest request) {
         List<AdminResponse.companyListDTO> respDTO = adminService.adminCompanyList();
         request.setAttribute("companyList", respDTO);
-
         return "/admin/customer-c/join";
     }
 
@@ -49,10 +46,12 @@ public class AdminController {
         return "redirect:/admin/company";
     }
 
-    //
+    // 개인 회원 정보 조회 View
     @GetMapping("/admin/user")
-    public String user(){
-
+    public String user(HttpServletRequest request) {
+        List<AdminResponse.userListDTO> respDTO = adminService.adminUserList();
+        request.setAttribute("userCount", respDTO.size());
+        request.setAttribute("userList", respDTO);
         return "/admin/customer-u/join";
     }
 }
