@@ -20,16 +20,16 @@ public class AdminResponse {
     // 관리자 페이지에서 출력할 유저 정보
     @Data
     public static class userListDTO {
-        private Integer id; // 유저 번호
+        private Integer userId; // 유저 번호
         private String name; // 회원 이름
-        private String phone; // 전화번호
+        private String email; // 이메일
         private Integer reportCount; // 신고 받은 횟수
         private UserEnum state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
 
         public userListDTO(User user) {
-            this.id = user.getId();
+            this.userId = user.getId();
             this.name = user.getName();
-            this.phone = user.getPhone();
+            this.email = user.getEmail();
             this.reportCount = user.getReportCount();
             this.state = user.getState();
         }
