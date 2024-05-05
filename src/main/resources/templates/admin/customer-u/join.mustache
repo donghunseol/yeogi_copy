@@ -19,18 +19,9 @@
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 대기 및 등록업체<em> 20 </em>개</span>
+                                    <span>총 회원<em> {{userCount}}</em>명</span>
                                 </li>
                                 <li class="search-right">
-                                    <div>
-                                        <label for="comp-state">문의상태</label>
-                                        <select name="state" id="comp-state">
-                                            <option value="">전체</option>
-                                            <option value="승인">승인</option>
-                                            <option value="거절">거절</option>
-                                            <option value="대기중">대기중</option>
-                                        </select>
-                                    </div>
                                     <div>
                                         <div class="tab-input-wrapper">
                                             <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
@@ -51,49 +42,23 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">기업명</th>
-                                <th scope="col">전화번호</th>
-                                <th scope="col">대표이름</th>
+                                <th scope="col">회원명</th>
+                                <th scope="col">이메일</th>
+                                <th scope="col">신고 받은 횟수</th>
                                 <th scope="col">상태</th>
                                 <th scope="col">상세보기</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state refuse">거절</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state approval">승인</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
-                            <tr>
-                                <td class="title">Agoda Company Pte</td>
-                                <td>186665658207</td>
-                                <td>Omri Mogenstem</td>
-                                <td><span class="state wait">대기중</span></td>
-                                <td><span class="detail">상세보기</span></td>
-                            </tr>
+                                {{#userList}}
+                                    <tr>
+                                        <td class="title">{{name}}</td>
+                                        <td>{{email}}</td>
+                                        <td>{{reportCount}}</td>
+                                        <td><span class="state wait">{{state}}</span></td>
+                                        <td><span class="detail">상세보기</span></td>
+                                    </tr>
+                                {{/userList}}
                             </tbody>
                         </table>
                     </div>
@@ -104,42 +69,38 @@
         <div class="modal-bg hidden">
             <div class="modal">
                 <div class="modal-head">
-                    <p class="modal-txt">기업 상세정보</p>
+                    <p class="modal-txt">회원 상세정보</p>
                     <button class="btn-cls">X</button>
                 </div>
                 <form action="#" method="#">
                     <div class="modal-content">
                         <div class="modal-input-wrapper">
-                            <label for="businessName">이메일</label>
-                            <input disabled type="text" name="email" value="ssar@naver.com">
+                            <label for="username">회원이름</label>
+                            <input disabled type="text" name="username">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">등록 상호명</label>
-                            <input disabled type="text" name="businessName" value="Agoda Company Pte">
+                            <label for="birth">생년월일</label>
+                            <input disabled type="text" name="birth">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">사업자 번호</label>
-                            <input disabled type="text" name="businessNumber" value="16157-5432132">
+                            <label for="phone">전화번호</label>
+                            <input disabled type="text" name="phone">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">사업자 주소</label>
-                            <input disabled type="text" name="businessAdress" value="부산광역시 수영구 ">
+                            <label for="email">이메일</label>
+                            <input disabled type="text" name="email">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">대표이름</label>
-                            <input disabled type="text" name="name" value="감자머리">
+                            <label for="reportCount">신고 받은 횟수</label>
+                            <input disabled type="text" name="reportCount">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">전화번호</label>
-                            <input disabled type="text" name="phone" value="01021549956">
+                            <label for="state">상태</label>
+                            <input disabled type="text" name="state">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="businessName">생성일자</label>
-                            <input disabled type="text" name="createdAt" value="2024-03-03">
-                        </div>
-                        <div class="modal-button-wrapper">
-                            <button class="approval btn-closer">승인</button>
-                            <button class="refuse btn-closer">거절</button>
+                            <label for="createdAt">회원가입 일자</label>
+                            <input disabled type="text" name="createdAt">
                         </div>
                     </div>
                 </form>
