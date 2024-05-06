@@ -15,7 +15,7 @@
                         <ul class="review-table">
                             <li>
                                 <div class="review-detail-head">
-                                    <h3>A102 호실</h3>
+                                    <h3>{{name}}</h3>
                                     <div class="button-wrapper">
                                         <a href="#" class="btn black">신고하기</a>
                                     </div>
@@ -40,14 +40,21 @@
                                         </div>
                                     {{/children}}
                                     {{^children}}
-                                    <form action="#" method="#">
+                                    <form action="/review/write/{{review.stayId}}" method="post">
+                                        <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                                        <input type="hidden" name="stayId" value="{{stayId}}">
+                                        <input type="hidden" name="score" value="">
+                                        <input type="hidden" name="parentId" value="{{review.id}}">
+                                        <input type="hidden" name="isDelete" value="FLAWLESS">
                                         <div class="reply-content">
                                             <p class="reply-icon">답글</p>
                                             <div class="reply-user-info">
                                                 <span>작성자 : {{sessionUser.businessName}}</span>
                                             </div>
                                             <textarea id="newTweetContent" placeholder="답글을 적어주세요."
-                                                      onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                                      onkeydown="resize(this)" onkeyup="resize(this)"
+                                                      name="content"
+                                            ></textarea>
                                             <div class="button-wrapper">
                                                 <button>답글달기</button>
                                             </div>
