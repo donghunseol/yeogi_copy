@@ -178,34 +178,36 @@ insert into review_tb(user_id,stay_id, content, is_delete, created_at, parent_id
 values (1,1,'고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!','FLAWLESS',now(), 1);
 
 -- review_comment 더미 생성
-insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
-values (1, 1, '감사합니다!', 'FLAWLESS', now()),
-       (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
-       (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
-       (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
-       (5, 3, '고마워요!', 'FLAWLESS', now());
+-- insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
+-- values (1, 1, '감사합니다!', 'FLAWLESS', now()),
+--        (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
+--        (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
+--        (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
+--        (5, 3, '고마워요!', 'FLAWLESS', now());
 
 -- report 더미 생성
 -- user 가 user review 신고
-insert into report_tb(review_id, user_id, result, created_at)
-values (1, 2, 'PROCEEDING', now()),
-       (2, 3, 'PROCEEDING', now()),
-       (3, 1, 'PROCEEDING', now());
--- company 가 user review 신고
-insert into report_tb(review_id, company_id, result, created_at)
-values (1, 1, 'PROCEEDING', now()),
-       (2, 2, 'PROCEEDING', now()),
-       (3, 3, 'PROCEEDING', now());
--- user 가 company review 신고
-insert into report_tb(review_comment_id, user_id, result, created_at)
-values (1, 1, 'PROCEEDING', now()),
-       (2, 2, 'PROCEEDING', now()),
-       (3, 3, 'PROCEEDING', now());
--- company 가 company review 신고
-insert into report_tb(review_comment_id, company_id, result, created_at)
-values (1, 2, 'PROCEEDING', now()),
-       (2, 3, 'PROCEEDING', now()),
-       (3, 1, 'PROCEEDING', now());
+-- insert into report_tb(review_id, user_id, result, created_at)
+-- values (1, 2, 'PROCEEDING', now()),
+--        (2, 3, 'PROCEEDING', now()),
+--        (3, 1, 'PROCEEDING', now());
+-- -- company 가 user review 신고
+-- insert into report_tb(review_id, company_id, result, created_at)
+-- values (1, 1, 'PROCEEDING', now()),
+--        (2, 2, 'PROCEEDING', now()),
+--        (3, 3, 'PROCEEDING', now());
+
+-- user 가 stay review 신고
+-- insert into report_tb(review_comment_id, user_id, result, created_at)
+-- values (1, 1, 'PROCEEDING', now()),
+--        (2, 2, 'PROCEEDING', now()),
+--        (3, 3, 'PROCEEDING', now());
+
+-- stay 가 user review 신고
+-- insert into report_tb(review_comment_id, stay_id, result, created_at)
+-- values (1, 2, 'PROCEEDING', now()),
+--        (2, 3, 'PROCEEDING', now()),
+--        (3, 1, 'PROCEEDING', now());
 
 -- stayImage 더미 생성
 insert into stay_image_tb(stay_id, name, path, created_at)
