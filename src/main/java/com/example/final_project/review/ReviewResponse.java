@@ -108,6 +108,8 @@ public class ReviewResponse {
         private Integer id;
         private UserDTO writer;
         private String content;
+        private String name;
+        private Integer stayId;
         private Review parent;
         private LocalDateTime createdAt;
         private Integer score;
@@ -116,6 +118,8 @@ public class ReviewResponse {
         public Detail(Review review ,UserDTO writer) {
             this.id = review.getId();
             this.writer = writer;
+            this.name = review.getStay().getName();
+            this.stayId = review.getStay().getId();
             this.parent = review.getParent();
             this.content = review.getContent();
             this.createdAt = review.getCreatedAt();

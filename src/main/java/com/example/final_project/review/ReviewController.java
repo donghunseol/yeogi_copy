@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.plaf.SpinnerUI;
@@ -41,5 +42,12 @@ public class ReviewController {
         return "/company/review/detail";
     }
 
+    //리뷰 작성
+    @PostMapping("/review/write/{stayId}")
+    public String reviewWrite(@PathVariable Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO){
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+        reviewService.insert(stayId,reqDTO);
 
+        return "redirect:/review/"+stayId;
+    }
 }
