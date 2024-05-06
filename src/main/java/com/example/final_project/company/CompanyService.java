@@ -157,7 +157,7 @@ public class CompanyService {
     }
 
     // 숙소 수익 전체 조회
-    public List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(SessionCompany sessionCompany, Integer stayId) {
+    public List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(SessionCompany sessionCompany) {
         Company company = companyRepository.findById(sessionCompany.getId())
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         List<Stay> stays = stayRepository.findByCompanyId(company.getId());

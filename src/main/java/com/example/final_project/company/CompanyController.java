@@ -136,8 +136,10 @@ public class CompanyController {
     public String companyRevenue(HttpServletRequest request) {
         SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionUser");
         PayResponse.TotalIncomeDTO respDTO = companyService.findTotalIncome(sessionCompany);
+        List<PayResponse.StayTotalIncomeDTO> listRespDTO = companyService.findIncomeByStay(sessionCompany);
         request.setAttribute("totalIncome", respDTO);
+        request.setAttribute("stayTotalIncomeList", listRespDTO);
 
-        return "";
+        return "/company/revenue/main";
     }
 }
