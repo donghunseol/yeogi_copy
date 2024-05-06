@@ -7,6 +7,7 @@ import com.example.final_project.user.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class ReviewResponse {
         private String name;
         private Integer stayId;
         private Review parent;
-        private LocalDateTime createdAt;
+        private String createdAt;
         private Integer score;
         private List<Detail> children = new ArrayList<>();
 
@@ -122,9 +123,16 @@ public class ReviewResponse {
             this.stayId = review.getStay().getId();
             this.parent = review.getParent();
             this.content = review.getContent();
-            this.createdAt = review.getCreatedAt();
+            this.createdAt = formatDateTime(review.getCreatedAt());
             this.score = review.getScore();
         }
+        private String formatDateTime(LocalDateTime dateTime) {
+            // 포맷 지정
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            // 포맷 적용하여 반환
+            return dateTime.format(formatter);
+        }
+
         @Data
         public static class UserDTO{
             private String name;
