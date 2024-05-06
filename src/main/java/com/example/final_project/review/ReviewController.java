@@ -1,3 +1,5 @@
+
+
 package com.example.final_project.review;
 
 import com.example.final_project.company.Company;
@@ -21,33 +23,49 @@ public class ReviewController {
     private final HttpSession session;
 
 
-    //리뷰 테이블
+    //댓글 목록
     @GetMapping("/review/{stayId}")
     public String reviewList(@PathVariable Integer stayId, HttpServletRequest request){
-        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        List<ReviewResponse.Find> respDTO = reviewService.select(stayId,company);
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        List<ReviewResponse.Find> respDTO = reviewService.select(stayId,sessionUser);
         request.setAttribute("reviewList",respDTO);
 
         return "/company/review/main";
     }
 
-
-    //리뷰 디테일
+    //댓글 디테일
     @GetMapping("/review/detail/{reviewId}")
     public String reviewDetail(@PathVariable Integer reviewId , HttpServletRequest request){
-        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        ReviewResponse.Detail respDTO = reviewService.detail(reviewId,company);
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        ReviewResponse.Detail respDTO = reviewService.detail(reviewId,sessionUser);
         request.setAttribute("review",respDTO);
 
         return "/company/review/detail";
     }
 
-    //리뷰 작성
+    //댓글 작성
     @PostMapping("/review/write/{stayId}")
     public String reviewWrite(@PathVariable Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO){
-        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        reviewService.insert(stayId,reqDTO);
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        reviewService.insert(stayId,reqDTO,sessionUser);
 
         return "redirect:/review/"+stayId;
+    }
+
+    //댓글 신고 폼
+    @GetMapping("/review/report-form/{reviewId}")
+    public String reviewReportForm(@PathVariable Integer reviewId, HttpServletRequest request){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        ReviewResponse.ReportForm review = reviewService.reportForm(reviewId,sessionUser);
+        request.setAttribute("reportReview",review);
+
+        return "/company/review/report";
+    }
+
+    //댓글 신고
+    @PostMapping("/review/report/{stayId}")
+    public String reviewReport(@PathVariable Integer stayId,ReviewRequest.ReportRequestDTO reqDTO){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        return null;
     }
 }

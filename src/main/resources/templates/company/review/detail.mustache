@@ -17,7 +17,10 @@
                                 <div class="review-detail-head">
                                     <h3>{{name}}</h3>
                                     <div class="button-wrapper">
-                                        <a href="#" class="btn black">신고하기</a>
+                                        <form action="/review/report-form/{{id}}" method="get">
+                                            <button class="btn black">신고하기</button>
+                                        </form>
+
                                     </div>
                                 </div>
                                 <p class="reply-icon black">댓글</p>
