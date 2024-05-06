@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface PayRepository extends JpaRepository<Pay, Integer> {
@@ -40,5 +41,5 @@ public interface PayRepository extends JpaRepository<Pay, Integer> {
             WHERE c.id = :companyId AND p.state = 'COMPLETION' AND s.id = :stayId
             GROUP BY p.reservation.room.stay.company.id, p.reservation.room.stay.id
             """)
-    PayResponse.StayTotalIncomeDTO findIncomeByStay(@Param("companyId") Integer companyId, @Param("stayId") Integer stayId);
+    List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(@Param("companyId") Integer companyId, @Param("stayId") Integer stayId);
 }

@@ -1,0 +1,76 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>매출 현황</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">총 수익</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i
+                                                class="fa-solid fa-house mb-5 mt-5"></i><em>기업 총 수익</em></span>
+                                        <span class="body">{{totalIncome.totalIncome}}원</span>
+                                    </p>
+                                    <p class="text-item">
+                                        <span class="head"><i
+                                                class="fa-solid fa-layer-group mb-5"></i><em>기업 전체 예약 수</em></span>
+                                        <span class="body">{{totalIncome.reservationCount}}개</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="content bottom">
+                                <div class="room-head">
+                                    <p class="sub-title">숙소별 수익</p>
+                                </div>
+                                <ul>
+                                    <!-- <li class="unknown">
+                                        <div class="item">
+                                            <span>등록된 객실이 없습니다.</span>
+                                        </div>
+                                    </li> -->
+                                    {{#stayTotalIncomeList}}
+                                        <li>
+                                            <div class="item">
+                                                <div class="text-wrapper">
+                                                    <p class="text-item">
+                                                        <span class="head"><i></i><em>숙소 총 수익</em></span>
+                                                        <span class="body">{{totalIncome}}원</span>
+                                                    </p>
+                                                    <p class="text-item">
+                                                        <span class="head"><i></i><em>숙소 예약 회수</em></span>
+                                                        <span class="body">{{reservationCount}}개</span>
+                                                    </p>
+                                                </div>
+                                                <form action="/manage/stays/{{stayId}}/rooms" method="get"
+                                                      style="width: 100%;">
+                                                    <div class="button-wrapper">
+                                                        <button class="btn black">상세보기</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    {{/stayTotalIncomeList}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
