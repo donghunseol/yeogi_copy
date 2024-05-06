@@ -24,7 +24,7 @@ public class PayResponse {
     // 숙소 총 수익 DTO
     @Data
     public static class StayTotalIncomeDTO {
-        private Integer companyId; // 숙소 소유 기업 번호b
+        private Integer companyId; // 숙소 소유 기업 번호
         private Integer stayId; // 숙소 번호
         private Long totalIncome; // 총 수익
         private Long reservationCount; // 수익이 들어온 예약 수
