@@ -1,11 +1,16 @@
 package com.example.final_project.company;
 
+import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,11 +31,11 @@ public class CompanyController {
 
     // 로그인
     @PostMapping("/company/login")
-    public String login(CompanyRequest.LoginDTO reqDTO){
+    public String login(CompanyRequest.LoginDTO reqDTO) {
 
-        SessionCompany company= companyService.login(reqDTO);
+        SessionCompany company = companyService.login(reqDTO);
 
-        session.setAttribute("sessionUser",company);
+        session.setAttribute("sessionUser", company);
 
         return "redirect:/manage/stays";
     }
@@ -45,14 +50,14 @@ public class CompanyController {
 
     // 로그인 폼
     @GetMapping("/company")
-    public String loginForm(){
+    public String loginForm() {
 
         return "/company/login-form";
     }
 
     // 회원가입 폼
     @GetMapping("/company/join-form")
-    public String join(){
+    public String join() {
         return "/company/join-form";
     }
 
@@ -75,15 +80,13 @@ public class CompanyController {
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
     @GetMapping("/manage/stays/{stayId}/rooms")
-
     public String companyRoomList(HttpServletRequest request,
                                   @PathVariable Integer stayId,
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
 
-
-        if(tier.isBlank()){
+        if (tier.isBlank()) {
             List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
             request.setAttribute("stayList", stayRespDTO);
 
@@ -91,7 +94,7 @@ public class CompanyController {
             request.setAttribute("detailList", detailRespDTO);
 
             return "/company/stay/detail";
-        }else{
+        } else {
             CompanyResponse.companyStayListAndTierDTO stayRespDTO = companyService.companyStayListAndTier(stayId, tier);
             request.setAttribute("stayList", stayRespDTO);
 
@@ -104,17 +107,16 @@ public class CompanyController {
 
     // 정보수정 폼
     @GetMapping("/company/information")
-    public String information(){
+    public String information() {
 
         return "/company/information/information";
     }
 
     // 정보수정
     @PostMapping("/information/update/{companyId}")
-    public String infoUpdate(@PathVariable Integer companyId,CompanyRequest.UpdateDTO reqDTO){
-
-        SessionCompany company = companyService.updateCompany(companyId,reqDTO);
-        session.setAttribute("sessionUser",company);
+    public String infoUpdate(@PathVariable Integer companyId, CompanyRequest.UpdateDTO reqDTO) {
+        SessionCompany company = companyService.updateCompany(companyId, reqDTO);
+        session.setAttribute("sessionUser", company);
 
         return "redirect:/manage/stays";
     }
@@ -122,11 +124,20 @@ public class CompanyController {
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
     @GetMapping("/reservations/{reservationId}/detail")
     public String companyReservationDetail(HttpServletRequest request,
-                                           @PathVariable Integer reservationId){
+                                           @PathVariable Integer reservationId) {
         CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
         request.setAttribute("reservationDetail", respDTO);
 
         return "/company/reservation/detail";
     }
 
+    // [숙소 관리 - 수익 조회] 로그인한 기업의 수익 조회
+    @GetMapping("/revenue")
+    public String companyRevenue(HttpServletRequest request) {
+        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionUser");
+        PayResponse.TotalIncomeDTO respDTO = companyService.findTotalIncome(sessionCompany);
+        request.setAttribute("totalIncome", respDTO);
+
+        return "";
+    }
 }

@@ -5,7 +5,7 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
-import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.Room;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,11 +29,11 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyService {
 
-    private final CompanyRepository companyRepository;
-    private final StayRepository stayRepository;
-    private final StayImageRepository stayImageRepository;
-    private final RoomRepository roomRepository;
     private final PayRepository payRepository;
+    private final StayRepository stayRepository;
+    private final RoomRepository roomRepository;
+    private final CompanyRepository companyRepository;
+    private final StayImageRepository stayImageRepository;
     private final ReservationRepository reservationRepository;
 
 
@@ -46,7 +47,6 @@ public class CompanyService {
         String jwt = JwtUtil.companyCreate(sessionUser);
 
         return jwt;
-
     }
 
     //로그인
@@ -135,8 +135,54 @@ public class CompanyService {
 
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
-    public CompanyResponse.companyReservationDetailDTO companyReservationDetail(Integer reservationId){
+    public CompanyResponse.companyReservationDetailDTO companyReservationDetail(Integer reservationId) {
         Reservation reservation = reservationRepository.findByIdWithRoomAndRoomInformation(reservationId);
         return new CompanyResponse.companyReservationDetailDTO(reservation);
+    }
+
+    // 기업 수익 전체 조회
+    public PayResponse.TotalIncomeDTO findTotalIncome(SessionCompany sessionCompany) {
+        Company company = companyRepository.findById(sessionCompany.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+
+        // 전체 수익 가져오기
+        PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
+
+        // 만약 수익이 전혀 없으면 0을 반환
+        if (respDTO == null) {
+            respDTO = new PayResponse.TotalIncomeDTO(company.getId(), 0L, 0L);
+        }
+
+        return respDTO;
+    }
+
+    // 숙소 수익 전체 조회
+    public List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(SessionCompany sessionCompany, Integer stayId) {
+        Company company = companyRepository.findById(sessionCompany.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        List<Stay> stays = stayRepository.findByCompanyId(company.getId());
+        List<PayResponse.StayTotalIncomeDTO> respDTO = new ArrayList<>();
+
+        // 만약 숙소가 없으면
+        if (stays == null) {
+            throw new Exception404("숙소가 존재 하지 않습니다. 숙소를 먼저 등록 해주세요");
+        }
+
+        // 전체 수익 가져오기
+        for (Stay stay : stays) {
+            // 미리 저장을 한다
+            List<PayResponse.StayTotalIncomeDTO> saveDTO = payRepository.findIncomeByStay(company.getId(), stay.getId());
+
+            if (saveDTO.isEmpty()) {
+                // 예약 내역이 없는 숙소
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), 0L, 0L);
+                respDTO.add(zeroDTO);
+            } else {
+                // 저장된 결과를 모두 저장
+                respDTO.addAll(saveDTO);
+            }
+        }
+
+        return respDTO;
     }
 }

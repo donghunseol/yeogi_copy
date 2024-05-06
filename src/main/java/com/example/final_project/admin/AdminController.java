@@ -31,6 +31,7 @@ public class AdminController {
     public String company(HttpServletRequest request) {
         List<AdminResponse.companyListDTO> respDTO = adminService.adminCompanyList();
         request.setAttribute("companyList", respDTO);
+        request.setAttribute("companyCount", respDTO.size());
         return "/admin/customer-c/join";
     }
 
