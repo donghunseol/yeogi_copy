@@ -53,16 +53,24 @@ public class AdminService {
     }
 
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
-    public List<ReservationResponse.DetailDTO> adminReservationList(Integer userId) {
+    public List<AdminResponse.userReservationDTO> adminReservationList(Integer userId) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
 
-        List<ReservationResponse.DetailDTO> respDTO = reservationList.stream().map(r -> {
-            Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(r.getId());
-            Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
-            Pay pay = null;
-            if (payOP.isPresent()) pay = payOP.get();
-            return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+        List<AdminResponse.userReservationDTO> respDTO = reservationList.stream().map(r -> {
+            return new AdminResponse.userReservationDTO(r, r.getRoom());
         }).collect(Collectors.toList());
+
+        return respDTO;
+    }
+
+
+    // 특정 회원의 예약 정보 상세보기
+    public AdminResponse.userReservationDetailDTO adminReservationDetailList(Integer reservationId) {
+        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
+        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+        Pay pay = null;
+        if (payOP.isPresent()) pay = payOP.get();
+        AdminResponse.userReservationDetailDTO respDTO= new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
 
         return respDTO;
     }
