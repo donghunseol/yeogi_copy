@@ -64,19 +64,27 @@ public class AdminResponse {
     @Data
     public static class companyListDTO {
         private Integer id; // 기업 번호
+        private String email; // 기업 이메일
         private String businessName; // 등록 상호명
+        private String businessNumber; // 사업자 번호
+        private String businessAddress; // 사업자 주소
         private String phone; // 사업자 전화번호
         private String name; // 사업자 이름
         private String stateMessage; // 상태 메시지 한글
         private String stateColor; // 상태 메시지 색
+        private LocalDate createdAt; // 생성 일자
         Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
         Boolean isBlackCancel; // true 면 블랙 취소 버튼 활성 / false 면 블랙 취소 버튼 비활성
 
         public companyListDTO(Company company) {
             this.id = company.getId();
+            this.email = company.getEmail();
             this.businessName = company.getBusinessName();
+            this.businessNumber = company.getBusinessNumber();
+            this.businessAddress = company.getBusinessAddress();
             this.phone = company.getPhone();
             this.name = company.getName();
+            this.createdAt = LocalDate.from(company.getCreatedAt());
             isBlack = false;
             isBlackCancel = true;
             if (company.getState() == CompanyEnum.ACTIVE) {

@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class AdminController {
         return "/admin/customer-c/join";
     }
 
-    // 기업 블랙 취소 기능
+    // 기업 블랙 등록 기능
     @PutMapping("/admin/company/black/{companyId}")
     public String companyBlack(@PathVariable Integer companyId) {
         adminService.adminCompanyBlack(companyId);

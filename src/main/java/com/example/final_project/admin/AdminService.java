@@ -71,6 +71,7 @@ public class AdminService {
         List<Company> companyList = companyRepository.findAll();
 
         List<AdminResponse.companyListDTO> respDTO = companyList.stream().map(company -> {
+            System.out.println(new AdminResponse.companyListDTO(company));
             return new AdminResponse.companyListDTO(company);
         }).collect(Collectors.toList());
 
