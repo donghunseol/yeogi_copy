@@ -147,16 +147,22 @@
             button.addEventListener('click', function (event) {
                 const companyId = event.target.dataset.companyId; // 클릭된 버튼의 companyId를 가져옴
                 showModal(companyId); // showModal 함수에 companyId를 전달하여 호출
-                blacklistCompany(companyId);
-                cancelBlacklist(companyId);
             });
         });
 
         closeBtn.addEventListener('click', closeModal);
         approveBtn.addEventListener('click', approveCompany);
         rejectBtn.addEventListener('click', rejectCompany);
-        blacklistBtn.addEventListener('click', blacklistCompany);
-        cancelBlacklistBtn.addEventListener('click', cancelBlacklist);
+        blacklistBtn.addEventListener('click', function (event) {
+            console.log(event.target.closest('tr').id);
+            const companyId = event.target.closest('tr').id.split('-')[1]; // 클릭된 버튼에 해당하는 기업의 companyId를 가져옴
+            console.log(companyId);
+            blacklistCompany(companyId); // 클릭된 버튼에 해당하는 기업을 블랙리스트에 등록
+        });
+        cancelBlacklistBtn.addEventListener('click', function (event) {
+            const companyId = event.target.closest('tr').id.split('-')[1]; // 클릭된 버튼에 해당하는 기업의 companyId를 가져옴
+            cancelBlacklist(companyId); // 클릭된 버튼에 해당하는 기업의 블랙리스트를 취소
+        });
 
         function showModal(companyId) {
             const companyData = document.querySelector(`#id-${companyId}`).dataset; // 해당 기업의 데이터 가져오기
@@ -206,6 +212,8 @@
         }
 
         function blacklistCompany(companyId) {
+            const companyData = document.querySelector(`#id-${companyId}`).dataset; // 해당 기업의 데이터 가져오기
+
             fetch(`/admin/company/black/${companyId}`, {
                 method: 'PUT',
                 headers: {
@@ -219,9 +227,18 @@
             }).catch(error => {
                 console.error('오류 발생:', error);
             });
+
+            if (companyData.state === '블랙') {
+                approveBtn.classList.add('hidden'); // 승인 버튼
+                rejectBtn.classList.add('hidden'); // 거절 버튼
+                blacklistBtn.classList.remove('hidden'); // 블랙 등록 버튼
+                cancelBlacklistBtn.classList.add('hidden'); // 블랙 취소 버튼
+            }
         }
 
         function cancelBlacklist(companyId) {
+            const companyData = document.querySelector(`#id-${companyId}`).dataset; // 해당 기업의 데이터 가져오기
+
             fetch(`/admin/company/black/cancel/${companyId}`, {
                 method: 'PUT',
                 headers: {
@@ -235,6 +252,13 @@
             }).catch(error => {
                 console.error('오류 발생:', error);
             });
+
+            if (companyData.state === '승인') {
+                approveBtn.classList.add('hidden'); // 승인 버튼
+                rejectBtn.classList.add('hidden'); // 거절 버튼
+                blacklistBtn.classList.add('hidden'); // 블랙 등록 버튼
+                cancelBlacklistBtn.classList.remove('hidden'); // 블랙 취소 버튼
+            }
         }
     });
 </script>
