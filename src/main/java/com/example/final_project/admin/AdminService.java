@@ -54,7 +54,7 @@ public class AdminService {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
         Pay pay = null;
 
-        List<AdminResponse.userReservationDTO> respDTO = reservationList.stream().map(r -> {
+        return reservationList.stream().map(r -> {
             Optional<Pay> payOP = payRepository.findByReservationId(r.getId());
             return new AdminResponse.userReservationDTO(r, r.getRoom(), payOP.get());
         }).collect(Collectors.toList());
