@@ -5,6 +5,10 @@ import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
+import com.example.final_project.pay.Pay;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.review.Review;
+import com.example.final_project.review.ReviewResponse;
 import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
@@ -12,6 +16,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,6 +140,85 @@ public class AdminResponse {
             this.options = stay.getOptions();
             this.rooms = rooms;
             this.createdAt = stay.getCreatedAt();
+        }
+    }
+
+    // 관리자 페이지에서 특정 회원의 예약 리스트 뷰에 필요한 데이터
+    @Data
+    public static class userReservationDTO{
+        private Integer reservationId; // 예약 번호
+        private Integer userId; // 예약한 유저의 번호
+        private String stayName; // 예약한 숙소의 이름
+        private Integer roomId; // 예약한 객실의 번호
+        private String roomName; // 예약한 객실의 이름
+        private LocalDate checkInDate; // 체크인 날짜
+        private LocalDate checkOutDate; // 체크아웃 날짜
+
+        public userReservationDTO(Reservation reservation, Room room) {
+            this.reservationId = reservation.getId();
+            this.userId = reservation.getUser().getId();
+            this.stayName = room.getStay().getName();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkOutDate = reservation.getCheckOutDate();
+            this.roomId = reservation.getRoom().getId();
+            this.roomName = room.getName();
+        }
+    }
+
+    // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰에 필요한 데이터
+    @Data
+    public static class userReservationDetailDTO{
+        private Integer reservationId; // 예약 번호
+        private Integer userId; // 예약한 유저의 번호
+        private String stayName; // 예약한 숙소의 이름
+        private String stayAddress; // 숙소 주소
+        private LocalDate checkInDate; // 체크인 날짜
+        private LocalTime checkInTime; // 체크인 시간
+        private LocalDate checkOutDate; // 체크아웃 날짜
+        private LocalTime checkOutTime; // 체크아웃 시간
+        private Integer roomId; // 예약한 객실의 번호
+        private String roomName; // 예약한 객실의 이름
+        private String reservationName; // 예약자 대표 이름
+        private String reservationTel; // 예약자 대표 연락처
+        private LocalDateTime payAt; // 결제 일자
+        private Integer amount; // 결제 금액
+        private String way; // 결제 수단
+
+        public userReservationDetailDTO(Reservation reservation, Room room, Pay pay) {
+            this.reservationId = reservation.getId();
+            this.userId = reservation.getUser().getId();
+            this.stayName = room.getStay().getName();
+            this.stayAddress =  room.getStay().getAddress();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkInTime = room.getRoomInformation().getCheckIn();
+            this.checkOutDate = reservation.getCheckOutDate();
+            this.checkOutTime = room.getRoomInformation().getCheckOut();
+            this.roomId = reservation.getRoom().getId();
+            this.roomName = room.getName();
+            this.reservationName = reservation.getReservationName();
+            this.reservationTel = reservation.getReservationTel();
+            this.payAt = pay.getCreatedAt();
+            this.amount = pay.getAmount();
+            this.way = pay.getWay();
+        }
+    }
+
+    // 관리자 페이지에서 특정 개인의 리뷰찾기 응답 DTO
+    @Data
+    public static class userReviewListDTO{
+        private Integer reviewId;
+        private String stayName;
+        private String content;
+        private Integer score;
+        private LocalDateTime createdAt;
+        private List<ReviewResponse.Find> children = new ArrayList<>();
+
+        public userReviewListDTO(Review review) {
+            this.reviewId = review.getId();
+            this.stayName = review.getStay().getName();
+            this.content = review.getContent();
+            this.score = review.getScore();
+            this.createdAt = review.getCreatedAt();
         }
     }
 }

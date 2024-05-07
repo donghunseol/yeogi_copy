@@ -12,6 +12,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +42,7 @@ public class AdminServiceTest {
         System.out.println("adminUserList_test userList : " + userList);
 
         // then
-        Assertions.assertThat(userList.getFirst().getPhone()).isEqualTo("01012341234");
+        Assertions.assertThat(userList.getFirst().getEmail()).isEqualTo("ssar@nate.com");
 
     }
 
@@ -50,15 +52,14 @@ public class AdminServiceTest {
         Integer userId = 1;
 
         // when
-        List<ReservationResponse.DetailDTO> reservationList = adminService.adminReservationList(userId);
+        List<AdminResponse.userReservationDTO> reservationList = adminService.adminReservationList(userId);
 
         // eye
         System.out.println("adminReservationList_test size : " + reservationList.size());
         System.out.println("adminReservationList_test getLast.id : " + reservationList.getLast().getReservationId());
 
         // then
-        Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
-
+        Assertions.assertThat(reservationList.getLast().getCheckInDate()).isEqualTo(LocalDate.of(2024,5, 25));
     }
 
 

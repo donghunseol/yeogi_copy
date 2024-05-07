@@ -59,13 +59,17 @@ public class ReviewController {
         ReviewResponse.ReportForm review = reviewService.reportForm(reviewId,sessionUser);
         request.setAttribute("reportReview",review);
 
+
         return "/company/review/report";
     }
 
     //댓글 신고
-    @PostMapping("/review/report/{stayId}")
-    public String reviewReport(@PathVariable Integer stayId,ReviewRequest.ReportRequestDTO reqDTO){
+    @PostMapping("/review/report/{reviewId}")
+    public String reviewReport(@PathVariable Integer reviewId,ReviewRequest.ReportRequestDTO reqDTO){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
-        return null;
+
+        reviewService.reportSave(reviewId,sessionUser,reqDTO);
+
+        return "redirect:/review/detail/"+reviewId;
     }
 }

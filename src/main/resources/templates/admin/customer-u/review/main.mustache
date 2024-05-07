@@ -1,0 +1,74 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰관리</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="#" method="#" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 리뷰 <em>{{reviewCount}}</em>개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="40%">
+                                <col width="20%">
+                                <col width="15%">
+                                <col width="25%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">내용</th>
+                                <th scope="col">리뷰한 숙소</th>
+                                <th scope="col">평점</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#reviewList}}
+                                <tr class="review">
+                                    <td class="title"><span>{{content}}</span></td>
+                                    <td class="content"><span>{{stayName}}</span></td>
+                                    <td>{{score}}점</td>
+                                    <td>{{createdAt}}</td>
+                                    <td class="link">
+                                        <a href="/review/detail/{{reviewId}}"></a>
+                                    </td>
+                                </tr>
+                            {{/reviewList}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
+
+
+
+
+

@@ -6,6 +6,8 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.report.Report;
+import com.example.final_project.report.ReportRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.Room;
@@ -33,6 +35,7 @@ public class ReviewService {
     private final CompanyRepository companyRepository;
     private final RoomRepository roomRepository;
     private final ReservationRepository reservationRepository;
+    private final ReportRepository reportRepository;
 
     //댓글 작성 및 대댓글 작성
     @Transactional
@@ -150,10 +153,8 @@ public class ReviewService {
             detail.getChildren().add(childDetail);
         }
 
-
         return detail;
     }
-
 
     //댓글 신고폼
     @Transactional
@@ -166,13 +167,12 @@ public class ReviewService {
         // 2. 댓글 조회
         Review review = reviewRepository.findByReviewId(reviewId);
 
-
         return new ReviewResponse.ReportForm(review);
     }
 
     //댓글 신고
     @Transactional
-    public ReviewResponse.Report report(Integer reviewId, SessionCompany sessionUser){
+    public void reportSave(Integer reviewId, SessionCompany sessionUser, ReviewRequest.ReportRequestDTO reqDTO){
 
         // 1. 인증 처리
         if (sessionUser == null) {
@@ -186,14 +186,12 @@ public class ReviewService {
         User user = userRepository.findById(review.getWriter().getId())
                 .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다"));
 
-        // 4. parent가 없는 유저정보로 가공
+        Report report = reqDTO.toEntity(user,review);
 
+        reportRepository.save(report);
 
-
-
-
-        return null;
     }
+
 
     //댓글 삭제
     @Transactional
