@@ -19,7 +19,7 @@
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 예약 건수 <em>2</em>건</span>
+                                    <span>총 예약 건수 <em>{{reservationCount}}</em>건</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -41,7 +41,7 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">숙소(객실)</th>
+                                <th scope="col">숙소 (객실)</th>
                                 <th scope="col">예약자</th>
                                 <th scope="col">체크인</th>
                                 <th scope="col">체크아웃</th>
@@ -49,13 +49,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                                {{#reservationList}}
                                     <tr>
-                                        <td class="title">?</td>
-                                        <td>?</td>
-                                        <td>?</td>
-                                        <td><span class="state wait">?</span></td>
+                                        <td class="title">{{stayName}} ({{roomName}})</td>
+                                        <td>{{reservationName}}</td>
+                                        <td>{{checkInDate}}  {{checkInTime}}</td>
+                                        <td>{{checkOutDate}}  {{checkOutTime}}</td>
                                         <td><span class="detail">상세보기</span></td>
                                     </tr>
+                                {{/reservationList}}
                             </tbody>
                         </table>
                     </div>
@@ -66,42 +68,42 @@
         <div class="modal-bg hidden">
             <div class="modal">
                 <div class="modal-head">
-                    <p class="modal-txt">회원 상세정보</p>
+                    <p class="modal-txt">예약 상세정보</p>
                     <button class="btn-cls">X</button>
                 </div>
                 <form action="#" method="#">
                     <div class="modal-content">
                         <div class="modal-input-wrapper">
-                            <label for="username">회원이름</label>
-                            <input disabled type="text" name="username">
+                            <label for="stayandroomname">숙소(객실)</label>
+                            <input disabled type="text" name="stayandroomname">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="birth">생년월일</label>
-                            <input disabled type="text" name="birth">
+                            <label for="address">숙소 주소</label>
+                            <input disabled type="text" name="address">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="phone">전화번호</label>
-                            <input disabled type="text" name="phone">
+                            <label for="checkin">체크인</label>
+                            <input disabled type="text" name="checkin">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="email">이메일</label>
-                            <input disabled type="text" name="email">
+                            <label for="checkout">체크아웃</label>
+                            <input disabled type="text" name="checkout">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="reportCount">신고 받은 횟수</label>
-                            <input disabled type="text" name="reportCount">
+                            <label for="reservationname">예약자 대표 이름</label>
+                            <input disabled type="text" name="reservationname">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="state">상태</label>
-                            <input disabled type="text" name="state">
+                            <label for="reservationphone">예약자 대표 연락처</label>
+                            <input disabled type="text" name="reservationphone">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="createdAt">회원가입 일자</label>
-                            <input disabled type="text" name="createdAt">
+                            <label for="payamountandway">결제 금액(수단)</label>
+                            <input disabled type="text" name="payamountandway">
                         </div>
-                        <div class="modal-button-wrapper">
-                            <button class="approval btn-closer">해당 회원의 예약 정보</button>
-                            <button class="refuse btn-closer">해당 해원의 리뷰 정보</button>
+                        <div class="modal-input-wrapper">
+                            <label for="payat">결제 일자</label>
+                            <input disabled type="text" name="payat">
                         </div>
                     </div>
                 </form>

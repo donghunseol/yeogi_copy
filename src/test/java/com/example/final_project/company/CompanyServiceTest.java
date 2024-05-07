@@ -38,7 +38,7 @@ public class CompanyServiceTest {
         Integer stayId = 1;
 
         // when
-        List<CompanyResponse.companyStayDetailDTO> companyStayDetailList = companyService.companyStayDetailList(stayId);
+        List<CompanyResponse.CompanyStayDetailDTO> companyStayDetailList = companyService.companyStayDetailList(stayId);
 
         // eye
         System.out.println("companyStayDetailList_test getFirst : " + companyStayDetailList.getFirst());
