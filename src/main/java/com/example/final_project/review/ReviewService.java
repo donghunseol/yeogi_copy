@@ -101,7 +101,7 @@ public class ReviewService {
         // 3. 리스트 조회
         List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
 
-        Integer reviewConunt = reviewList.size();
+        Integer reviewCount = reviewList.size();
 
         // ReviewResponse.Find 객체로 변환하여 반환
         Map<Integer, ReviewResponse.Find> reviewMap = new HashMap<>();
@@ -114,7 +114,7 @@ public class ReviewService {
                     review.getContent(),
                     review.getCreatedAt(),
                     review.getScore(),
-                    reviewConunt
+                    reviewCount
             );
 
             reviewMap.put(reviewFind.getId(), reviewFind);
