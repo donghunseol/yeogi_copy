@@ -7,6 +7,8 @@ import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.reservation.Reservation;
+import com.example.final_project.review.Review;
+import com.example.final_project.review.ReviewResponse;
 import com.example.final_project.room.Room;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
@@ -133,7 +135,7 @@ public class AdminResponse {
         }
     }
 
-    // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰에 필요한 데이터
+    // 관리자 페이지에서 특정 회원의 예약 리스트 뷰에 필요한 데이터
     @Data
     public static class userReservationDTO{
         private Integer reservationId; // 예약 번호
@@ -190,6 +192,25 @@ public class AdminResponse {
             this.payAt = pay.getCreatedAt();
             this.amount = pay.getAmount();
             this.way = pay.getWay();
+        }
+    }
+
+    // 관리자 페이지에서 특정 개인의 리뷰찾기 응답 DTO
+    @Data
+    public static class userReviewListDTO{
+        private Integer reviewId;
+        private String stayName;
+        private String content;
+        private Integer score;
+        private LocalDateTime createdAt;
+        private List<ReviewResponse.Find> children = new ArrayList<>();
+
+        public userReviewListDTO(Review review) {
+            this.reviewId = review.getId();
+            this.stayName = review.getStay().getName();
+            this.content = review.getContent();
+            this.score = review.getScore();
+            this.createdAt = review.getCreatedAt();
         }
     }
 }

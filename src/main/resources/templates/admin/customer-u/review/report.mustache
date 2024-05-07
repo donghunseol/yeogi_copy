@@ -1,0 +1,46 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰관리</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">리뷰신고</p>
+                        <div class="room-tab_menu">
+                            <div class="cont_area">
+                                <form action="#" method="#">
+                                    <div class="join-form-item">
+                                        <label for="room-number">신고사유</label>
+                                        <div class="input-wrapper">
+                                            <textarea class="input" name="" id="reviewReportText" placeholder="1,000자 이내로 신고 내용을 입력해주세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <button type="submit" class="btn black join">등록하기</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
+    }
+
+</script>
+</body>
+
+</html>

@@ -193,4 +193,13 @@ public class AdminService {
 
         return respDTO;
     }
+
+    // 개인이 작성한 리뷰 정보 리스트
+    public List<AdminResponse.userReviewListDTO> findReviewByUserId (Integer userId) {
+        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
+        List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
+            return new AdminResponse.userReviewListDTO(review);
+        }).collect(Collectors.toList());
+        return respDTO;
+    }
 }
