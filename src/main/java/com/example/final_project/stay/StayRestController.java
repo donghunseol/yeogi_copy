@@ -23,14 +23,14 @@ public class StayRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @PostMapping("/api/register")
-    public ResponseEntity<?> save(@RequestBody StayRequest.SaveDTO reqDTO){
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-
-        StayResponse.Save respDTO = stayService.register(reqDTO,sessionCompany);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    @PostMapping("/api/register")
+//    public ResponseEntity<?> save(@RequestBody StayRequest.SaveDTO reqDTO){
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//
+//        StayResponse.Save respDTO = stayService.register(reqDTO,sessionCompany);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
     @GetMapping("/api/modify-form/{stayId}")
     public ResponseEntity<?> updateForm(@PathVariable Integer stayId){
@@ -48,7 +48,6 @@ public class StayRestController {
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
 
     @PutMapping("/api/cancel/{stayId}")
     public ResponseEntity<?> delete(@PathVariable Integer stayId){
