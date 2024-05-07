@@ -11,7 +11,6 @@ import com.example.final_project.pay.PayRepository;
 import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
-import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
 import com.example.final_project.room.RoomRepository;
@@ -55,9 +54,11 @@ public class AdminService {
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
     public List<AdminResponse.userReservationDTO> adminReservationList(Integer userId) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
+        Pay pay = null;
 
         List<AdminResponse.userReservationDTO> respDTO = reservationList.stream().map(r -> {
-            return new AdminResponse.userReservationDTO(r, r.getRoom());
+            Optional<Pay> payOP = payRepository.findByReservationId(r.getId());
+            return new AdminResponse.userReservationDTO(r, r.getRoom(), payOP.get());
         }).collect(Collectors.toList());
 
         return respDTO;
@@ -70,7 +71,7 @@ public class AdminService {
         Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
         Pay pay = null;
         if (payOP.isPresent()) pay = payOP.get();
-        AdminResponse.userReservationDetailDTO respDTO= new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
+        AdminResponse.userReservationDetailDTO respDTO = new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
 
         return respDTO;
     }
@@ -196,7 +197,7 @@ public class AdminService {
     }
 
     // 개인이 작성한 리뷰 정보 리스트
-    public List<AdminResponse.userReviewListDTO> findReviewByUserId (Integer userId) {
+    public List<AdminResponse.userReviewListDTO> findReviewByUserId(Integer userId) {
         List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
         List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
             return new AdminResponse.userReviewListDTO(review);

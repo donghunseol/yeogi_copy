@@ -60,8 +60,9 @@ public class AdminController {
 
     // 관리자 페이지에서 특정 회원의 예약 내역 리스트
     @GetMapping("/admin/users/{userId}/reservations")
-    public String userReservationList (@PathVariable Integer userId, HttpServletRequest request){
+    public String userReservationList(@PathVariable Integer userId, HttpServletRequest request) {
         List<AdminResponse.userReservationDTO> respDTO = adminService.adminReservationList(userId);
+        System.out.println(respDTO);
         request.setAttribute("reservationCount", respDTO.size());
         request.setAttribute("reservationList", respDTO);
         return "/admin/customer-u/user-reservations";
@@ -69,9 +70,9 @@ public class AdminController {
 
     // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰
     @GetMapping("/admin/users/{userId}/reservations/{reservationId}")
-    public String userReservationDetailList (@PathVariable Integer userId,
-                                             @PathVariable Integer reservationId,
-                                             HttpServletRequest request){
+    public String userReservationDetailList(@PathVariable Integer userId,
+                                            @PathVariable Integer reservationId,
+                                            HttpServletRequest request) {
         AdminResponse.userReservationDetailDTO respDTO = adminService.adminReservationDetailList(reservationId);
         request.setAttribute("reservationDetail", respDTO);
         return "";
@@ -79,7 +80,7 @@ public class AdminController {
 
     // 관리자 페이지에서 특정 개인이 작성한 리뷰 리스트
     @GetMapping("/admin/users/{userId}/reviews")
-    public String userReviewList (@PathVariable Integer userId, HttpServletRequest request){
+    public String userReviewList(@PathVariable Integer userId, HttpServletRequest request) {
         List<AdminResponse.userReviewListDTO> respDTO = adminService.findReviewByUserId(userId);
         request.setAttribute("reviewCount", respDTO.size());
         request.setAttribute("reviewList", respDTO);

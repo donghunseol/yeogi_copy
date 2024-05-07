@@ -59,10 +59,15 @@
                             </thead>
                             <tbody>
                             {{#companyList}}
-                                <div hidden="hidden" id="id-{{id}}" data-email="{{email}}"
-                                     data-businessName="{{businessName}}" data-businessNumber="{{businessNumber}}"
-                                     data-businessAddress="{{businessAddress}}" data-name="{{name}}"
-                                     data-phone="{{phone}}" data-createdAt="{{createdAt}}"></div>
+                                <!-- 각 예약에 대한 데이터를 모달에 넣기 위한 숨겨진 div -->
+                                <div hidden="hidden" id="id-{{id}}"
+                                     data-email="{{email}}"
+                                     data-businessName="{{businessName}}"
+                                     data-businessNumber="{{businessNumber}}"
+                                     data-businessAddress="{{businessAddress}}"
+                                     data-name="{{name}}"
+                                     data-phone="{{phone}}"
+                                     data-createdAt="{{createdAt}}"></div>
                                 <tr>
                                     <td class="title">{{businessName}}</td>
                                     <td>{{phone}}</td>
