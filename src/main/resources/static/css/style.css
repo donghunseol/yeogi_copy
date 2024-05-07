@@ -945,18 +945,20 @@ p.tab-title {
 .loging-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .loging-list li {
-    width: calc(33.3333% - 20px);
+    width: calc((100% - 40px) / 3);
     background: #fff;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
     margin-bottom: 20px;
+    margin-right: 20px;
 }
-
+.loging-list li:nth-child(3n){
+    margin-right: 0;
+}
 .loging-list li .loging-item {
     display: flex;
 }

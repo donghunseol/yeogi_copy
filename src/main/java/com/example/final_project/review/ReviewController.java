@@ -71,6 +71,6 @@ public class ReviewController {
 
         reviewService.reportSave(reviewId,sessionUser,reqDTO);
 
-        return "redirect:/review/detail/"+reviewId;
+        return "redirect:/reviews/detail/"+reviewId;
     }
 }

@@ -12,6 +12,7 @@
                     <div class="tab-item company info">
                         <p class="tab-title">숙소등록</p>
                         <form action="/stay/register" method="post">
+                            <input type="hidden" name="companyId" value="{{sessionUser.id}}">
                             <input type="hidden" name="state" value="TRUE">
                             <div class="register-detail-wrapper">
                                 <div class="content-wrapper">
@@ -51,19 +52,19 @@
                                                 <div class="check-box-wrapper">
                                                     <div class="input-wrapper">
                                                         <label for="option1">피트니스</label>
-                                                        <input type="checkbox" name="option" value="피트니스" id="option1">
+                                                        <input type="checkbox" name="options" value="피트니스" id="option1">
                                                     </div>
                                                     <div class="input-wrapper">
                                                         <label for="option2">침대</label>
-                                                        <input type="checkbox" name="option" value="침대" id="option2">
+                                                        <input type="checkbox" name="options" value="침대" id="option2">
                                                     </div>
                                                     <div class="input-wrapper">
                                                         <label for="option3">와이파이</label>
-                                                        <input type="checkbox" name="option" value="와이파이" id="option3">
+                                                        <input type="checkbox" name="options" value="와이파이" id="option3">
                                                     </div>
                                                     <div class="input-wrapper">
                                                         <label for="option4">오션뷰</label>
-                                                        <input type="checkbox" name="option" value="오션뷰" id="option4">
+                                                        <input type="checkbox" name="options" value="오션뷰" id="option4">
                                                     </div>
                                                 </div>
                                             </div>
