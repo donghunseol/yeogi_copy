@@ -3,6 +3,7 @@ package com.example.final_project.user;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.utils.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,14 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 로그인 기능
-    public SessionUser login(UserRequest.LoginDTO reqDTO) {
+    public String login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
 
-        return new SessionUser(user);
+        String jwt = JwtUtil.userCreate(user);
+        JwtUtil.userVerify(jwt);
+
+        return jwt;
     }
 
     // 회원 가입
@@ -54,5 +58,12 @@ public class UserService {
         user.updateUser(reqDTO);
 
         return new SessionUser(user);
+    }
+
+    public UserResponse.LoginDTO loginByDTO(UserRequest.LoginDTO reqDTO) {
+        User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+
+        return new UserResponse.LoginDTO(user);
     }
 }

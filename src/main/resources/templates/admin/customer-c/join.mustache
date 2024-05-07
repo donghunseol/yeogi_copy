@@ -120,14 +120,10 @@
                             <input disabled type="text" name="createdat" value="">
                         </div>
                         <div class="modal-button-wrapper">
-                            <button class="black btn-closer" id="blacklist-btn"
-                                    onclick="blacklistCompany()">블랙리스트 등록
-                            </button>
+                            <button class="black btn-closer" id="blacklist-btn">블랙리스트 등록</button>
                             <button class="approval btn-closer" id="approve-btn">승인</button>
                             <button class="refuse btn-closer" id="reject-btn">거절</button>
-                            <button class="btn-light btn-closer hidden" id="cancel-blacklist-btn"
-                                    onclick="cancelBlacklist()">블랙리스트 취소
-                            </button>
+                            <button class="btn-light btn-closer hidden" id="cancel-blacklist-btn">블랙리스트 취소</button>
                         </div>
                     </div>
                 </form>
@@ -148,7 +144,12 @@
         const cancelBlacklistBtn = document.querySelector('#cancel-blacklist-btn');
 
         detailButtons.forEach(function (button) {
-            button.addEventListener('click', showModal);
+            button.addEventListener('click', function (event) {
+                const companyId = event.target.dataset.companyId; // 클릭된 버튼의 companyId를 가져옴
+                showModal(companyId); // showModal 함수에 companyId를 전달하여 호출
+                blacklistCompany(companyId);
+                cancelBlacklist(companyId);
+            });
         });
 
         closeBtn.addEventListener('click', closeModal);
@@ -157,8 +158,7 @@
         blacklistBtn.addEventListener('click', blacklistCompany);
         cancelBlacklistBtn.addEventListener('click', cancelBlacklist);
 
-        function showModal(event) {
-            const companyId = event.target.dataset.companyId; // 클릭된 요소의 데이터 속성에서 기업 ID 가져오기
+        function showModal(companyId) {
             const companyData = document.querySelector(`#id-${companyId}`).dataset; // 해당 기업의 데이터 가져오기
             const modalInputs = modal.querySelectorAll('.modal-input-wrapper input');
 
@@ -211,16 +211,14 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('블랙리스트 등록에 실패했습니다.');
-                        }
-                        console.log('블랙리스트가 성공적으로 등록되었습니다.');
-                    })
-                    .catch(error => {
-                        console.error('오류 발생:', error);
-                    });
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('블랙리스트 등록에 실패했습니다.');
+                }
+                console.log('블랙리스트가 성공적으로 등록되었습니다.');
+            }).catch(error => {
+                console.error('오류 발생:', error);
+            });
         }
 
         function cancelBlacklist(companyId) {
@@ -229,16 +227,14 @@
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('블랙리스트 취소에 실패했습니다.');
-                        }
-                        console.log('블랙리스트가 성공적으로 취소되었습니다.');
-                    })
-                    .catch(error => {
-                        console.error('오류 발생:', error);
-                    });
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('블랙리스트 취소에 실패했습니다.');
+                }
+                console.log('블랙리스트가 성공적으로 취소되었습니다.');
+            }).catch(error => {
+                console.error('오류 발생:', error);
+            });
         }
     });
 </script>
