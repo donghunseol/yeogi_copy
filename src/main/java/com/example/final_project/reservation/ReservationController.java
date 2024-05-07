@@ -14,11 +14,11 @@ public class ReservationController {
     private final HttpSession session;
 
     // 예약 하기
-    @PostMapping("/book/{roomId}")
+    @PostMapping("/api/book/{roomId}")
     public ResponseEntity<?> makeReservation(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
         ReservationResponse.DTO respDTO = reservationService.makeReservation(reqDTO, sessionUser, roomId);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

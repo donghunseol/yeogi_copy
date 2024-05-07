@@ -33,25 +33,34 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         // 검증
         try {
-            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("secret")).build().verify(jwt);
+            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteohno")).build().verify(jwt);
             String role = decodedJWT.getClaim("role").asString();
 
             // claim 을 이용하여 role 의 값에 따라 company 와 user, admin 구분
-            if ("user".equals(role)) {
-                SessionUser sessionUser = JwtUtil.userVerify(jwt);
-                // 임시 세선 (jsessionId 는 필요 없다!)
+            if ("admin".equals(role)) {
+                System.out.println("admin");
+                SessionAdmin sessionAdmin = JwtUtil.adminVerify(jwt);
                 HttpSession session = request.getSession();
-                session.setAttribute("sessionUser", sessionUser);
+                session.setAttribute("sessionAdmin", sessionAdmin);
             } else if ("company".equals(role)) {
+                System.out.println("company");
                 SessionCompany sessionCompany = JwtUtil.companyVerify(jwt);
                 HttpSession session = request.getSession();
                 session.setAttribute("sessionCompany", sessionCompany);
             } else {
-                SessionAdmin sessionAdmin = JwtUtil.adminVerify(jwt);
+                System.out.println("user");
+                SessionUser sessionUser = JwtUtil.userVerify(jwt);
+                // 임시 세선 (jsessionId 는 필요 없다!)
                 HttpSession session = request.getSession();
-                session.setAttribute("sessionAdmin", sessionAdmin);
+                session.setAttribute("sessionUser", sessionUser);
             }
 
+            System.out.println("out");
+            SessionUser sessionUser = JwtUtil.userVerify(jwt);
+            // 임시 세선 (jsessionId 는 필요 없다!)
+            HttpSession session = request.getSession();
+            session.setAttribute("sessionUser", sessionUser);
+            
             return true;
         } catch (TokenExpiredException e) {
             throw new Exception401("토큰 만료시간이 지났어요. 다시 로그인하세요");
