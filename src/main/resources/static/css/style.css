@@ -1200,12 +1200,10 @@ p.tab-title {
 }
 
 .stay-detail .content.top .text-wrapper p.text-item {
-
     border-bottom: 1px solid #ddd;
     height: calc(100% / 3);
     display: flex;
     align-items: center;
-
 }
 
 .stay-detail .content.top .text-wrapper p.text-item:nth-child(1) {
@@ -1522,7 +1520,8 @@ em.guide b {
 .review-table li span:nth-child(1) {
     padding: 0 5px 0 0;
 }
-.review-table li .review-content .reply-content .reply-user-info span:after{
+
+.review-table li .review-content .reply-content .reply-user-info span:after {
     width: 0;
     height: 0;
 }
@@ -1649,7 +1648,8 @@ textarea.input {
     overflow-y: hidden;
     line-height: 1.3;
 }
-.review-content-reply{
+
+.review-content-reply {
     margin-top: 10px;
     padding: 20px;
     background: #f8f8f8;

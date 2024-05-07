@@ -17,13 +17,13 @@
                                 <div class="text-wrapper">
                                     <p class="text-item">
                                         <span class="head"><i
-                                                class="fa-solid fa-house mb-5 mt-5"></i><em>기업 총 수익</em></span>
-                                        <span class="body">{{totalIncome.totalIncome}}원</span>
+                                                class="fa-solid fa-dollar-sign"></i><em>기업 총 수익</em></span>
+                                        <span class="body" id="totalIncome">{{totalIncome.totalIncome}}원</span>
                                     </p>
                                     <p class="text-item">
                                         <span class="head"><i
-                                                class="fa-solid fa-layer-group mb-5"></i><em>기업 전체 예약 수</em></span>
-                                        <span class="body">{{totalIncome.reservationCount}}개</span>
+                                                class="fa-solid fa-check"></i><em>기업 전체 예약 수</em></span>
+                                        <span class="body" id="number">{{totalIncome.reservationCount}}개</span>
                                     </p>
                                 </div>
                             </div>
@@ -43,11 +43,11 @@
                                                 <div class="text-wrapper">
                                                     <p class="text-item">
                                                         <span class="head"><i></i><em>숙소 총 수익</em></span>
-                                                        <span class="body">{{totalIncome}}원</span>
+                                                        <span class="body" id="stayIncome">{{totalIncome}}원</span>
                                                     </p>
                                                     <p class="text-item">
                                                         <span class="head"><i></i><em>숙소 예약 회수</em></span>
-                                                        <span class="body">{{reservationCount}}개</span>
+                                                        <span class="body" id="number">{{reservationCount}}개</span>
                                                     </p>
                                                 </div>
                                                 <form action="/manage/stays/{{stayId}}/rooms" method="get"
@@ -69,7 +69,28 @@
     </section>
 </main>
 <script>
+    // 숫자를 쉼표로 구분된 형식으로 포맷하는 함수
+    function setCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // 요소를 가져와서 변수에 할당 stayIncome
+        var totalIncome = document.getElementById('totalIncome');
+        var stayIncome = document.getElementById('stayIncome');
+
+        // 요소의 텍스트 콘텐츠를 가져와서 숫자로 변환
+        var totalIncomeValue = totalIncome.textContent;
+        var stayIncomeValue = stayIncome.textContent;
+
+        // 숫자를 쉼표로 구분된 형식으로 포맷
+        var formatTotalIncome = setCommas(parseInt(totalIncomeValue));
+        var stayIncomeIncome = setCommas(parseInt(stayIncomeValue));
+
+        // 포맷된 값을 totalIncome 요소에 다시 설정하여 화면에 표시
+        totalIncome.textContent = formatTotalIncome + ' 원';
+        stayIncome.textContent = stayIncomeIncome + ' 원';
+    });
 </script>
 </body>
 
