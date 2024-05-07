@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class AdminController {
         return "/admin/customer-c/join";
     }
 
-    // 기업 블랙 취소 기능
+    // 기업 블랙 등록 기능
     @PutMapping("/admin/company/black/{companyId}")
     public String companyBlack(@PathVariable Integer companyId) {
         adminService.adminCompanyBlack(companyId);
@@ -58,8 +60,9 @@ public class AdminController {
 
     // 관리자 페이지에서 특정 회원의 예약 내역 리스트
     @GetMapping("/admin/users/{userId}/reservations")
-    public String userReservationList (@PathVariable Integer userId, HttpServletRequest request){
+    public String userReservationList(@PathVariable Integer userId, HttpServletRequest request) {
         List<AdminResponse.userReservationDTO> respDTO = adminService.adminReservationList(userId);
+        System.out.println(respDTO);
         request.setAttribute("reservationCount", respDTO.size());
         request.setAttribute("reservationList", respDTO);
         return "/admin/customer-u/user-reservations";
@@ -67,9 +70,9 @@ public class AdminController {
 
     // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰
     @GetMapping("/admin/users/{userId}/reservations/{reservationId}")
-    public String userReservationDetailList (@PathVariable Integer userId,
-                                             @PathVariable Integer reservationId,
-                                             HttpServletRequest request){
+    public String userReservationDetailList(@PathVariable Integer userId,
+                                            @PathVariable Integer reservationId,
+                                            HttpServletRequest request) {
         AdminResponse.userReservationDetailDTO respDTO = adminService.adminReservationDetailList(reservationId);
         request.setAttribute("reservationDetail", respDTO);
         return "";
@@ -89,5 +92,4 @@ public class AdminController {
 //    public String companyStayList (@PathVariable Integer companyId, HttpServletRequest request){
 //
 //    }
-
 }

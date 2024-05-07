@@ -49,15 +49,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{#userList}}
-                                    <tr>
-                                        <td class="title">{{name}}</td>
-                                        <td>{{email}}</td>
-                                        <td>{{reportCount}}</td>
-                                        <td><span class="state wait">{{state}}</span></td>
-                                        <td><span class="detail">상세보기</span></td>
-                                    </tr>
-                                {{/userList}}
+                            {{#userList}}
+                                <tr>
+                                    <td class="title">{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{reportCount}}</td>
+                                    <td><span class="state wait">{{state}}</span></td>
+                                    <td><span class="detail">상세보기</span></td>
+                                </tr>
+                            {{/userList}}
                             </tbody>
                         </table>
                     </div>
@@ -118,7 +118,7 @@
         const closeBtn = document.querySelector('.btn-cls');
         const modal = document.querySelector('.modal-bg');
         const closerBtn1 = document.querySelector('.btn-closer.refuse');
-        const closerBtn2= document.querySelector('.btn-closer.approval');
+        const closerBtn2 = document.querySelector('.btn-closer.approval');
 
         detailButtons.forEach(function (button) {
             button.addEventListener('click', showModal);
@@ -128,7 +128,19 @@
         closerBtn1.addEventListener('click', closerAticon1);
         closerBtn2.addEventListener('click', closerAticon2);
 
-        function showModal() {
+        function showModal(envent) {
+            const companyId = event.target.dataset.companyId; // 클릭된 요소의 데이터 속성에서 기업 ID 가져오기
+            const companyData = document.querySelector(`#id-${companyId}`).dataset; // 해당 기업의 데이터 가져오기
+            const modalInputs = modal.querySelectorAll('.modal-input-wrapper input');
+
+            // 모달에 데이터 채우기
+            modalInputs.forEach(function (input) {
+                console.log(input.getAttribute('name').toString()); // 디버깅
+                console.log(companyData[input.getAttribute('name').toString()]);
+                const attributeName = input.getAttribute('name'); // name 의 이름과 동일한 데이터를 가져옴
+                input.value = companyData[attributeName];
+            });
+
             modal.classList.remove('hidden');
             modal.classList.add('visible');
         }
@@ -141,6 +153,7 @@
         function closerAticon1() {
             closeModal();
         }
+
         function closerAticon2() {
             closeModal();
         }
