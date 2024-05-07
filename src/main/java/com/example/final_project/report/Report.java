@@ -33,7 +33,7 @@ public class Report {
     private Stay stay; // 숙소 번호
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+//  @Column(nullable = false)
     private ReportEnum result; // Proceeding 신고 진행 중, Complete 신고 완료, Fail 신고 실패
 
     @CreationTimestamp
@@ -44,8 +44,9 @@ public class Report {
 
 
     @Builder
-    public Report(Integer id, Review review, User user, ReportEnum result, LocalDateTime createdAt, String reportContent) {
+    public Report(Integer id, Review review, User user, ReportEnum result, LocalDateTime createdAt, String reportContent,Stay stay) {
         this.id = id;
+        this.stay = stay;
         this.review = review;
         this.user = user;
         this.result = result;

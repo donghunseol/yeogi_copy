@@ -14,23 +14,23 @@
                         <p class="tab-title">리뷰신고</p>
                         <div class="room-tab_menu">
                             <div class="cont_area">
-                                <form action="/re" method="post">
-                                    {{#reportReview}}
+                                {{#reportReview}}
+                                <form action="/review/report/{{id}}" method="post">
                                         <input type="hidden" name="userId" value="{{userId}}">
                                         <input type="hidden" name="reviewId" value="{{reviewId}}">
                                         <input type="hidden" name="content" value="{{content}}">
-                                        <input type="hidden" name="result" value="Proceeding">
+                                        <input type="hidden" name="stayId" value="{{stayId}}">
+                                        <input type="hidden" name="result" value="PROCEEDING">
                                         <div class="join-form-item">
                                             <label for="room-number">신고사유</label>
                                             <div class="input-wrapper">
-                                                <textarea name="reportContent" class="input"  id="reviewReportText" placeholder="1,000자 이내로 신고 내용을 입력해주세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                                <textarea  name="reportContent" class="input"  id="reviewReportText" placeholder="1,000자 이내로 신고 내용을 입력해주세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
                                             </div>
                                         </div>
+                                        <div class="button-wrapper">
+                                            <button type="submit" class="btn black join">등록하기</button>
+                                        </div>
                                     {{/reportReview}}
-
-                                    <div class="button-wrapper">
-                                        <button type="submit" class="btn black join">등록하기</button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
