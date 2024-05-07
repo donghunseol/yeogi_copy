@@ -1,8 +1,8 @@
-{{> admin/layout/head}}
+{{> company/layout/head}}
 <body>
 <main role="main">
     <section id="section n1">
-        {{> admin/layout/side}}
+        {{> company/layout/side}}
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
@@ -49,15 +49,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{#reservationList}}
-                                    <tr>
-                                        <td class="title">{{stayName}} ({{roomName}})</td>
-                                        <td>{{reservationName}}</td>
-                                        <td>{{checkInDate}}  {{checkInTime}}</td>
-                                        <td>{{checkOutDate}}  {{checkOutTime}}</td>
-                                        <td><span class="detail">상세보기</span></td>
-                                    </tr>
-                                {{/reservationList}}
+                            {{#reservationList}}
+                                <tr>
+                                    <td class="title">{{stayName}} ({{roomName}})</td>
+                                    <td>{{reservationName}}</td>
+                                    <td>{{checkInDate}}  {{checkInTime}}</td>
+                                    <td>{{checkOutDate}}  {{checkOutTime}}</td>
+                                    <td><span class="detail">상세보기</span></td>
+                                </tr>
+                            {{/reservationList}}
                             </tbody>
                         </table>
                     </div>
