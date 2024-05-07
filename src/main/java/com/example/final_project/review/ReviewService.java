@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -101,7 +102,13 @@ public class ReviewService {
         // 3. 리스트 조회
         List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
 
-        Integer reviewCount = reviewList.size();
+        // 4. parent가 없는 리뷰만 담도록 가공 parent가 없으면 대댓글이 아니다.
+
+        List<Review> filteredReviewList = reviewList.stream()
+                .filter(review -> review.getParent() == null)
+                .collect(Collectors.toList());
+
+        Integer reviewCount = filteredReviewList.size();
 
         // ReviewResponse.Find 객체로 변환하여 반환
         Map<Integer, ReviewResponse.Find> reviewMap = new HashMap<>();

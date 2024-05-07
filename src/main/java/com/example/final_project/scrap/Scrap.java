@@ -23,9 +23,11 @@ public class Scrap {
     private Integer id; // 스크랩 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
     private User user; // 스크랩한 유저 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stayId")
     private Stay stay; // 스크랩된 숙소 번호
 
     @CreationTimestamp
