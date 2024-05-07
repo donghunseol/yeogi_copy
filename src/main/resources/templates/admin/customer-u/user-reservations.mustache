@@ -49,15 +49,27 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{#reservationList}}
-                                    <tr>
-                                        <td class="title">{{stayName}}</td>
-                                        <td>{{roomName}}</td>
-                                        <td>{{checkInDate}}</td>
-                                        <td>{{checkOutDate}}</td>
-                                        <td><span class="detail">상세보기</span></td>
-                                    </tr>
-                                {{/reservationList}}
+                            {{#reservationList}}
+                                <!-- 각 예약에 대한 데이터를 모달에 넣기 위한 숨겨진 div -->
+                                <div hidden="hidden" id="id-{{reservationId}}"
+                                     data-stayname="{{stayName}}"
+                                     data-stayaddress="{{stayAddress}}"
+                                     data-checkindate="{{checkInDate}}"
+                                     data-checkoutdate="{{checkOutDate}}"
+                                     data-roomname="{{roomName}}"
+                                     data-reservationname="{{reservationName}}"
+                                     data-reservationtel="{{reservationTel}}"
+                                     data-amount="{{amount}}"
+                                     data-way="{{way}}"
+                                     data-payat="{{payAt}}"></div>
+                                <tr>
+                                    <td class="title">{{stayName}}</td>
+                                    <td>{{roomName}}</td>
+                                    <td>{{checkInDate}}</td>
+                                    <td>{{checkOutDate}}</td>
+                                    <td><span class="detail" data-reservation-id="{{reservationId}}">상세보기</span></td>
+                                </tr>
+                            {{/reservationList}}
                             </tbody>
                         </table>
                     </div>
@@ -74,40 +86,40 @@
                 <form action="#" method="#">
                     <div class="modal-content">
                         <div class="modal-input-wrapper">
-                            <label for="stayName">숙소 이름</label>
-                            <input disabled type="text" name="stayName">
+                            <label for="stayname">숙소 이름</label>
+                            <input disabled type="text" name="stayname" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="stayAddress">숙소 주소</label>
-                            <input disabled type="text" name="stayAddress">
+                            <label for="stayaddress">숙소 주소</label>
+                            <input disabled type="text" name="stayaddress" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="checkIn">체크인</label>
-                            <input disabled type="text" name="checkIn">
+                            <label for="checkindate">체크인</label>
+                            <input disabled type="text" name="checkindate" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="checkOut">체크아웃</label>
-                            <input disabled type="text" name="checkOut">
+                            <label for="checkoutdate">체크아웃</label>
+                            <input disabled type="text" name="checkoutdate" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="roomName">객실 이름</label>
-                            <input disabled type="text" name="roomName">
+                            <label for="roomname">객실 이름</label>
+                            <input disabled type="text" name="roomname" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="reservationName">예약자 대표 이름</label>
-                            <input disabled type="text" name="reservationName">
+                            <label for="reservationname">예약자 대표 이름</label>
+                            <input disabled type="text" name="reservationname" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="reservationTel">예약자 대표 연락처</label>
-                            <input disabled type="text" name="reservationTel">
+                            <label for="reservationtel">예약자 대표 연락처</label>
+                            <input disabled type="text" name="reservationtel" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="amountAndWay">결제 금액 (결제 수단)</label>
-                            <input disabled type="text" name="amountAndWay">
+                            <label for="amountandway">결제 금액 (결제 수단)</label>
+                            <input disabled type="text" name="amountandway" value="">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="payAt">결제 일자</label>
-                            <input disabled type="text" name="payAt">
+                            <label for="payat">결제 일자</label>
+                            <input disabled type="text" name="payat" value="">
                         </div>
                     </div>
                 </form>
@@ -122,7 +134,7 @@
         const closeBtn = document.querySelector('.btn-cls');
         const modal = document.querySelector('.modal-bg');
         const closerBtn1 = document.querySelector('.btn-closer.refuse');
-        const closerBtn2= document.querySelector('.btn-closer.approval');
+        const closerBtn2 = document.querySelector('.btn-closer.approval');
 
         detailButtons.forEach(function (button) {
             button.addEventListener('click', showModal);
@@ -132,7 +144,23 @@
         closerBtn1.addEventListener('click', closerAticon1);
         closerBtn2.addEventListener('click', closerAticon2);
 
-        function showModal() {
+        function showModal(event) {
+            const reservationId = event.target.dataset.reservationId; // 클릭된 요소의 데이터 속성에서 예약 ID 가져오기
+            const reservationData = document.querySelector(`#id-${reservationId}`).dataset; // 해당 예약의 데이터 가져오기
+            const modalInputs = modal.querySelectorAll('.modal-input-wrapper input');
+
+            // 모달에 데이터 채우기
+            const amount = reservationData.amount;
+            const way = reservationData.way;
+            reservationData.amountandway = amount + " (" + way + ")";
+            delete reservationData.amount;
+            delete reservationData.way;
+
+            modalInputs.forEach(function (input) {
+                const attributeName = input.getAttribute('name');
+                input.value = reservationData[attributeName];
+            });
+
             modal.classList.remove('hidden');
             modal.classList.add('visible');
         }
@@ -145,6 +173,7 @@
         function closerAticon1() {
             closeModal();
         }
+
         function closerAticon2() {
             closeModal();
         }
