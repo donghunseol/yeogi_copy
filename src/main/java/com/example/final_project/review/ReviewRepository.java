@@ -11,9 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // 한 개인이 작성한 리뷰 정보
-    @Query("SELECT r from Review r JOIN FETCH User u ON r.writer.id = u.id JOIN FETCH Stay st ON r.stay.id = st.id WHERE r.writer.id = :userId")
+    @Query("SELECT r, st from Review r JOIN FETCH User u ON r.writer.id = u.id JOIN FETCH Stay st ON r.stay.id = st.id WHERE r.writer.id = :userId AND r.parent IS NULL")
     List<Review> findByUserIdWithUserAndRoom(@Param("userId") Integer userId);
-
 
     // 한 숙소의 모든리뷰
     @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.stay.id = :stayId")

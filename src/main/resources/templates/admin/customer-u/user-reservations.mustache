@@ -13,13 +13,13 @@
                 </ul>
                 <div class="tab-content current">
                     <div class="tab-head">
-                        <p>가입현황</p>
+                        <p>해당 회원의 예약 내역</p>
                     </div>
                     <div class="tab-item">
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 회원<em> {{userCount}}</em>명</span>
+                                    <span>총 예약 건수 :<em> {{reservationCount}}</em>건</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -41,23 +41,23 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">회원명</th>
-                                <th scope="col">이메일</th>
-                                <th scope="col">신고 받은 횟수</th>
-                                <th scope="col">상태</th>
+                                <th scope="col">숙소 이름</th>
+                                <th scope="col">객실 이름</th>
+                                <th scope="col">체크인 날짜</th>
+                                <th scope="col">체크아웃 날짜</th>
                                 <th scope="col">상세보기</th>
                             </tr>
                             </thead>
                             <tbody>
-                                {{#userList}}
+                                {{#reservationList}}
                                     <tr>
-                                        <td class="title">{{name}}</td>
-                                        <td>{{email}}</td>
-                                        <td>{{reportCount}}</td>
-                                        <td><span class="state wait">{{state}}</span></td>
+                                        <td class="title">{{stayName}}</td>
+                                        <td>{{roomName}}</td>
+                                        <td>{{checkInDate}}</td>
+                                        <td>{{checkOutDate}}</td>
                                         <td><span class="detail">상세보기</span></td>
                                     </tr>
-                                {{/userList}}
+                                {{/reservationList}}
                             </tbody>
                         </table>
                     </div>
@@ -68,42 +68,46 @@
         <div class="modal-bg hidden">
             <div class="modal">
                 <div class="modal-head">
-                    <p class="modal-txt">회원 상세정보</p>
+                    <p class="modal-txt">예약 상세보기</p>
                     <button class="btn-cls">X</button>
                 </div>
                 <form action="#" method="#">
                     <div class="modal-content">
                         <div class="modal-input-wrapper">
-                            <label for="username">회원이름</label>
-                            <input disabled type="text" name="username">
+                            <label for="stayName">숙소 이름</label>
+                            <input disabled type="text" name="stayName">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="birth">생년월일</label>
-                            <input disabled type="text" name="birth">
+                            <label for="stayAddress">숙소 주소</label>
+                            <input disabled type="text" name="stayAddress">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="phone">전화번호</label>
-                            <input disabled type="text" name="phone">
+                            <label for="checkIn">체크인</label>
+                            <input disabled type="text" name="checkIn">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="email">이메일</label>
-                            <input disabled type="text" name="email">
+                            <label for="checkOut">체크아웃</label>
+                            <input disabled type="text" name="checkOut">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="reportCount">신고 받은 횟수</label>
-                            <input disabled type="text" name="reportCount">
+                            <label for="roomName">객실 이름</label>
+                            <input disabled type="text" name="roomName">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="state">상태</label>
-                            <input disabled type="text" name="state">
+                            <label for="reservationName">예약자 대표 이름</label>
+                            <input disabled type="text" name="reservationName">
                         </div>
                         <div class="modal-input-wrapper">
-                            <label for="createdAt">회원가입 일자</label>
-                            <input disabled type="text" name="createdAt">
+                            <label for="reservationTel">예약자 대표 연락처</label>
+                            <input disabled type="text" name="reservationTel">
                         </div>
-                        <div class="modal-button-wrapper">
-                            <button class="approval btn-closer">해당 회원의 예약 정보</button>
-                            <button class="refuse btn-closer">해당 해원의 리뷰 정보</button>
+                        <div class="modal-input-wrapper">
+                            <label for="amountAndWay">결제 금액 (결제 수단)</label>
+                            <input disabled type="text" name="amountAndWay">
+                        </div>
+                        <div class="modal-input-wrapper">
+                            <label for="payAt">결제 일자</label>
+                            <input disabled type="text" name="payAt">
                         </div>
                     </div>
                 </form>
