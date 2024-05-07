@@ -141,7 +141,8 @@ public class CompanyController {
     @GetMapping("/reservations/status")
     public String compReservationList(HttpServletRequest request) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(company);
+        List<CompanyResponse.ReservationListDTO> respDTO = reservationService.compReservationList(company);
+        request.setAttribute("reservationCount", respDTO.size());
         request.setAttribute("reservationList", respDTO);
         return "/company/reservation/main";
     }

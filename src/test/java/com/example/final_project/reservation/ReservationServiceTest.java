@@ -1,5 +1,6 @@
 package com.example.final_project.reservation;
 
+import com.example.final_project.company.CompanyResponse;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import org.assertj.core.api.Assertions;
@@ -59,7 +60,7 @@ public class ReservationServiceTest {
                 .build();
 
         // when
-        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
+        List<CompanyResponse.ReservationListDTO> respDTO = reservationService.compReservationList(sessionCompany);
 
         // eye
         System.out.println("compReservationList_test size : " + respDTO.size());
