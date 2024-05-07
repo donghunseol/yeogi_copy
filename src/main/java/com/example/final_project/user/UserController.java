@@ -29,10 +29,9 @@ public class UserController {
     // 회원 가입 후 로그인
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
-        SessionUser sessionUser = userService.joinAndLogin(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.joinAndLogin(reqDTO);
+        UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
     }
 
     // 회원 정보 수정
