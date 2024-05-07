@@ -20,7 +20,7 @@ public class CompanyServiceTest {
         Integer companyId = 1;
 
         // when
-        List<CompanyResponse.companyStayListDTO> companyStayList = companyService.companyStayList(companyId);
+        List<CompanyResponse.CompanyStayListDTO> companyStayList = companyService.companyStayList(companyId);
 
         // eye
         System.out.println("companyStayList_test size : " + companyStayList.size());
@@ -55,7 +55,7 @@ public class CompanyServiceTest {
         String tier = "Deluxe";
 
         // when
-        List<CompanyResponse.companyRoomDetailDTO> roomList = companyService.companyRoomDetail(stayId, tier);
+        List<CompanyResponse.CompanyRoomDetailDTO> roomList = companyService.companyRoomDetail(stayId, tier);
 
         // eye
         System.out.println("companyRoomDetail_test size : " + roomList.size());
@@ -71,7 +71,7 @@ public class CompanyServiceTest {
         Integer reservationId = 1;
 
         // when
-        CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+        CompanyResponse.CompanyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
 
         // eye
         System.out.println("companyReservationDetail_test getPrice : " + respDTO.getPrice());

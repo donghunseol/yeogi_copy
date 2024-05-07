@@ -1,6 +1,7 @@
 package com.example.final_project.company;
 
 import com.example.final_project.pay.PayResponse;
+import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,13 +22,6 @@ public class CompanyController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-//    // 예약 현황 확인 (목록)
-//    @GetMapping("/reservations/status")
-//    public List<ReservationResponse.ListDTO> compReservationList() {
-//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-//        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(sessionCompany);
-//        return respDTO;
-//    }
 
     // 로그인
     @PostMapping("/company/login")
@@ -68,43 +62,6 @@ public class CompanyController {
         return "redirect:/company";
     }
 
-    // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
-    @GetMapping("/manage/stays")
-    public String companyStayList(HttpServletRequest request) {
-        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        List<CompanyResponse.companyStayListDTO> respDTO = companyService.companyStayList(company.getId());
-        request.setAttribute("stayList", respDTO);
-        return "/company/stay/main";
-    }
-
-    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
-    @GetMapping("/manage/stays/{stayId}/rooms")
-    public String companyRoomList(HttpServletRequest request,
-                                  @PathVariable Integer stayId,
-                                  @RequestParam(defaultValue = "", name = "tier") String tier) {
-        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-
-
-        if (tier.isBlank()) {
-            List<CompanyResponse.companyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
-            request.setAttribute("stayList", stayRespDTO);
-
-            List<CompanyResponse.companyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
-            request.setAttribute("detailList", detailRespDTO);
-
-            return "/company/stay/detail";
-        } else {
-            CompanyResponse.companyStayListAndTierDTO stayRespDTO = companyService.companyStayListAndTier(stayId, tier);
-            request.setAttribute("stayList", stayRespDTO);
-
-            List<CompanyResponse.companyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
-            request.setAttribute("roomDetailList", respDTO);
-
-            return "/company/room/detail";
-        }
-    }
-
     // 정보수정 폼
     @GetMapping("/company/information")
     public String information() {
@@ -121,11 +78,48 @@ public class CompanyController {
         return "redirect:/manage/stays";
     }
 
+
+    // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
+    @GetMapping("/manage/stays")
+    public String companyStayList(HttpServletRequest request) {
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+        List<CompanyResponse.CompanyStayListDTO> respDTO = companyService.companyStayList(company.getId());
+        request.setAttribute("stayList", respDTO);
+        return "/company/stay/main";
+    }
+
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
+    @GetMapping("/manage/stays/{stayId}/rooms")
+    public String companyRoomList(HttpServletRequest request,
+                                  @PathVariable Integer stayId,
+                                  @RequestParam(defaultValue = "", name = "tier") String tier) {
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+
+        if (tier.isBlank()) {
+            List<CompanyResponse.CompanyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+            request.setAttribute("stayList", stayRespDTO);
+
+            List<CompanyResponse.CompanyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);
+            request.setAttribute("detailList", detailRespDTO);
+
+            return "/company/stay/detail";
+        } else {
+            CompanyResponse.CompanyStayListAndTierDTO stayRespDTO = companyService.companyStayListAndTier(stayId, tier);
+            request.setAttribute("stayList", stayRespDTO);
+
+            List<CompanyResponse.CompanyRoomDetailDTO> respDTO = companyService.companyRoomDetail(stayId, tier);
+            request.setAttribute("roomDetailList", respDTO);
+
+            return "/company/room/detail";
+        }
+    }
+
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
     @GetMapping("/reservations/{reservationId}/detail")
     public String companyReservationDetail(HttpServletRequest request,
                                            @PathVariable Integer reservationId) {
-        CompanyResponse.companyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+        CompanyResponse.CompanyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
         request.setAttribute("reservationDetail", respDTO);
 
         return "/company/reservation/detail";
@@ -141,5 +135,14 @@ public class CompanyController {
         request.setAttribute("stayTotalIncomeList", listRespDTO);
 
         return "/company/revenue/main";
+    }
+
+    // 예약 현황 확인 (목록)
+    @GetMapping("/reservations/status")
+    public String compReservationList(HttpServletRequest request) {
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+        List<ReservationResponse.ListDTO> respDTO = reservationService.compReservationList(company);
+        request.setAttribute("reservationList", respDTO);
+        return "/company/reservation/main";
     }
 }
