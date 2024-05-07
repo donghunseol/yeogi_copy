@@ -14,7 +14,7 @@
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 리뷰<em>{{#reviewList}}{{reviewCount}}{{/reviewList}}</em>개</span>
+                                    <span>총 리뷰 <em>{{reviewCount}}</em>개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -43,14 +43,13 @@
                             </thead>
                             <tbody>
                             {{#reviewList}}
-
                                 <tr class="review">
                                     <td class="title"><span>{{content}}</span></td>
                                     <td class="content">{{writer.name}}</td>
                                     <td>{{score}}점</td>
                                     <td>{{createdAt}}</td>
                                     <td class="link">
-                                        <a href="/review/detail/{{id}}"></a>
+                                        <a href="/reviews/detail/{{id}}"></a>
                                     </td>
                                 </tr>
                             {{/reviewList}}

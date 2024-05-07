@@ -33,7 +33,7 @@ public class RoomRepositoryTest {
         Integer stayId = 1;
 
         // when
-        List<CompanyResponse.companyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
+        List<CompanyResponse.CompanyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
 
         // eye
         System.out.println("<<<findAndCountByStayId_test>>>");

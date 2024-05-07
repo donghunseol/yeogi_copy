@@ -23,18 +23,19 @@ public class ReviewController {
     private final HttpSession session;
 
 
-    //댓글 목록
-    @GetMapping("/review/{stayId}")
+    // 해당 숙소의 리뷰(댓글) 목록
+    @GetMapping("/reviews/{stayId}")
     public String reviewList(@PathVariable Integer stayId, HttpServletRequest request){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         List<ReviewResponse.Find> respDTO = reviewService.select(stayId,sessionUser);
+        request.setAttribute("reviewCount", respDTO.size());
         request.setAttribute("reviewList",respDTO);
 
         return "/company/review/main";
     }
 
     //댓글 디테일
-    @GetMapping("/review/detail/{reviewId}")
+    @GetMapping("/reviews/detail/{reviewId}")
     public String reviewDetail(@PathVariable Integer reviewId , HttpServletRequest request){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         ReviewResponse.Detail respDTO = reviewService.detail(reviewId,sessionUser);

@@ -5,6 +5,7 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
+import com.example.final_project.company.CompanyResponse;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
@@ -109,13 +110,13 @@ public class ReservationService {
     }
 
     // 기업의 예약 현황 확인
-    public List<ReservationResponse.ListDTO> compReservationList(SessionCompany sessionCompany){
+    public List<CompanyResponse.ReservationListDTO> compReservationList(SessionCompany sessionCompany){
         List<Reservation> reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(sessionCompany.getId());
-
-        List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
-            return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
+        return reservationList.stream().map(reservation -> {
+            Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+            Pay pay = null;
+            if (payOP.isPresent()) pay = payOP.get();
+            return new CompanyResponse.ReservationListDTO(reservation, reservation.getRoom(), pay);
         }).collect(Collectors.toList());
-
-        return respDTO;
     }
 }
