@@ -2,6 +2,7 @@ package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project.company.Company;
+import com.example.final_project.report.Report;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
@@ -142,10 +143,14 @@ public class ReviewResponse {
     // 댓글 신고 폼
     @Data
     public static class ReportForm{
+        private Integer id;
         private Integer userId;
+        private Integer stayId;
         private Integer reviewId;
         private String content;
         public ReportForm(Review review) {
+            this.id = review.getId();
+            this.stayId = review.getStay().getId();
             this.userId = review.getWriter().getId();
             this.reviewId = review.getId();
             this.content = review.getContent();
@@ -169,6 +174,7 @@ public class ReviewResponse {
             this.reportContent = report.getReportContent();
         }
 
+
         @Data
         public static class ReviewDTO{
             private Integer id;
@@ -186,4 +192,5 @@ public class ReviewResponse {
             }
         }
     }
+
 }

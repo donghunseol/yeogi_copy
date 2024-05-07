@@ -27,7 +27,4 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     @Query("SELECT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.id = :reviewId")
     Review findByReviewId(@Param("reviewId") Integer reviewId);
 
-    // parent를 가지고있는 review 찾기
-//    @Query("")
-//    Review findparentWithUserId
 }

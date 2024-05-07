@@ -40,16 +40,18 @@ public class ReviewRequest {
     public static class ReportRequestDTO{
         private Integer userId;
         private Integer stayId;
-        private String content;
+        private String reportContent;
         private Integer reviewId;
-        private ReportEnum isResult;
+        private ReportEnum result;
         private LocalDateTime createdAt;
 
         public Report toEntity(User user, Review review){
             return Report.builder()
+                    .stay(review.getStay())
                     .user(user)
                     .review(review)
-                    .result(isResult)
+                    .reportContent(reportContent)
+                    .result(result)
                     .createdAt(createdAt)
                     .build();
         }
