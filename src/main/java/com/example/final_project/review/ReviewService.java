@@ -108,7 +108,7 @@ public class ReviewService {
                 .filter(review -> review.getParent() == null)
                 .collect(Collectors.toList());
 
-        Integer reviewConunt = filteredReviewList.size();
+        Integer reviewCount = filteredReviewList.size();
 
         // ReviewResponse.Find 객체로 변환하여 반환
         Map<Integer, ReviewResponse.Find> reviewMap = new HashMap<>();
@@ -121,7 +121,7 @@ public class ReviewService {
                     review.getContent(),
                     review.getCreatedAt(),
                     review.getScore(),
-                    reviewConunt
+                    reviewCount
             );
 
             reviewMap.put(reviewFind.getId(), reviewFind);

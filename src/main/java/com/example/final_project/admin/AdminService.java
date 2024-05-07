@@ -194,12 +194,18 @@ public class AdminService {
         return respDTO;
     }
 
-    // 개인이 작성한 리뷰 정보 리스트
-    public List<AdminResponse.userReviewListDTO> findReviewByUserId (Integer userId) {
-        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
-        List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
-            return new AdminResponse.userReviewListDTO(review);
-        }).collect(Collectors.toList());
-        return respDTO;
-    }
+//    // 개인이 작성한 리뷰 정보 리스트
+//    public List<AdminResponse.userReviewListDTO> userReviewList (Integer userId) {
+//        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
+//        List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
+//            return new AdminResponse.userReviewListDTO(review);
+//        }).collect(Collectors.toList());
+//        return respDTO;
+//    }
+
+    // 관리자 페이지에서 특정 기업의 숙소 정보 출력
+//    public List<Stay> companyStayList (Integer companyId) {
+//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+//        List<AdminResponse.>
+//    }
 }
