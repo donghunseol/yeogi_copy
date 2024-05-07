@@ -28,7 +28,7 @@ public class JwtUtil {
 
     // user 토큰 검증
     public static SessionUser userVerify(String jwt) {
-        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteohno")).build().verify(jwt);
+        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteoghno")).build().verify(jwt);
         int id = decodedJWT.getClaim("id").asInt();
         String email = decodedJWT.getClaim("email").asString();
 
