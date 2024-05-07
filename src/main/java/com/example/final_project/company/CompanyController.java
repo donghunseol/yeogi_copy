@@ -34,7 +34,7 @@ public class CompanyController {
     public String login(CompanyRequest.LoginDTO reqDTO) {
 
         SessionCompany company = companyService.login(reqDTO);
-
+        System.out.println(company);
         session.setAttribute("sessionUser", company);
 
         return "redirect:/manage/stays";
@@ -142,4 +142,5 @@ public class CompanyController {
 
         return "/company/revenue/main";
     }
+
 }

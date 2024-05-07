@@ -842,7 +842,27 @@ p.login-title {
 
 .join-form-item {
 }
+.join-form-item.check{
 
+}
+.join-form-item.check .check-box-wrapper{
+    display: flex;
+}
+.join-form-item.check .check-box-wrapper .input-wrapper{
+    width: calc(25% - 5px);
+    margin-right: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+}
+.join-form-item.check .input-wrapper input{
+
+}
+.join-form-item.check .input-wrapper label{
+    padding-bottom: 0;
+    padding-left: 5px;
+}
 .join-form-item label {
     display: block;
     padding-bottom: 10px;

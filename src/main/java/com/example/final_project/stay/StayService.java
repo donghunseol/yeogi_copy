@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
@@ -20,13 +21,13 @@ public class StayService {
 
     //숙소등록
     @Transactional
-    public StayResponse.Save register(StayRequest.SaveDTO reqDTO, SessionCompany sessionCompany) {
+    public StayResponse.Save register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
         //1. 인증처리
-        Company company = companyRepository.findById(sessionCompany.getId()).orElseThrow(
+        Company company = companyRepository.findById(sessionUser.getId()).orElseThrow(
                 () -> new Exception404("해당 기업을 찾을 수 없습니다")
         );
         //2. 권한처리
-        if (company.getId() != sessionCompany.getId()) {
+        if (company.getId() != sessionUser.getId()) {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
         }
 
@@ -99,4 +100,8 @@ public class StayService {
 
         return resultList;
     }
+
+
+
+
 }

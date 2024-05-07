@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class SessionCompany {
     private Integer id; // 기업 번호
+    private String password;
     private String email; // 이메일 (로그인 할 때 아이디로 사용)
     private String businessName; // 등록 상호명
     private String businessNumber; // 사업자 번호
@@ -20,9 +21,10 @@ public class SessionCompany {
     private LocalDateTime createdAt; // 기업 가입 일자
 
     @Builder
-    public SessionCompany(Integer id, String email, String businessName, String businessNumber, String businessAddress, String phone, String name, CompanyEnum state, Integer reportCount, LocalDateTime createdAt) {
+    public SessionCompany(Integer id, String email, String businessName, String password, String businessNumber, String businessAddress, String phone, String name, CompanyEnum state, Integer reportCount, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
+        this.password = password;
         this.businessName = businessName;
         this.businessNumber = businessNumber;
         this.businessAddress = businessAddress;
@@ -36,6 +38,7 @@ public class SessionCompany {
     public SessionCompany(Company company) {
         this.id = company.getId();
         this.email = company.getEmail();
+        this.password = company.getPassword();
         this.businessName = company.getBusinessName();
         this.businessNumber = company.getBusinessNumber();
         this.businessAddress = company.getBusinessAddress();
