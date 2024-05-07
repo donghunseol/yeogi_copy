@@ -78,13 +78,18 @@ public class AdminController {
         return "";
     }
 
-    // 관리자 페이지에서 특정 개인이 작성한 리뷰 리스트
-    @GetMapping("/admin/users/{userId}/reviews")
-    public String userReviewList(@PathVariable Integer userId, HttpServletRequest request) {
-        List<AdminResponse.userReviewListDTO> respDTO = adminService.findReviewByUserId(userId);
-        request.setAttribute("reviewCount", respDTO.size());
-        request.setAttribute("reviewList", respDTO);
-        return "/admin/customer-u/review/main";
-    }
+//    // 관리자 페이지에서 특정 개인이 작성한 리뷰 리스트
+//    @GetMapping("/admin/users/{userId}/reviews")
+//    public String userReviewList (@PathVariable Integer userId, HttpServletRequest request){
+//        List<AdminResponse.userReviewListDTO> respDTO = adminService.userReviewList(userId);
+//        request.setAttribute("reviewCount", respDTO.size());
+//        request.setAttribute("reviewList", respDTO);
+//        return "/admin/customer-u/review/main";
+//    }
 
+//    // 관리자 페이지에서 특정 기업의 숙소 정보 출력
+//    @GetMapping("/admin/companies/{companyId}/stays}")
+//    public String companyStayList (@PathVariable Integer companyId, HttpServletRequest request){
+//
+//    }
 }
