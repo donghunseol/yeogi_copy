@@ -22,13 +22,13 @@ public class JwtUtil {
                 .withClaim("id", user.getId())
                 .withClaim("email", user.getEmail())
                 .withClaim("role", "user")
-                .sign(Algorithm.HMAC512("yeoeotteoghno")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
+                .sign(Algorithm.HMAC512("yeoeotteohno")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
         return jwt;
     }
 
     // user 토큰 검증
     public static SessionUser userVerify(String jwt) {
-        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotte")).build().verify(jwt);
+        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteohno")).build().verify(jwt);
         int id = decodedJWT.getClaim("id").asInt();
         String email = decodedJWT.getClaim("email").asString();
 
@@ -47,13 +47,13 @@ public class JwtUtil {
                 .withClaim("id", company.getId())
                 .withClaim("email", company.getEmail())
                 .withClaim("role", "company")
-                .sign(Algorithm.HMAC512("secret")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
+                .sign(Algorithm.HMAC512("yeoeotteohno")); // 대칭키 사용 나중에 yeoeotteohno 이라 적은 자리에 환경 변수를 넣는다 OS 의 값을 땡겨와야한다!
         return jwt;
     }
 
     // company 토큰 검증
     public static SessionCompany companyVerify(String jwt) {
-        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("secret")).build().verify(jwt);
+        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteohno")).build().verify(jwt);
         int id = decodedJWT.getClaim("id").asInt();
         String email = decodedJWT.getClaim("email").asString();
 
