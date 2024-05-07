@@ -2,6 +2,7 @@ package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project.company.Company;
+import com.example.final_project.report.Report;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
@@ -91,7 +92,6 @@ public class ReviewResponse {
         }
     }
 
-
     //리뷰삭제 응답 DTO
     @Data
     public static class Delete{
@@ -108,6 +108,8 @@ public class ReviewResponse {
         private Integer id;
         private UserDTO writer;
         private String content;
+        private String name;
+        private Integer stayId;
         private Review parent;
         private LocalDateTime createdAt;
         private Integer score;
@@ -116,6 +118,8 @@ public class ReviewResponse {
         public Detail(Review review ,UserDTO writer) {
             this.id = review.getId();
             this.writer = writer;
+            this.name = review.getStay().getName();
+            this.stayId = review.getStay().getId();
             this.parent = review.getParent();
             this.content = review.getContent();
             this.createdAt = review.getCreatedAt();
@@ -136,5 +140,57 @@ public class ReviewResponse {
         }
     }
 
+    // 댓글 신고 폼
+    @Data
+    public static class ReportForm{
+        private Integer id;
+        private Integer userId;
+        private Integer stayId;
+        private Integer reviewId;
+        private String content;
+        public ReportForm(Review review) {
+            this.id = review.getId();
+            this.stayId = review.getStay().getId();
+            this.userId = review.getWriter().getId();
+            this.reviewId = review.getId();
+            this.content = review.getContent();
+        }
+    }
+
+    // 댓글 신고응답 DTO
+    @Data
+    public static class Report{
+        private Integer id;
+        private ReviewDTO review;
+        private ReviewEnum result;
+        private LocalDateTime createdAt;
+        private String reportContent;
+
+        public Report(Report report, ReviewDTO review) {
+            this.id = report.getId();
+            this.review = review;
+            this.result = report.getResult();
+            this.createdAt = report.getCreatedAt();
+            this.reportContent = report.getReportContent();
+        }
+
+
+        @Data
+        public static class ReviewDTO{
+            private Integer id;
+            private Integer userId;
+            private Integer stayId;
+            private String content;
+            private Integer score;
+
+            public ReviewDTO(Review review) {
+                this.id = review.getId();
+                this.userId = review.getWriter().getId();
+                this.stayId = review.getStay().getId();
+                this.content = review.getContent();
+                this.score = review.getScore();
+            }
+        }
+    }
 
 }

@@ -1,10 +1,13 @@
 package com.example.final_project.review;
 
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.report.Report;
+import com.example.final_project.report.ReportRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.Room;
@@ -32,10 +35,18 @@ public class ReviewService {
     private final CompanyRepository companyRepository;
     private final RoomRepository roomRepository;
     private final ReservationRepository reservationRepository;
+    private final ReportRepository reportRepository;
 
-    //리뷰 작성 및 대댓글 작성
+    //댓글 작성 및 대댓글 작성
     @Transactional
-    public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO) {
+    public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO ,SessionCompany sessionUser) {
+        // 1. 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다.");
+        }
+
+        Company company = companyRepository.findByStayId(stayId)
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다."));
 
         User user = userRepository.findById(reqDTO.getUserId())
                 .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다" + reqDTO.getUserId()));
@@ -45,6 +56,12 @@ public class ReviewService {
 
         Review review = reqDTO.toEntity(user,stay);
 
+        // 2. 권한처리
+        if (sessionUser.getId() != company.getId()){
+            new Exception401("댓글을 작성할 권한이 없습니다.");
+        }
+
+        // 3. 부모댓글 처리
         Review parentReview;
 
         if (reqDTO.getParentId() != null) {
@@ -65,22 +82,23 @@ public class ReviewService {
     @Transactional
     public List<ReviewResponse.Find> select(Integer stayId , SessionCompany sessionUser) {
 
-        //인증 처리
+        // 1. 인증 처리
         if (sessionUser == null){
             new Exception401("로그인이 필요한 서비스입니다.");
         }
-        //권한 처리
+
         Stay stay = stayRepository.findById(stayId)
                 .orElseThrow(() -> new Exception401("조회할 권한이 없습니다"));
 
         Company company = companyRepository.findByStayId(stay.getId())
-                .orElseThrow(() -> new Exception404("해당 기없을 찾을 수 없습니다"));
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
 
+        // 2. 권한 처리
         if (sessionUser.getId() != company.getId()){
             new Exception401("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
         }
 
-        // 리스트 조회
+        // 3. 리스트 조회
         List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId);
 
         Integer reviewConunt = reviewList.size();
@@ -125,7 +143,6 @@ public class ReviewService {
         // 2. 리뷰 조회
         Review review = reviewRepository.findByReviewId(reviewId);
 
-
         // 4. 리뷰 디테일 정보 생성
         ReviewResponse.Detail.UserDTO writerDTO = new ReviewResponse.Detail.UserDTO(review.getWriter());
         ReviewResponse.Detail detail = new ReviewResponse.Detail(review, writerDTO);
@@ -136,16 +153,51 @@ public class ReviewService {
             detail.getChildren().add(childDetail);
         }
 
-        // 6. 리뷰 디테일 정보 반환
-
         return detail;
     }
+
+    //댓글 신고폼
+    @Transactional
+    public ReviewResponse.ReportForm reportForm(Integer reviewId,SessionCompany sessionUser){
+        // 1. 인증 처리
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요한 서비스입니다.");
+        }
+
+        // 2. 댓글 조회
+        Review review = reviewRepository.findByReviewId(reviewId);
+
+        return new ReviewResponse.ReportForm(review);
+    }
+
+    //댓글 신고
+    @Transactional
+    public void reportSave(Integer reviewId, SessionCompany sessionUser, ReviewRequest.ReportRequestDTO reqDTO){
+
+        // 1. 인증 처리
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요한 서비스입니다.");
+        }
+
+        // 2. 댓글 조회
+        Review review = reviewRepository.findByReviewId(reviewId);
+
+        // 3. 유저 찾기
+        User user = userRepository.findById(review.getWriter().getId())
+                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다"));
+
+        Report report = reqDTO.toEntity(user,review);
+
+        reportRepository.save(report);
+
+    }
+
 
     //댓글 삭제
     @Transactional
     public ReviewResponse.Delete delete(Integer reviewId){
 
-        // 리뷰찾기
+        // 댓글찾기
         Review review = reviewRepository.findReviewByIdWithParent(reviewId);
 
         //삭제

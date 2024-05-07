@@ -24,7 +24,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 리뷰 번호
 
-    @ManyToOne(fetch = FetchType.LAZY) // optional = false를 적어야 Not Null이 된다.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User writer; // 리뷰쓴 유저
 
@@ -32,7 +32,7 @@ public class Review {
     @JoinColumn(name = "stay_id")
     private Stay stay; // 리뷰한 숙소
 
-//    @Column(nullable = false)
+//  @Column(nullable = false)
     private Integer score; // 평점
 
     @Column(nullable = false)
