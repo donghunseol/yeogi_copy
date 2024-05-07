@@ -42,7 +42,7 @@ public class StayRequest {
         private String address;
         private String intro;
         private String information;
-        private List<OptionDTO> optionList;
+        private List<String> options;
         private StayEnum state;
         private LocalDateTime createdAt;
 
@@ -57,20 +57,6 @@ public class StayRequest {
                     .createdAt(createdAt)
                     .company(company)
                     .build();
-        }
-
-        @Data
-        public static class OptionDTO{
-            private String name;
-            private String iconName;
-
-            public Option toEntity(Option option){
-
-
-                return Option.builder()
-                        .name(this.name)
-                        .build();
-            }
         }
 
     }
