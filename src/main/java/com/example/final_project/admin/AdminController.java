@@ -35,6 +35,15 @@ public class AdminController {
         return "/admin/customer-c/join";
     }
 
+    // 개인 회원 정보 조회 View
+    @GetMapping("/admin/users")
+    public String user(HttpServletRequest request) {
+        List<AdminResponse.userListDTO> respDTO = adminService.adminUserList();
+        request.setAttribute("userCount", respDTO.size());
+        request.setAttribute("userList", respDTO);
+        return "/admin/customer-u/join";
+    }
+
     // 기업 블랙 등록 기능
     @PutMapping("/admin/company/black/{companyId}")
     public String companyBlack(@PathVariable Integer companyId) {
@@ -47,15 +56,6 @@ public class AdminController {
     public String companyBlackCancel(@PathVariable Integer companyId) {
         adminService.adminCompanyBlackCancel(companyId);
         return "redirect:/admin/company";
-    }
-
-    // 개인 회원 정보 조회 View
-    @GetMapping("/admin/users")
-    public String user(HttpServletRequest request) {
-        List<AdminResponse.userListDTO> respDTO = adminService.adminUserList();
-        request.setAttribute("userCount", respDTO.size());
-        request.setAttribute("userList", respDTO);
-        return "/admin/customer-u/join";
     }
 
     // 관리자 페이지에서 특정 회원의 예약 내역 리스트
