@@ -33,6 +33,8 @@ public class StayService {
 
         Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
+    //  stay.getOptions().stream().map(option -> )
+
         return new StayResponse.Save(stay, stay.getOptions());
     }
 
