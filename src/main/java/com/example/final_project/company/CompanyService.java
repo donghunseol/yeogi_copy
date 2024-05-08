@@ -89,6 +89,17 @@ public class CompanyService {
         return respDTO;
     }
 
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기 (특정 숙소의 정보)
+    public CompanyResponse.companyStayListDTO companyStay(Integer stayId){
+        Optional<Stay> stayOP = stayRepository.findById(stayId);
+        Stay stay = null;
+        if(stayOP.isPresent()){
+            stay = stayOP.get();
+        }
+        List<StayImage> stayImageList = stayImageRepository.findByStayId(stayId);
+        return new CompanyResponse.companyStayListDTO(stay, stayImageList.getFirst());
+    }
+
     // 회원수정
     @Transactional
     public SessionCompany updateCompany(Integer companyId,CompanyRequest.UpdateDTO reqDTO){
