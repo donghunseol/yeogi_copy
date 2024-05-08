@@ -59,4 +59,14 @@ public class UserController {
         ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
+
+
+    //어플 메인페이지
+    @GetMapping("/api/main")
+    public ResponseEntity<?> main(){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        return null;
+    }
+
+
 }
