@@ -35,4 +35,24 @@ public class StayController {
 
         return "redirect:/manage/stays";
     }
+
+    //숙소 업데이트 폼
+    @GetMapping("/stay/update-form/{stayId}")
+    public String stayUpdateForm(@PathVariable Integer stayId, HttpServletRequest request){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+
+        StayResponse.UpdateFormDTO respDTO =  stayService.updateForm(stayId,sessionUser);
+        request.setAttribute("stayInfo",respDTO);
+
+        return "/company/stay/update-form";
+    }
+
+    //숙소 업데이트
+    @PostMapping("/stay/update/{stayId}")
+    public String stayUpdate(@PathVariable Integer stayId, StayRequest.UpdateDTO reqDTO){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        stayService.update(stayId, sessionUser, reqDTO);
+
+        return "redirect:/manage/stays";
+    }
 }

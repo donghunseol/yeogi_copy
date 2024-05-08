@@ -40,22 +40,31 @@ public class StayRestController {
 //        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 //    }
 
-    // 숙소 화면
-    @GetMapping("/api/modify-form/{stayId}")
-    public ResponseEntity<?> updateForm(@PathVariable Integer stayId) {
-        StayResponse.UpdateForm respDTO = stayService.updateForm(stayId);
+//    @PutMapping("/api/modify/{stayId}")
+//    public ResponseEntity<?> update(@PathVariable Integer stayId,@RequestBody StayRequest.UpdateDTO reqDTO){
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//
+//        stayService.update(stayId,sessionCompany,reqDTO);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    // 숙소 화면
+//    @GetMapping("/api/modify-form/{stayId}")
+//    public ResponseEntity<?> updateForm(@PathVariable Integer stayId) {
+//        StayResponse.UpdateForm respDTO = stayService.updateForm(stayId);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
-    // 숙소 수정
-    @PutMapping("/api/modify/{stayId}")
-    public ResponseEntity<?> update(@PathVariable Integer stayId, @RequestBody StayRequest.UpdateDTO reqDTO) {
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-        StayResponse.Update respDTO = stayService.update(stayId, sessionCompany, reqDTO);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    // 숙소 수정
+//    @PutMapping("/api/modify/{stayId}")
+//    public ResponseEntity<?> update(@PathVariable Integer stayId, @RequestBody StayRequest.UpdateDTO reqDTO) {
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//        StayResponse.Update respDTO = stayService.update(stayId, sessionCompany, reqDTO);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
     // 숙소 삭제
     @PutMapping("/api/cancel/{stayId}")

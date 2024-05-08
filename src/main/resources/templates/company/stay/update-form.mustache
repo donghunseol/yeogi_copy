@@ -1,0 +1,99 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>숙소 수정</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">정보 수정</p>
+                        {{#stayInfo}}
+                        <form action="/stay/update/{{id}}" method="post" style="width: 100%;">
+                            <input type="hidden" name="stayId" value="{{id}}">
+                            <div class="join-form-item">
+                                <label for="name">숙소명</label>
+                                <div class="input-wrapper email">
+                                    <input type="text" id="name" name="name" value="{{name}}" disabled>
+                                </div>
+                            </div>
+                            <div class="join-form-item">
+                                <label for="category">숙소분류</label>
+                                <div class="input-wrapper password">
+                                    <input type="text" id="category" name="category" placeholder="비밀번호"
+                                           value="{{category}}" disabled>
+                                </div>
+                            </div>
+                            <div class="join-form-item">
+                                <label for="options">옵션분류</label>
+                                <div class="check-box-wrapper">
+                                    {{#options}}
+                                    <div class="input-wrapper">
+                                        <label for="option1">피트니스</label>
+                                        <input type="checkbox" name="options" value="피트니스" id="option1" {{#피트니스}}checked{{/피트니스}}>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="option2">침대</label>
+                                        <input type="checkbox" name="options" value="침대" id="option2" {{#침대}}checked{{/침대}}>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="option3">와이파이</label>
+                                        <input type="checkbox" name="options" value="와이파이" id="option3" {{#와이파이}}checked{{/와이파이}}>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="option4">오션뷰</label>
+                                        <input type="checkbox" name="options" value="오션뷰" id="option4" {{#오션뷰}}checked{{/오션뷰}}>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="option5">미니바</label>
+                                        <input type="checkbox" name="options" value="오션뷰" id="option4" {{#미니바}}checked{{/미니바}}>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="option5">수영장</label>
+                                        <input type="checkbox" name="options" value="오션뷰" id="option4" {{#수영장}}checked{{/수영장}}>
+                                    </div>
+                                    {{/options}}
+                                </div>
+                            </div>
+                            <div class="join-form-item">
+                                <label for="address">주소</label>
+                                <div class="input-wrapper address">
+                                    <input type="text" id="sample6_postcode" name="address" value="{{address}}" disabled>
+                                </div>
+                            </div>
+                            <div class="join-form-item">
+                                <label for="">숙소 소개</label>
+                                <div class="input-wrapper">
+                                       <textarea name="intro" id="intro" cols="30" rows="10">{{intro}}</textarea>
+                                </div>
+                            </div>
+                            <div class="join-form-item">
+                                <label for="join-password">숙소 이용정보</label>
+                                <div class="input-wrapper address">
+                                       <textarea name="information" id="information" cols="30" rows="10">{{information}}</textarea>
+                                </div>
+                            </div>
+                            <div class="button-wrapper">
+                                <button type="submit" class="btn black">수정하기</button>
+                                <button type="submit" onclick="history.back()"
+                                        class="btn black border">취소하기</button>
+                            </div>
+                        </form>
+                        {{/stayInfo}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+
+</script>
+</body>
+
+</html>

@@ -57,6 +57,12 @@ public class Option {
         else if (optionName.equals("수영장")){
             iconName = "waterLadder";
         }
+        else if (optionName.equals("오션뷰")){
+            iconName = "oceanview";
+        }
+        else if (optionName.equals("와이파이")){
+            iconName ="wi-fi";
+        }
 
         this.stay = stay;
         this.name = optionName;
