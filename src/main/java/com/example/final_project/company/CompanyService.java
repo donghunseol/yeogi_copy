@@ -1,5 +1,6 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
@@ -85,7 +86,6 @@ public class CompanyService {
         // 인증처리
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception400("로그인이 필요한 서비스 입니다."));
-        System.out.println("결과 값 =====================================" + reqDTO);
         // 수정
         company.updateCompany(reqDTO);
 
@@ -96,11 +96,13 @@ public class CompanyService {
     public List<CompanyResponse.CompanyStayListDTO> companyStayList(Integer companyId){
         List<Stay> stayList = stayRepository.findByCompanyId(companyId);
 
-        List<CompanyResponse.CompanyStayListDTO> respDTO = stayList.stream().map(stay -> {
-            List<StayImage> stayImageList = stayImageRepository.findByStayId(stay.getId());
-
-            return new CompanyResponse.CompanyStayListDTO(stay, stayImageList.getFirst());
-        }).collect(Collectors.toList());
+        List<CompanyResponse.CompanyStayListDTO> respDTO = stayList.stream()
+                .filter(stay -> stay.getState() == StayEnum.TRUE)
+                .map(stay -> {
+                    List<StayImage> stayImageList = stayImageRepository.findByStayId(stay.getId());
+                    return new CompanyResponse.CompanyStayListDTO(stay, stayImageList.getFirst());
+                })
+                .collect(Collectors.toList());
 
         return respDTO;
     }

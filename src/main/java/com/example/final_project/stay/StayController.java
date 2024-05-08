@@ -21,14 +21,14 @@ public class StayController {
 
     //숙소 등록폼
     @GetMapping("/stay/register-form")
-    public String stayRegisterForm(){
+    public String RegisterForm(){
 
         return "/company/stay/register";
     }
 
     //숙소 등록
     @PostMapping("/stay/register")
-    public String stayRegister(StayRequest.SaveDTO reqDTO){
+    public String Register(StayRequest.SaveDTO reqDTO){
 
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         stayService.register(reqDTO, sessionUser);
@@ -38,7 +38,7 @@ public class StayController {
 
     //숙소 업데이트 폼
     @GetMapping("/stay/update-form/{stayId}")
-    public String stayUpdateForm(@PathVariable Integer stayId, HttpServletRequest request){
+    public String UpdateForm(@PathVariable Integer stayId, HttpServletRequest request){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
 
         StayResponse.UpdateFormDTO respDTO =  stayService.updateForm(stayId,sessionUser);
@@ -49,9 +49,18 @@ public class StayController {
 
     //숙소 업데이트
     @PostMapping("/stay/update/{stayId}")
-    public String stayUpdate(@PathVariable Integer stayId, StayRequest.UpdateDTO reqDTO){
+    public String Update(@PathVariable Integer stayId, StayRequest.UpdateDTO reqDTO){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         stayService.update(stayId, sessionUser, reqDTO);
+
+        return "redirect:/manage/stays";
+    }
+
+    //숙소 삭제
+    @PostMapping("/stay/delete/{stayId}")
+    public String Delete(@PathVariable Integer stayId){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        stayService.delete(stayId, sessionUser);
 
         return "redirect:/manage/stays";
     }
