@@ -45,7 +45,7 @@ public class UserController {
     }
 
     // 로그인한 회원의 예약 내역 페이지 - 목록
-    @GetMapping("/my-reservations")
+    @GetMapping("/api/my-reservations")
     public ResponseEntity<?> userReservationList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     // 로그인한 회원의 예약 내역 페이지 - 상세보기
-    @GetMapping("/my-reservations/{reservationId}")
+    @GetMapping("/api/my-reservations/{reservationId}")
     public ResponseEntity<?> reservationDetail(@PathVariable Integer reservationId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
