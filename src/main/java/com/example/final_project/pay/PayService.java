@@ -30,10 +30,10 @@ public class PayService {
                 .orElseThrow(() -> new Exception404("존재 하지 않는 결제 정보입니다"));
 
         // 결제 권한 체크
-        if (sessionUser.getId() != pay.getReservation().getUser().getId()) {
+        if (!sessionUser.getId().equals(pay.getReservation().getUser().getId())) {
             throw new Exception401("결제를 진행할 권한이 없습니다");
         }
-
+        
         // 예약 결제 정보 수정
         pay.updatePay(reqDTO);
 

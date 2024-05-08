@@ -1,6 +1,7 @@
 package com.example.final_project.pay;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.utils.DateUtil;
 import com.example.final_project.reservation.Reservation;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -47,9 +48,15 @@ public class Pay {
         this.createdAt = createdAt;
     }
 
+    // 결제 진행 시 가격 결제
     public void updatePay(PayRequest.DTO reqDTO) {
-        this.amount = reqDTO.getAmount();
         this.way = reqDTO.getWay();
         this.state = reqDTO.getState();
+
+        // 예약 일자 계산
+        Integer dateCount = DateUtil.getDateCount(reservation);
+
+        // 예약 일자를 계산 하고 가격을 곱하여 결제
+        this.amount = reqDTO.getAmount() * dateCount;
     }
 }

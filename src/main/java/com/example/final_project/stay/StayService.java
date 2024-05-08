@@ -10,14 +10,12 @@ import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionRepository;
-import com.example.final_project.option.OptionResponse;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +59,7 @@ public class StayService {
         StayImage stayImage = new StayImage(stay);
         stayImageRepository.save(stayImage);
     }
+
     //숙소 등록폼
     @Transactional
     public StayResponse.UpdateFormDTO updateForm(Integer stayId, SessionCompany sessionUser) {
@@ -119,7 +118,7 @@ public class StayService {
                     })
                     .toList();
 
-           optionRepository.saveAll(options);
+            optionRepository.saveAll(options);
 
         }
 
@@ -162,7 +161,7 @@ public class StayService {
 //        return resultList;
 //    }
 
-    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
+    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수 검색)
     public List<StayResponse.SearchListDTO> getSearchStayList(
             String stayName,
             String stayAddress,
