@@ -3,6 +3,7 @@ package com.example.final_project.stay;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionResponse;
+import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
 
@@ -28,7 +29,7 @@ public class StayResponse {
         }
     }
 
-    // 숙소 등록 응답 DTO
+    // 숙소 등록 응답DTO
     @Data
     public static class Save {
         private Integer companyId;
@@ -188,6 +189,60 @@ public class StayResponse {
 
         public Delete(Stay stay) {
             this.state = stay.getState();
+        }
+    }
+
+
+    // 숙소 카테고리별 리스트
+    @Data
+    public static class AllList{
+        private List<SpecialPriceDTO> specialprices;
+        private List<DomesticDTO> domestics;
+        private List<OverseaDTO> overseas;
+
+        public AllList(List<SpecialPriceDTO> specialprices, List<DomesticDTO> domestics, List<OverseaDTO> overseas) {
+            this.specialprices = specialprices;
+            this.domestics = domestics;
+            this.overseas = overseas;
+        }
+
+        @Data
+        public static class SpecialPriceDTO{
+            private String imageName;
+            private String imagePath;
+            private String name;
+
+            public SpecialPriceDTO(Stay stay, StayImage stayImage) {
+                this.imageName = stayImage.getName();
+                this.imagePath = stayImage.getPath();
+                this.name = stay.getName();
+            }
+        }
+
+        @Data
+        public static class DomesticDTO{
+            private String imageName;
+            private String imagePath;
+            private String name;
+
+            public DomesticDTO(Stay stay, String imageName, String imagePath) {
+                this.imageName = imageName;
+                this.imagePath = imagePath;
+                this.name = stay.getName();
+            }
+        }
+
+        @Data
+        public static class OverseaDTO{
+           private String imageName;
+           private String imagePath;
+           private String name;
+
+            public OverseaDTO(Stay stay, StayImage stayImage) {
+                this.imageName = stayImage.getName();
+                this.imagePath = stayImage.getPath();
+                this.name = stay.getName();
+            }
         }
     }
 }

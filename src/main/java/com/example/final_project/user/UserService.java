@@ -4,6 +4,7 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.stay.StayRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final StayRepository stayRepository;
 
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
@@ -76,4 +78,6 @@ public class UserService {
 
         return new UserResponse.JoinDTO(user);
     }
+
+
 }

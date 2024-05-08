@@ -9,8 +9,10 @@ insert into company_tb(email, password, business_name, business_number, business
                        created_at, report_count)
 values ('com1@nate.com', '1234', '김숙박회사', '108-32-34324', '부산시 해운대구', '01011112222', '김회사', 'ACTIVE', now(), 0),
        ('com2@nate.com', '1234', '이숙소회사', '432-51-44324', '경상남도 창원시', '01022223333', '이회사', 'ACTIVE', now(), 0),
-       ('com3@nate.com', '1234', '박스테이회사', '723-45-23123', '서울특별시', '01077776666', '박회사', 'ACTIVE', now(), 0);
-
+       ('com3@nate.com', '1234', '박스테이회사', '723-45-23123', '서울특별시', '01077776666', '박회사', 'ACTIVE', now(), 0),
+       ('com4@nate.com', '1234', '해외숙소A회사', '723-46-23123', '대만', '01077776666', 'A회사', 'ACTIVE', now(), 0),
+       ('com5@nate.com', '1234', '해외숙소B회사', '729-47-23593', '베트남', '01077776666', 'B회사', 'ACTIVE', now(), 0),
+       ('com6@nate.com', '1234', '해외숙소C회사', '793-48-93123', '말레이시아', '01077776666', 'C회사', 'ACTIVE', now(), 0);
 -- admin 더미 생성
 insert into admin_tb(name, password, created_at)
 values ('admin1', '1234', now()),
@@ -21,7 +23,11 @@ values ('admin1', '1234', now()),
 insert into stay_tb(company_id, name, category, address, intro, information, created_at, state)
 values (1, '호텔 블루 하버', '호텔', '부산시 해운대구 좌동순환로 99 (좌동)', '해운대 최고의 오션뷰를 자랑하는 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
        (2, '호텔 오아시스', '호텔', '경상남도 창원시 원이대로 998 (상남동)', '창원시 최고의 반쪽 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
-       (3, '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(), 'TRUE');
+       (3, '호텔 미라클랜드', '호텔', '서울시 중구 장충동2가 300', '서울시 중구의 중구파 숙소!', '객실 내 취사 금지', now(), 'TRUE'),
+       (4, '프리미어 캐빈-오사카', '해외', '오사카 신사이바시', '텐진역에서 5분거리에 위치한 숙소', '객실 내 취사 금지', now(), 'TRUE'),
+       (5, '오리엔탈 익스프레스', '해외', '278 Vo Nguyen Giap Street, My An Ward, Ngu Hanh Son District, Da Nang', '모든여행지가 가까운 숙소', '객실 내 취사 금지', now(), 'TRUE'),
+       (6, '소테츠 그랜드 프레사', '해외', '36 - 38 Lam Hoanh, 프억 미, 다낭, 베트남, 550000', '신상숙소 내.외간 청결', '객실 내 취사 금지', now(), 'TRUE'),
+       (4, '난바 오리엔탈', '해외', '3-4-24 Watanabedouri, Chuo-ku, 텐진, 후쿠오카 ', '여행지의 모든 것들을 가까이서 즐기는 숙소', '객실 내 취사 금지', now(), 'TRUE');
 
 -- option 더미 생성
 insert into option_tb(stay_id, name, icon_name, created_at)
@@ -34,7 +40,17 @@ values (1, '피트니스', 'dumbbell', now()),
        (2, '와이파이', 'wifi', now()),
        (2, '피트니스', 'dumbbell', now()),
        (3, '침대', 'bed', now()),
-       (3, '와이파이', 'wifi', now());
+       (3, '와이파이', 'wifi', now()),
+       (4, '피트니스', 'dumbbell', now()),
+       (4, '침대', 'bed', now()),
+       (4, '와이파이', 'wifi', now()),
+       (5, '피트니스', 'dumbbell', now()),
+       (5, '침대', 'bed', now()),
+       (5, '와이파이', 'wifi', now()),
+       (6, '피트니스', 'dumbbell', now()),
+       (6, '침대', 'bed', now()),
+       (6, '와이파이', 'wifi', now());
+
 
 -- room 더미 생성
 insert into room_tb(stay_id, name, tier, room_number, price, special_price, special_state, image_name, image_path,
@@ -44,7 +60,11 @@ values (1, '스위트룸', 'Deluxe', 'A101', 150000, 130000, 'APPLIED', 'room1.j
        (2, '더블룸', 'Deluxe', '101', 120000, 100000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
        (2, '싱글룸', 'Standard', '102', 80000, 70000, 'NOT_APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
        (3, '프리미엄룸', 'Premium', '샛별동', 200000, 180000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
-       (3, '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now());
+       (3, '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (4, '프리미엄룸', 'Premium', '샛별동', 200000, 180000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (5, '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (5, '프리미엄룸', 'Premium', '샛별동', 200000, 180000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now()),
+       (6, '패밀리룸', 'Family', '햇빛동', 180000, 150000, 'APPLIED', 'room1.jpg', '/images/room1.jpg', now());
 
 -- room_information 더미 생성
 insert into room_information_tb(room_id, check_in, check_out, min_person, max_person, more_info, created_at)
@@ -53,7 +73,7 @@ values (1, '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
        (3, '15:00:00', '13:00:00', 2, 3, '조식 제공', now()),
        (4, '16:00:00', '13:00:00', 1, 2, '조식 제공', now()),
        (5, '14:00:00', '12:00:00', 2, 4, '조식, 중식 제공', now()),
-       (6, '14:00:00', '12:00:00', 2, 6, '조식 제공, 애견 동반 가능', now());
+       (6, '14:00:00', '12:00:00', 2, 10, '조식 제공, 애견 동반 가능', now());
 
 -- admin_tb 더미 생성
 insert into admin_tb(name, password, created_at)
@@ -174,8 +194,8 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (3, 3, 4, '좋았습니다!', 'FLAWLESS', now());
 
 -- review 대댓글 더미생성
-insert into review_tb(user_id,stay_id, content, is_delete, created_at, parent_id)
-values (1,1,'고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!','FLAWLESS',now(), 1);
+insert into review_tb(user_id, stay_id, content, is_delete, created_at, parent_id)
+values (1, 1, '고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!', 'FLAWLESS', now(), 1);
 
 -- review_comment 더미 생성
 -- insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
@@ -218,4 +238,10 @@ values (1, 'hotel.png', '/images/hotel.png', now()),
        (2, 'room1.jpg', '/images/room1.jpg', now()),
        (2, 'caption.jpg', '/images/caption.jpg', now()),
        (3, 'room1.jpg', '/images/room1.jpg', now()),
-       (3, 'room2.jpg', '/images/room2.jpg', now());
+       (3, 'room2.jpg', '/images/room2.jpg', now()),
+       (4, 'room1.jpg', '/images/room1.jpg', now()),
+       (5, 'room2.jpg', '/images/room2.jpg', now()),
+       (6, 'room1.jpg', '/images/room1.jpg', now()),
+       (6, 'room2.jpg', '/images/room2.jpg', now()),
+       (7, 'room1.jpg', '/images/room1.jpg', now()),
+       (7, 'room2.jpg', '/images/room2.jpg', now());

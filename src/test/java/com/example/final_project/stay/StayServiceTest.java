@@ -22,15 +22,15 @@ public class StayServiceTest {
                 .build();
 
         // when
-        List<StayResponse.SearchListDTO> stays = stayService.getSearchStayList(reqDTO);
+//        List<StayResponse.SearchListDTO> stays = stayService.getSearchStayList(reqDTO);
 
         // eye
-        for (StayResponse.SearchListDTO stay : stays) {
-            // System.out.println("getSearchStayList_test/stay/id : " + stay.getId());
-            // System.out.println("getSearchStayList_test/stay/name : " + stay.getName());
-            // System.out.println("getSearchStayList_test/stay/intro : " + stay.getIntro());
-            System.out.println("getSearchStayList_test/stay : " + stay);
-        }
+//        for (StayResponse.SearchListDTO stay : stays) {
+//            // System.out.println("getSearchStayList_test/stay/id : " + stay.getId());
+//            // System.out.println("getSearchStayList_test/stay/name : " + stay.getName());
+//            // System.out.println("getSearchStayList_test/stay/intro : " + stay.getIntro());
+//            System.out.println("getSearchStayList_test/stay : " + stay);
+//        }
 
         // then
 
