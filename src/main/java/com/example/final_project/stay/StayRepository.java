@@ -35,4 +35,5 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                                 @Param("stayArea") String stayArea,
                                 @Param("roomPrice") Integer roomPrice,
                                 @Param("person") Integer person);
+
 }
