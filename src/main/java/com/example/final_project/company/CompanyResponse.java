@@ -1,7 +1,9 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.enums.RoomEnum;
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.room.Room;
@@ -23,11 +25,13 @@ public class CompanyResponse {
       private Integer imageId; // 숙소 이미지 번호
       private String imagePath; // 이미지 경로
       private String stayAddress; // 숙소 주소
+      private StayEnum state;
       private String stayCategory; // 숙소 분류 (ex.호텔)
 
       public CompanyStayListDTO(Stay stay, StayImage stayImage){
          this.stayId = stay.getId();
          this.stayName = stay.getName();
+         this.state = stay.getState();
          this.imageId = stayImage.getId();
          this.imagePath = stayImage.getPath();
          this.stayAddress = stay.getAddress();
