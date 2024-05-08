@@ -82,6 +82,7 @@ mark,
 audio,
 textarea,
 input,
+select,
 video {
     margin: 0;
     padding: 0;
