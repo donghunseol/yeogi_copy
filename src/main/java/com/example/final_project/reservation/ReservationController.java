@@ -23,13 +23,11 @@ public class ReservationController {
     }
 
     // 예약 수정
-    @PutMapping("/book/{reservationId}")
+    @PutMapping("/api/book/{reservationId}")
     public ResponseEntity<?> modifyReservation(@PathVariable Integer reservationId, @RequestBody ReservationRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DTO respDTO = reservationService.modifyReservation(reqDTO, sessionUser, reservationId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-
 }
