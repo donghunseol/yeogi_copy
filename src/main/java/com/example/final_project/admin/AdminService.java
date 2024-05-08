@@ -13,7 +13,6 @@ import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
-import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
@@ -51,6 +50,15 @@ public class AdminService {
         return respDTO;
     }
 
+    // 블랙 리스트에 추가 (개인)
+    @Transactional
+    public void addUserBlackList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        user.setState(UserEnum.BLACK);
+        userRepository.save(user);
+    }
+
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
     public List<AdminResponse.UserReservationDTO> adminReservationList(Integer userId) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
@@ -80,21 +88,33 @@ public class AdminService {
         return companyList.stream().map(AdminResponse.CompanyListDTO::new).collect(Collectors.toList());
     }
 
-    // 블랙 리스트에 추가 (개인)
-    @Transactional
-    public void addUserBlackList(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
-        user.setState(UserEnum.BLACK);
-        userRepository.save(user);
+    // 특정 기업의 정보 상세보기
+    public AdminResponse.CompanyDetailDTO adminCompanyDetail(Integer companyId) {
+        Optional<Company> companyOP = companyRepository.findByCompanyId(companyId);
+        Company company = null;
+        if(companyOP.isPresent()){
+            company = companyOP.get();
+        }
+        return new AdminResponse.CompanyDetailDTO(company);
     }
 
+
     // 블랙 리스트에 추가 (기업)
-    public void addCompanyBlackList(Integer companyId) {
+    public SessionCompany addCompanyBlack(Integer companyId) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.BLACK);
         companyRepository.save(company);
+        return new SessionCompany(company);
+    }
+
+    // 블랙 리스트에서 삭제 (기업)
+    public SessionCompany removeCompanyBlack(Integer companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        company.setState(CompanyEnum.ACTIVE);
+        companyRepository.save(company);
+        return new SessionCompany(company);
     }
 
     // 특정 개인이 쓴 리뷰 내역 조회
@@ -118,30 +138,6 @@ public class AdminService {
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.ACTIVE);
         companyRepository.save(company);
-    }
-
-    // 블랙 리스트 버튼 기능 구현
-    @Transactional
-    public SessionCompany adminCompanyBlack(Integer companyId) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
-
-        company.setState(CompanyEnum.BLACK);
-        companyRepository.save(company);
-
-        return new SessionCompany(company);
-    }
-
-    // 블랙 리스트 취소 버튼 기능 구현
-    @Transactional
-    public SessionCompany adminCompanyBlackCancel(Integer companyId) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
-
-        company.setState(CompanyEnum.ACTIVE);
-        companyRepository.save(company);
-
-        return new SessionCompany(company);
     }
 
     // 기업 수익 전체 조회

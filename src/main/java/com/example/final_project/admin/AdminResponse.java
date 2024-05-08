@@ -1,10 +1,8 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
-import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
-import com.example.final_project.option.Option;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.review.Review;
@@ -64,11 +62,10 @@ public class AdminResponse {
         }
     }
 
-
     // 관리자 페이지에서 출력할 기업 정보
     @Data
     public static class CompanyListDTO {
-        private Integer id; // 기업 번호
+        private Integer companyId; // 기업 번호
         private String email; // 기업 이메일
         private String businessName; // 등록 상호명
         private String businessNumber; // 사업자 번호
@@ -82,7 +79,7 @@ public class AdminResponse {
         Boolean isBlackCancel; // true 면 블랙 취소 버튼 활성 / false 면 블랙 취소 버튼 비활성
 
         public CompanyListDTO(Company company) {
-            this.id = company.getId();
+            this.companyId = company.getId();
             this.email = company.getEmail();
             this.businessName = company.getBusinessName();
             this.businessNumber = company.getBusinessNumber();
@@ -112,6 +109,49 @@ public class AdminResponse {
             }
         }
     }
+
+    // 관리자 페이지에서 출력할 특정 기업의 상세 정보
+    @Data
+    public static class CompanyDetailDTO {
+        private Integer companyId; // 기업 번호
+        private String email; // 이메일
+        private String businessName; // 등록 상호명
+        private String businessNumber; // 사업자 번호
+        private String businessAddress; // 사업자 주소
+        private String name; // 사업자 이름
+        private String phone; // 사업자 전화번호
+        private LocalDateTime createdAt; // 기업 가입 일자
+        private String stateMessage; // 상태 메시지 한글
+        private Integer reportCount; // 신고 받은 횟수
+        Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
+
+        public CompanyDetailDTO(Company company) {
+            this.companyId = company.getId();
+            this.email = company.getEmail();
+            this.businessName = company.getBusinessName();
+            this.businessNumber = company.getBusinessNumber();
+            this.businessAddress = company.getBusinessAddress();
+            this.name = company.getName();
+            this.phone = company.getPhone();
+            this.createdAt = company.getCreatedAt();
+            isBlack = null;
+            if (company.getState() == CompanyEnum.ACTIVE) {
+                this.stateMessage = "승인";
+                this.isBlack = false;
+            } else if (company.getState() == CompanyEnum.PROGRESSING) {
+                this.stateMessage = "대기중";
+            } else if (company.getState() == CompanyEnum.QUIT) {
+                this.stateMessage = "탈퇴";
+            } else if (company.getState() == CompanyEnum.REJECT) {
+                this.stateMessage = "거절";
+            } else if (company.getState() == CompanyEnum.BLACK) {
+                this.stateMessage = "블랙";
+                this.isBlack = true;
+            }
+            this.reportCount = company.getReportCount();
+        }
+    }
+
 
     // 관리자 페이지에서 출력할 특정 기업의 숙소 정보
     @Data

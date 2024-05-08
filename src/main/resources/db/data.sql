@@ -73,7 +73,7 @@ values (1, '15:00:00', '11:00:00', 2, 3, '조식 제공', now()),
        (3, '15:00:00', '13:00:00', 2, 3, '조식 제공', now()),
        (4, '16:00:00', '13:00:00', 1, 2, '조식 제공', now()),
        (5, '14:00:00', '12:00:00', 2, 4, '조식, 중식 제공', now()),
-       (6, '14:00:00', '12:00:00', 2, 6, '조식 제공, 애견 동반 가능', now());
+       (6, '14:00:00', '12:00:00', 2, 10, '조식 제공, 애견 동반 가능', now());
 
 -- admin_tb 더미 생성
 insert into admin_tb(name, password, created_at)
@@ -194,8 +194,8 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (3, 3, 4, '좋았습니다!', 'FLAWLESS', now());
 
 -- review 대댓글 더미생성
-insert into review_tb(user_id,stay_id, content, is_delete, created_at, parent_id)
-values (1,1,'고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!','FLAWLESS',now(), 1);
+insert into review_tb(user_id, stay_id, content, is_delete, created_at, parent_id)
+values (1, 1, '고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!', 'FLAWLESS', now(), 1);
 
 -- review_comment 더미 생성
 -- insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)

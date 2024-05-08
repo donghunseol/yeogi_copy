@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,37 +16,24 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     @Query("SELECT DISTINCT s FROM Stay s JOIN FETCH s.company c LEFT JOIN FETCH s.options o WHERE c.id = :companyId")
     List<Stay> findByCompanyId(@Param("companyId") Integer companyId);
 
+
     // 숙소 검색 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
     // SELECT 1 FROM Reservation reCheck
-    //                           WHERE reCheck.room.id = r.id
-    //                           AND (reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
+    // WHERE reCheck.room.id = r.id
+    // AND (reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
     // 체크용 로직
     @Query("""
             SELECT DISTINCT s FROM Stay s
-                 LEFT JOIN FETCH s.rooms r
-                 LEFT JOIN FETCH r.roomInformation ri
-                 LEFT JOIN Reservation re ON r.id = re.room.id
-                 WHERE (:stayName IS NULL OR s.name LIKE %:stayName%)
-                 AND (:stayArea IS NULL OR s.address LIKE :stayArea%)
-                 AND (:roomPrice IS NULL OR r.price <= :roomPrice)
-                 AND (:person IS NULL OR :person <= ri.maxPerson)
-                 AND (
-                       :startDate IS NULL OR :endDate IS NULL
-                       OR NOT EXISTS (
-                           SELECT 1 FROM Reservation reCheck
-                           WHERE reCheck.room.id = r.id
-                           AND ((reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
-                                OR (reCheck.checkInDate BETWEEN :startDate AND :endDate)
-                                OR (reCheck.checkOutDate BETWEEN :startDate AND :endDate))
-                      )
-                )
+            JOIN FETCH s.rooms r
+            JOIN FETCH r.roomInformation ri
+            WHERE (:stayName IS NULL OR s.name LIKE CONCAT('%', :stayName, '%'))
+            AND (:stayArea IS NULL OR s.address LIKE CONCAT(:stayArea, '%'))
+            AND (:roomPrice IS NULL OR r.price <= :roomPrice)
+            AND (:person IS NULL OR :person <= ri.maxPerson)
             """)
     List<Stay> findBySearchStay(@Param("stayName") String stayName,
                                 @Param("stayArea") String stayArea,
                                 @Param("roomPrice") Integer roomPrice,
-                                @Param("person") Integer person,
-                                @Param("startDate") LocalDate startDate,
-                                @Param("endDate") LocalDate endDate);
-
+                                @Param("person") Integer person);
 
 }

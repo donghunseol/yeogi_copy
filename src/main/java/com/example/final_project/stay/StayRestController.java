@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,11 +21,9 @@ public class StayRestController {
             @RequestParam(required = false) String stayName,
             @RequestParam(required = false) String stayAddress,
             @RequestParam(required = false) Integer roomPrice,
-            @RequestParam(required = false) Integer person,
-            @RequestParam(required = false) LocalDate startDate,
-            @RequestParam(required = false) LocalDate endDate
+            @RequestParam(required = false) Integer person
     ) {
-        List<StayResponse.SearchListDTO> respDTO = stayService.getSearchStayList(stayName, stayAddress, roomPrice, person, startDate, endDate);
+        List<StayResponse.SearchListDTO> respDTO = stayService.getSearchStayList(stayName, stayAddress, roomPrice, person);
         System.out.println(respDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
