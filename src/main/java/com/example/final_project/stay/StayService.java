@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,11 +123,9 @@ public class StayService {
             String stayName,
             String stayAddress,
             Integer roomPrice,
-            Integer person,
-            LocalDate startDate,
-            LocalDate endDate
+            Integer person
     ) {
-        List<Stay> stayList = stayRepository.findBySearchStay(stayName, stayAddress, roomPrice, person, startDate, endDate);
+        List<Stay> stayList = stayRepository.findBySearchStay(stayName, stayAddress, roomPrice, person);
         return stayList.stream()
                 .map(StayResponse.SearchListDTO::new)
                 .toList();

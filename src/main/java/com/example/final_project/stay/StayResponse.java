@@ -27,7 +27,7 @@ public class StayResponse {
         }
     }
 
-    // 숙소 등록 응답 DTO
+    // 숙소 등록 응답DTO
     @Data
     public static class Save {
         private Integer companyId;

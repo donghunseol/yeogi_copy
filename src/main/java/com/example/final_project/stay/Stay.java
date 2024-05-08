@@ -38,7 +38,7 @@ public class Stay {
     private String address; // 숙소 주소
 
     @Enumerated(EnumType.STRING)
-//  @Column(nullable = false)
+    // @Column(nullable = false)
     private StayEnum state; // 상태 (TRUE : 사용 / FALSE : 탈퇴)
 
     @Column(nullable = false)
@@ -80,8 +80,8 @@ public class Stay {
 
 
     public void deleteStay(StayEnum state) {
-       if (state == StayEnum.TRUE){
-           this.state = StayEnum.FALSE;
-       }
+        if (state == StayEnum.TRUE) {
+            this.state = StayEnum.FALSE;
+        }
     }
 }
