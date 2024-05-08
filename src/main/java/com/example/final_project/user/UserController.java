@@ -59,5 +59,4 @@ public class UserController {
         ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
 }

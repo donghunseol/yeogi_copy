@@ -36,7 +36,9 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                        OR NOT EXISTS (
                            SELECT 1 FROM Reservation reCheck
                            WHERE reCheck.room.id = r.id
-                           AND (reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
+                           AND ((reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
+                                OR (reCheck.checkInDate BETWEEN :startDate AND :endDate)
+                                OR (reCheck.checkOutDate BETWEEN :startDate AND :endDate))
                       )
                 )
             """)
@@ -46,4 +48,5 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                                 @Param("person") Integer person,
                                 @Param("startDate") LocalDate startDate,
                                 @Param("endDate") LocalDate endDate);
+
 }

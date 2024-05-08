@@ -1,6 +1,5 @@
 package com.example.final_project.stay;
 
-import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
@@ -15,10 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +25,7 @@ public class StayService {
     private final CompanyRepository companyRepository;
     private final OptionRepository optionRepository;
     private final StayImageRepository stayImageRepository;
+
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
 
@@ -109,15 +108,29 @@ public class StayService {
         return new StayResponse.Delete(stay);
     }
 
-    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
-    public List<StayResponse.SearchListDTO> getSearchStayList(StayRequest.SearchDTO reqDTO) {
-        List<StayResponse.SearchListDTO> resultList;
+//    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색) // request 방식
+//    public List<StayResponse.SearchListDTO> getSearchStayList(StayRequest.SearchDTO reqDTO) {
+//        List<StayResponse.SearchListDTO> resultList;
+//
+//        resultList = stayRepository.findBySearchStay(reqDTO.getName(), reqDTO.getAddress(), reqDTO.getPrice(), reqDTO.getPerson(), reqDTO.getCheckInDate(), reqDTO.getCheckOutDate()).stream()
+//                .map(StayResponse.SearchListDTO::new)
+//                .toList();
+//
+//        return resultList;
+//    }
 
-        resultList = stayRepository.findBySearchStay(reqDTO.getName(), reqDTO.getAddress(), reqDTO.getPrice(), reqDTO.getPerson(), reqDTO.getCheckInDate(), reqDTO.getCheckOutDate()).stream()
+    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
+    public List<StayResponse.SearchListDTO> getSearchStayList(
+            String stayName,
+            String stayAddress,
+            Integer roomPrice,
+            Integer person,
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+        List<Stay> stayList = stayRepository.findBySearchStay(stayName, stayAddress, roomPrice, person, startDate, endDate);
+        return stayList.stream()
                 .map(StayResponse.SearchListDTO::new)
                 .toList();
-
-        return resultList;
     }
-
 }
