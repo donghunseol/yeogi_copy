@@ -29,10 +29,19 @@ public class AdminController {
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/company")
     public String company(HttpServletRequest request) {
-        List<AdminResponse.companyListDTO> respDTO = adminService.adminCompanyList();
+        List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
         request.setAttribute("companyList", respDTO);
         request.setAttribute("companyCount", respDTO.size());
         return "/admin/customer-c/join";
+    }
+
+    // 개인 회원 정보 조회 View
+    @GetMapping("/admin/users")
+    public String user(HttpServletRequest request) {
+        List<AdminResponse.UserListDTO> respDTO = adminService.adminUserList();
+        request.setAttribute("userCount", respDTO.size());
+        request.setAttribute("userList", respDTO);
+        return "/admin/customer-u/join";
     }
 
     // 기업 블랙 등록 기능
@@ -49,34 +58,25 @@ public class AdminController {
         return "redirect:/admin/company";
     }
 
-    // 개인 회원 정보 조회 View
-    @GetMapping("/admin/users")
-    public String user(HttpServletRequest request) {
-        List<AdminResponse.userListDTO> respDTO = adminService.adminUserList();
-        request.setAttribute("userCount", respDTO.size());
-        request.setAttribute("userList", respDTO);
-        return "/admin/customer-u/join";
-    }
-
     // 관리자 페이지에서 특정 회원의 예약 내역 리스트
     @GetMapping("/admin/users/{userId}/reservations")
     public String userReservationList(@PathVariable Integer userId, HttpServletRequest request) {
-        List<AdminResponse.userReservationDTO> respDTO = adminService.adminReservationList(userId);
+        List<AdminResponse.UserReservationDTO> respDTO = adminService.adminReservationList(userId);
         System.out.println(respDTO);
         request.setAttribute("reservationCount", respDTO.size());
         request.setAttribute("reservationList", respDTO);
         return "/admin/customer-u/user-reservations";
     }
 
-    // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰
-    @GetMapping("/admin/users/{userId}/reservations/{reservationId}")
-    public String userReservationDetailList(@PathVariable Integer userId,
-                                            @PathVariable Integer reservationId,
-                                            HttpServletRequest request) {
-        AdminResponse.userReservationDetailDTO respDTO = adminService.adminReservationDetailList(reservationId);
-        request.setAttribute("reservationDetail", respDTO);
-        return "";
-    }
+//    // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰
+//    @GetMapping("/admin/users/{userId}/reservations/{reservationId}")
+//    public String userReservationDetailList(@PathVariable Integer userId,
+//                                            @PathVariable Integer reservationId,
+//                                            HttpServletRequest request) {
+//        AdminResponse.UserReservationDetailDTO respDTO = adminService.adminReservationDetailList(reservationId);
+//        request.setAttribute("reservationDetail", respDTO);
+//        return "";
+//    }
 
 //    // 관리자 페이지에서 특정 개인이 작성한 리뷰 리스트
 //    @GetMapping("/admin/users/{userId}/reviews")
@@ -87,9 +87,12 @@ public class AdminController {
 //        return "/admin/customer-u/review/main";
 //    }
 
-//    // 관리자 페이지에서 특정 기업의 숙소 정보 출력
-//    @GetMapping("/admin/companies/{companyId}/stays}")
-//    public String companyStayList (@PathVariable Integer companyId, HttpServletRequest request){
-//
-//    }
+    // 관리자 페이지에서 특정 기업의 숙소 정보 출력
+    @GetMapping("/admin/companies/{companyId}/stays")
+    public String companyStayList (@PathVariable Integer companyId, HttpServletRequest request){
+        List<AdminResponse.CompanyStayListDTO> respDTO = adminService.adminCompanyStayList(companyId);
+        request.setAttribute("stayCount", respDTO.size());
+        request.setAttribute("stayList", respDTO);
+        return "/admin/customer-c/stay-list";
+    }
 }

@@ -29,10 +29,9 @@ public class UserController {
     // 회원 가입 후 로그인
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
-        SessionUser sessionUser = userService.joinAndLogin(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.joinAndLogin(reqDTO);
+        UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
     }
 
     // 회원 정보 수정
@@ -46,7 +45,7 @@ public class UserController {
     }
 
     // 로그인한 회원의 예약 내역 페이지 - 목록
-    @GetMapping("/my-reservations")
+    @GetMapping("/api/my-reservations")
     public ResponseEntity<?> userReservationList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
@@ -54,7 +53,7 @@ public class UserController {
     }
 
     // 로그인한 회원의 예약 내역 페이지 - 상세보기
-    @GetMapping("/my-reservations/{reservationId}")
+    @GetMapping("/api/my-reservations/{reservationId}")
     public ResponseEntity<?> reservationDetail(@PathVariable Integer reservationId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);

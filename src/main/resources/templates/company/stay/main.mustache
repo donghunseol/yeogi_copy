@@ -12,32 +12,31 @@
                     <div class="tab-item company stay">
                         <p class="tab-title">숙소리스트</p>
                         <div class="link-wrapper">
-                            <a href="/stay/register">숙소등록</a>
+                            <a href="/stay/register-form">숙소등록</a>
                         </div>
                         <ul class="loging-list">
+                            {{#stayList}}
                             <li>
-                                {{#stayList}}
-                                    <div class="loging-item">
-                                        <div class="img-wrapper">
-                                            <img src="{{imagePath}}" alt="숙소사진">
-                                        </div>
-                                        <div class="loging-content">
-                                            <div class="txt-wrapper">
-                                                <p class="name">{{stayName}}</p>
-                                                <span class="address">주소 : {{stayAddress}}</span>
-                                                <span class="category">분류 : {{stayCategory}}</span>
-                                            </div>
-                                            <form action="/manage/stays/{{stayId}}/rooms" method="get">
-                                                <div class="button-wrapper">
-                                                    <button>상세 보기</button>
-                                                    <a class="btn orange" href ="/reviews/{{stayId}}">리뷰 관리</a>
-                                                </div>
-                                            </form>
-
-                                        </div>
+                                <div class="loging-item">
+                                    <div class="img-wrapper">
+                                        <img src="{{imagePath}}" alt="숙소사진">
                                     </div>
-                                {{/stayList}}
+                                    <div class="loging-content">
+                                        <div class="txt-wrapper">
+                                            <p class="name">{{stayName}}</p>
+                                            <span class="address">주소 : {{stayAddress}}</span>
+                                            <span class="category">분류 : {{stayCategory}}</span>
+                                        </div>
+                                        <form action="/manage/stays/{{stayId}}/rooms" method="get">
+                                            <div class="button-wrapper">
+                                                <button>상세 보기</button>
+                                                <a class="btn orange" href ="/reviews/{{stayId}}">리뷰 관리</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </li>
+                            {{/stayList}}
                         </ul>
                     </div>
                 </div>

@@ -41,4 +41,11 @@ public class StayImage {
         this.path = path;
         this.createdAt = createdAt;
     }
+
+
+    public StayImage(Stay stay){
+        this.stay = stay;
+        this.name = "hotel.png";
+        this.path = "/images/hotel.png";
+    }
 }

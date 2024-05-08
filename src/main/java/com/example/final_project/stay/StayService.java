@@ -1,38 +1,60 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.option.Option;
+import com.example.final_project.option.OptionRepository;
+import com.example.final_project.stay_image.StayImage;
+import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class StayService {
     private final StayRepository stayRepository;
     private final CompanyRepository companyRepository;
-
-    //숙소등록
+    private final OptionRepository optionRepository;
+    private final StayImageRepository stayImageRepository;
     @Transactional
-    public StayResponse.Save register(StayRequest.SaveDTO reqDTO, SessionCompany sessionCompany) {
+    public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
+
         //1. 인증처리
-        Company company = companyRepository.findById(sessionCompany.getId()).orElseThrow(
-                () -> new Exception404("해당 기업을 찾을 수 없습니다")
-        );
+        Optional<Company> companyOP = companyRepository.findById(sessionUser.getId());
+        Company company = companyOP.orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+
         //2. 권한처리
-        if (company.getId() != sessionCompany.getId()) {
+        if (!company.getId().equals(sessionUser.getId())) {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
         }
 
         Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
-        return new StayResponse.Save(stay, stay.getOptions());
+        // 옵션 등록
+        if (reqDTO.getOptions() != null && !reqDTO.getOptions().isEmpty()) {
+            List<Option> options = reqDTO.getOptions().stream()
+                    .map(optionName -> {
+                        return new Option(stay, optionName);
+                    })
+                    .toList();
+
+            optionRepository.saveAll(options);
+        }
+
+        //사진 등록
+        StayImage stayImage = new StayImage(stay);
+        stayImageRepository.save(stayImage);
     }
 
     //숙소 수정폼
@@ -57,8 +79,6 @@ public class StayService {
         }
         //3. 수정
         stay.updateStay(reqDTO);
-
-        System.out.println("결과값 ================== " + stay.getCreatedAt());
 
         return new StayResponse.Update(stay);
     }
@@ -99,4 +119,5 @@ public class StayService {
 
         return resultList;
     }
+
 }

@@ -13,7 +13,9 @@ import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
+import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
+import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.stay_image.StayImageRepository;
 import com.example.final_project.user.User;
@@ -41,41 +43,41 @@ public class AdminService {
     private final StayImageRepository stayImageRepository;
 
     // 모든 유저 정보 리스트
-    public List<AdminResponse.userListDTO> adminUserList() {
+    public List<AdminResponse.UserListDTO> adminUserList() {
         List<User> userList = userRepository.findAll();
 
-        List<AdminResponse.userListDTO> respDTO = userList.stream().map(AdminResponse.userListDTO::new).collect(Collectors.toList());
+        List<AdminResponse.UserListDTO> respDTO = userList.stream().map(AdminResponse.UserListDTO::new).collect(Collectors.toList());
 
         return respDTO;
     }
 
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
-    public List<AdminResponse.userReservationDTO> adminReservationList(Integer userId) {
+    public List<AdminResponse.UserReservationDTO> adminReservationList(Integer userId) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
         Pay pay = null;
 
         return reservationList.stream().map(r -> {
             Optional<Pay> payOP = payRepository.findByReservationId(r.getId());
-            return new AdminResponse.userReservationDTO(r, r.getRoom(), payOP.get());
+            return new AdminResponse.UserReservationDTO(r, r.getRoom(), payOP.get());
         }).collect(Collectors.toList());
     }
 
 
     // 특정 회원의 예약 정보 상세보기
-    public AdminResponse.userReservationDetailDTO adminReservationDetailList(Integer reservationId) {
+    public AdminResponse.UserReservationDetailDTO adminReservationDetailList(Integer reservationId) {
         Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
         Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
         Pay pay = null;
         if (payOP.isPresent()) pay = payOP.get();
-        AdminResponse.userReservationDetailDTO respDTO = new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
+        AdminResponse.UserReservationDetailDTO respDTO = new AdminResponse.UserReservationDetailDTO(reservation, reservation.getRoom(), pay);
 
-        return new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
+        return new AdminResponse.UserReservationDetailDTO(reservation, reservation.getRoom(), pay);
     }
 
     // 모든 기업 정보 리스트
-    public List<AdminResponse.companyListDTO> adminCompanyList() {
+    public List<AdminResponse.CompanyListDTO> adminCompanyList() {
         List<Company> companyList = companyRepository.findAll();
-        return companyList.stream().map(AdminResponse.companyListDTO::new).collect(Collectors.toList());
+        return companyList.stream().map(AdminResponse.CompanyListDTO::new).collect(Collectors.toList());
     }
 
     // 블랙 리스트에 추가 (개인)
@@ -99,17 +101,6 @@ public class AdminService {
     public List<Review> adminUserReviewList(Integer userId) {
         return reviewRepository.findByUserIdWithUserAndRoom(userId);
     }
-
-
-//    public List<AdminResponse.companyStayListDTO> adminCompanyStayList(Integer companyId){
-//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
-//        List<AdminResponse.companyStayListDTO> respDTO = stayList.stream().map(stay -> {
-//            List<Room> rooms = roomRepository.findByStayId(stay.getId());
-//            return new AdminResponse.companyStayListDTO(stay,rooms);
-//        }).collect(Collectors.toList());
-//
-//        return respDTO;
-//    }
 
     // 기업 가입 거절
     @Transactional
@@ -196,8 +187,12 @@ public class AdminService {
 //    }
 
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
-//    public List<Stay> companyStayList (Integer companyId) {
-//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
-//        List<AdminResponse.>
-//    }
+    public List<AdminResponse.CompanyStayListDTO> adminCompanyStayList(Integer companyId){
+        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+
+        return stayList.stream().map(stay -> {
+            Integer roomsSize = roomRepository.findByStayId(stay.getId()).size();
+            return new AdminResponse.CompanyStayListDTO(stay,roomsSize);
+        }).collect(Collectors.toList());
+    }
 }

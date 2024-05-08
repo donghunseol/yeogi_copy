@@ -28,7 +28,7 @@ public class CompanyController {
     public String login(CompanyRequest.LoginDTO reqDTO) {
 
         SessionCompany company = companyService.login(reqDTO);
-
+        System.out.println(company);
         session.setAttribute("sessionUser", company);
 
         return "redirect:/manage/stays";
@@ -78,7 +78,6 @@ public class CompanyController {
         return "redirect:/manage/stays";
     }
 
-
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")
     public String companyStayList(HttpServletRequest request) {
@@ -115,7 +114,7 @@ public class CompanyController {
         }
     }
 
-    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
+    // [숙소 관리 - 숙소 상세보기 - 객실 상세보기 - 예약 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
     @GetMapping("/reservations/{reservationId}/detail")
     public String companyReservationDetail(HttpServletRequest request,
                                            @PathVariable Integer reservationId) {
@@ -137,6 +136,7 @@ public class CompanyController {
         return "/company/revenue/main";
     }
 
+
     // 예약 현황 확인 (목록)
     @GetMapping("/reservations/status")
     public String compReservationList(HttpServletRequest request) {
@@ -146,4 +146,5 @@ public class CompanyController {
         request.setAttribute("reservationList", respDTO);
         return "/company/reservation/main";
     }
+
 }
