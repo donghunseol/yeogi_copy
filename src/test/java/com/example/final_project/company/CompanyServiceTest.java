@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @SpringBootTest
@@ -19,7 +20,7 @@ public class CompanyServiceTest {
         Integer companyId = 1;
 
         // when
-        List<CompanyResponse.companyStayListDTO> companyStayList = companyService.companyStayList(companyId);
+        List<CompanyResponse.CompanyStayListDTO> companyStayList = companyService.companyStayList(companyId);
 
         // eye
         System.out.println("companyStayList_test size : " + companyStayList.size());
@@ -37,7 +38,7 @@ public class CompanyServiceTest {
         Integer stayId = 1;
 
         // when
-        List<CompanyResponse.companyStayDetailDTO> companyStayDetailList = companyService.companyStayDetailList(stayId);
+        List<CompanyResponse.CompanyStayDetailDTO> companyStayDetailList = companyService.companyStayDetailList(stayId);
 
         // eye
         System.out.println("companyStayDetailList_test getFirst : " + companyStayDetailList.getFirst());
@@ -54,13 +55,29 @@ public class CompanyServiceTest {
         String tier = "Deluxe";
 
         // when
-        List<CompanyResponse.companyRoomDetailDTO> roomList = companyService.companyRoomDetail(stayId, tier);
+        List<CompanyResponse.CompanyRoomDetailDTO> roomList = companyService.companyRoomDetail(stayId, tier);
 
         // eye
         System.out.println("companyRoomDetail_test size : " + roomList.size());
 
         // then
 
+
+    }
+
+    @Test
+    public void companyReservationDetail_test(){
+        // given
+        Integer reservationId = 1;
+
+        // when
+        CompanyResponse.CompanyReservationDetailDTO respDTO = companyService.companyReservationDetail(reservationId);
+
+        // eye
+        System.out.println("companyReservationDetail_test getPrice : " + respDTO.getPrice());
+
+        // then
+        Assertions.assertThat(respDTO.getCheckInTime()).isEqualTo(LocalTime.of(15,0));
 
     }
 }

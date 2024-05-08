@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.option.Option;
 import lombok.Builder;
@@ -32,7 +33,7 @@ public class StayRequest {
         }
     }
 
-    //숙소등록
+    //숙소등록 DTO
     @Data
     public static class SaveDTO {
         private Integer companyId;
@@ -41,11 +42,13 @@ public class StayRequest {
         private String address;
         private String intro;
         private String information;
-        private List<Option> optionList;
+        private List<String> options;
+        private StayEnum state;
         private LocalDateTime createdAt;
 
         public Stay toEntity(Company company) {
             return Stay.builder()
+                    .state(state)
                     .name(name)
                     .category(category)
                     .address(address)
@@ -53,18 +56,18 @@ public class StayRequest {
                     .information(information)
                     .createdAt(createdAt)
                     .company(company)
-                    .options(optionList)
                     .build();
         }
+
     }
 
-    // 숙소 수정
-    // 이름,분류,주소 등은 삭제 후 등록하는게 맞는거 같아서 뺐어요!!
+    // 숙소 수정 DTO
     @Data
     public static class UpdateDTO {
         private String intro;
         private String information;
-        private List<Option> optionList;
+        private List<String> options;
+
     }
 
 }

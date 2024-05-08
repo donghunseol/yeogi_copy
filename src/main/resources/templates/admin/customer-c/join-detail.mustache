@@ -1,0 +1,167 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>예약내역</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">예약상세</p>
+                        <div class="room-tab_menu">
+                            {{#companyDetail}}
+                                <div class="cont_area">
+                                    <div class="join-form-item">
+                                        <label for="name">이름</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="name" value="{{name}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="email">이메일</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="email" value="{{email}}" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="join-form-item">
+                                        <label for="phone">전화번호</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="phone" value="{{phone}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="business-name">등록 상호명</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="business-name" value="{{businessName}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="business-number">사업자 번호</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="business-number" value="{{businessNumber}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="business-address">사업자 주소</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="business-address" value="{{businessAddress}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="created-at">가입 일자</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="created-at" value="{{createdAt}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="state-message">상태</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="state-message" value="{{stateMessage}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="report-count">신고 받은 횟수</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="report-count" value="{{reportCount}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="modal-button-wrapper">
+                                        <button type="submit" class="btn black join" onclick="history.back()">뒤로가기</button>
+                                        {{#isBlack}}
+                                            <button class="refuse btn-closer" onclick="removeBlackList({{companyId}})">블랙 리스트 등록 취소</button>
+                                        {{/isBlack}}
+                                        {{^isBlack}}
+                                            <button class="approval btn-closer" onclick="addBlackList({{companyId}})">블랙 리스트 등록</button>
+                                        {{/isBlack}}
+
+                                    </div>
+                                </div>
+                            {{/companyDetail}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    const tabList = document.querySelectorAll('.room-tab_menu .list li');
+    const contents = document.querySelectorAll('.room-tab_menu .cont_area .cont')
+    let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+
+
+    // 탭메뉴
+    for (var i = 0; i < tabList.length; i++) {
+        tabList[i].querySelector('.btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            for (var j = 0; j < tabList.length; j++) {
+                // 나머지 버튼 클래스 제거
+                tabList[j].classList.remove('is_on');
+
+                // 나머지 컨텐츠 display:none 처리
+                contents[j].style.display = 'none';
+            }
+
+            // 버튼 관련 이벤트
+            this.parentNode.classList.add('is_on');
+
+            // 버튼 클릭시 컨텐츠 전환
+            activeCont = this.getAttribute('href');
+            document.querySelector(activeCont).style.display = 'block';
+        });
+    }
+
+    function addBlackList(companyId) {
+        fetch(`/admin/company/black/${companyId}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json', // JSON 요청을 위해 필요
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to blacklist the company.');
+            }
+            return response.json(); // JSON 응답을 파싱
+        })
+        .then(data => {
+            window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+        });
+    }
+
+
+    function removeBlackList(companyId) {
+        fetch(`/admin/company/black/cancel/${companyId}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json', // JSON 요청을 위해 필요
+            }
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to blacklist the company.');
+            }
+            return response.json(); // JSON 응답을 파싱
+        }).then(data => {
+            window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
+        }).catch(error => {
+            console.error('An error occurred:', error);
+        });
+    }
+
+
+
+</script>
+</body>
+
+</html>

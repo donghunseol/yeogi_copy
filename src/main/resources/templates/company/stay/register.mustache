@@ -11,7 +11,9 @@
                     </div>
                     <div class="tab-item company info">
                         <p class="tab-title">숙소등록</p>
-                        <form action="#" method="#">
+                        <form action="/stay/register" method="post">
+                            <input type="hidden" name="companyId" value="{{sessionUser.id}}">
+                            <input type="hidden" name="state" value="TRUE">
                             <div class="register-detail-wrapper">
                                 <div class="content-wrapper">
                                     <div class="content top">
@@ -30,13 +32,13 @@
                                             <div class="join-form-item">
                                                 <label for="loging-name">숙소명</label>
                                                 <div class="input-wrapper">
-                                                    <input type="text" id="loging-name" placeholder="숙소명">
+                                                    <input type="text" id="loging-name" placeholder="숙소명" name="name">
                                                 </div>
                                             </div>
                                             <div class="join-form-item">
                                                 <label for="loging-name">숙소분류</label>
                                                 <div class="input-wrapper">
-                                                    <select id="select" name="select" class="margin-n">
+                                                    <select id="select" name="category" class="margin-n">
                                                         <option value="" disabled selected>숙소분류</option>
                                                         <option value="호텔" id="hotel">호텔</option>
                                                         <option value="모텔" id="motel">모텔</option>
@@ -45,13 +47,34 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="join-form-item check">
+                                                <label for="loging-name">옵션분류</label>
+                                                <div class="check-box-wrapper">
+                                                    <div class="input-wrapper">
+                                                        <label for="option1">피트니스</label>
+                                                        <input type="checkbox" name="options" value="피트니스" id="option1">
+                                                    </div>
+                                                    <div class="input-wrapper">
+                                                        <label for="option2">침대</label>
+                                                        <input type="checkbox" name="options" value="침대" id="option2">
+                                                    </div>
+                                                    <div class="input-wrapper">
+                                                        <label for="option3">와이파이</label>
+                                                        <input type="checkbox" name="options" value="와이파이" id="option3">
+                                                    </div>
+                                                    <div class="input-wrapper">
+                                                        <label for="option4">오션뷰</label>
+                                                        <input type="checkbox" name="options" value="오션뷰" id="option4">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="join-form-item">
                                                 <label for="join-password">주소</label>
                                                 <div class="input-wrapper address">
                                                     <input type="text" id="sample6_postcode" placeholder="우편번호">
                                                     <input type="button" onclick="sample6_execDaumPostcode()"
                                                            value="우편번호 찾기"><br>
-                                                    <input type="text" id="sample6_address" placeholder="주소"><br>
+                                                    <input type="text" id="sample6_address" placeholder="주소" name="address"><br>
                                                     <input type="text" id="sample6_detailAddress"
                                                            placeholder="상세주소">
                                                     <input type="text" id="sample6_extraAddress" placeholder="참고항목">
@@ -61,20 +84,20 @@
                                         <div class="join-form-item">
                                             <label for="loging-name">숙소 소개</label>
                                             <div class="input-wrapper">
-                                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                                                <textarea name="intro" id="" cols="30" rows="10"></textarea>
                                             </div>
                                         </div>
                                         <div class="join-form-item">
                                             <label for="loging-name">숙소 이용정보</label>
                                             <div class="input-wrapper">
-                                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                                                <textarea name="information" id="" cols="30" rows="10"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="button-wrapper">
-                                <button type="submit" class="btn black join">등록하기</button>
+                                <button class="btn black join">등록하기</button>
                             </div>
                         </form>
 

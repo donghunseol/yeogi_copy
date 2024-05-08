@@ -3,6 +3,7 @@ package com.example.final_project.user;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.utils.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,19 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 로그인 기능
-    public SessionUser login(UserRequest.LoginDTO reqDTO) {
+    public String login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
 
-        return new SessionUser(user);
+        String jwt = JwtUtil.userCreate(user);
+        JwtUtil.userVerify(jwt);
+
+        return jwt;
     }
 
     // 회원 가입
     @Transactional
-    public SessionUser joinAndLogin(UserRequest.JoinDTO reqDTO) {
+    public String joinAndLogin(UserRequest.JoinDTO reqDTO) {
         Optional<User> userOP = userRepository.findByEmail(reqDTO.getEmail());
 
         if (userOP.isPresent()) {
@@ -36,7 +40,10 @@ public class UserService {
         User joinUser = userRepository.save(reqDTO.toEntity());
 
         // 로그인
-        return new SessionUser(joinUser);
+        String jwt = JwtUtil.userCreate(joinUser);
+        JwtUtil.userVerify(jwt);
+
+        return jwt;
     }
 
     // 회원 정보 수정
@@ -54,5 +61,19 @@ public class UserService {
         user.updateUser(reqDTO);
 
         return new SessionUser(user);
+    }
+
+    public UserResponse.LoginDTO loginByDTO(UserRequest.LoginDTO reqDTO) {
+        User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+
+        return new UserResponse.LoginDTO(user);
+    }
+
+    public UserResponse.JoinDTO joinByDTO(UserRequest.JoinDTO reqDTO) {
+        User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+
+        return new UserResponse.JoinDTO(user);
     }
 }

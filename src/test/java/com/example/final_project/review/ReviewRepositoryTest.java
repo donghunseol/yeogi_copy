@@ -1,11 +1,13 @@
 package com.example.final_project.review;
 
+import com.example.final_project._core.errors.exception.Exception404;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class ReviewRepositoryTest {
@@ -49,4 +51,17 @@ public class ReviewRepositoryTest {
         System.out.println(review.getParent());
 
     }
+
+    @Test
+    public void findByReviewId_test() {
+        // given
+        Integer revieId = 1;
+        // when
+        Review review =reviewRepository.findByReviewId(revieId);
+        // eye
+
+        // then
+        Assertions.assertThat(review.getContent()).isEqualTo("정말 좋았어요!");
+    }
+
 }

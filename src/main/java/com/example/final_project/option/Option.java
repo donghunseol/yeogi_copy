@@ -27,7 +27,7 @@ public class Option {
     @Column(nullable = false)
     private String name; // 옵션 이름
 
-    @Column(nullable = false)
+    //  @Column(nullable = false)
     private String iconName; // 옵션 아이콘 이름
 
     @CreationTimestamp
@@ -40,6 +40,33 @@ public class Option {
         this.name = name;
         this.iconName = iconName;
         this.createdAt = createdAt;
+    }
+
+    public Option(Stay stay, String optionName) {
+
+        String iconName = "";
+        if (optionName.equals("피트니스")){
+            iconName = "dumbbell";
+        }
+        else if(optionName.equals("침대")){
+            iconName = "bad";
+        }
+        else if (optionName.equals("미니바")){
+            iconName = "glassEmpty";
+        }
+        else if (optionName.equals("수영장")){
+            iconName = "waterLadder";
+        }
+        else if (optionName.equals("오션뷰")){
+            iconName = "oceanview";
+        }
+        else if (optionName.equals("와이파이")){
+            iconName ="wi-fi";
+        }
+
+        this.stay = stay;
+        this.name = optionName;
+        this.iconName = iconName;
     }
 
 }

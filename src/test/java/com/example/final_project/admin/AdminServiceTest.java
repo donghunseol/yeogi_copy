@@ -12,6 +12,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +35,18 @@ public class AdminServiceTest {
 
 
         // when
-        List<AdminResponse.userListDTO> userList = adminService.adminUserList();
+        List<AdminResponse.UserListDTO> userList = adminService.adminUserList();
 
         // eye
         System.out.println("adminUserList_test size : " + userList.size());
         System.out.println("adminUserList_test userList : " + userList);
 
         // then
+
+//        Assertions.assertThat(userList.getFirst().getPhone()).isEqualTo("01012341234");
+
         Assertions.assertThat(userList.getFirst().getEmail()).isEqualTo("ssar@nate.com");
+
 
     }
 
@@ -50,15 +56,14 @@ public class AdminServiceTest {
         Integer userId = 1;
 
         // when
-        List<ReservationResponse.DetailDTO> reservationList = adminService.adminReservationList(userId);
+        List<AdminResponse.UserReservationDTO> reservationList = adminService.adminReservationList(userId);
 
         // eye
         System.out.println("adminReservationList_test size : " + reservationList.size());
         System.out.println("adminReservationList_test getLast.id : " + reservationList.getLast().getReservationId());
 
         // then
-        Assertions.assertThat(reservationList.getLast().getReservationName()).isEqualTo("홍길동");
-
+        Assertions.assertThat(reservationList.getLast().getCheckInDate()).isEqualTo(LocalDate.of(2024,5, 25));
     }
 
 
@@ -67,7 +72,7 @@ public class AdminServiceTest {
         // given
 
         // when
-        List<AdminResponse.companyListDTO> companyList = adminService.adminCompanyList();
+        List<AdminResponse.CompanyListDTO> companyList = adminService.adminCompanyList();
 
         // eye
         System.out.println("adminCompanyList_test size : " + companyList.size());
@@ -100,12 +105,12 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void addCompanyBlackList_test(){
+    public void addCompanyBlack_test(){
         // given
         Integer companyId = 1;
 
         // when
-        adminService.addCompanyBlackList(companyId);
+        adminService.addCompanyBlack(companyId);
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(companyId);
@@ -113,10 +118,33 @@ public class AdminServiceTest {
         if(companyOP.isPresent()){
             company = companyOP.get();
         }
-        System.out.println("addCompanyBlackList_test : " + company);
+        System.out.println("addCompanyBlack_test : " + company);
 
         // then
         Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.BLACK);
+
+    }
+
+    @Test
+    public void removeCompanyBlack_test(){
+        // given
+        Integer companyId = 1;
+        adminService.addCompanyBlack(companyId);
+
+        // when
+        adminService.removeCompanyBlack(companyId);
+
+        // eye
+        Optional<Company> companyOP = companyRepository.findById(companyId);
+        Company company = null;
+        if(companyOP.isPresent()){
+            company = companyOP.get();
+        }
+        System.out.println("removeCompanyBlack_test : " + company);
+
+        // then
+        Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.ACTIVE);
+
 
     }
 
@@ -136,24 +164,21 @@ public class AdminServiceTest {
 
     }
 
-//    @Test
-//    public void adminCompanyStayList_test(){
-//        // given
-//        Integer companyId = 1;
-//
-//        // when
-//        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
-//
-//        // eye
-//        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
-//        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
-//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
-//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
-//
-//        // then
-//        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
-//
-//    }
+    @Test
+    public void adminCompanyStayList_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        List<AdminResponse.CompanyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
+
+        // eye
+        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
+
+        // then
+        Assertions.assertThat(stayList.getFirst().getStayName()).isEqualTo("호텔 블루 하버");
+
+    }
 
     @Test
     public void rejectJoinCompany_test(){

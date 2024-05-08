@@ -14,22 +14,20 @@ public class ReservationController {
     private final HttpSession session;
 
     // 예약 하기
-    @PostMapping("/book/{roomId}")
+    @PostMapping("/api/book/{roomId}")
     public ResponseEntity<?> makeReservation(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        System.out.println(sessionUser);
         ReservationResponse.DTO respDTO = reservationService.makeReservation(reqDTO, sessionUser, roomId);
-
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 예약 수정
-    @PutMapping("/book/{reservationId}")
+    @PutMapping("/api/book/{reservationId}")
     public ResponseEntity<?> modifyReservation(@PathVariable Integer reservationId, @RequestBody ReservationRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.DTO respDTO = reservationService.modifyReservation(reqDTO, sessionUser, reservationId);
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-
 }
