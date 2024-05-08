@@ -6,9 +6,9 @@ import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import java.util.List;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,23 +17,21 @@ public class UserController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-    
+
     // 회원 로그인
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
-        SessionUser sessionUser = userService.login(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.login(reqDTO);
+        UserResponse.LoginDTO respDTO = userService.loginByDTO(reqDTO);
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
     }
 
     // 회원 가입 후 로그인
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
-        SessionUser sessionUser = userService.joinAndLogin(reqDTO);
-        session.setAttribute("sessionUser", sessionUser);
-
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        String jwt = userService.joinAndLogin(reqDTO);
+        UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);
+        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
     }
 
     // 회원 정보 수정

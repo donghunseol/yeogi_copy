@@ -18,13 +18,17 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     List<Stay> findByCompanyId(@Param("companyId") Integer companyId);
 
     // 숙소 검색 (이름, 지역, 날짜, 가격, 인원 수, 예약 날짜 별 검색)
+    // SELECT 1 FROM Reservation reCheck
+    //                           WHERE reCheck.room.id = r.id
+    //                           AND (reCheck.checkInDate < :endDate AND reCheck.checkOutDate > :startDate)
+    // 체크용 로직
     @Query("""
             SELECT DISTINCT s FROM Stay s
                  LEFT JOIN FETCH s.rooms r
                  LEFT JOIN FETCH r.roomInformation ri
                  LEFT JOIN Reservation re ON r.id = re.room.id
                  WHERE (:stayName IS NULL OR s.name LIKE %:stayName%)
-                 AND (:stayArea IS NULL OR s.address LIKE %:stayArea%)
+                 AND (:stayArea IS NULL OR s.address LIKE :stayArea%)
                  AND (:roomPrice IS NULL OR r.price <= :roomPrice)
                  AND (:person IS NULL OR :person <= ri.maxPerson)
                  AND (

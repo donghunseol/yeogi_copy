@@ -11,7 +11,6 @@ import com.example.final_project.pay.PayRepository;
 import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
-import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
 import com.example.final_project.room.RoomRepository;
@@ -45,9 +44,7 @@ public class AdminService {
     public List<AdminResponse.userListDTO> adminUserList() {
         List<User> userList = userRepository.findAll();
 
-        List<AdminResponse.userListDTO> respDTO = userList.stream().map(user -> {
-            return new AdminResponse.userListDTO(user);
-        }).collect(Collectors.toList());
+        List<AdminResponse.userListDTO> respDTO = userList.stream().map(AdminResponse.userListDTO::new).collect(Collectors.toList());
 
         return respDTO;
     }
@@ -55,12 +52,12 @@ public class AdminService {
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
     public List<AdminResponse.userReservationDTO> adminReservationList(Integer userId) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(userId);
+        Pay pay = null;
 
-        List<AdminResponse.userReservationDTO> respDTO = reservationList.stream().map(r -> {
-            return new AdminResponse.userReservationDTO(r, r.getRoom());
+        return reservationList.stream().map(r -> {
+            Optional<Pay> payOP = payRepository.findByReservationId(r.getId());
+            return new AdminResponse.userReservationDTO(r, r.getRoom(), payOP.get());
         }).collect(Collectors.toList());
-
-        return respDTO;
     }
 
 
@@ -70,20 +67,15 @@ public class AdminService {
         Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
         Pay pay = null;
         if (payOP.isPresent()) pay = payOP.get();
-        AdminResponse.userReservationDetailDTO respDTO= new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
+        AdminResponse.userReservationDetailDTO respDTO = new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
 
-        return respDTO;
+        return new AdminResponse.userReservationDetailDTO(reservation, reservation.getRoom(), pay);
     }
 
     // 모든 기업 정보 리스트
     public List<AdminResponse.companyListDTO> adminCompanyList() {
         List<Company> companyList = companyRepository.findAll();
-
-        List<AdminResponse.companyListDTO> respDTO = companyList.stream().map(company -> {
-            return new AdminResponse.companyListDTO(company);
-        }).collect(Collectors.toList());
-
-        return respDTO;
+        return companyList.stream().map(AdminResponse.companyListDTO::new).collect(Collectors.toList());
     }
 
     // 블랙 리스트에 추가 (개인)
@@ -194,12 +186,18 @@ public class AdminService {
         return respDTO;
     }
 
-    // 개인이 작성한 리뷰 정보 리스트
-    public List<AdminResponse.userReviewListDTO> findReviewByUserId (Integer userId) {
-        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
-        List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
-            return new AdminResponse.userReviewListDTO(review);
-        }).collect(Collectors.toList());
-        return respDTO;
-    }
+//    // 개인이 작성한 리뷰 정보 리스트
+//    public List<AdminResponse.userReviewListDTO> userReviewList (Integer userId) {
+//        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(userId);
+//        List<AdminResponse.userReviewListDTO> respDTO = reviewList.stream().map(review -> {
+//            return new AdminResponse.userReviewListDTO(review);
+//        }).collect(Collectors.toList());
+//        return respDTO;
+//    }
+
+    // 관리자 페이지에서 특정 기업의 숙소 정보 출력
+//    public List<Stay> companyStayList (Integer companyId) {
+//        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+//        List<AdminResponse.>
+//    }
 }

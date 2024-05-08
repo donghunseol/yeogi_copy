@@ -12,6 +12,7 @@ import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
+import com.example.final_project.stay.StayResponse;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class CompanyService {
     private final ReservationRepository reservationRepository;
 
 
-    //JWT - 로그인
+    // JWT - 로그인
     @Transactional
     public String jwtlogin(CompanyRequest.LoginDTO reqDTO) {
         //1. 아이디 체크
@@ -49,7 +50,7 @@ public class CompanyService {
         return jwt;
     }
 
-    //로그인
+    // 로그인
     @Transactional
     public SessionCompany login(CompanyRequest.LoginDTO reqDTO) {
         //1. 아이디 체크
@@ -78,19 +79,6 @@ public class CompanyService {
 
     }
 
-    // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
-    public List<CompanyResponse.companyStayListDTO> companyStayList(Integer companyId) {
-        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
-
-        List<CompanyResponse.companyStayListDTO> respDTO = stayList.stream().map(stay -> {
-            List<StayImage> stayImageList = stayImageRepository.findByStayId(stay.getId());
-
-            return new CompanyResponse.companyStayListDTO(stay, stayImageList.getFirst());
-        }).collect(Collectors.toList());
-
-        return respDTO;
-    }
-
     // 회원수정
     @Transactional
     public SessionCompany updateCompany(Integer companyId, CompanyRequest.UpdateDTO reqDTO) {
@@ -104,25 +92,34 @@ public class CompanyService {
         return new SessionCompany(company);
     }
 
+    // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
+    public List<CompanyResponse.CompanyStayListDTO> companyStayList(Integer companyId) {
+        List<Stay> stayList = stayRepository.findByCompanyId(companyId);
+
+        List<CompanyResponse.CompanyStayListDTO> respDTO = stayList.stream().map(stay -> {
+            List<StayImage> stayImageList = stayImageRepository.findByStayId(stay.getId());
+
+            return new CompanyResponse.CompanyStayListDTO(stay, stayImageList.getFirst());
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
 
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
-    public List<CompanyResponse.companyStayDetailDTO> companyStayDetailList(Integer stayId) {
-        List<CompanyResponse.companyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
-        return respDTO;
+    public List<CompanyResponse.CompanyStayDetailDTO> companyStayDetailList(Integer stayId) {
+        return roomRepository.findAndCountByStayId(stayId);
     }
-
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기
-    public List<CompanyResponse.companyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier) {
+    public List<CompanyResponse.CompanyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier) {
         List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
-        List<CompanyResponse.companyRoomDetailDTO> respDTO = roomList.stream().map(room -> {
+        return roomList.stream().map(room -> {
             Pay pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023, 12, 31));
-            return new CompanyResponse.companyRoomDetailDTO(room, pay);
+            return new CompanyResponse.CompanyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
-        return respDTO;
     }
 
-    public CompanyResponse.companyStayListAndTierDTO companyStayListAndTier(Integer stayId, String tier) {
+    public CompanyResponse.CompanyStayListAndTierDTO companyStayListAndTier(Integer stayId, String tier) {
         Optional<Stay> stayOP = stayRepository.findById(stayId);
         Stay stay = null;
         if (stayOP.isPresent()) {
@@ -130,14 +127,13 @@ public class CompanyService {
         }
         StayImage stayImage = stayImageRepository.findByStayId(stayId).getFirst();
 
-        return new CompanyResponse.companyStayListAndTierDTO(stay, stayImage, tier);
+        return new CompanyResponse.CompanyStayListAndTierDTO(stay, stayImage, tier);
     }
 
-
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 객실의 예약 상세보기
-    public CompanyResponse.companyReservationDetailDTO companyReservationDetail(Integer reservationId) {
+    public CompanyResponse.CompanyReservationDetailDTO companyReservationDetail(Integer reservationId) {
         Reservation reservation = reservationRepository.findByIdWithRoomAndRoomInformation(reservationId);
-        return new CompanyResponse.companyReservationDetailDTO(reservation);
+        return new CompanyResponse.CompanyReservationDetailDTO(reservation);
     }
 
     // 기업 수익 전체 조회

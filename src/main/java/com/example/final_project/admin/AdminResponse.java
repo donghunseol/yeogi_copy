@@ -69,19 +69,27 @@ public class AdminResponse {
     @Data
     public static class companyListDTO {
         private Integer id; // 기업 번호
+        private String email; // 기업 이메일
         private String businessName; // 등록 상호명
+        private String businessNumber; // 사업자 번호
+        private String businessAddress; // 사업자 주소
         private String phone; // 사업자 전화번호
         private String name; // 사업자 이름
         private String stateMessage; // 상태 메시지 한글
         private String stateColor; // 상태 메시지 색
+        private LocalDate createdAt; // 생성 일자
         Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
         Boolean isBlackCancel; // true 면 블랙 취소 버튼 활성 / false 면 블랙 취소 버튼 비활성
 
         public companyListDTO(Company company) {
             this.id = company.getId();
+            this.email = company.getEmail();
             this.businessName = company.getBusinessName();
+            this.businessNumber = company.getBusinessNumber();
+            this.businessAddress = company.getBusinessAddress();
             this.phone = company.getPhone();
             this.name = company.getName();
+            this.createdAt = LocalDate.from(company.getCreatedAt());
             isBlack = false;
             isBlackCancel = true;
             if (company.getState() == CompanyEnum.ACTIVE) {
@@ -137,29 +145,41 @@ public class AdminResponse {
 
     // 관리자 페이지에서 특정 회원의 예약 리스트 뷰에 필요한 데이터
     @Data
-    public static class userReservationDTO{
+    public static class userReservationDTO {
         private Integer reservationId; // 예약 번호
         private Integer userId; // 예약한 유저의 번호
         private String stayName; // 예약한 숙소의 이름
+        private String stayAddress; // 숙소 주소
         private Integer roomId; // 예약한 객실의 번호
         private String roomName; // 예약한 객실의 이름
+        private String reservationName; // 예약자 대표 이름
+        private String reservationTel; // 예약자 대표 연락처
         private LocalDate checkInDate; // 체크인 날짜
         private LocalDate checkOutDate; // 체크아웃 날짜
+        private LocalDateTime payAt; // 결제 일자
+        private Integer amount; // 결제 금액
+        private String way; // 결제 수단
 
-        public userReservationDTO(Reservation reservation, Room room) {
+        public userReservationDTO(Reservation reservation, Room room, Pay pay) {
             this.reservationId = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.stayName = room.getStay().getName();
+            this.stayAddress = room.getStay().getAddress();
             this.checkInDate = reservation.getCheckInDate();
             this.checkOutDate = reservation.getCheckOutDate();
-            this.roomId = reservation.getRoom().getId();
+            this.roomId = room.getId();
             this.roomName = room.getName();
+            this.reservationName = reservation.getReservationName();
+            this.reservationTel = reservation.getReservationTel();
+            this.payAt = pay.getCreatedAt();
+            this.amount = pay.getAmount();
+            this.way = pay.getWay();
         }
     }
 
     // 관리자 페이지에서 특정 회원의 예약 상세보기 뷰에 필요한 데이터
     @Data
-    public static class userReservationDetailDTO{
+    public static class userReservationDetailDTO {
         private Integer reservationId; // 예약 번호
         private Integer userId; // 예약한 유저의 번호
         private String stayName; // 예약한 숙소의 이름
@@ -180,7 +200,7 @@ public class AdminResponse {
             this.reservationId = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.stayName = room.getStay().getName();
-            this.stayAddress =  room.getStay().getAddress();
+            this.stayAddress = room.getStay().getAddress();
             this.checkInDate = reservation.getCheckInDate();
             this.checkInTime = room.getRoomInformation().getCheckIn();
             this.checkOutDate = reservation.getCheckOutDate();
@@ -197,7 +217,7 @@ public class AdminResponse {
 
     // 관리자 페이지에서 특정 개인의 리뷰찾기 응답 DTO
     @Data
-    public static class userReviewListDTO{
+    public static class userReviewListDTO {
         private Integer reviewId;
         private String stayName;
         private String content;
