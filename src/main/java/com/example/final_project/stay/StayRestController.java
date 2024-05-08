@@ -40,14 +40,14 @@ public class StayRestController {
 //       return ResponseEntity.ok(new ApiUtil<>(respDTO));
 //    }
 
-    @PutMapping("/api/modify/{stayId}")
-    public ResponseEntity<?> update(@PathVariable Integer stayId,@RequestBody StayRequest.UpdateDTO reqDTO){
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-
-        StayResponse.Update respDTO = stayService.update(stayId,sessionCompany,reqDTO);
-
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    @PutMapping("/api/modify/{stayId}")
+//    public ResponseEntity<?> update(@PathVariable Integer stayId,@RequestBody StayRequest.UpdateDTO reqDTO){
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//
+//        stayService.update(stayId,sessionCompany,reqDTO);
+//
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
     @PutMapping("/api/cancel/{stayId}")
     public ResponseEntity<?> delete(@PathVariable Integer stayId){

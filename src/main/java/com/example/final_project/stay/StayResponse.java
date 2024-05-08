@@ -123,12 +123,14 @@ public class StayResponse {
     // 숙소수정Form 응답DTO
     @Data
     public static class UpdateForm {
+        private Integer stayId;
         private String intro;
         private String information;
         private List<OptionDTO> optionList;
         private LocalDateTime createdAt;
 
         public UpdateForm(Stay stay, List<Option> optionList) {
+            this.stayId = stay.getId();
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
             this.createdAt = stay.getCreatedAt();
@@ -152,12 +154,14 @@ public class StayResponse {
     // 숙소수정 응답DTO
     @Data
     public static class Update {
+        private Integer stayId;
         private String intro;
         private String information;
         private List<OptionDTO> optionList;
         private LocalDateTime createdAt;
 
         public Update(Stay stay) {
+            this.stayId = stay.getId();
             this.intro = stay.getIntro();
             this.information = stay.getInformation();
             this.optionList = stay.getOptions().stream().map(OptionDTO::new).toList();

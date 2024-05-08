@@ -28,6 +28,8 @@ public class StayService {
     private final CompanyRepository companyRepository;
     private final OptionRepository optionRepository;
     private final StayImageRepository stayImageRepository;
+
+    //숙소 등록
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
 
@@ -57,7 +59,7 @@ public class StayService {
         StayImage stayImage = new StayImage(stay);
         stayImageRepository.save(stayImage);
     }
-
+    //숙소 등록폼
     @Transactional
     public StayResponse.UpdateFormDTO updateForm(Integer stayId, SessionCompany sessionUser) {
         // 1. 인증 처리
@@ -87,18 +89,38 @@ public class StayService {
 
     //숙소 수정
     @Transactional
-    public StayResponse.Update update(Integer stayId, SessionCompany sessionCompany, StayRequest.UpdateDTO reqDTO) {
+    public void update(Integer stayId, SessionCompany sessionCompany, StayRequest.UpdateDTO reqDTO) {
+
         //1. 인증처리
-        Stay stay = stayRepository.findByStayId(stayId)
+        Stay stay = stayRepository.findById(stayId)
                 .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
+
         //2. 권한처리
         if (stay.getCompany().getId() != sessionCompany.getId()) {
             throw new Exception403("해당 숙소를 수정할 권한이 없습니다.");
         }
-        //3. 수정
+
+        //3. 숙소정보 저장
         stay.updateStay(reqDTO);
 
-        return new StayResponse.Update(stay);
+        List<Option> beforeOptions = optionRepository.findByStayId(stayId);
+
+        //4. 옵션 삭제
+        beforeOptions.clear();
+        optionRepository.deleteBystayId(stayId);
+
+        //5. 옵션 저장
+        if (reqDTO.getOptions() != null && !reqDTO.getOptions().isEmpty()) {
+            List<Option> options = reqDTO.getOptions().stream()
+                    .map(optionName -> {
+                        return new Option(stay, optionName);
+                    })
+                    .toList();
+
+           optionRepository.saveAll(options);
+
+        }
+
     }
 
     //숙소 삭제

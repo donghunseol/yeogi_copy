@@ -43,14 +43,16 @@ public class StayController {
 
         StayResponse.UpdateFormDTO respDTO =  stayService.updateForm(stayId,sessionUser);
         request.setAttribute("stayInfo",respDTO);
-        System.out.println("결과==============================" +respDTO);
+
         return "/company/stay/update-form";
     }
 
     //숙소 업데이트
-    @PostMapping("/stay/update")
-    public String stayUpdate(){
+    @PostMapping("/stay/update/{stayId}")
+    public String stayUpdate(@PathVariable Integer stayId, StayRequest.UpdateDTO reqDTO){
+        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
+        stayService.update(stayId, sessionUser, reqDTO);
 
-        return null;
+        return "redirect:/manage/stays";
     }
 }

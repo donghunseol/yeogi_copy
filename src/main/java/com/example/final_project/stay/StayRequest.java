@@ -61,13 +61,13 @@ public class StayRequest {
 
     }
 
-
     // 숙소 수정 DTO
     @Data
     public static class UpdateDTO {
         private String intro;
         private String information;
-        private List<Option> options;
+        private List<String> options;
+
     }
 
 }

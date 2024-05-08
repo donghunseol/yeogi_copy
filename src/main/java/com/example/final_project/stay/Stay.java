@@ -73,10 +73,8 @@ public class Stay {
     public void updateStay(StayRequest.UpdateDTO reqDTO) {
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
-        this.options.clear();
-        reqDTO.getOptions().forEach(option -> option.setStay(this));
-        this.options.addAll(reqDTO.getOptions());
     }
+
 
 
     public void deleteStay(StayEnum state) {

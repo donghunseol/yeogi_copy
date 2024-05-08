@@ -13,7 +13,7 @@
                     <div class="tab-item company info">
                         <p class="tab-title">정보 수정</p>
                         {{#stayInfo}}
-                        <form action="#" method="#" style="width: 100%;">
+                        <form action="/stay/update/{{id}}" method="post" style="width: 100%;">
                             <input type="hidden" name="stayId" value="{{id}}">
                             <div class="join-form-item">
                                 <label for="name">숙소명</label>
