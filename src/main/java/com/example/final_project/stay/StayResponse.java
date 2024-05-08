@@ -2,6 +2,7 @@ package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
+import com.example.final_project.option.OptionResponse;
 import lombok.Builder;
 import lombok.Data;
 
@@ -64,6 +65,60 @@ public class StayResponse {
             }
         }
     }
+
+
+    //숙소 수정 폼 DTO
+    @Data
+    public static class UpdateFormDTO{
+        private Integer id;
+        private String name;
+        private String category;
+        private List<OptionChekedDTO> options;
+        private String address;
+        private String intro;
+        private String information;
+
+        public UpdateFormDTO(Stay stay, List<OptionChekedDTO> options) {
+            this.id = stay.getId();
+            this.name = stay.getName();
+            this.category = stay.getCategory();
+            this.options = options;
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+            this.information = stay.getInformation();
+        }
+
+        @Data
+        public static class OptionChekedDTO{
+            private boolean 피트니스 = false;
+            private boolean 침대 = false;
+            private boolean 미니바 = false;
+            private boolean 수영장 = false;
+            private boolean 오션뷰 = false;
+            private boolean 와이파이 = false;
+
+            public OptionChekedDTO(List<Option> optionNames) {
+                for (Option option : optionNames){
+                    if (option.getName().equals("피트니스")){
+                        this.피트니스 = true;
+                    } else if (option.getName().equals("침대")) {
+                        this.침대 = true;
+                    } else if (option.getName().equals("미니바")) {
+                        this.미니바 = true;
+                    } else if (option.getName().equals("수영장")) {
+                        this.수영장 = true;
+                    } else if (option.getName().equals("오션뷰")) {
+                        this.오션뷰 = true;
+                    } else if (option.getName().equals("와이파이")) {
+                        this.와이파이 = true;
+                    }
+
+                }
+
+            }
+        }
+    }
+
 
     // 숙소수정Form 응답DTO
     @Data

@@ -32,13 +32,13 @@ public class StayRestController {
 //        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 //    }
 
-    @GetMapping("/api/modify-form/{stayId}")
-    public ResponseEntity<?> updateForm(@PathVariable Integer stayId){
-
-       StayResponse.UpdateForm respDTO = stayService.updateForm(stayId);
-
-       return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    @GetMapping("/api/modify-form/{stayId}")
+//    public ResponseEntity<?> updateForm(@PathVariable Integer stayId){
+//
+//       StayResponse.UpdateForm respDTO = stayService.updateForm(stayId);
+//
+//       return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
     @PutMapping("/api/modify/{stayId}")
     public ResponseEntity<?> update(@PathVariable Integer stayId,@RequestBody StayRequest.UpdateDTO reqDTO){

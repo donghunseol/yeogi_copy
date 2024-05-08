@@ -9,6 +9,7 @@ import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionRepository;
+import com.example.final_project.option.OptionResponse;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,14 +58,31 @@ public class StayService {
         stayImageRepository.save(stayImage);
     }
 
-    //숙소 수정폼
     @Transactional
-    public StayResponse.UpdateForm updateForm(Integer stayId) {
+    public StayResponse.UpdateFormDTO updateForm(Integer stayId, SessionCompany sessionUser) {
+        // 1. 인증 처리
+        if (sessionUser == null) {
+            throw new Exception400("로그인이 필요한 서비스입니다");
+        }
 
         Stay stay = stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
 
-        return new StayResponse.UpdateForm(stay, stay.getOptions());
+        Company company = companyRepository.findByStayId(stay.getId())
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+
+        // 2. 권한 처리
+        if (!sessionUser.getId().equals(company.getId())) {
+            throw new Exception401("정보를 수정할 권한이 없습니다");
+        }
+
+        List<Option> options = optionRepository.findByStayId(stay.getId());
+
+        // Option을 OptionChekedDTO로 변환
+        List<StayResponse.UpdateFormDTO.OptionChekedDTO> optionDTOs = new ArrayList<>();
+        optionDTOs.add(new StayResponse.UpdateFormDTO.OptionChekedDTO(options));
+        return new StayResponse.UpdateFormDTO(stay, optionDTOs);
+
     }
 
     //숙소 수정

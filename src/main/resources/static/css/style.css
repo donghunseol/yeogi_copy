@@ -845,16 +845,27 @@ p.login-title {
 .join-form-item.check{
 
 }
-.join-form-item.check .check-box-wrapper{
+.check-box-wrapper{
     display: flex;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 20px;
 }
-.join-form-item.check .check-box-wrapper .input-wrapper{
-    width: calc(25% - 5px);
+.check-box-wrapper .input-wrapper{
+    width: calc((100% - 25px) / 6);
     margin-right: 5px;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    padding: 0;
+}
+.check-box-wrapper .input-wrapper label{
+    padding: 0;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 .join-form-item.check .input-wrapper input{
 
@@ -893,7 +904,14 @@ p.login-title {
 .button-wrapper {
     text-align: center;
 }
+.button-wrapper.stay{
+    text-align: left;
+    margin-top: 10px;
 
+}
+.button-wrapper.stay button{
+    width: 350px;
+}
 .button-wrapper a.black.border {
     color: #333;
     border: 1px solid #333;

@@ -74,8 +74,8 @@ public class Stay {
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
         this.options.clear();
-        reqDTO.getOptionList().forEach(option -> option.setStay(this));
-        this.options.addAll(reqDTO.getOptionList());
+        reqDTO.getOptions().forEach(option -> option.setStay(this));
+        this.options.addAll(reqDTO.getOptions());
     }
 
 
