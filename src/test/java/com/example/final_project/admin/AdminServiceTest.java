@@ -105,12 +105,12 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void addCompanyBlackList_test(){
+    public void addCompanyBlack_test(){
         // given
         Integer companyId = 1;
 
         // when
-        adminService.addCompanyBlackList(companyId);
+        adminService.addCompanyBlack(companyId);
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(companyId);
@@ -118,10 +118,33 @@ public class AdminServiceTest {
         if(companyOP.isPresent()){
             company = companyOP.get();
         }
-        System.out.println("addCompanyBlackList_test : " + company);
+        System.out.println("addCompanyBlack_test : " + company);
 
         // then
         Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.BLACK);
+
+    }
+
+    @Test
+    public void removeCompanyBlack_test(){
+        // given
+        Integer companyId = 1;
+        adminService.addCompanyBlack(companyId);
+
+        // when
+        adminService.removeCompanyBlack(companyId);
+
+        // eye
+        Optional<Company> companyOP = companyRepository.findById(companyId);
+        Company company = null;
+        if(companyOP.isPresent()){
+            company = companyOP.get();
+        }
+        System.out.println("removeCompanyBlack_test : " + company);
+
+        // then
+        Assertions.assertThat(company.getState()).isEqualTo(CompanyEnum.ACTIVE);
+
 
     }
 

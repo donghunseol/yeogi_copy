@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,15 +28,6 @@ public class AdminController {
         return "/admin/customer-c/report";
     }
 
-    // 기업 회원 정보 조회 View
-    @GetMapping("/admin/company")
-    public String company(HttpServletRequest request) {
-        List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
-        request.setAttribute("companyList", respDTO);
-        request.setAttribute("companyCount", respDTO.size());
-        return "/admin/customer-c/join";
-    }
-
     // 개인 회원 정보 조회 View
     @GetMapping("/admin/users")
     public String user(HttpServletRequest request) {
@@ -44,18 +37,43 @@ public class AdminController {
         return "/admin/customer-u/join";
     }
 
-    // 기업 블랙 등록 기능
-    @PutMapping("/admin/company/black/{companyId}")
-    public String companyBlack(@PathVariable Integer companyId) {
-        adminService.adminCompanyBlack(companyId);
-        return "redirect:/admin/company";
+    // 기업 회원 정보 조회 View
+    @GetMapping("/admin/companies")
+    public String company(HttpServletRequest request) {
+        List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
+        request.setAttribute("companyList", respDTO);
+        request.setAttribute("companyCount", respDTO.size());
+        return "/admin/customer-c/join";
     }
 
-    // 기업 블랙 취소 기능
+    // 특정 기업의 정보 상세보기
+    @GetMapping("/admin/companies/{companyId}")
+    public String companyDetail(@PathVariable Integer companyId, HttpServletRequest request) {
+        AdminResponse.CompanyDetailDTO respDTO = adminService.adminCompanyDetail(companyId);
+        request.setAttribute("companyDetail", respDTO);
+        return "/admin/customer-c/join-detail";
+    }
+
+    // 블랙 리스트에 추가 (기업)
+    @PutMapping("/admin/company/black/{companyId}")
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> addCompanyBlack(@PathVariable Integer companyId) {
+        adminService.addCompanyBlack(companyId);
+        // 리다이렉션 URL을 포함하는 JSON 객체 반환
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/companies");
+        return response;
+    }
+
+    // 블랙 리스트에서 삭제 (기업)
     @PutMapping("/admin/company/black/cancel/{companyId}")
-    public String companyBlackCancel(@PathVariable Integer companyId) {
-        adminService.adminCompanyBlackCancel(companyId);
-        return "redirect:/admin/company";
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> removeCompanyBlack(@PathVariable Integer companyId) {
+        adminService.removeCompanyBlack(companyId);
+        // 리다이렉션 URL을 포함하는 JSON 객체 반환
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/companies");
+        return response;
     }
 
     // 관리자 페이지에서 특정 회원의 예약 내역 리스트
