@@ -95,8 +95,8 @@ public class CompanyController {
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
-        if (tier.isBlank()) {
-            List<CompanyResponse.CompanyStayListDTO> stayRespDTO = companyService.companyStayList(company.getId());
+        if(tier.isBlank()){
+            CompanyResponse.CompanyStayListDTO stayRespDTO = companyService.companyStay(stayId);
             request.setAttribute("stayList", stayRespDTO);
 
             List<CompanyResponse.CompanyStayDetailDTO> detailRespDTO = companyService.companyStayDetailList(stayId);

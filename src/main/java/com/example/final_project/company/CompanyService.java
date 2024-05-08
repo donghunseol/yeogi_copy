@@ -93,7 +93,7 @@ public class CompanyService {
     }
 
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
-    public List<CompanyResponse.CompanyStayListDTO> companyStayList(Integer companyId) {
+    public List<CompanyResponse.CompanyStayListDTO> companyStayList(Integer companyId){
         List<Stay> stayList = stayRepository.findByCompanyId(companyId);
 
         List<CompanyResponse.CompanyStayListDTO> respDTO = stayList.stream().map(stay -> {
@@ -105,7 +105,18 @@ public class CompanyService {
         return respDTO;
     }
 
-    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기 (특정 숙소의 정보)
+    public CompanyResponse.CompanyStayListDTO companyStay(Integer stayId){
+        Optional<Stay> stayOP = stayRepository.findById(stayId);
+        Stay stay = null;
+        if(stayOP.isPresent()){
+            stay = stayOP.get();
+        }
+        List<StayImage> stayImageList = stayImageRepository.findByStayId(stayId);
+        return new CompanyResponse.CompanyStayListDTO(stay, stayImageList.getFirst());
+    }
+
+    // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기 (객실 정보)
     public List<CompanyResponse.CompanyStayDetailDTO> companyStayDetailList(Integer stayId) {
         return roomRepository.findAndCountByStayId(stayId);
     }
