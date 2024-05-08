@@ -4,7 +4,6 @@ import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
-import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyResponse;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
@@ -17,12 +16,11 @@ import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -86,7 +84,7 @@ public class ReservationService {
     }
 
     // 예약 내역 조회 (목록)
-    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser){
+    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
 
         List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
@@ -98,7 +96,7 @@ public class ReservationService {
 
 
     // 예약 내역 조회 (상세보기)
-    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId){
+    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId) {
         Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
         if (sessionUser.getId() != reservation.getUser().getId()) {
             throw new Exception401("예약내역을 열람할 권한이 없습니다");
@@ -110,7 +108,7 @@ public class ReservationService {
     }
 
     // 기업의 예약 현황 확인
-    public List<CompanyResponse.ReservationListDTO> compReservationList(SessionCompany sessionCompany){
+    public List<CompanyResponse.ReservationListDTO> compReservationList(SessionCompany sessionCompany) {
         List<Reservation> reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(sessionCompany.getId());
         return reservationList.stream().map(reservation -> {
             Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());

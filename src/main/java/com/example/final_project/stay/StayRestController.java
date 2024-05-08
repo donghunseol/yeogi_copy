@@ -15,7 +15,7 @@ public class StayRestController {
     private final StayService stayService;
     private final HttpSession session;
 
-    // 숙소 검색 기능 (이름, 지역, 날짜, 가격, 인원 수 별 검색)
+    // 숙소 검색 기능 (이름, 지역, 가격, 인원 수 별 검색)
     @GetMapping("/stay")
     public ResponseEntity<?> searchStay(
             @RequestParam(required = false) String stayName,
