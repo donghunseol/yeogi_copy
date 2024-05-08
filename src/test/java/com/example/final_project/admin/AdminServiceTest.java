@@ -35,7 +35,7 @@ public class AdminServiceTest {
 
 
         // when
-        List<AdminResponse.userListDTO> userList = adminService.adminUserList();
+        List<AdminResponse.UserListDTO> userList = adminService.adminUserList();
 
         // eye
         System.out.println("adminUserList_test size : " + userList.size());
@@ -56,7 +56,7 @@ public class AdminServiceTest {
         Integer userId = 1;
 
         // when
-        List<AdminResponse.userReservationDTO> reservationList = adminService.adminReservationList(userId);
+        List<AdminResponse.UserReservationDTO> reservationList = adminService.adminReservationList(userId);
 
         // eye
         System.out.println("adminReservationList_test size : " + reservationList.size());
@@ -72,7 +72,7 @@ public class AdminServiceTest {
         // given
 
         // when
-        List<AdminResponse.companyListDTO> companyList = adminService.adminCompanyList();
+        List<AdminResponse.CompanyListDTO> companyList = adminService.adminCompanyList();
 
         // eye
         System.out.println("adminCompanyList_test size : " + companyList.size());
@@ -141,24 +141,21 @@ public class AdminServiceTest {
 
     }
 
-//    @Test
-//    public void adminCompanyStayList_test(){
-//        // given
-//        Integer companyId = 1;
-//
-//        // when
-//        List<AdminResponse.companyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
-//
-//        // eye
-//        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
-//        System.out.println("adminCompanyStayList_test getFirst.rooms size : " + stayList.getFirst().getRooms().size());
-//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getFirst.getId: " + stayList.getFirst().getRooms().getFirst().getId());
-//        System.out.println("adminCompanyStayList_test getFirst.getRooms.getLast.getId: " + stayList.getFirst().getRooms().getLast().getId());
-//
-//        // then
-//        Assertions.assertThat(stayList.getFirst().getRooms().getFirst().getName()).isEqualTo("스위트룸");
-//
-//    }
+    @Test
+    public void adminCompanyStayList_test(){
+        // given
+        Integer companyId = 1;
+
+        // when
+        List<AdminResponse.CompanyStayListDTO> stayList = adminService.adminCompanyStayList(companyId);
+
+        // eye
+        System.out.println("adminCompanyStayList_test stayList size : " + stayList.size());
+
+        // then
+        Assertions.assertThat(stayList.getFirst().getStayName()).isEqualTo("호텔 블루 하버");
+
+    }
 
     @Test
     public void rejectJoinCompany_test(){
