@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception403;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -174,4 +176,67 @@ public class StayService {
                 .map(StayResponse.SearchListDTO::new)
                 .toList();
     }
+
+    @Transactional
+    public StayResponse.AllList findAllStayWithCategory(){
+
+        // 국내 숙소 찾기
+        List<Stay> domesticStays = stayRepository.findAll().stream()
+                .filter(stay -> !stay.getCategory().equals("해외"))
+                .collect(Collectors.toList());
+
+        System.out.println("국내결과===========================================" + domesticStays.size());
+
+        List<StayResponse.AllList.DomesticDTO> domesticDTOs = domesticStays.stream()
+                .map(stay -> {
+                    StayImage domesticStayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    String imageName = (domesticStayImage != null) ? domesticStayImage.getName() : null;
+                    String imagePath = (domesticStayImage != null) ? domesticStayImage.getPath() : null;
+                    return new StayResponse.AllList.DomesticDTO(stay, imageName, imagePath);
+                })
+                .collect(Collectors.toList());
+
+
+        // 해외 숙소 찾기
+        List<Stay> overseaStays = stayRepository.findAll().stream()
+                .filter(stay -> stay.getCategory().equals("해외"))
+                .collect(Collectors.toList());
+
+        System.out.println("해외결과===========================================" +overseaStays.size());
+
+
+        List<StayResponse.AllList.OverseaDTO> overseaDTOs = overseaStays.stream()
+                .map(stay -> {
+                    StayImage overseaStayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    return new StayResponse.AllList.OverseaDTO(stay, overseaStayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 특가 숙소 찾기
+        List<Stay> specialPriceStays = stayRepository.findAll().stream()
+                .filter(stay -> stay.getRooms().stream().anyMatch(room -> room.getSpecialState() == RoomEnum.APPLIED))
+                .collect(Collectors.toList());
+
+        System.out.println("특가결과===========================================" +specialPriceStays.size());
+
+
+        List<StayResponse.AllList.SpecialPriceDTO> specialPriceDTOs = specialPriceStays.stream()
+                .map(stay -> {
+                    StayImage specialPriceStayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    return new StayResponse.AllList.SpecialPriceDTO(stay, specialPriceStayImage);
+                })
+                .collect(Collectors.toList());
+
+        return new StayResponse.AllList(specialPriceDTOs, domesticDTOs, overseaDTOs);
+    }
+
+
+
+
+
+
+
+
+
+
 }

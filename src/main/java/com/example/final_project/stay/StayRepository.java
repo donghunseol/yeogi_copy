@@ -49,4 +49,5 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                                 @Param("startDate") LocalDate startDate,
                                 @Param("endDate") LocalDate endDate);
 
+
 }

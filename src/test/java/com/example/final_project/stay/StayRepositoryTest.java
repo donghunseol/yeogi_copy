@@ -55,6 +55,19 @@ public class StayRepositoryTest {
 
     }
 
+    //전체 숙소 테스트
+    @Test
+    public void findAll_test() {
+            // given
+
+            // when
+            List<Stay> stays = stayRepository.findAll();
+            // eye
+            System.out.println(stays.size());
+            // then
+        }
+
+
 //    // 검색 이름 쿼리 테스트
 //    @Test
 //    public void findByStayName_test() {

@@ -74,4 +74,15 @@ public class StayRestController {
 
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
+
+
+    // 메인페이지
+    @GetMapping("/main")
+    public ResponseEntity<?> main(){
+        StayResponse.AllList respDTO = stayService.findAllStayWithCategory();
+
+        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+    }
+
+
 }
