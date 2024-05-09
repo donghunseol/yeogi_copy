@@ -275,7 +275,7 @@ public class StayService {
     @Transactional
     public StayResponse.StayDetail findStayDetail(Integer stayId) {
         // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
-        Stay stay = stayRepository.findByStayId(1)
+        Stay stay = stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 숙소입니다.")); // 숙소
         StayResponse.StayDetail.StayContentsDTO.StayDTO stayDTO = new StayResponse.StayDetail.StayContentsDTO.StayDTO(stay);
 
