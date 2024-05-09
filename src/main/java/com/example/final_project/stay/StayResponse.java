@@ -1,6 +1,7 @@
 package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.EventEnum;
+import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
@@ -262,34 +263,87 @@ public class StayResponse {
             this.roomContents = roomContents;
         }
 
+        // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
         @Data
         public static class StayContentsDTO{
-            private Integer stayId;
-            private String stayName;
+            private StayDTO stay;
             // TODO: 찜 필드 추가
-            private List<StayImage> stayImageList;
-            private List<Review> reviewList;
+            private List<StayImageDTO> stayImageList;
+            private List<ReviewDTO> reviewList;
             private List<OptionDTO> optionList;
 
-            public StayContentsDTO(Stay stay, List<StayImage> stayImageList, List<Review> reviewList, List<OptionDTO> optionList){
-                this.stayId = stay.getId();
-                this.stayName = stay.getName();
+            public StayContentsDTO(StayDTO stay, List<StayImageDTO> stayImageList, List<ReviewDTO> reviewList, List<OptionDTO> optionList){
+                this.stay = stay;
                 this.stayImageList = stayImageList;
                 this.reviewList = reviewList;
                 this.optionList = optionList;
             }
 
             @Data
+            public static class StayDTO {
+                private Integer stayId; // 숙소 번호
+                private String stayName; // 숙소 이름
+
+                public StayDTO(Stay stay) {
+                    this.stayId = stay.getId();
+                    this.stayName = stay.getName();
+                }
+            }
+
+            @Data
+            public static class StayImageDTO {
+                private Integer stayImageId; // 숙소 이미지 번호
+                private String stayImagePath; // 숙소 이미지 경로
+
+                public StayImageDTO(StayImage stayImage) {
+                    this.stayImageId = stayImage.getId();
+                    this.stayImagePath = stayImage.getPath();
+                }
+            }
+
+            @Data
+            public static class ReviewDTO {
+                private Integer reviewId; // 리뷰 번호
+                private Integer userId; // 회원 번호
+                private String userName; // 회원 이름
+                private Integer stayId; // 리뷰한 숙소의 번호
+                private Integer reviewScore; // 리뷰의 평점
+                private String reviewContent; // 리뷰의 내용
+                private ReviewEnum isDelete; // 리뷰 삭제 여부
+                private Integer reviewParentId; // 리뷰의 부모 댓글
+                private List<ReviewDTO> reviewChildrenList; // 리뷰의 자식 댓글(대댓글)
+
+                public ReviewDTO(Review review) {
+                    this.reviewId = review.getId();
+                    this.userId = review.getWriter().getId();
+                    this.userName = review.getWriter().getName();
+                    this.stayId = review.getStay().getId();
+                    this.reviewScore = review.getScore();
+                    this.reviewContent = review.getContent();
+                    this.isDelete = review.getIsDelete();
+                    if (review.getParent() != null) {
+                        this.reviewParentId = review.getParent().getId();
+                    }
+                    this.reviewChildrenList = review.getChildren().stream().map(ReviewDTO::new).collect(Collectors.toList());
+                }
+            }
+
+            @Data
             public static class OptionDTO {
+                private Integer optionId;
                 private String name;
                 private String iconName;
 
                 public OptionDTO(Option option){
+                    this.optionId = option.getId();
                     this.name = option.getName();
                     this.iconName = option.getIconName();
                 }
             }
+
         }
+
+        // section2 (객실 리스트)
         @Data
         public static class RoomContentsDTO{
             private Integer roomId; // 객실 번호

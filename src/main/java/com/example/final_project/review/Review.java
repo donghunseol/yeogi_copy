@@ -5,6 +5,7 @@ import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.List;
 @Data
 @Table(name = "review_tb")
 @Entity
-@JsonIgnoreProperties({"user", "room"})
+@JsonIgnoreProperties({"writer", "stay", "children"})
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +55,6 @@ public class Review {
 
     @Builder
     public Review(Integer id, User user, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
-
         this.id = id;
         this.writer = user;
         this.stay = stay;

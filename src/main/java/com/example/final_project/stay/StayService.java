@@ -240,32 +240,32 @@ public class StayService {
 
     @Transactional
     public StayResponse.StayDetail findStayDetail(Integer stayId) {
-        System.out.println(1);
         // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
         Stay stay = stayRepository.findByStayId(1)
                 .orElseThrow(() -> new Exception404("존재하지 않는 숙소입니다.")); // 숙소
-        System.out.println(2);
+        StayResponse.StayDetail.StayContentsDTO.StayDTO stayDTO = new StayResponse.StayDetail.StayContentsDTO.StayDTO(stay);
+
+
         // TODO: 찜 여부 불러오기
         List<StayImage> stayImageList = stayImageRepository.findByStayId(stayId); // 숙소 이미지
-        System.out.println(3);
-        List<Review> reviewList = reviewRepository.findAllByStayIdWithDetails(stayId); // 숙소 리뷰
-        System.out.println(reviewList.getFirst().getChildren() + 4);
+        List<StayResponse.StayDetail.StayContentsDTO.StayImageDTO> stayImageDTOS = stayImageList.stream().map(StayResponse.StayDetail.StayContentsDTO.StayImageDTO::new).toList();
+
+
+        List<Review> reviewList = reviewRepository.findNoParentReviewByStayIdWithDetails(stayId); // 숙소 리뷰
+        List<StayResponse.StayDetail.StayContentsDTO.ReviewDTO> reviewDTOS = reviewList.stream().map(StayResponse.StayDetail.StayContentsDTO.ReviewDTO::new).toList();
+
         List<Option> optionList = optionRepository.findByStayId(stayId); // 숙소 편의시설
-        System.out.println(5);
         List<StayResponse.StayDetail.StayContentsDTO.OptionDTO> optionDTOS = optionList.stream().map(StayResponse.StayDetail.StayContentsDTO.OptionDTO::new).collect(Collectors.toList());
 
-        System.out.println("^ : " + stay.getId() + stayImageList.size() + reviewList.size() + optionDTOS.size());
-        StayResponse.StayDetail.StayContentsDTO stayContentsDTO = new StayResponse.StayDetail.StayContentsDTO(stay, stayImageList, reviewList, optionDTOS);
-        System.out.println(6);
+        StayResponse.StayDetail.StayContentsDTO stayContentsDTO = new StayResponse.StayDetail.StayContentsDTO(stayDTO, stayImageDTOS, reviewDTOS, optionDTOS);
 
         // section2 (객실 리스트)
         List<Room> roomList = roomRepository.findByStayId(stayId);
-        System.out.println(7);
         List<StayResponse.StayDetail.RoomContentsDTO> roomContentsDTOS = roomList.stream().map(room -> {
             RoomInformation roomInformation = roomInformationRepository.findByRoomId(room.getId());
             return new StayResponse.StayDetail.RoomContentsDTO(room, roomInformation);
         }).collect(Collectors.toList());
-        System.out.println(8);
+
         // section3 (숙소 소개, 이용 정보, 취소 및 환불 규정) -> 이건 고정값
 
         return new StayResponse.StayDetail(stayContentsDTO, roomContentsDTOS);
