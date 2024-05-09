@@ -43,9 +43,7 @@ public class StayRepositoryTest {
         List<Stay> stays = stayRepository.findBySearchStay(reqDTO.getName(),
                 reqDTO.getAddress(),
                 reqDTO.getPrice(),
-                reqDTO.getPerson(),
-                reqDTO.getCheckInDate(),
-                reqDTO.getCheckOutDate());
+                reqDTO.getPerson());
 
         // eye
         System.out.println("findBySearchStay_test/size : " + stays.size());

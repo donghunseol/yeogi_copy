@@ -11,9 +11,9 @@
                         <p>예약내역</p>
                     </div>
                     <div class="tab-item company info">
-                        <p class="tab-title">예약상세</p>
+                        <p class="tab-title">회원 정보</p>
                         <div class="room-tab_menu">
-                            {{#companyDetail}}
+                            {{#userDetail}}
                                 <div class="cont_area">
                                     <div class="join-form-item">
                                         <label for="name">이름</label>
@@ -27,7 +27,6 @@
                                             <input type="text" id="email" value="{{email}}" disabled>
                                         </div>
                                     </div>
-
                                     <div class="join-form-item">
                                         <label for="phone">전화번호</label>
                                         <div class="input-wrapper">
@@ -35,21 +34,9 @@
                                         </div>
                                     </div>
                                     <div class="join-form-item">
-                                        <label for="business-name">등록 상호명</label>
+                                        <label for="birth">생년월일</label>
                                         <div class="input-wrapper">
-                                            <input type="text" id="business-name" value="{{businessName}}" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="join-form-item">
-                                        <label for="business-number">사업자 번호</label>
-                                        <div class="input-wrapper">
-                                            <input type="text" id="business-number" value="{{businessNumber}}" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="join-form-item">
-                                        <label for="business-address">사업자 주소</label>
-                                        <div class="input-wrapper">
-                                            <input type="text" id="business-address" value="{{businessAddress}}" disabled>
+                                            <input type="text" id="birth" value="{{birth}}" disabled>
                                         </div>
                                     </div>
                                     <div class="join-form-item">
@@ -73,15 +60,15 @@
                                     <div class="modal-button-wrapper">
                                         <button type="submit" class="btn black join" onclick="history.back()">뒤로가기</button>
                                         {{#isBlack}}
-                                            <button class="refuse btn-closer" onclick="removeCompanyFromBlackList({{companyId}})">블랙 리스트에서 제거</button>
+                                            <button class="refuse btn-closer" onclick="removeUserFromBlackList({{userId}})">블랙 리스트에서 제거</button>
                                         {{/isBlack}}
                                         {{^isBlack}}
-                                            <button class="approval btn-closer" onclick="addCompanyToBlackList({{companyId}})">블랙 리스트에 등록</button>
+                                            <button class="approval btn-closer" onclick="addUserToBlackList({{userId}})">블랙 리스트에 등록</button>
                                         {{/isBlack}}
 
                                     </div>
                                 </div>
-                            {{/companyDetail}}
+                            {{/userDetail}}
                         </div>
                     </div>
 
@@ -118,8 +105,8 @@
         });
     }
 
-    function addCompanyToBlackList(companyId) {
-        fetch(`/admin/companies/${companyId}/black-list/add`, {
+    function addUserToBlackList(userId) {
+        fetch(`/admin/users/${userId}/black-list/add`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -127,7 +114,7 @@
             },
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Failed to blacklist the company.');
+                throw new Error('Failed to blacklist the user.');
             }
             return response.json(); // JSON 응답을 파싱
         })
@@ -140,8 +127,8 @@
     }
 
 
-    function removeCompanyFromBlackList(companyId) {
-        fetch(`/admin/companies/${companyId}/black-list/remove`, {
+    function removeUserFromBlackList(userId) {
+        fetch(`/admin/users/${userId}/black-list/remove`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -149,7 +136,7 @@
             }
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Failed to blacklist the company.');
+                throw new Error('Failed to blacklist the user.');
             }
             return response.json(); // JSON 응답을 파싱
         }).then(data => {
@@ -158,8 +145,6 @@
             console.error('An error occurred:', error);
         });
     }
-
-
 
 </script>
 </body>
