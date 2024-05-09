@@ -2,6 +2,8 @@ package com.example.final_project.stay;
 
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.room.RoomResponse;
+import com.example.final_project.room.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +15,11 @@ import java.util.List;
 @RestController
 public class StayRestController {
     private final StayService stayService;
+    private final RoomService roomService;
     private final HttpSession session;
 
     // [특가 숙소리스트]
-    @GetMapping("/stay/special")
+    @GetMapping("/stays/special")
     public ResponseEntity<?> specialList() {
         System.out.println(1);
         List<StayResponse.SpecialpriceList> respDTO;
@@ -85,9 +88,18 @@ public class StayRestController {
 
 
     // 메인페이지
-    @GetMapping("/main")
-    public ResponseEntity<?> main(){
+    @GetMapping("/home")
+    public ResponseEntity<?> home(){
         StayResponse.AllList respDTO = stayService.findAllStayWithCategory();
+
+        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+    }
+
+
+    // 숙소를 클릭 했을 때 보여지는 숙소 상세보기
+    @GetMapping("/stays/{stayId}")
+    public ResponseEntity<?> stayDetail(@PathVariable Integer stayId){
+        StayResponse.StayDetail respDTO = stayService.findStayDetail(stayId);
 
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }

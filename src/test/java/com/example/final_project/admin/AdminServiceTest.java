@@ -84,12 +84,12 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void addUserBlackList_test(){
+    public void addUserToBlackList_test(){
         // given
         Integer userId = 1;
 
         // when
-        adminService.addUserBlackList(userId);
+        adminService.addUserToBlackList(userId);
 
         // eye
         Optional<User> userOP = userRepository.findById(userId);
@@ -97,7 +97,7 @@ public class AdminServiceTest {
         if(userOP.isPresent()){
             user = userOP.get();
         }
-        System.out.println("addUserBlackList_test : " + user);
+        System.out.println("addUserToBlackList_test : " + user);
 
         // then
         Assertions.assertThat(user.getState()).isEqualTo(UserEnum.BLACK);
@@ -105,12 +105,34 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void addCompanyBlack_test(){
+    public void removeUserFromBlackList_test(){
+        // given
+        Integer userId = 1;
+        adminService.addUserToBlackList(userId);
+
+        // when
+        adminService.removeUserFromBlackList(userId);
+
+        // eye
+        Optional<User> userOP = userRepository.findById(userId);
+        User user = null;
+        if(userOP.isPresent()){
+            user = userOP.get();
+        }
+        System.out.println("removeUserFromBlackList_test : " + user);
+
+        // then
+        Assertions.assertThat(user.getState()).isEqualTo(UserEnum.ACTIVE);
+
+    }
+
+    @Test
+    public void addCompanyToBlackList_test(){
         // given
         Integer companyId = 1;
 
         // when
-        adminService.addCompanyBlack(companyId);
+        adminService.addCompanyToBlackList(companyId);
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(companyId);
@@ -126,13 +148,13 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void removeCompanyBlack_test(){
+    public void removeCompanyFromBlackList_test(){
         // given
         Integer companyId = 1;
-        adminService.addCompanyBlack(companyId);
+        adminService.addCompanyToBlackList(companyId);
 
         // when
-        adminService.removeCompanyBlack(companyId);
+        adminService.removeCompanyFromBlackList(companyId);
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(companyId);

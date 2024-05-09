@@ -29,6 +29,7 @@ public class StayRepositoryTest {
         Assertions.assertThat(stayList.getFirst().getName()).isEqualTo("호텔 블루 하버");
     }
 
+<<<<<<< HEAD
 //    // 검색 쿼리 테스트
 //    @Test
 //    public void findBySearchStay_test() {
@@ -55,6 +56,32 @@ public class StayRepositoryTest {
 //        // then
 //
 //    }
+
+    // 검색 쿼리 테스트
+    @Test
+    public void findBySearchStay_test() {
+        // given
+        LocalDate startDate = LocalDate.of(2024, 5, 30);
+        LocalDate endDate = LocalDate.of(2024, 6, 11);
+        StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
+                .checkInDate(startDate)
+                .checkOutDate(endDate)
+                .build();
+
+        // when
+        List<Stay> stays = stayRepository.findBySearchStay(reqDTO.getName(),
+                reqDTO.getAddress(),
+                reqDTO.getPrice(),
+                reqDTO.getPerson());
+
+        // eye
+        System.out.println("findBySearchStay_test/size : " + stays.size());
+        stays.forEach(stay -> System.out.println("findBySearchStay_test : " + stay.getName()));
+
+        // then
+
+    }
+
 
     //전체 숙소 테스트
     @Test

@@ -37,15 +37,32 @@ public class StayServiceTest {
     }
 
     @Test
+
     public void findSpecialListByRoomEnum_test() {
         // given
 
         // when
-        List<StayResponse.SpecialpriceList> respDTO = stayService.findSpecialListByRoomEnum();
+        List<StayResponse.SpecialpriceList> respDTO = stayService.findSpecialListByRoom();
 
         // eye
         System.out.println("findSpecialListByRoomEnum_test/list" + respDTO);
 
         // then
+    }
+
+    @Test
+    public void findStayDetail_test(){
+        // given
+        Integer stayId = 1;
+
+        // when
+        StayResponse.StayDetail respDTO = stayService.findStayDetail(stayId);
+
+        // eye
+        System.out.println("findStayDetail_test roomContentsDTOS.size : " + respDTO.getRoomContents().size());
+        System.out.println("findStayDetail_test roomContentsDTOS.getFirst : " + respDTO.getRoomContents().getFirst());
+
+        // then
+
     }
 }

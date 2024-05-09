@@ -37,6 +37,36 @@ public class AdminController {
         return "/admin/customer-u/join";
     }
 
+    // 특정 회원의 정보 상세보기
+    @GetMapping("/admin/users/{userId}")
+    public String userDetail(@PathVariable Integer userId, HttpServletRequest request) {
+        AdminResponse.UserDetailDTO respDTO = adminService.adminUserDetail(userId);
+        request.setAttribute("userDetail", respDTO);
+        return "/admin/customer-u/join-detail";
+    }
+
+    // 블랙 리스트에 추가 (개인)
+    @PutMapping("/admin/users/{userId}/black-list/add")
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> addUserToBlackList(@PathVariable Integer userId) {
+        adminService.addUserToBlackList(userId);
+        // 리다이렉션 URL을 포함하는 JSON 객체 반환
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/users");
+        return response;
+    }
+
+    // 블랙 리스트에서 삭제 (개인)
+    @PutMapping("/admin/users/{userId}/black-list/remove")
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> removeUserFromBlackList(@PathVariable Integer userId) {
+        adminService.removeUserFromBlackList(userId);
+        // 리다이렉션 URL을 포함하는 JSON 객체 반환
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/users");
+        return response;
+    }
+
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/companies")
     public String company(HttpServletRequest request) {
@@ -55,10 +85,10 @@ public class AdminController {
     }
 
     // 블랙 리스트에 추가 (기업)
-    @PutMapping("/admin/company/black/{companyId}")
+    @PutMapping("/admin/companies/{companyId}/black-list/add")
     @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
-    public Map<String, String> addCompanyBlack(@PathVariable Integer companyId) {
-        adminService.addCompanyBlack(companyId);
+    public Map<String, String> addCompanyToBlackList(@PathVariable Integer companyId) {
+        adminService.addCompanyToBlackList(companyId);
         // 리다이렉션 URL을 포함하는 JSON 객체 반환
         Map<String, String> response = new HashMap<>();
         response.put("redirectUrl", "/admin/companies");
@@ -66,10 +96,10 @@ public class AdminController {
     }
 
     // 블랙 리스트에서 삭제 (기업)
-    @PutMapping("/admin/company/black/cancel/{companyId}")
+    @PutMapping("/admin/companies/{companyId}/black-list/remove")
     @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
-    public Map<String, String> removeCompanyBlack(@PathVariable Integer companyId) {
-        adminService.removeCompanyBlack(companyId);
+    public Map<String, String> removeCompanyFromBlackList(@PathVariable Integer companyId) {
+        adminService.removeCompanyFromBlackList(companyId);
         // 리다이렉션 URL을 포함하는 JSON 객체 반환
         Map<String, String> response = new HashMap<>();
         response.put("redirectUrl", "/admin/companies");

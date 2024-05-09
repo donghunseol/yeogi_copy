@@ -27,38 +27,61 @@ public class AdminResponse {
         private String name; // 회원 이름
         private String email; // 이메일
         private Integer reportCount; // 신고 받은 횟수
-        private UserEnum state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
+        private String stateMessage; // 상태 메시지 한글
+        private String stateColor; // 상태 메시지 색
+        Boolean isBlack; // true면 블랙 등록 / false면 블랙 미등록
 
         public UserListDTO(User user) {
             this.userId = user.getId();
             this.name = user.getName();
             this.email = user.getEmail();
             this.reportCount = user.getReportCount();
-            this.state = user.getState();
+            isBlack = false;
+            if (user.getState() == UserEnum.ACTIVE) {
+                this.stateMessage = "승인";
+                this.stateColor = "approval";
+            } else if (user.getState() == UserEnum.QUIT) {
+                this.stateMessage = "탈퇴";
+                this.stateColor = "drop-out";
+            } else if (user.getState() == UserEnum.BLACK) {
+                this.stateMessage = "블랙";
+                this.stateColor = "black-list";
+                this.isBlack = true;
+            }
         }
     }
 
     // 관리자 페이지에서 출력할 유저 상세 정보
     @Data
     public static class UserDetailDTO {
-        private Integer id; // 유저 번호
+        private Integer userId; // 유저 번호
         private String email; // 이메일 (로그인 할 때 아이디로 사용)
         private String name; // 회원 이름
         private String phone; // 전화번호
-        private UserEnum state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
         private LocalDate birth; // 생년월일
-        private Integer reportCount; // 신고 받은 횟수
         private LocalDateTime createdAt; // 유저 가입 일자
+        private Integer reportCount; // 신고 받은 횟수
+        private String stateMessage; // 상태 메시지 한글
+        Boolean isBlack; // true면 블랙 등록 / false면 블랙 미등록
 
         public UserDetailDTO(User user) {
-            this.id = user.getId();
+            this.userId = user.getId();
             this.email = user.getEmail();
             this.name = user.getName();
             this.phone = user.getPhone();
-            this.state = user.getState();
             this.birth = user.getBirth();
-            this.reportCount = user.getReportCount();
             this.createdAt = user.getCreatedAt();
+            this.reportCount = user.getReportCount();
+            isBlack = false;
+            if (user.getState() == UserEnum.ACTIVE) {
+                this.stateMessage = "승인";
+            } else if (user.getState() == UserEnum.QUIT) {
+                this.stateMessage = "탈퇴";
+            } else if (user.getState() == UserEnum.BLACK) {
+                this.stateMessage = "블랙";
+                this.isBlack = true;
+            }
+
         }
     }
 
@@ -72,11 +95,10 @@ public class AdminResponse {
         private String businessAddress; // 사업자 주소
         private String phone; // 사업자 전화번호
         private String name; // 사업자 이름
+        private LocalDate createdAt; // 생성 일자
         private String stateMessage; // 상태 메시지 한글
         private String stateColor; // 상태 메시지 색
-        private LocalDate createdAt; // 생성 일자
         Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
-        Boolean isBlackCancel; // true 면 블랙 취소 버튼 활성 / false 면 블랙 취소 버튼 비활성
 
         public CompanyListDTO(Company company) {
             this.companyId = company.getId();
@@ -88,7 +110,6 @@ public class AdminResponse {
             this.name = company.getName();
             this.createdAt = LocalDate.from(company.getCreatedAt());
             isBlack = false;
-            isBlackCancel = true;
             if (company.getState() == CompanyEnum.ACTIVE) {
                 this.stateMessage = "승인";
                 this.stateColor = "approval";
@@ -105,7 +126,6 @@ public class AdminResponse {
                 this.stateMessage = "블랙";
                 this.stateColor = "black-list";
                 this.isBlack = true;
-                this.isBlackCancel = false;
             }
         }
     }
@@ -121,8 +141,8 @@ public class AdminResponse {
         private String name; // 사업자 이름
         private String phone; // 사업자 전화번호
         private LocalDateTime createdAt; // 기업 가입 일자
-        private String stateMessage; // 상태 메시지 한글
         private Integer reportCount; // 신고 받은 횟수
+        private String stateMessage; // 상태 메시지 한글
         Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
 
         public CompanyDetailDTO(Company company) {
@@ -134,10 +154,10 @@ public class AdminResponse {
             this.name = company.getName();
             this.phone = company.getPhone();
             this.createdAt = company.getCreatedAt();
-            isBlack = null;
+            this.reportCount = company.getReportCount();
+            isBlack = false;
             if (company.getState() == CompanyEnum.ACTIVE) {
                 this.stateMessage = "승인";
-                this.isBlack = false;
             } else if (company.getState() == CompanyEnum.PROGRESSING) {
                 this.stateMessage = "대기중";
             } else if (company.getState() == CompanyEnum.QUIT) {
@@ -148,7 +168,6 @@ public class AdminResponse {
                 this.stateMessage = "블랙";
                 this.isBlack = true;
             }
-            this.reportCount = company.getReportCount();
         }
     }
 
