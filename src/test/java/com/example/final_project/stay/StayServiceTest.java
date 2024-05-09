@@ -35,4 +35,22 @@ public class StayServiceTest {
         // then
 
     }
+
+    @Test
+    public void findStayDetail_test(){
+        // given
+        Integer stayId = 1;
+
+        // when
+        StayResponse.StayDetail respDTO = stayService.findStayDetail(stayId);
+
+        // eye
+        System.out.println("findStayDetail_test stayContentsDTO : " + respDTO.getStayContents().getStayId());
+        System.out.println("findStayDetail_test roomContentsDTOS.size : " + respDTO.getRoomContents().size());
+        System.out.println("findStayDetail_test roomContentsDTOS.getFirst : " + respDTO.getRoomContents().getFirst());
+
+        // then
+
+
+    }
 }

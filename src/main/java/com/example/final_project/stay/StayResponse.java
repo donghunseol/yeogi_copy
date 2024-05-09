@@ -1,13 +1,19 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.EventEnum;
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionResponse;
+import com.example.final_project.review.Review;
+import com.example.final_project.room.Room;
+import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -242,6 +248,70 @@ public class StayResponse {
                 this.imageName = stayImage.getName();
                 this.imagePath = stayImage.getPath();
                 this.name = stay.getName();
+            }
+        }
+    }
+
+    @Data
+    public static class StayDetail{
+        private StayDetail.StayContentsDTO stayContents;
+        private List<StayDetail.RoomContentsDTO> roomContents;
+
+        public StayDetail(StayDetail.StayContentsDTO stayContents, List<StayDetail.RoomContentsDTO> roomContents) {
+            this.stayContents = stayContents;
+            this.roomContents = roomContents;
+        }
+
+        @Data
+        public static class StayContentsDTO{
+            private Integer stayId;
+            private String stayName;
+            // TODO: 찜 필드 추가
+            private List<StayImage> stayImageList;
+            private List<Review> reviewList;
+            private List<OptionDTO> optionList;
+
+            public StayContentsDTO(Stay stay, List<StayImage> stayImageList, List<Review> reviewList, List<OptionDTO> optionList){
+                this.stayId = stay.getId();
+                this.stayName = stay.getName();
+                this.stayImageList = stayImageList;
+                this.reviewList = reviewList;
+                this.optionList = optionList;
+            }
+
+            @Data
+            public static class OptionDTO {
+                private String name;
+                private String iconName;
+
+                public OptionDTO(Option option){
+                    this.name = option.getName();
+                    this.iconName = option.getIconName();
+                }
+            }
+        }
+        @Data
+        public static class RoomContentsDTO{
+            private Integer roomId; // 객실 번호
+            private String roomName; // 객실 이름
+            private String roomTier; // 객실 티어
+            private Integer roomPrice; // 객실 가격
+            private RoomEnum roomSpecialState; // 객실 특가 적용 여부
+            private Integer roomSpecialPrice; // 객실 특가
+            private String roomImagePath; // 객실 대표 이미지
+            private LocalTime checkInTime; // 객실 체크인 시간
+            private LocalTime checkOutTime; // 객실 체크아웃 시간
+
+            public RoomContentsDTO(Room room, RoomInformation roomInformation){
+                this.roomId = room.getId();
+                this.roomName = room.getName();
+                this.roomTier = room.getTier();
+                this.roomPrice = room.getPrice();
+                this.roomSpecialState = room.getSpecialState();
+                this.roomSpecialPrice = room.getSpecialPrice();
+                this.roomImagePath = room.getImagePath();
+                this.checkInTime = roomInformation.getCheckIn();
+                this.checkOutTime = roomInformation.getCheckOut();
             }
         }
     }
