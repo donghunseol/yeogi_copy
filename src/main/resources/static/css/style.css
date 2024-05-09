@@ -801,7 +801,8 @@ p.login-title {
 }
 
 .join-form-wrapper .input-wrapper.email input {
-    max-width: 110px;
+    width: calc((100% - 100px));
+    margin-right: 10px;
 }
 
 .join-form-wrapper .input-wrapper span {
@@ -827,7 +828,7 @@ p.login-title {
 .join-form-wrapper .input-wrapper button {
     border-radius: 5px;
     border: none;
-    width: 100%;
+    width: 90px;
     background: rgb(244 88 88);
     color: #fff;
     height: 40px;

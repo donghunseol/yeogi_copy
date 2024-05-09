@@ -3,7 +3,7 @@
 <main role="main">
     <header class="comp-header">
         <div class="logo-wrapper">
-            <img src="/image/main_logo.jpg" alt="기업로고">
+            <img src="/images/main_logo.jpg" alt="기업로고">
         </div>
         <div class="right-content">
             <span>회원가입</span>
@@ -13,24 +13,15 @@
         <div class="join-content">
             <p class="title">비즈니스 회원가입</p>
             <div class="join-form-wrapper">
-                <form method="post" action="/company/join" enctype="application/x-www-form-urlencoded">
+                <form method="post" action="/company/join"  onsubmit="return valid()">
                     <input type="hidden" name="reportCount" value="0">
                     <input type="hidden" name ="state" value="PROGRESSING">
                     <div class="join-form-item">
                         <label for="emailId">이메일</label>
                         <div class="input-wrapper email">
-                            <input type="text" id="emailId" name="email" value="" placeholder="이메일 입력">
-                            <span>@</span>
-                            <input id="textEmail" name="textEmail" placeholder="이메일을 선택하세요.">
-                            <select id="select" name="select">
-                                <option value="" disabled selected>E-Mail 선택</option>
-                                <option value="naver.com" id="naver.com">naver.com</option>
-                                <option value="hanmail.net" id="hanmail.net">hanmail.net</option>
-                                <option value="gmail.com" id="gmail.com">gmail.com</option>
-                                <option value="nate.com" id="nate.com">nate.com</option>
-                                <option value="directly" id="directly">직접 입력하기</option>
-                            </select>
-                            <button id="checkDuplicateBtn" type="button">중복 확인</button>
+                            <input type="email" name="email" class="form-control" placeholder="Enter email" id="email" value ="com1@nate.com">
+                            <!--   <input type="email" id="email" name="email" placeholder="이메일 입력">-->
+                            <button type="button" onclick="emailSameCheck()">중복 확인</button>
                         </div>
                     </div>
                     <div class="join-form-item">
@@ -91,6 +82,42 @@
 </main>
 </body>
 <script>
+
+    let isSameCheck = false;
+
+    // 아이디 필드가 변경되면 중복 체크 상태를 초기화
+    $("#email").on("change", function () {
+        isSameCheck = false;
+    });
+
+    function valid() {
+        if (isSameCheck == false) {
+            alert("아이디 중복 체크를 해야합니다");
+            return false;
+        }
+        return true;
+    }
+
+    function emailSameCheck() {
+        let email = $("#email").val();
+        console.log(email);
+        $.ajax({
+            url: "/user/username-same-check?email=" + email,
+            type: "get"
+        }).done((res) => {
+            console.log(res);
+            if (res.body == true) {
+                isSameCheck = true;
+                alert("가입 가능한 아이디입니다");
+            } else {
+                isSameCheck = false;
+                alert("중복된 아이디가 존재합니다");
+            }
+        }).fail((res) => {
+            alert(res.responseJSON.msg);
+        });
+    }
+
     //주소찾기 관련 API
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -193,57 +220,11 @@
     });
 
 
-    // 이메일 도메인입력방식
-    $(function() {
-        $('#select').change(function() {
-            var selectedOption = $('#select').val();
-            if (selectedOption == 'directly') {
-                $('#textEmail').attr("disabled", false);
-                $('#textEmail').val("");
-                $('#textEmail').focus();
-            } else {
-                $('#textEmail').attr("disabled", true);
-                $('#textEmail').val(selectedOption);
-            }
-        });
-    });
-
-    // 이메일 중복확인
-    $(function() {
-        $('#checkDuplicateBtn').click(function() {
-            alert("사용가능한 이메일입니다.");
-            var email = $('#emailId').val();
-            var domain = $('#textEmail').val();
-            if (domain == 'directly') {
-                domain = $('#select').val();
-                email += '@' + domain;
-            }
-            // 이메일 중복 확인 AJAX 요청
-            $.ajax({
-                type: 'POST',
-                url: 'ProcessEmailServlet',
-                data: {email: email},
-                success: function(response) {
-                    if (response.trim() === 'duplicate') {
-                        // 중복인 경우 처리
-                        alert('중복된 이메일입니다.');
-                    } else {
-                        // 중복이 아닌 경우
-                        alert('중복되지 않은 이메일입니다.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // 에러 처리
-                    alert('오류가 발생했습니다.');
-                }
-            });
-        });
-    });
 
     // 회원가입 폼 제출 함수
     function submitForm() {
         // 필수 입력값 가져오기
-        var email = $('#emailId').val().trim();
+        var email = $('#email').val().trim();
         var password = $('#join-password').val().trim();
         var passwordConfirm = $('#join-password2').val().trim();
         var phoneNumber = $('#phoneNumber').val().trim();
@@ -252,7 +233,7 @@
         // 이메일, 비밀번호, 비밀번호 확인, 전화번호, 사업자 등록번호, 주소가 비어 있는지 확인
         if (email === '') {
             alert('이메일을 입력하세요.');
-            $('#emailId').focus();
+            $('#email').focus();
             return false;
         }
 

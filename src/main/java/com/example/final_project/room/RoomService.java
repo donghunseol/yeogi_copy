@@ -39,9 +39,11 @@ public class RoomService {
         Stay stay =stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("해당 기업이 없습니다"));
 
-
+        //객실 등록
         Room room = roomsRepository.save(reqDTO.toEntity(stay));
         RoomInformation roomInformation = roomInformationRepository.save(reqDTO.toEntity(room));
+        roomsRepository.save(room);
+        roomInformationRepository.save(roomInformation);
 
         return new RoomResponse.Save(room,roomInformation);
     }

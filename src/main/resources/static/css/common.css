@@ -153,11 +153,13 @@ section {
 
 aside {
     width: 300px;
-    height: 100vh;
     background-color: #343a40;
     color: #fff;
 }
-
+.side-wrapper{
+    position: sticky;
+    top: 0;
+}
 .content-page {
     width: calc(100% - 300px);
 }

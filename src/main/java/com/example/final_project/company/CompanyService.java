@@ -65,13 +65,6 @@ public class CompanyService {
     @Transactional
     public SessionCompany joinAndLogin(CompanyRequest.JoinDTO reqDTO) {
 
-        Optional<Company> companyOP = Optional.ofNullable(companyRepository.findByEmail(reqDTO.getEmail())
-                .orElseThrow(() -> new Exception404("해당 이메일을 찾을 수 없습니다")));
-
-        if (companyOP.isPresent()) {
-            throw new Exception400("중복된 이메일입니다");
-        }
-
         //회원가입
         Company joinUser = companyRepository.save(reqDTO.toEntity());
 
@@ -79,6 +72,11 @@ public class CompanyService {
         return new SessionCompany(joinUser);
 
     }
+
+    public Company findByEmail(String email) {
+        return companyRepository.findByEmail(email);
+    }
+
 
     // 회원수정
     @Transactional
