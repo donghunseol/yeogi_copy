@@ -17,7 +17,7 @@ public class PayController {
     private final HttpSession session;
 
     // 결제 환불 및 예약 취소
-    @PutMapping("/api/book/refund/{payId}")
+    @PutMapping("/api/reservation/refund/{payId}")
     public ResponseEntity<?> cancel(@PathVariable Integer payId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PayResponse.RefundAndCancelReservationDTO respDTO = payService.refundAndCancel(payId, sessionUser);
@@ -26,7 +26,7 @@ public class PayController {
     }
 
     // 결제 진행 (예약 시 결제 데이터 생성 / 이로인해 Put 으로 데이터 수정)
-    @PutMapping("/api/book/pay/{payId}")
+    @PutMapping("/api/reservation/pay/{payId}")
     public ResponseEntity<?> progress(@PathVariable Integer payId, @RequestBody PayRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         PayResponse.DTO respDTO = payService.modifyPay(reqDTO, sessionUser, payId);

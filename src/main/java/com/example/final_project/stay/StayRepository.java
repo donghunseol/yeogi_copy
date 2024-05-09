@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.RoomEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +37,16 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                                 @Param("roomPrice") Integer roomPrice,
                                 @Param("person") Integer person);
 
+    // [숙소] 카테고리숙소찾기
+    @Query("SELECT s from Stay s LEFT JOIN FETCH s.options o where s.category = : category")
+    List<Stay> findStayByCategory(@Param("category") String category);
+
+
+
+
+    @Query("SELECT DISTINCT s FROM Stay s " +
+            "LEFT JOIN s.options opt " +  // options 컬렉션은 기본적으로 LAZY 로딩
+            "LEFT JOIN s.rooms ro " +      // rooms 컬렉션은 기본적으로 LAZY 로딩
+            "WHERE ro.specialState = :APPLIED")
+    List<Stay> findStayBySpecial(@Param("APPLIED") RoomEnum APPLIED);
 }

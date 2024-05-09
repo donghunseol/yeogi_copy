@@ -35,4 +35,17 @@ public class StayServiceTest {
         // then
 
     }
+
+    @Test
+    public void findSpecialListByRoomEnum_test() {
+        // given
+
+        // when
+        List<StayResponse.SpecialpriceList> respDTO = stayService.findSpecialListByRoomEnum();
+
+        // eye
+        System.out.println("findSpecialListByRoomEnum_test/list" + respDTO);
+
+        // then
+    }
 }

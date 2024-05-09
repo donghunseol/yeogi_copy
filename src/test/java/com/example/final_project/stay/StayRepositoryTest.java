@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.RoomEnum;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,32 +29,32 @@ public class StayRepositoryTest {
         Assertions.assertThat(stayList.getFirst().getName()).isEqualTo("호텔 블루 하버");
     }
 
-    // 검색 쿼리 테스트
-    @Test
-    public void findBySearchStay_test() {
-        // given
-        LocalDate startDate = LocalDate.of(2024, 5, 30);
-        LocalDate endDate = LocalDate.of(2024, 6, 11);
-        StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
-                .checkInDate(startDate)
-                .checkOutDate(endDate)
-                .build();
-
-        // when
-        List<Stay> stays = stayRepository.findBySearchStay(reqDTO.getName(),
-                reqDTO.getAddress(),
-                reqDTO.getPrice(),
-                reqDTO.getPerson(),
-                reqDTO.getCheckInDate(),
-                reqDTO.getCheckOutDate());
-
-        // eye
-        System.out.println("findBySearchStay_test/size : " + stays.size());
-        stays.forEach(stay -> System.out.println("findBySearchStay_test : " + stay.getName()));
-
-        // then
-
-    }
+//    // 검색 쿼리 테스트
+//    @Test
+//    public void findBySearchStay_test() {
+//        // given
+//        LocalDate startDate = LocalDate.of(2024, 5, 30);
+//        LocalDate endDate = LocalDate.of(2024, 6, 11);
+//        StayRequest.SearchDTO reqDTO = StayRequest.SearchDTO.builder()
+//                .checkInDate(startDate)
+//                .checkOutDate(endDate)
+//                .build();
+//
+//        // when
+//        List<Stay> stays = stayRepository.findBySearchStay(reqDTO.getName(),
+//                reqDTO.getAddress(),
+//                reqDTO.getPrice(),
+//                reqDTO.getPerson(),
+//                reqDTO.getCheckInDate(),
+//                reqDTO.getCheckOutDate());
+//
+//        // eye
+//        System.out.println("findBySearchStay_test/size : " + stays.size());
+//        stays.forEach(stay -> System.out.println("findBySearchStay_test : " + stay.getName()));
+//
+//        // then
+//
+//    }
 
     //전체 숙소 테스트
     @Test
@@ -113,4 +114,15 @@ public class StayRepositoryTest {
 //
 //        // then
 //    }
+
+    @Test
+    public void findStayBySpecial_test() {
+        // given
+        RoomEnum state = RoomEnum.APPLIED; // 여기에서 직접 열거형 상태를 지정
+        // when
+        List<Stay> stayList = stayRepository.findStayBySpecial(state);
+        // then
+        System.out.println(stayList.size());
+        // 추가적인 검증 코드를 여기에 작성할 수 있습니다.
+    }
 }

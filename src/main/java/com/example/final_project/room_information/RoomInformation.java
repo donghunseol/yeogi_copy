@@ -1,6 +1,7 @@
 package com.example.final_project.room_information;
 
 import com.example.final_project.room.Room;
+import com.example.final_project.room.RoomResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -51,5 +52,11 @@ public class RoomInformation {
         this.maxPerson = maxPerson;
         this.moreInfo = moreInfo;
         this.createdAt = createdAt;
+    }
+
+    public RoomInformation(RoomResponse.Detail.RoomInfoDTO roomInfoDTO){
+        this.minPerson = roomInfoDTO.getMinPerson();
+        this.maxPerson = roomInfoDTO.getMaxPerson();
+        this.moreInfo = roomInfoDTO.getMoreinfo();
     }
 }

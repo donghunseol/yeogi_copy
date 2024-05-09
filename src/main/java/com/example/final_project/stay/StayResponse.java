@@ -3,6 +3,7 @@ package com.example.final_project.stay;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionResponse;
+import com.example.final_project.room.Room;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
@@ -66,7 +67,6 @@ public class StayResponse {
             }
         }
     }
-
 
     //숙소 수정 폼 DTO
     @Data
@@ -192,6 +192,25 @@ public class StayResponse {
         }
     }
 
+    // [특가] 숙소 리스트
+    @Data
+    public static class SpecialpriceList{
+        private Integer stayId;
+        private String imageName;
+        private String imagePath;
+        private String name;
+        private String address;
+        private String intro;
+
+        public SpecialpriceList(Stay stay, StayImage stayImage) {
+            this.stayId = stay.getId();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
 
     // 숙소 카테고리별 리스트
     @Data

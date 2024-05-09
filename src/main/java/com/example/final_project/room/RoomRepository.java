@@ -1,6 +1,7 @@
 package com.example.final_project.room;
 
 import com.example.final_project.company.CompanyResponse;
+import com.example.final_project.stay.Stay;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     List<Room> findByStayIdAndTier(@Param("stayId") Integer stayId, @Param("tier") String tier);
 
 
+    // [숙소] 특가숙소찾기
+    @Query("SELECT r from Room r LEFT JOIN FETCH r.roomInformation where r = : category")
+    List<Stay> findSpecialByCategory(@Param("category") String category);
 }

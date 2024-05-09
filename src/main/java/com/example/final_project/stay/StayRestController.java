@@ -15,8 +15,19 @@ public class StayRestController {
     private final StayService stayService;
     private final HttpSession session;
 
+    // [특가 숙소리스트]
+    @GetMapping("/stay/special")
+    public ResponseEntity<?> specialList() {
+        System.out.println(1);
+        List<StayResponse.SpecialpriceList> respDTO;
+        respDTO = stayService.findSpecialListByRoom();
+        System.out.println(2);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+
     // 숙소 검색 기능 (이름, 지역, 가격, 인원 수 별 검색)
-    @GetMapping("/stay")
+    @GetMapping("/stay/search")
     public ResponseEntity<?> searchStay(
             @RequestParam(required = false) String stayName,
             @RequestParam(required = false) String stayAddress,
@@ -80,6 +91,5 @@ public class StayRestController {
 
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
-
 
 }
