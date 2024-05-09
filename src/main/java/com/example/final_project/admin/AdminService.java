@@ -17,6 +17,7 @@ import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
 import com.example.final_project.stay_image.StayImageRepository;
+import com.example.final_project.user.SessionUser;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
@@ -50,13 +51,32 @@ public class AdminService {
         return respDTO;
     }
 
+    // 특정 기업의 정보 상세보기
+    public AdminResponse.UserDetailDTO adminUserDetail(Integer userId) {
+        Optional<User> userOP = userRepository.findById(userId);
+        User user = null;
+        if(userOP.isPresent()){
+            user = userOP.get();
+        }
+        return new AdminResponse.UserDetailDTO(user);
+    }
+
     // 블랙 리스트에 추가 (개인)
-    @Transactional
-    public void addUserBlackList(Integer userId) {
+    public SessionUser addUserToBlackList(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         user.setState(UserEnum.BLACK);
         userRepository.save(user);
+        return new SessionUser(user);
+    }
+
+    // 블랙 리스트에서 삭제 (개인)
+    public SessionUser removeUserFromBlackList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+        user.setState(UserEnum.ACTIVE);
+        userRepository.save(user);
+        return new SessionUser(user);
     }
 
     // 개인 회원을 클릭했을 때, 그 회원의 예약 정보 리스트
@@ -90,7 +110,7 @@ public class AdminService {
 
     // 특정 기업의 정보 상세보기
     public AdminResponse.CompanyDetailDTO adminCompanyDetail(Integer companyId) {
-        Optional<Company> companyOP = companyRepository.findByCompanyId(companyId);
+        Optional<Company> companyOP = companyRepository.findById(companyId);
         Company company = null;
         if(companyOP.isPresent()){
             company = companyOP.get();
@@ -98,9 +118,8 @@ public class AdminService {
         return new AdminResponse.CompanyDetailDTO(company);
     }
 
-
     // 블랙 리스트에 추가 (기업)
-    public SessionCompany addCompanyBlack(Integer companyId) {
+    public SessionCompany addCompanyToBlackList(Integer companyId) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.BLACK);
@@ -109,7 +128,7 @@ public class AdminService {
     }
 
     // 블랙 리스트에서 삭제 (기업)
-    public SessionCompany removeCompanyBlack(Integer companyId) {
+    public SessionCompany removeCompanyFromBlackList(Integer companyId) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.ACTIVE);
