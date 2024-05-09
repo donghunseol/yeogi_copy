@@ -37,6 +37,8 @@ public class Stay {
     @Column(nullable = false)
     private String address; // 숙소 주소
 
+    private String gps; // 나중에 추가할 필드(좌표)
+
     @Enumerated(EnumType.STRING)
     // @Column(nullable = false)
     private StayEnum state; // 상태 (TRUE : 사용 / FALSE : 탈퇴)
@@ -74,7 +76,6 @@ public class Stay {
         this.intro = reqDTO.getIntro();
         this.information = reqDTO.getInformation();
     }
-
 
 
     public void deleteStay(StayEnum state) {

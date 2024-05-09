@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,7 +39,6 @@ public class StayService {
     private final RoomRepository roomRepository;
     private final RoomInformationRepository roomInformationRepository;
 
-
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
 
@@ -50,6 +50,7 @@ public class StayService {
         if (!company.getId().equals(sessionUser.getId())) {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
         }
+
 
         Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
@@ -182,6 +183,39 @@ public class StayService {
                 .map(StayResponse.SearchListDTO::new)
                 .toList();
     }
+
+    // 특가숙소
+    public List<StayResponse.SpecialpriceList> findSpecialListByRoom() {
+        RoomEnum state = RoomEnum.APPLIED;
+        System.out.println(3);
+        // 특정 상태에 해당하는 숙소 리스트 조회
+        List<Stay> specialList = stayRepository.findStayBySpecial(state);
+        System.out.println(4);
+        // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
+        if (specialList == null) {
+            specialList = Collections.emptyList();
+        }
+        System.out.println(5);
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.SpecialpriceList> resultList = specialList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // SpecialpriceList 객체 생성
+                    return new StayResponse.SpecialpriceList(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+        System.out.println(6);
+        // 결과 리스트 반환
+        return resultList;
+    }
+
+
 
     @Transactional
     public StayResponse.AllList findAllStayWithCategory(){
