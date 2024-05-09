@@ -909,12 +909,22 @@ p.login-title {
     text-align: center;
 }
 .button-wrapper.stay{
-    text-align: left;
+    display: flex;
     margin-top: 10px;
-
+    width: 350px;
+}
+.button-wrapper.stay form{
+    width: calc((100% - 10px) / 2);
+    margin-right: 10px;
+}
+.button-wrapper.stay form:last-child{
+    margin-right: 0;
 }
 .button-wrapper.stay button{
-    width: 350px;
+    width: 100%;
+}
+.button-wrapper.stay button:last-child{
+    margin-right: 0;
 }
 .button-wrapper a.black.border {
     color: #333;
