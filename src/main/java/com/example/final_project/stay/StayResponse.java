@@ -1,13 +1,20 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.EventEnum;
+import com.example.final_project._core.enums.ReviewEnum;
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionResponse;
+import com.example.final_project.review.Review;
+import com.example.final_project.room.Room;
+import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -242,6 +249,123 @@ public class StayResponse {
                 this.imageName = stayImage.getName();
                 this.imagePath = stayImage.getPath();
                 this.name = stay.getName();
+            }
+        }
+    }
+
+    @Data
+    public static class StayDetail{
+        private StayDetail.StayContentsDTO stayContents;
+        private List<StayDetail.RoomContentsDTO> roomContents;
+
+        public StayDetail(StayDetail.StayContentsDTO stayContents, List<StayDetail.RoomContentsDTO> roomContents) {
+            this.stayContents = stayContents;
+            this.roomContents = roomContents;
+        }
+
+        // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
+        @Data
+        public static class StayContentsDTO{
+            private StayDTO stay;
+            // TODO: 찜 필드 추가
+            private List<StayImageDTO> stayImageList;
+            private List<ReviewDTO> reviewList;
+            private List<OptionDTO> optionList;
+
+            public StayContentsDTO(StayDTO stay, List<StayImageDTO> stayImageList, List<ReviewDTO> reviewList, List<OptionDTO> optionList){
+                this.stay = stay;
+                this.stayImageList = stayImageList;
+                this.reviewList = reviewList;
+                this.optionList = optionList;
+            }
+
+            @Data
+            public static class StayDTO {
+                private Integer stayId; // 숙소 번호
+                private String stayName; // 숙소 이름
+
+                public StayDTO(Stay stay) {
+                    this.stayId = stay.getId();
+                    this.stayName = stay.getName();
+                }
+            }
+
+            @Data
+            public static class StayImageDTO {
+                private Integer stayImageId; // 숙소 이미지 번호
+                private String stayImagePath; // 숙소 이미지 경로
+
+                public StayImageDTO(StayImage stayImage) {
+                    this.stayImageId = stayImage.getId();
+                    this.stayImagePath = stayImage.getPath();
+                }
+            }
+
+            @Data
+            public static class ReviewDTO {
+                private Integer reviewId; // 리뷰 번호
+                private Integer userId; // 회원 번호
+                private String userName; // 회원 이름
+                private Integer stayId; // 리뷰한 숙소의 번호
+                private Integer reviewScore; // 리뷰의 평점
+                private String reviewContent; // 리뷰의 내용
+                private ReviewEnum isDelete; // 리뷰 삭제 여부
+                private Integer reviewParentId; // 리뷰의 부모 댓글
+                private List<ReviewDTO> reviewChildrenList; // 리뷰의 자식 댓글(대댓글)
+
+                public ReviewDTO(Review review) {
+                    this.reviewId = review.getId();
+                    this.userId = review.getWriter().getId();
+                    this.userName = review.getWriter().getName();
+                    this.stayId = review.getStay().getId();
+                    this.reviewScore = review.getScore();
+                    this.reviewContent = review.getContent();
+                    this.isDelete = review.getIsDelete();
+                    if (review.getParent() != null) {
+                        this.reviewParentId = review.getParent().getId();
+                    }
+                    this.reviewChildrenList = review.getChildren().stream().map(ReviewDTO::new).collect(Collectors.toList());
+                }
+            }
+
+            @Data
+            public static class OptionDTO {
+                private Integer optionId;
+                private String name;
+                private String iconName;
+
+                public OptionDTO(Option option){
+                    this.optionId = option.getId();
+                    this.name = option.getName();
+                    this.iconName = option.getIconName();
+                }
+            }
+
+        }
+
+        // section2 (객실 리스트)
+        @Data
+        public static class RoomContentsDTO{
+            private Integer roomId; // 객실 번호
+            private String roomName; // 객실 이름
+            private String roomTier; // 객실 티어
+            private Integer roomPrice; // 객실 가격
+            private RoomEnum roomSpecialState; // 객실 특가 적용 여부
+            private Integer roomSpecialPrice; // 객실 특가
+            private String roomImagePath; // 객실 대표 이미지
+            private LocalTime checkInTime; // 객실 체크인 시간
+            private LocalTime checkOutTime; // 객실 체크아웃 시간
+
+            public RoomContentsDTO(Room room, RoomInformation roomInformation){
+                this.roomId = room.getId();
+                this.roomName = room.getName();
+                this.roomTier = room.getTier();
+                this.roomPrice = room.getPrice();
+                this.roomSpecialState = room.getSpecialState();
+                this.roomSpecialPrice = room.getSpecialPrice();
+                this.roomImagePath = room.getImagePath();
+                this.checkInTime = roomInformation.getCheckIn();
+                this.checkOutTime = roomInformation.getCheckOut();
             }
         }
     }
