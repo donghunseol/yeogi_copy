@@ -13,7 +13,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Query("select c from Company c where c.id = :companyId")
     Optional<Company> findByCompanyId(@Param("companyId") Integer companyId);
 
-    Optional<Company> findByEmail(@Param("email")String email);
 
     // 로그인 인증 쿼리
     @Query("select c from Company c where c.email = :email and c.password = :password")
@@ -23,4 +22,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Query("select c from Company c join fetch Stay s on c.id = s.company.id  where c.id = :stayId ")
     Optional<Company> findByStayId(@Param("stayId") Integer stayId);
 
+    //이메일 중복 확인
+    Company findByEmail(@Param("email") String email);
 }

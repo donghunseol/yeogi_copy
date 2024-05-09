@@ -30,7 +30,9 @@ public class RoomController {
     @PostMapping("/room/register/{stayId}")
     public String register(@PathVariable Integer stayId, @ModelAttribute RoomRequest.SaveDTO reqDTO){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
-        System.out.println("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-        return "redirect:/manage/stays/ "+ sessionUser +" /rooms";
+        System.out.println(reqDTO);
+        roomsService.register(stayId,sessionUser,reqDTO);
+
+        return "redirect:/manage/stays/"+stayId+"/rooms";
     }
 }
