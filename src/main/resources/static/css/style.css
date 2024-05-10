@@ -333,6 +333,10 @@ ul.tab-nav li.current {
     background-color: #333;
 }
 
+.hide-button {
+    background-color: #f8f8f8;
+}
+
 .approval {
     background: #03cf5d;
 }
@@ -1395,7 +1399,7 @@ p.tab-title {
 
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item {
     margin-top: 10px;
-    width: calc((50% - 5px));
+    width: calc((100% - 5px));
     display: flex;
     align-items: center;
     font-size: 14px;
