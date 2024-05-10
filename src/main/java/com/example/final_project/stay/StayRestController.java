@@ -46,6 +46,15 @@ public class StayRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // [캠핑 숙소리스트]
+    @GetMapping("/stays/camping")
+    public ResponseEntity<?> campingList(){
+        List<StayResponse.CampingList> respDTO;
+        respDTO = stayService.findCampingListByCategory();
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
 
     // 숙소 검색 기능 (이름, 지역, 가격, 인원 수 별 검색)
     @GetMapping("/stay/search")
