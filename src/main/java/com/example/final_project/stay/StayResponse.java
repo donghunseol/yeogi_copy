@@ -279,6 +279,26 @@ public class StayResponse {
         }
     }
 
+    // [모텔] 숙소 리스트
+    @Data
+    public static class MotelList{
+        private Integer stayId;
+        private String imageName;
+        private String imagePath;
+        private String name;
+        private String address;
+        private String intro;
+
+        public MotelList(Stay stay, StayImage stayImage) {
+            this.stayId = stay.getId();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
+
     // [홈]숙소 카테고리별 리스트
     @Data
     public static class AllList{
