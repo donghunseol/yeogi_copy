@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,10 +29,21 @@ public class CompanyController {
     @PostMapping("/company/login")
     public String login(CompanyRequest.LoginDTO reqDTO) {
 
-        SessionCompany company = companyService.login(reqDTO);
-        System.out.println(company);
-        session.setAttribute("sessionUser", company);
+        // 현재 시간 및 날짜 가져오기
+        LocalDateTime now = LocalDateTime.now();
 
+        // 시간 및 날짜
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedTime = now.format(formatter); // 날짜 및 시간
+        String formattedDate = now.format(formatterDate); // 날짜
+
+
+        SessionCompany company = companyService.login(reqDTO);
+
+        session.setAttribute("sessionUser", company);
+        session.setAttribute("loginTime",formattedTime);
+        session.setAttribute("today",formattedDate);
         return "redirect:/manage/stays";
     }
 
@@ -94,6 +107,7 @@ public class CompanyController {
                                   @PathVariable Integer stayId,
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+
 
         if(tier.isBlank()){
             CompanyResponse.CompanyStayListDTO stayRespDTO = companyService.companyStay(stayId);

@@ -102,7 +102,7 @@
         let email = $("#email").val();
         console.log(email);
         $.ajax({
-            url: "/user/username-same-check?email=" + email,
+            url: "/company/emailCheck=" + email,
             type: "get"
         }).done((res) => {
             console.log(res);

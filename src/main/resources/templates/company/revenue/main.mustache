@@ -14,15 +14,23 @@
                         <p class="tab-title">총 수익</p>
                         <div class="stay-detail">
                             <div class="content top">
+                                <div class="img-wrapper">
+                                    <img src="/images/hotel.png" alt="기업사진들어갈 자리">
+                                </div>
                                 <div class="text-wrapper">
                                     <p class="text-item">
-                                        <span class="head"><i
-                                                class="fa-solid fa-dollar-sign"></i><em>기업 총 수익</em></span>
+                                        <span class="head">
+                                            <i class="fa-solid fa-dollar-sign"></i><em>기업 이름</em></span>
+                                        <span class="body" id="totalIncome"></span>
+                                    </p>
+                                    <p class="text-item">
+                                        <span class="head">
+                                            <i class="fa-solid fa-dollar-sign"></i><em>기업 총 수익</em></span>
                                         <span class="body" id="totalIncome">{{totalIncome.totalIncome}}원</span>
                                     </p>
                                     <p class="text-item">
-                                        <span class="head"><i
-                                                class="fa-solid fa-check"></i><em>기업 전체 예약 수</em></span>
+                                        <span class="head">
+                                            <i class="fa-solid fa-check"></i><em>기업 전체 예약 수</em></span>
                                         <span class="body" id="number">{{totalIncome.reservationCount}}개</span>
                                     </p>
                                 </div>
@@ -41,6 +49,7 @@
                                         <li>
                                             <div class="item">
                                                 <div class="text-wrapper">
+
                                                     <p class="text-item">
                                                         <span class="head"><i></i><em>숙소 총 수익</em></span>
                                                         <span class="body" id="stayIncome">{{totalIncome}}원</span>

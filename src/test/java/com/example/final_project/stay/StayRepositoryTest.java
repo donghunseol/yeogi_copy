@@ -9,6 +9,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @DataJpaTest
 public class StayRepositoryTest {
     @Autowired
@@ -28,7 +31,7 @@ public class StayRepositoryTest {
         // then
         Assertions.assertThat(stayList.getFirst().getName()).isEqualTo("호텔 블루 하버");
     }
-    
+
 //    // 검색 쿼리 테스트
 //    @Test
 //    public void findBySearchStay_test() {
@@ -146,9 +149,21 @@ public class StayRepositoryTest {
         // given
         RoomEnum state = RoomEnum.APPLIED; // 여기에서 직접 열거형 상태를 지정
         // when
-        List<Stay> stayList = stayRepository.findStayBySpecial(state);
+        List<Stay> stayList = stayRepository.findStayBySale(state);
         // then
         System.out.println(stayList.size());
         // 추가적인 검증 코드를 여기에 작성할 수 있습니다.
+    }
+
+    @Test
+    public void findStayByOversea_test() {
+        // given
+
+        // when
+        List<Stay> stayList = stayRepository.findStayByOversea();
+
+        // then
+
+        System.out.println("결과값 ===============================================" + stayList.size());
     }
 }

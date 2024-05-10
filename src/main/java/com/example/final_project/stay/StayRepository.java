@@ -37,16 +37,21 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
                                 @Param("roomPrice") Integer roomPrice,
                                 @Param("person") Integer person);
 
-    // [숙소] 카테고리숙소찾기
-    @Query("SELECT s from Stay s LEFT JOIN FETCH s.options o where s.category = : category")
-    List<Stay> findStayByCategory(@Param("category") String category);
+    // [숙소] 해외리스트
+    @Query("SELECT s from Stay s LEFT JOIN FETCH s.options opt LEFT JOIN s.rooms ro where s.category = '해외'")
+    List<Stay> findStayByOversea();
+
+    // [숙소] 해외리스트
+    @Query("SELECT s FROM Stay s LEFT JOIN s.options opt LEFT JOIN s.rooms ro WHERE s.category = :category")
+    List<Stay> findStayByCateg(@Param("category") String category);
 
 
-
-
+    // [숙소] 특가리스트
     @Query("SELECT DISTINCT s FROM Stay s " +
             "LEFT JOIN s.options opt " +  // options 컬렉션은 기본적으로 LAZY 로딩
             "LEFT JOIN s.rooms ro " +      // rooms 컬렉션은 기본적으로 LAZY 로딩
             "WHERE ro.specialState = :APPLIED")
-    List<Stay> findStayBySpecial(@Param("APPLIED") RoomEnum APPLIED);
+    List<Stay> findStayBySale(@Param("APPLIED") RoomEnum APPLIED);
+
+
 }

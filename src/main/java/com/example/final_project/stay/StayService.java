@@ -185,24 +185,24 @@ public class StayService {
     }
 
     // 특가숙소
-    public List<StayResponse.SpecialpriceList> findSpecialListByRoom() {
+    public List<StayResponse.SaleList> findSpecialListByRoom() {
         RoomEnum state = RoomEnum.APPLIED;
-        System.out.println(3);
+
         // 특정 상태에 해당하는 숙소 리스트 조회
-        List<Stay> specialList = stayRepository.findStayBySpecial(state);
-        System.out.println(4);
+        List<Stay> specialList = stayRepository.findStayBySale(state);
+
         // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
         if (specialList == null) {
             specialList = Collections.emptyList();
         }
-        System.out.println(5);
+
         // 숙소 리스트를 매핑하여 결과 리스트 생성
-        List<StayResponse.SpecialpriceList> resultList = specialList.stream()
+        List<StayResponse.SaleList> resultList = specialList.stream()
                 .map(stay -> {
                     // 각 숙소에 대한 이미지 조회
                     StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
                     // SpecialpriceList 객체 생성
-                    return new StayResponse.SpecialpriceList(stay, stayImage);
+                    return new StayResponse.SaleList(stay, stayImage);
                 })
                 .collect(Collectors.toList());
 
@@ -210,10 +210,49 @@ public class StayService {
         if (resultList == null) {
             resultList = Collections.emptyList();
         }
-        System.out.println(6);
+
         // 결과 리스트 반환
         return resultList;
     }
+
+
+    // 해외숙소
+    public List<StayResponse.OverseaList> findOverseaListByCategory(){
+
+        // 해외 숙소찾기
+        List<Stay> overSeaList = stayRepository.findStayByOversea();
+
+        // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
+        if (overSeaList == null) {
+            overSeaList = Collections.emptyList();
+        }
+
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.OverseaList> resultList = overSeaList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // SpecialpriceList 객체 생성
+                    return new StayResponse.OverseaList(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+
+        // 결과 리스트 반환
+        return resultList;
+
+    }
+
+
+
+
+
+
+
 
 
 

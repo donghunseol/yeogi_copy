@@ -2,7 +2,38 @@
 <body>
 <main role="main">
     <section id="section n1">
-        {{> company/layout/side}}
+        <aside class="side-bar">
+            <div class="side-wrapper">
+                <div class="side-content header">
+                    <figure>
+                        <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
+                    </figure>
+                    <span>여어떻노</span>
+                </div>
+                {{#sessionUser}}
+                    <div class="side-content info">
+                        <p>기업이름 : {{businessName}}</p>
+                        <p>접속일시 : {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
+                        <p>승인상태 : {{state}}</p>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                {{/sessionUser}}
+                <div class="side-menu">
+                    <p class="head-menu active"><i class="fa-solid fa-building"></i>숙소관리</p>
+                    <ul class="sub active">
+                        <li class="on"><a href="/manage/stays">숙소관리</a></li>
+                        <li><a href="/reservations/status">예약현황</a></li>
+                        <li><a href="/revenue">매출현황</a></li>
+                    </ul>
+                </div>
+                <div class="side-menu">
+                    <p class="head-menu"><i class="fa-solid fa-user"></i>내 정보 관리</p>
+                    <ul class="sub">
+                        <li><a href="/company/information">정보수정</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
         <div class="content-page">
             <div class="content-tab-bar">
                 <div class="tab-content current">
@@ -38,7 +69,7 @@
                                 <div class="room-head">
                                     <div class = "head-text-wrapper">
                                         <p class="sub-title">{{roomTier}} 객실 리스트</p>
-                                        <p class="sub-info">2024-05-01 기준</p>
+                                        <p class="sub-info">{{#sessionUser}}{{today}}{{/sessionUser}} 기준</p>
                                     </div>
                                     <form action="/room/register" method="get">
                                         <button class="btn black">객실 추가하기</button>
@@ -46,12 +77,14 @@
                                 </div>
                         {{/stayList}}
                                 <ul>
+
                                     <!-- <li class="unknown">
                                         <div class="item">
                                             <span>등록된 객실이 없습니다.</span>
                                         </div>
                                     </li> -->
                                     {{#roomDetailList}}
+
                                     <li>
                                         <div class="room item">
                                             <div class="img-wrapper">

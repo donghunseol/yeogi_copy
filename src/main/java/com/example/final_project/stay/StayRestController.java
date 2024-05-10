@@ -19,12 +19,21 @@ public class StayRestController {
     private final HttpSession session;
 
     // [특가 숙소리스트]
-    @GetMapping("/stays/special")
-    public ResponseEntity<?> specialList() {
-        System.out.println(1);
+    @GetMapping("/stays/sale")
+    public ResponseEntity<?> saleList() {
+
         List<StayResponse.SpecialpriceList> respDTO;
         respDTO = stayService.findSpecialListByRoom();
-        System.out.println(2);
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // [해외 숙소리스트]
+    @GetMapping("/stays/oversea")
+    public ResponseEntity<?> overseaList(){
+        List<StayResponse.OverseaList> respDTO;
+        respDTO = stayService.findOverseaListByCategory();
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

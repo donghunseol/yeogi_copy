@@ -21,7 +21,7 @@ public class CompanyRestController {
                .body(new ApiUtil<>(null));
     }
 
-    @GetMapping("/user/username-same-check")
+    @GetMapping("/company/emailCheck")
     public @ResponseBody ApiUtil<?> usernameSameCheck(String email) {
         Company user = companyService.findByEmail(email);
         if (user == null) {
