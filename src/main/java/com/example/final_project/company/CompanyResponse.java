@@ -162,6 +162,7 @@ public class CompanyResponse {
       private String reservationName; // 예약자 대표 이름
       private String reservationTel; // 예약자 대표 연락처
       private Integer payId; // 결제 번호
+      private String payState; // 결제 상태
       private LocalDateTime payAt; // 결제 일자
       private Integer amount; // 결제 금액
       private String way; // 결제 수단
@@ -180,6 +181,13 @@ public class CompanyResponse {
          this.reservationName = reservation.getReservationName();
          this.reservationTel = reservation.getReservationTel();
          this.payId = pay.getId();
+         if(pay.getState() == PayEnum.REFUND){
+            this.payState = "예약 취소";
+         } else if(pay.getState() == PayEnum.COMPLETION){
+            this.payState = "예약 완료";
+         } else if(pay.getState() == PayEnum.PROCESSING) {
+            this.payState = "예약 완료";
+         }
          this.payAt = pay.getCreatedAt();
          this.amount = pay.getAmount();
          this.way = pay.getWay();

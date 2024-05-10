@@ -27,10 +27,11 @@
                         </form>
                         <table>
                             <colgroup>
-                                <col width="30%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="20%">
                                 <col width="15%">
-                                <col width="20%">
-                                <col width="20%">
                                 <col width="15%">
                             </colgroup>
                             <thead>
@@ -39,6 +40,7 @@
                                 <th scope="col">예약자</th>
                                 <th scope="col">체크인</th>
                                 <th scope="col">체크아웃</th>
+                                <th scope="col">예약 현황</th>
                                 <th scope="col">상세보기</th>
                             </tr>
                             </thead>
@@ -49,6 +51,7 @@
                                     <td>{{reservationName}}</td>
                                     <td>{{checkInDate}}  {{checkInTime}}</td>
                                     <td>{{checkOutDate}}  {{checkOutTime}}</td>
+                                    <td>{{payState}}</td>
                                     <td><span class="detail">상세보기</span></td>
                                 </tr>
                             {{/reservationList}}
