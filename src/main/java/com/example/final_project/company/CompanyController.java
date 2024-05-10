@@ -34,7 +34,9 @@ public class CompanyController {
 
         // 시간 및 날짜 포맷 지정
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedTime = now.format(formatter);
+        String formattedDate = now.format(formatterDate);
 
         // 사용자에게 보여줄 메시지 출력
         System.out.println("로그인한 시간 및 날짜: " + formattedTime);
@@ -43,6 +45,7 @@ public class CompanyController {
 
         session.setAttribute("sessionUser", company);
         session.setAttribute("loginTime",formattedTime);
+        session.setAttribute("today",formattedDate);
         return "redirect:/manage/stays";
     }
 
@@ -106,6 +109,7 @@ public class CompanyController {
                                   @PathVariable Integer stayId,
                                   @RequestParam(defaultValue = "", name = "tier") String tier) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+
 
         if(tier.isBlank()){
             CompanyResponse.CompanyStayListDTO stayRespDTO = companyService.companyStay(stayId);
