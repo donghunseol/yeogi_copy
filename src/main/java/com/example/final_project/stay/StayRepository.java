@@ -61,6 +61,10 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     @Query("SELECT s from Stay s LEFT JOIN FETCH s.options opt LEFT JOIN s.rooms ro where s.category = '홈&빌라'")
     List<Stay> findStayByHomeAndVilla();
 
+    // [숙소] 게하리스트
+    @Query("SELECT s from Stay s LEFT JOIN FETCH s.options opt LEFT JOIN s.rooms ro where s.category = '게스트하우스'")
+    List<Stay> findStayByGuesthouse();
+
     // [숙소] 특가리스트
     @Query("SELECT DISTINCT s FROM Stay s " +
             "LEFT JOIN s.options opt " +  // options 컬렉션은 기본적으로 LAZY 로딩
