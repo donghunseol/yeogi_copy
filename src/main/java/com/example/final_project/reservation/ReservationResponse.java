@@ -47,7 +47,6 @@ public class ReservationResponse {
         private Integer price; // 예약한 객실의 가격
         private Integer roomId; // 예약한 객실의 번호
         private String roomName; // 예약한 객실의 이름
-        private Integer date; // 숙박하는 날짜 수 (ex.5박)
         private LocalDate checkInDate; // 체크인 날짜
         private LocalTime checkInTime; // 체크인 시간
         private LocalDate checkOutDate; // 체크아웃 날짜
@@ -61,7 +60,6 @@ public class ReservationResponse {
             this.price = room.getPrice();
             this.roomId = reservation.getRoom().getId();
             this.roomName = room.getName();
-            this.date = DateUtil.getDateCount(reservation);
             this.checkInDate = reservation.getCheckInDate();
             this.checkInTime = room.getRoomInformation().getCheckIn();
             this.checkOutDate = reservation.getCheckOutDate();
