@@ -59,8 +59,8 @@ public class RoomResponse {
         private String imagePath;
         private String tier;
         private Integer price;
-        private Integer specialPrice;
-        private RoomEnum specialState;
+        private Integer salePrice;
+        private RoomEnum saleState;
         private RoomInfoDTO information;
 
         public Detail(Room room, RoomInfoDTO roomInfoDTO) {
@@ -68,8 +68,8 @@ public class RoomResponse {
             this.imagePath = room.getImagePath();
             this.tier = room.getTier();
             this.price = room.getPrice();
-            this.specialPrice = room.getSpecialPrice();
-            this.specialState = room.getSpecialState();
+            this.salePrice = room.getSpecialPrice();
+            this.saleState = room.getSpecialState();
             this.information = roomInfoDTO;
         }
 
