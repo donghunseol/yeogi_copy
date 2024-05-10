@@ -64,6 +64,16 @@ public class StayRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // [펜션 숙소리스트]
+    @GetMapping("/stays/pension")
+    public ResponseEntity<?> pensionList(){
+        List<StayResponse.PensionList> respDTO;
+        respDTO = stayService.findPentionByCategory();
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+
+    }
+
     // 숙소 검색 기능 (이름, 지역, 가격, 인원 수 별 검색)
     @GetMapping("/stay/search")
     public ResponseEntity<?> searchStay(
