@@ -51,8 +51,8 @@
                                             <span>등록된 객실이 없습니다.</span>
                                         </div>
                                     </li> -->
+                                    {{#roomDetailList}}
                                     <li>
-                                        {{#roomDetailList}}
                                         <div class="room item">
                                             <div class="img-wrapper">
                                                 <img src="{{roomImagePath}}" alt="객실 이미지">
@@ -82,10 +82,14 @@
                                                     </div>
                                                 </form>
                                             {{/payState}}
-                                            {{^payState}}{{/payState}}
+                                            {{^payState}}
+                                                <div class="room button-wrapper">
+                                                    <button class="btn hide-button"></button>
+                                                </div>
+                                            {{/payState}}
                                         </div>
-                                        {{/roomDetailList}}
                                     </li>
+                                    {{/roomDetailList}}
                                 </ul>
                             </div>
                         </div>
