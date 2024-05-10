@@ -215,7 +215,6 @@ public class StayService {
         return resultList;
     }
 
-
     // 해외숙소
     public List<StayResponse.OverseaList> findOverseaListByCategory(){
 
