@@ -28,8 +28,7 @@ public class StayRepositoryTest {
         // then
         Assertions.assertThat(stayList.getFirst().getName()).isEqualTo("호텔 블루 하버");
     }
-
-<<<<<<< HEAD
+    
 //    // 검색 쿼리 테스트
 //    @Test
 //    public void findBySearchStay_test() {
