@@ -238,6 +238,28 @@ public class StayResponse {
         }
     }
 
+
+    // [호텔] 숙소 리스트
+    @Data
+    public static class HotelList{
+        private Integer stayId;
+        private String imageName;
+        private String imagePath;
+        private String name;
+        private String address;
+        private String intro;
+
+        public HotelList(Stay stay, StayImage stayImage) {
+            this.stayId = stay.getId();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
+
+
     // 숙소 카테고리별 리스트
     @Data
     public static class AllList{
