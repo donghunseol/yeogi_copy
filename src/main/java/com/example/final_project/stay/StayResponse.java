@@ -198,9 +198,9 @@ public class StayResponse {
         }
     }
 
-    // [특가] 숙소 리스트
+    // [해외] 숙소 리스트
     @Data
-    public static class SpecialpriceList{
+    public static class OverseaList{
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -208,7 +208,27 @@ public class StayResponse {
         private String address;
         private String intro;
 
-        public SpecialpriceList(Stay stay, StayImage stayImage) {
+        public OverseaList(Stay stay, StayImage stayImage) {
+            this.stayId = stay.getId();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
+
+    // [특가] 숙소 리스트
+    @Data
+    public static class SaleList{
+        private Integer stayId;
+        private String imageName;
+        private String imagePath;
+        private String name;
+        private String address;
+        private String intro;
+
+        public SaleList(Stay stay, StayImage stayImage) {
             this.stayId = stay.getId();
             this.imageName = stayImage.getName();
             this.imagePath = stayImage.getPath();

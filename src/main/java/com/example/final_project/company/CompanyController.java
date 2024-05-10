@@ -32,11 +32,12 @@ public class CompanyController {
         // 현재 시간 및 날짜 가져오기
         LocalDateTime now = LocalDateTime.now();
 
-        // 시간 및 날짜 지정
+        // 시간 및 날짜
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedTime = now.format(formatter); // 날짜 및 시간
         String formattedDate = now.format(formatterDate); // 날짜
+
 
         SessionCompany company = companyService.login(reqDTO);
 

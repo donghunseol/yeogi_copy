@@ -28,6 +28,15 @@ public class StayRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // [해외 숙소리스트]
+    @GetMapping("/stays/oversea")
+    public ResponseEntity<?> overseaList(){
+        List<StayResponse.OverseaList> respDTO;
+        respDTO = stayService.findOverseaListByCategory();
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
 
     // 숙소 검색 기능 (이름, 지역, 가격, 인원 수 별 검색)
     @GetMapping("/stay/search")
