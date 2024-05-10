@@ -22,7 +22,7 @@ public class StayRestController {
     @GetMapping("/stays/sale")
     public ResponseEntity<?> saleList() {
 
-        List<StayResponse.SpecialpriceList> respDTO;
+        List<StayResponse.SaleList> respDTO;
         respDTO = stayService.findSpecialListByRoom();
 
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
