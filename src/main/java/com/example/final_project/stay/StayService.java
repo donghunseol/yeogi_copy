@@ -333,7 +333,7 @@ public class StayService {
         return resultList;
     }
 
-    // 펜션
+    // 펜션숙소
     public List<StayResponse.PensionList> findPentionByCategory(){
 
         List<Stay> pentionList = stayRepository.findStayByPention();
@@ -362,7 +362,7 @@ public class StayService {
         return resultList;
     }
 
-    // 홈&빌라
+    // 홈&빌라숙소
     public  List<StayResponse.HomeAndVillaList> findHomeAndVillaByCategory(){
 
         List<Stay> homeAndVillaList = stayRepository.findStayByHomeAndVilla();
@@ -391,7 +391,7 @@ public class StayService {
         return resultList;
     }
 
-    // 게하
+    // 게스트하우스숙소
     public List<StayResponse.GuesthouseList> findGuesthouseByCategory(){
 
         List<Stay> guesthouseList = stayRepository.findStayByGuesthouse();
