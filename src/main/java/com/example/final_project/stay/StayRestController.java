@@ -75,7 +75,7 @@ public class StayRestController {
     }
 
     // [홈&빌라 숙소리스트]
-    @GetMapping("/stays/homeAndVilla")
+    @GetMapping("/stays/home-and-villa")
     public ResponseEntity<?> homeAndVilla(){
         List<StayResponse.HomeAndVillaList> respDTO;
         respDTO = stayService.findHomeAndVillaByCategory();
