@@ -215,7 +215,6 @@ public class StayService {
         return resultList;
     }
 
-
     // 해외숙소
     public List<StayResponse.OverseaList> findOverseaListByCategory(){
 
@@ -276,13 +275,68 @@ public class StayService {
         return resultList;
     }
 
-    // 모텔숙소
+    // 캠핑숙소
+    public List<StayResponse.CampingList> findCampingListByCategory(){
 
+        List<Stay> campingList = stayRepository.findStayByCamping();
+
+        // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
+        if (campingList == null) {
+            campingList = Collections.emptyList();
+        }
+
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.CampingList> resultList = campingList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // SpecialpriceList 객체 생성
+                    return new StayResponse.CampingList(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+
+        // 결과 리스트 반환
+        return resultList;
+    }
+
+    // 모텔숙소
+    public List<StayResponse.MotelList> findMotelListByCategory(){
+
+        List<Stay> motelList = stayRepository.findStayByMotel();
+
+        // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
+        if (motelList == null) {
+            motelList = Collections.emptyList();
+        }
+
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.MotelList> resultList = motelList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // SpecialpriceList 객체 생성
+                    return new StayResponse.MotelList(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+
+        // 결과 리스트 반환
+        return resultList;
+    }
     // 펜션
 
     // 홈%빌라
 
-    // 캠핑
+
 
     // 게하
 
