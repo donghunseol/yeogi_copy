@@ -9,7 +9,7 @@
         {{#sessionUser}}
             <div class="side-content info">
                 <p>기업이름 : {{businessName}}</p>
-                <p>접속일시 : 2024.04.05</p>
+                <p>접속일시 : {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
                 <p>승인상태 : {{state}}</p>
                 <a href="/logout">로그아웃</a>
             </div>

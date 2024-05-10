@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,10 +29,20 @@ public class CompanyController {
     @PostMapping("/company/login")
     public String login(CompanyRequest.LoginDTO reqDTO) {
 
-        SessionCompany company = companyService.login(reqDTO);
-        System.out.println(company);
-        session.setAttribute("sessionUser", company);
+        // 현재 시간 및 날짜 가져오기
+        LocalDateTime now = LocalDateTime.now();
 
+        // 시간 및 날짜 포맷 지정
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = now.format(formatter);
+
+        // 사용자에게 보여줄 메시지 출력
+        System.out.println("로그인한 시간 및 날짜: " + formattedTime);
+
+        SessionCompany company = companyService.login(reqDTO);
+
+        session.setAttribute("sessionUser", company);
+        session.setAttribute("loginTime",formattedTime);
         return "redirect:/manage/stays";
     }
 
