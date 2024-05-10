@@ -363,6 +363,34 @@ public class StayService {
     }
 
     // 홈&빌라
+    public  List<StayResponse.HomeAndVillaList> findHomeAndVillaByCategory(){
+
+        List<Stay> homeAndVillaList = stayRepository.findStayByHomeAndVilla();
+
+        // 조회된 숙소 리스트가 null이면 빈 리스트로 초기화
+        if (homeAndVillaList == null) {
+            homeAndVillaList = Collections.emptyList();
+        }
+
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.HomeAndVillaList> resultList = homeAndVillaList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // SpecialpriceList 객체 생성
+                    return new StayResponse.HomeAndVillaList(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+
+        // 결과 리스트 반환
+        return resultList;
+    }
+
     // 게하
 
 

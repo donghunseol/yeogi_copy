@@ -299,7 +299,7 @@ public class StayResponse {
         }
     }
 
-    // [모텔] 펜션 리스트
+    // [펜션] 숙소 리스트
     @Data
     public static class PensionList{
         private Integer stayId;
@@ -310,6 +310,26 @@ public class StayResponse {
         private String intro;
 
         public PensionList(Stay stay, StayImage stayImage) {
+            this.stayId = stay.getId();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
+            this.name = stay.getName();
+            this.address = stay.getAddress();
+            this.intro = stay.getIntro();
+        }
+    }
+
+    // [홈 & 빌라] 숙소 리스트
+    @Data
+    public static class HomeAndVillaList{
+        private Integer stayId;
+        private String imageName;
+        private String imagePath;
+        private String name;
+        private String address;
+        private String intro;
+
+        public HomeAndVillaList(Stay stay, StayImage stayImage) {
             this.stayId = stay.getId();
             this.imageName = stayImage.getName();
             this.imagePath = stayImage.getPath();
