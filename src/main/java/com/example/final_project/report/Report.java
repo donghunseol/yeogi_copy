@@ -1,9 +1,7 @@
 package com.example.final_project.report;
 
 import com.example.final_project._core.enums.ReportEnum;
-import com.example.final_project.company.Company;
 import com.example.final_project.review.Review;
-import com.example.final_project.review_comment.ReviewComment;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import jakarta.persistence.*;

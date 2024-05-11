@@ -1,9 +1,6 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
-import com.example.final_project.company.Company;
-import com.example.final_project.report.Report;
-import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
 
@@ -34,14 +31,12 @@ public class ReviewResponse {
             private Integer id;
             private String email;
             private String name;
-            private String phone;
             private Integer reportCount;
 
             public UserDTO(User writer) {
                 this.id = writer.getId();
                 this.email = writer.getEmail();
                 this.name = writer.getName();
-                this.phone = writer.getPhone();
                 this.reportCount = writer.getReportCount();
             }
         }
@@ -49,7 +44,7 @@ public class ReviewResponse {
         public static ReviewResponse.Save convertReviewToDTO(Review review){
             return review.getIsDelete().equals("COMPLETE") ?
                     new ReviewResponse.Save(review.getId(),null,"삭제된 댓글입니다.",null) :
-                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getWriter()), review.getContent(), review.getScore());
+                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getUser()), review.getContent(), review.getScore());
         }
 
     }
@@ -151,7 +146,7 @@ public class ReviewResponse {
         public ReportForm(Review review) {
             this.id = review.getId();
             this.stayId = review.getStay().getId();
-            this.userId = review.getWriter().getId();
+            this.userId = review.getUser().getId();
             this.reviewId = review.getId();
             this.content = review.getContent();
         }
@@ -185,7 +180,7 @@ public class ReviewResponse {
 
             public ReviewDTO(Review review) {
                 this.id = review.getId();
-                this.userId = review.getWriter().getId();
+                this.userId = review.getUser().getId();
                 this.stayId = review.getStay().getId();
                 this.content = review.getContent();
                 this.score = review.getScore();

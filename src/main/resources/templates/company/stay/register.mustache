@@ -43,7 +43,7 @@
                     </div>
                     <div class="tab-item company info">
                         <p class="tab-title">숙소등록</p>
-                        <form action="/stay/register" method="post">
+                        <form action="/stay/register" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="companyId" value="{{sessionUser.id}}">
                             <input type="hidden" name="state" value="TRUE">
                             <div class="register-detail-wrapper">

@@ -1,6 +1,5 @@
 package com.example.final_project.stay;
 
-import com.example.final_project._core.enums.EventEnum;
 import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
@@ -441,10 +440,14 @@ public class StayResponse {
             public static class StayDTO {
                 private Integer stayId; // 숙소 번호
                 private String stayName; // 숙소 이름
+                private String information; //숙소 인포메이션
+                private String intro;
 
                 public StayDTO(Stay stay) {
                     this.stayId = stay.getId();
                     this.stayName = stay.getName();
+                    this.information = stay.getInformation();
+                    this.intro = stay.getIntro();
                 }
             }
 
@@ -473,8 +476,8 @@ public class StayResponse {
 
                 public ReviewDTO(Review review) {
                     this.reviewId = review.getId();
-                    this.userId = review.getWriter().getId();
-                    this.userName = review.getWriter().getName();
+                    this.userId = review.getUser().getId();
+                    this.userName = review.getUser().getName();
                     this.stayId = review.getStay().getId();
                     this.reviewScore = review.getScore();
                     this.reviewContent = review.getContent();

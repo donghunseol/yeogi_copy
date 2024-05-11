@@ -1,6 +1,5 @@
 package com.example.final_project.scrap;
 
-import com.example.final_project.report.Report;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import lombok.Data;
