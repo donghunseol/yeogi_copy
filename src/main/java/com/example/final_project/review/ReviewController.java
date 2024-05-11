@@ -4,6 +4,7 @@ package com.example.final_project.review;
 
 import com.example.final_project.company.Company;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -47,10 +48,10 @@ public class ReviewController {
     //댓글 작성
     @PostMapping("/review/write/{stayId}")
     public String reviewWrite(@PathVariable Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO){
-        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
-        reviewService.insert(stayId,reqDTO,sessionUser);
+        Object sessionObject = session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
+        reviewService.insert(stayId,reqDTO,sessionObject);
 
-        return "redirect:/review/"+stayId;
+        return "redirect:/reviews/"+stayId;
     }
 
     //댓글 신고 폼

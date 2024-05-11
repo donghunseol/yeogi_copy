@@ -14,6 +14,7 @@ import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
+import com.example.final_project.user.SessionUser;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
@@ -38,29 +39,24 @@ public class ReviewService {
     private final ReservationRepository reservationRepository;
     private final ReportRepository reportRepository;
 
-    //댓글 작성 및 대댓글 작성
+
+    //댓글작성
+
+    //대댓글 작성
     @Transactional
-    public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO ,SessionCompany sessionUser) {
-        // 1. 인증처리
-        if (sessionUser == null){
-            new Exception400("로그인이 필요한 서비스입니다.");
+    public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO, Object sessionObject) {
+        // 1. 인증 처리
+        if (sessionObject == null) {
+            throw new Exception400("로그인이 필요한 서비스입니다.");
         }
-
-        Company company = companyRepository.findByStayId(stayId)
-                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다."));
-
-        User user = userRepository.findById(reqDTO.getUserId())
-                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다" + reqDTO.getUserId()));
 
         Stay stay = stayRepository.findById(stayId)
                 .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다 : " + stayId));
 
-        Review review = reqDTO.toEntity(user,stay);
+        User user = userRepository.findById(reqDTO.getUserId())
+                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다" + reqDTO.getUserId()));
 
-        // 2. 권한처리
-        if (sessionUser.getId() != company.getId()){
-            new Exception401("댓글을 작성할 권한이 없습니다.");
-        }
+        Review review = reqDTO.toEntity(sessionObject, stay);
 
         // 3. 부모댓글 처리
         Review parentReview;
@@ -76,7 +72,8 @@ public class ReviewService {
 
         reviewRepository.save(review);
 
-        return  new ReviewResponse.Save(stayId, new ReviewResponse.Save.UserDTO(user), review.getContent(), review.getScore());
+
+        return new ReviewResponse.Save(stayId, new ReviewResponse.Save.UserDTO(user), review.getContent(), review.getScore());
     }
 
     // 댓글 목록
@@ -117,7 +114,7 @@ public class ReviewService {
         for (Review review : reviewList) {
             ReviewResponse.Find reviewFind = new ReviewResponse.Find(
                     review.getId(),
-                    new ReviewResponse.Find.UserDTO(review.getWriter()),
+                    new ReviewResponse.Find.UserDTO(review.getUser()),
                     review.getContent(),
                     review.getCreatedAt(),
                     review.getScore(),
@@ -151,12 +148,12 @@ public class ReviewService {
         Review review = reviewRepository.findByReviewId(reviewId);
 
         // 4. 리뷰 디테일 정보 생성
-        ReviewResponse.Detail.UserDTO writerDTO = new ReviewResponse.Detail.UserDTO(review.getWriter());
+        ReviewResponse.Detail.UserDTO writerDTO = new ReviewResponse.Detail.UserDTO(review.getUser());
         ReviewResponse.Detail detail = new ReviewResponse.Detail(review, writerDTO);
 
         // 5. 리뷰의 자식 댓글 리스트 구성
         for (Review childReview : review.getChildren()) {
-            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, new ReviewResponse.Detail.UserDTO(childReview.getWriter()));
+            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, new ReviewResponse.Detail.UserDTO(childReview.getUser()));
             detail.getChildren().add(childDetail);
         }
 
@@ -190,7 +187,7 @@ public class ReviewService {
         Review review = reviewRepository.findByReviewId(reviewId);
 
         // 3. 유저 찾기
-        User user = userRepository.findById(review.getWriter().getId())
+        User user = userRepository.findById(review.getUser().getId())
                 .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다"));
 
         Report report = reqDTO.toEntity(user,review);
