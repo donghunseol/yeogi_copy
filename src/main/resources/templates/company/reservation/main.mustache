@@ -52,7 +52,7 @@
                                     <td>{{checkInDate}}  {{checkInTime}}</td>
                                     <td>{{checkOutDate}}  {{checkOutTime}}</td>
                                     <td>{{payState}}</td>
-                                    <td><span class="detail">상세보기</span></td>
+                                    <td><span class="detail" onclick="location.href='/reservations/{{reservationId}}'">상세보기</span></td>
                                 </tr>
                             {{/reservationList}}
                             </tbody>
@@ -61,88 +61,8 @@
                 </div>
             </div>
         </div>
-        <!-- 회원가입 모달창 -->
-        <div class="modal-bg hidden">
-            <div class="modal">
-                <div class="modal-head">
-                    <p class="modal-txt">예약 상세정보</p>
-                    <button class="btn-cls">X</button>
-                </div>
-                <form action="#" method="#">
-                    <div class="modal-content">
-                        <div class="modal-input-wrapper">
-                            <label for="stayandroomname">숙소(객실)</label>
-                            <input disabled type="text" name="stayandroomname">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="address">숙소 주소</label>
-                            <input disabled type="text" name="address">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="checkin">체크인</label>
-                            <input disabled type="text" name="checkin">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="checkout">체크아웃</label>
-                            <input disabled type="text" name="checkout">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="reservationname">예약자 대표 이름</label>
-                            <input disabled type="text" name="reservationname">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="reservationphone">예약자 대표 연락처</label>
-                            <input disabled type="text" name="reservationphone">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="payamountandway">결제 금액(수단)</label>
-                            <input disabled type="text" name="payamountandway">
-                        </div>
-                        <div class="modal-input-wrapper">
-                            <label for="payat">결제 일자</label>
-                            <input disabled type="text" name="payat">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
     </section>
 </main>
-<script>
-    // 모달창
-    document.addEventListener('DOMContentLoaded', function () {
-        const detailButtons = document.querySelectorAll('.detail');
-        const closeBtn = document.querySelector('.btn-cls');
-        const modal = document.querySelector('.modal-bg');
-        const closerBtn1 = document.querySelector('.btn-closer.refuse');
-        const closerBtn2= document.querySelector('.btn-closer.approval');
-
-        detailButtons.forEach(function (button) {
-            button.addEventListener('click', showModal);
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-        closerBtn1.addEventListener('click', closerAticon1);
-        closerBtn2.addEventListener('click', closerAticon2);
-
-        function showModal() {
-            modal.classList.remove('hidden');
-            modal.classList.add('visible');
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            modal.classList.remove('visible');
-        }
-
-        function closerAticon1() {
-            closeModal();
-        }
-        function closerAticon2() {
-            closeModal();
-        }
-    });
-</script>
 </body>
 
 </html>

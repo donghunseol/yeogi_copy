@@ -117,4 +117,14 @@ public class ReservationService {
             return new CompanyResponse.ReservationListDTO(reservation, reservation.getRoom(), pay);
         }).collect(Collectors.toList());
     }
+
+    // 기업의 예약 현황 상세정보 확인
+    public CompanyResponse.ReservationDetailDTO comReservationDetail(Integer reservationId){
+        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
+//        Room room = roomRepository.findById(reservation.getRoom().getId())
+//                .orElseThrow(() -> new Exception404("존재하지 않는 객실입니다."));
+        Pay pay = payRepository.findByReservationId(reservationId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 결제입니다."));
+        return new CompanyResponse.ReservationDetailDTO(reservation, reservation.getRoom(), pay);
+    }
 }
