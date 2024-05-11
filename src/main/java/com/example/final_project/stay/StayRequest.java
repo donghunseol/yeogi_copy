@@ -2,7 +2,7 @@ package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.company.Company;
-import com.example.final_project.option.Option;
+import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
 
@@ -45,6 +45,7 @@ public class StayRequest {
         private List<String> options;
         private StayEnum state;
         private LocalDateTime createdAt;
+        private List<StayImgDTO> imgFile;
 
         public Stay toEntity(Company company) {
             return Stay.builder()
@@ -58,7 +59,20 @@ public class StayRequest {
                     .company(company)
                     .build();
         }
+        @Data
+        public static class StayImgDTO{
 
+            private String name;
+            private String path;
+
+            public StayImage toEntity(Stay stay){
+                return StayImage.builder()
+                        .stay(stay)
+                        .name(name)
+                        .path(path)
+                        .build();
+            }
+        }
     }
 
     // 숙소 수정 DTO

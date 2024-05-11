@@ -3,7 +3,6 @@ package com.example.final_project.room;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.stay.Stay;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 
 import java.time.LocalDateTime;

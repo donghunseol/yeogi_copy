@@ -1,16 +1,11 @@
 package com.example.final_project.stay;
 
-import com.example.final_project._core.utils.ApiUtil;
-import com.example.final_project.company.Company;
 import com.example.final_project.company.SessionCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,6 +24,7 @@ public class StayController {
     //숙소 등록
     @PostMapping("/stay/register")
     public String Register(StayRequest.SaveDTO reqDTO){
+
 
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         stayService.register(reqDTO, sessionUser);

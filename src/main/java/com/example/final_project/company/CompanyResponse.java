@@ -1,6 +1,5 @@
 package com.example.final_project.company;
 
-import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;

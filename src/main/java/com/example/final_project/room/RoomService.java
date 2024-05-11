@@ -2,20 +2,15 @@ package com.example.final_project.room;
 
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
-import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.room_information.RoomInformationRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
-import com.example.final_project.stay.StayResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

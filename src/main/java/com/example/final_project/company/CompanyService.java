@@ -13,7 +13,6 @@ import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
-import com.example.final_project.stay.StayResponse;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
