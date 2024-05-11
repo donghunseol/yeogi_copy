@@ -161,4 +161,11 @@ public class CompanyController {
         return "/company/reservation/main";
     }
 
+    // 예약 현황 확인 (상세보기)
+    @GetMapping("/reservations/{reservationId}")
+    public String compReservationDetail(@PathVariable Integer reservationId, HttpServletRequest request) {
+        CompanyResponse.ReservationDetailDTO respDTO = reservationService.comReservationDetail(reservationId);
+        request.setAttribute("reservationDetail", respDTO);
+        return "/company/reservation/main-detail";
+    }
 }

@@ -1,0 +1,87 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>예약 내역</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">예약 정보</p>
+                        <div class="room-tab_menu">
+                            {{#reservationDetail}}
+                                <div class="cont_area">
+                                    <div class="join-form-item">
+                                        <label for="name">숙소(객실)</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="name" value="{{stayName}}({{roomName}})" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="email">숙소 주소</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="email" value="{{stayAddress}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="phone">체크인</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="phone" value="{{checkInDate}} {{checkInTime}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="birth">체크아웃</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="birth" value="{{checkOutDate}} {{checkOutTime}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="created-at">예약자 대표 이름</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="created-at" value="{{reservationName}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="report-count">예약자 대표 연락처</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="report-count" value="{{reservationTel}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="state-message">상태</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="state-message" value="{{payState}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="state-message">결제 금액(수단)</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="state-message" value="{{payAmount}}({{payWay}})" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="join-form-item">
+                                        <label for="state-message">결제 일자</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="state-message" value="{{payAt}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="modal-button-wrapper">
+                                        <button type="submit" class="btn black join" onclick="history.back()">뒤로가기</button>
+                                    </div>
+                                </div>
+                            {{/reservationDetail}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>
