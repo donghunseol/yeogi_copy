@@ -473,8 +473,8 @@ public class StayResponse {
 
                 public ReviewDTO(Review review) {
                     this.reviewId = review.getId();
-                    this.userId = review.getWriter().getId();
-                    this.userName = review.getWriter().getName();
+                    this.userId = review.getUser().getId();
+                    this.userName = review.getUser().getName();
                     this.stayId = review.getStay().getId();
                     this.reviewScore = review.getScore();
                     this.reviewContent = review.getContent();
