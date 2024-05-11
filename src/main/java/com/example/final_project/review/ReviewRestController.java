@@ -4,6 +4,7 @@ import com.example.final_project._core.utils.ApiUtil;
 
 import com.example.final_project.company.CompanyRequest;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,8 @@ public class ReviewRestController {
     // 댓글작성
     @PostMapping("/api/review/{stayId}")
     public ResponseEntity<?> insert(@PathVariable Integer stayId, @RequestBody ReviewRequest.ReviewRequestDTO reqDTO){
-        SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
-        ReviewResponse.Save respDTO = reviewService.insert(stayId,reqDTO,sessionUser);
+        Object sessionObject = session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
+        ReviewResponse.Save respDTO = reviewService.insert(stayId,reqDTO,sessionObject);
 
         return ResponseEntity.ok()
                 .body(new ApiUtil<>(respDTO));

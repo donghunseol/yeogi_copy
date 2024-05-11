@@ -1,6 +1,7 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
+import com.example.final_project.company.Company;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +20,7 @@ import java.util.List;
 @Data
 @Table(name = "review_tb")
 @Entity
-@JsonIgnoreProperties({"writer", "stay", "children"})
+@JsonIgnoreProperties({"user", "stay", "children"})
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +28,22 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User writer; // 리뷰쓴 유저
+    private User user; // 리뷰쓴 유저
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company; // 리뷰를 작성한 기업
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stay_id")
     private Stay stay; // 리뷰한 숙소
 
-//  @Column(nullable = false)
     private Integer score; // 평점
 
     @Column(nullable = false)
     private String content; // 내용
 
     @Enumerated(EnumType.STRING)
-//    @Column(nullable = false)
     private ReviewEnum isDelete; // 삭제 여부(FLAWLESS : 문제 없는 댓글, COMPLETE: 삭제 됨, FAIL: 삭제 안 됨)
 
     @CreationTimestamp
@@ -54,9 +57,10 @@ public class Review {
     private List<Review> children = new ArrayList<>(); //자식댓글 (대댓글)
 
     @Builder
-    public Review(Integer id, User user, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
+    public Review(Integer id, User user, Company company, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
         this.id = id;
-        this.writer = user;
+        this.user = user;
+        this.company = company;
         this.stay = stay;
         this.score = score;
         this.content = content;
@@ -69,7 +73,7 @@ public class Review {
     }
 
     public void updateWriter(User user) {
-        this.writer = user;
+        this.user = user;
     }
 
     public void updateBoard(Stay stay) {

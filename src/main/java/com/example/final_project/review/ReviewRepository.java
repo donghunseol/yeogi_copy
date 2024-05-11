@@ -11,15 +11,15 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // 한 개인이 작성한 리뷰 정보
-    @Query("SELECT r, st from Review r JOIN FETCH User u ON r.writer.id = u.id JOIN FETCH Stay st ON r.stay.id = st.id WHERE r.writer.id = :userId AND r.parent IS NULL")
+    @Query("SELECT r, st from Review r JOIN FETCH User u ON r.user.id = u.id JOIN FETCH Stay st ON r.stay.id = st.id WHERE r.user.id = :userId AND r.parent IS NULL")
     List<Review> findByUserIdWithUserAndRoom(@Param("userId") Integer userId);
 
     // 한 숙소의 모든리뷰
-    @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.stay.id = :stayId")
+    @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.user JOIN FETCH r.stay WHERE r.stay.id = :stayId")
     List<Review> findAllByStayIdWithDetails(@Param("stayId") Integer stayId);
 
     // 한 숙소의 대댓글을 제외한 리뷰
-    @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.stay.id = :stayId AND r.parent is null")
+    @Query("SELECT DISTINCT r FROM Review r JOIN FETCH r.user JOIN FETCH r.stay WHERE r.stay.id = :stayId AND r.parent is null")
     List<Review> findNoParentReviewByStayIdWithDetails(@Param("stayId") Integer stayId);
 
     // 댓글의 부모찾기
@@ -27,7 +27,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     Review findReviewByIdWithParent(@Param("reviewId") Integer reviewId);
 
     // 댓글 디테일
-    @Query("SELECT r FROM Review r JOIN FETCH r.writer JOIN FETCH r.stay WHERE r.id = :reviewId")
+    @Query("SELECT r FROM Review r JOIN FETCH r.user JOIN FETCH r.stay WHERE r.id = :reviewId")
     Review findByReviewId(@Param("reviewId") Integer reviewId);
 
 }
