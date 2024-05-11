@@ -21,11 +21,12 @@ import com.example.final_project.stay_image.StayImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -49,6 +50,20 @@ public class StayService {
         //2. 권한처리
         if (!company.getId().equals(sessionUser.getId())) {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
+        }
+
+        MultipartFile imgFiles = (MultipartFile) reqDTO.getImgFile();
+        String imgFileName = UUID.randomUUID() + "_" + imgFiles.getOriginalFilename();
+
+        Path imgPath = Paths.get("./upload/"+ imgFileName);
+
+        try {
+            // 업로드 디렉토리가 존재하지않으면, 서버가 시작될 떄 해당 디렉토리르를 자동으 생성하는 코드
+            Files.createDirectories(imgPath.getParent());
+            Files.write(imgPath, imgFiles.getBytes());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
 

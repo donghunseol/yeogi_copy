@@ -2,7 +2,6 @@ package com.example.final_project.stay;
 
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.company.SessionCompany;
-import com.example.final_project.room.RoomResponse;
 import com.example.final_project.room.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

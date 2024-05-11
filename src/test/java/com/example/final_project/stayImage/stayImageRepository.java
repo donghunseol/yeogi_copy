@@ -1,6 +1,5 @@
 package com.example.final_project.stayImage;
 
-import com.example.final_project.stay.StayRepository;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
 import org.junit.jupiter.api.Test;

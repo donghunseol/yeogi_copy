@@ -1,7 +1,6 @@
 package com.example.final_project.option;
 
 import com.example.final_project.stay.Stay;
-import com.example.final_project.stay.StayRequest;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;

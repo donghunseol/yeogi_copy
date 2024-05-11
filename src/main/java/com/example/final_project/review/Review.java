@@ -6,7 +6,6 @@ import com.example.final_project.stay.Stay;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
