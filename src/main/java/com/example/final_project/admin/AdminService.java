@@ -5,6 +5,7 @@ import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
+import com.example.final_project.company.CompanyRequest;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
@@ -41,6 +42,18 @@ public class AdminService {
     private final StayRepository stayRepository;
     private final RoomRepository roomRepository;
     private final StayImageRepository stayImageRepository;
+
+
+
+    //로그인
+    public SessionAdmin login(AdminRequest.LoginDTO reqDTO){
+
+        Admin sessionUser = adminRepository.findByIdAndPassword(reqDTO.getName(),reqDTO.getPassword())
+                .orElseThrow(() -> new Exception404("해당 관리자를 찾을 수 없습니다"));
+
+        return new SessionAdmin(sessionUser);
+    }
+
 
     // 모든 유저 정보 리스트
     public List<AdminResponse.UserListDTO> adminUserList() {
