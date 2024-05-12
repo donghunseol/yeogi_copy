@@ -4,10 +4,9 @@ import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project.option.Option;
-import com.example.final_project.room.Room;
 import com.example.final_project.review.Review;
+import com.example.final_project.room.Room;
 import com.example.final_project.room_information.RoomInformation;
-
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
@@ -26,12 +25,17 @@ public class StayResponse {
         private String name; // 숙소 이름
         private String address; // 숙소 주소
         private String intro; // 숙소 소개
+        private String imageName; // 숙소 이름
+        private String imagePath; // 숙소 경로
 
-        public SearchListDTO(Stay stay) {
+        @Builder
+        public SearchListDTO(Stay stay, StayImage stayImage) {
             this.id = stay.getId();
             this.name = stay.getName();
             this.address = stay.getAddress();
             this.intro = stay.getIntro();
+            this.imageName = stayImage.getName();
+            this.imagePath = stayImage.getPath();
         }
     }
 
@@ -75,7 +79,7 @@ public class StayResponse {
 
     //숙소 수정 폼 DTO
     @Data
-    public static class UpdateFormDTO{
+    public static class UpdateFormDTO {
         private Integer id;
         private String name;
         private String category;
@@ -95,7 +99,7 @@ public class StayResponse {
         }
 
         @Data
-        public static class OptionChekedDTO{
+        public static class OptionChekedDTO {
             private boolean 피트니스 = false;
             private boolean 침대 = false;
             private boolean 미니바 = false;
@@ -104,8 +108,8 @@ public class StayResponse {
             private boolean 와이파이 = false;
 
             public OptionChekedDTO(List<Option> optionNames) {
-                for (Option option : optionNames){
-                    if (option.getName().equals("피트니스")){
+                for (Option option : optionNames) {
+                    if (option.getName().equals("피트니스")) {
                         this.피트니스 = true;
                     } else if (option.getName().equals("침대")) {
                         this.침대 = true;
@@ -199,7 +203,7 @@ public class StayResponse {
 
     // [해외] 숙소 리스트
     @Data
-    public static class OverseaList{
+    public static class OverseaList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -219,7 +223,7 @@ public class StayResponse {
 
     // [특가] 숙소 리스트
     @Data
-    public static class SaleList{
+    public static class SaleList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -239,7 +243,7 @@ public class StayResponse {
 
     // [호텔] 숙소 리스트
     @Data
-    public static class HotelList{
+    public static class HotelList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -259,7 +263,7 @@ public class StayResponse {
 
     // [캠핑] 숙소 리스트
     @Data
-    public static class CampingList{
+    public static class CampingList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -279,7 +283,7 @@ public class StayResponse {
 
     // [모텔] 숙소 리스트
     @Data
-    public static class MotelList{
+    public static class MotelList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -299,7 +303,7 @@ public class StayResponse {
 
     // [펜션] 숙소 리스트
     @Data
-    public static class PensionList{
+    public static class PensionList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -319,7 +323,7 @@ public class StayResponse {
 
     // [홈 & 빌라] 숙소 리스트
     @Data
-    public static class HomeAndVillaList{
+    public static class HomeAndVillaList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -339,7 +343,7 @@ public class StayResponse {
 
     // [게하] 숙소 리스트
     @Data
-    public static class GuesthouseList{
+    public static class GuesthouseList {
         private Integer stayId;
         private String imageName;
         private String imagePath;
@@ -359,7 +363,7 @@ public class StayResponse {
 
     // [홈]숙소 카테고리별 리스트
     @Data
-    public static class AllList{
+    public static class AllList {
         private List<SpecialPriceDTO> specialprices;
         private List<DomesticDTO> domestics;
         private List<OverseaDTO> overseas;
@@ -372,7 +376,7 @@ public class StayResponse {
         }
 
         @Data
-        public static class SpecialPriceDTO{
+        public static class SpecialPriceDTO {
             private Integer stayId;
             private String imageName;
             private String imagePath;
@@ -387,7 +391,7 @@ public class StayResponse {
         }
 
         @Data
-        public static class DomesticDTO{
+        public static class DomesticDTO {
             private Integer stayId;
             private String imageName;
             private String imagePath;
@@ -402,11 +406,11 @@ public class StayResponse {
         }
 
         @Data
-        public static class OverseaDTO{
-           private Integer stayId;
-           private String imageName;
-           private String imagePath;
-           private String name;
+        public static class OverseaDTO {
+            private Integer stayId;
+            private String imageName;
+            private String imagePath;
+            private String name;
 
             public OverseaDTO(Stay stay, StayImage stayImage) {
                 this.stayId = stay.getId();
@@ -418,7 +422,7 @@ public class StayResponse {
     }
 
     @Data
-    public static class StayDetail{
+    public static class StayDetail {
         private StayDetail.StayContentsDTO stayContents;
         private List<StayDetail.RoomContentsDTO> roomContents;
 
@@ -429,14 +433,14 @@ public class StayResponse {
 
         // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
         @Data
-        public static class StayContentsDTO{
+        public static class StayContentsDTO {
             private StayDTO stay;
             // TODO: 찜 필드 추가
             private List<StayImageDTO> stayImageList;
             private List<ReviewDTO> reviewList;
             private List<OptionDTO> optionList;
 
-            public StayContentsDTO(StayDTO stay, List<StayImageDTO> stayImageList, List<ReviewDTO> reviewList, List<OptionDTO> optionList){
+            public StayContentsDTO(StayDTO stay, List<StayImageDTO> stayImageList, List<ReviewDTO> reviewList, List<OptionDTO> optionList) {
                 this.stay = stay;
                 this.stayImageList = stayImageList;
                 this.reviewList = reviewList;
@@ -502,7 +506,7 @@ public class StayResponse {
                 private String name;
                 private String iconName;
 
-                public OptionDTO(Option option){
+                public OptionDTO(Option option) {
                     this.optionId = option.getId();
                     this.name = option.getName();
                     this.iconName = option.getIconName();
@@ -513,7 +517,7 @@ public class StayResponse {
 
         // section2 (객실 리스트)
         @Data
-        public static class RoomContentsDTO{
+        public static class RoomContentsDTO {
             private Integer roomId; // 객실 번호
             private String roomName; // 객실 이름
             private String roomTier; // 객실 티어
@@ -524,7 +528,7 @@ public class StayResponse {
             private LocalTime checkInTime; // 객실 체크인 시간
             private LocalTime checkOutTime; // 객실 체크아웃 시간
 
-            public RoomContentsDTO(Room room, RoomInformation roomInformation){
+            public RoomContentsDTO(Room room, RoomInformation roomInformation) {
                 this.roomId = room.getId();
                 this.roomName = room.getName();
                 this.roomTier = room.getTier();
