@@ -74,14 +74,16 @@
                                         <button type="submit" class="btn black join" onclick="history.back()">뒤로가기</button>
                                         {{#isProgressing}}
                                             <button class="approval btn-closer" onclick="activeCompany({{companyId}})">기업 가입 승인</button>
-                                            <button class="approval btn-closer" onclick="rejectCompany({{companyId}})">기업 가입 거절</button>
+                                            <button class="refuse btn-closer" onclick="rejectCompany({{companyId}})">기업 가입 거절</button>
                                         {{/isProgressing}}
-                                        {{#isBlack}}
-                                            <button class="refuse btn-closer" onclick="removeCompanyFromBlackList({{companyId}})">블랙 리스트에서 제거</button>
-                                        {{/isBlack}}
-                                        {{^isBlack}}
-                                            <button class="approval btn-closer" onclick="addCompanyToBlackList({{companyId}})">블랙 리스트에 등록</button>
-                                        {{/isBlack}}
+                                        {{^isProgressing}}
+                                            {{#isBlack}}
+                                                <button class="refuse btn-closer" onclick="removeCompanyFromBlackList({{companyId}})">블랙 리스트에서 제거</button>
+                                            {{/isBlack}}
+                                            {{^isBlack}}
+                                                <button class="approval btn-closer" onclick="addCompanyToBlackList({{companyId}})">블랙 리스트에 등록</button>
+                                            {{/isBlack}}
+                                        {{/isProgressing}}
 
                                     </div>
                                 </div>
