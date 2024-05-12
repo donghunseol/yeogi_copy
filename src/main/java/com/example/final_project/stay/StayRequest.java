@@ -5,6 +5,7 @@ import com.example.final_project.company.Company;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,8 +45,7 @@ public class StayRequest {
         private String information;
         private List<String> options;
         private StayEnum state;
-        private LocalDateTime createdAt;
-        private List<StayImgDTO> imgFile;
+        private List<MultipartFile> imgFiles;
 
         public Stay toEntity(Company company) {
             return Stay.builder()
@@ -55,23 +55,8 @@ public class StayRequest {
                     .address(address)
                     .intro(intro)
                     .information(information)
-                    .createdAt(createdAt)
                     .company(company)
                     .build();
-        }
-        @Data
-        public static class StayImgDTO{
-
-            private String name;
-            private String path;
-
-            public StayImage toEntity(Stay stay){
-                return StayImage.builder()
-                        .stay(stay)
-                        .name(name)
-                        .path(path)
-                        .build();
-            }
         }
     }
 

@@ -102,7 +102,7 @@
         let email = $("#email").val();
         console.log(email);
         $.ajax({
-            url: "/company/emailCheck=" + email,
+            url: "/company/username-same-check?email=" + email,
             type: "get"
         }).done((res) => {
             console.log(res);
@@ -117,6 +117,13 @@
             alert(res.responseJSON.msg);
         });
     }
+
+    document.getElementById('flexCheckDefault').addEventListener('change', function() {
+        var isChecked = this.checked;
+        ['flexCheckChecked1', 'flexCheckChecked2', 'flexCheckChecked3', 'flexCheckChecked4'].forEach(function(id) {
+            document.getElementById(id).checked = isChecked;
+        });
+    });
 
     //주소찾기 관련 API
     function sample6_execDaumPostcode() {

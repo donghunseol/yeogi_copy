@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,46 +44,71 @@ public class StayService {
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
 
-        //1. 인증처리
+        // 인증 처리
         Optional<Company> companyOP = companyRepository.findById(sessionUser.getId());
         Company company = companyOP.orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
 
-        //2. 권한처리
+
+        // 권한 처리
         if (!company.getId().equals(sessionUser.getId())) {
             throw new Exception401("숙소를 등록할 권한이 없습니다.");
         }
 
-        MultipartFile imgFiles = (MultipartFile) reqDTO.getImgFile();
-        String imgFileName = UUID.randomUUID() + "_" + imgFiles.getOriginalFilename();
+        // 1.숙소등록
+        Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
-        Path imgPath = Paths.get("./upload/"+ imgFileName);
+        // 이미지 파일들을 저장할 리스트
+        List<StayImage> stayImages = new ArrayList<>();
 
-        try {
-            // 업로드 디렉토리가 존재하지않으면, 서버가 시작될 떄 해당 디렉토리르를 자동으 생성하는 코드
-            Files.createDirectories(imgPath.getParent());
-            Files.write(imgPath, imgFiles.getBytes());
+        if (reqDTO.getImgFiles() != null) {
+            for (MultipartFile imgFile : reqDTO.getImgFiles()) {
+                String imgFileName = UUID.randomUUID()+"_"+imgFile.getOriginalFilename();
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+                Path imgPath = Paths.get("./upload/"+imgFileName);
+
+
+                try {
+                    // 업로드 디렉토리가 존재하지 않으면, 서버가 시작될 때 해당 디렉토리를 자동으로 생성
+                    Files.createDirectories(imgPath.getParent());
+                    Files.write(imgPath, imgFile.getBytes());
+
+                    // StayImage 엔티티 생성 및 저장
+                    StayImage stayImage = new StayImage();
+
+                    stayImage.setName(imgFileName);
+                    stayImage.setPath(imgPath.toString());
+                    stayImage.setStay(stay);
+
+                    // 리스트에 추가
+                    stayImages.add(stayImage);
+
+                } catch (IOException e) {
+                    // 예외가 발생하면 로그를 출력하고 예외를 다시 던집니다.
+                    e.printStackTrace();
+                    throw new RuntimeException("이미지 업로드 중 오류 발생: " + e.getMessage());
+                }
+            }
         }
 
 
-        Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
-        // 옵션 등록
+        // 2.이미지 등록
+        try {
+            stayImageRepository.saveAll(stayImages);
+        } catch (Exception e) {
+            // 예외가 발생하면 로그를 출력하고 예외를 다시 던집니다.
+            e.printStackTrace();
+            throw new RuntimeException("이미지 DB 저장 중 오류 발생: " + e.getMessage());
+        }
+
+        // 3.옵션 등록
         if (reqDTO.getOptions() != null && !reqDTO.getOptions().isEmpty()) {
             List<Option> options = reqDTO.getOptions().stream()
-                    .map(optionName -> {
-                        return new Option(stay, optionName);
-                    })
-                    .toList();
+                    .map(optionName -> new Option(stay, optionName))
+                    .collect(Collectors.toList());
 
             optionRepository.saveAll(options);
         }
-
-        //사진 등록
-        StayImage stayImage = new StayImage(stay);
-        stayImageRepository.save(stayImage);
     }
 
     //숙소 등록폼
