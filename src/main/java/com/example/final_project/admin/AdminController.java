@@ -45,11 +45,6 @@ public class AdminController {
         return "redirect:/admin/companies";
     }
 
-    @GetMapping("/admin/join")
-    public String join() {
-        return "/admin/customer-c/report";
-    }
-
     // 개인 회원 정보 조회 View
     @GetMapping("/admin/users")
     public String user(HttpServletRequest request) {
@@ -189,10 +184,13 @@ public class AdminController {
         response.put("redirectUrl", "/admin/companies");
         return response;
     }
-
+    // 기업 문의 사항리스트
     @GetMapping("/admin/company/question")
     public String questionList(HttpServletRequest request){
-//        SessionAdmin sessionAdmin = session.getAttribute("")
-        return "/admin/customer-c/question";
+          SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+          List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+
+          request.setAttribute("questionList",respDTO);
+          return "/admin/customer-c/question";
     }
 }

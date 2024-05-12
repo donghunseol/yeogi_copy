@@ -1,9 +1,11 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.QuestionEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.pay.Pay;
+import com.example.final_project.question.Question;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewResponse;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AdminResponse {
 
@@ -281,6 +284,50 @@ public class AdminResponse {
             this.content = review.getContent();
             this.score = review.getScore();
             this.createdAt = review.getCreatedAt();
+        }
+    }
+
+    //관리자 페이지에서 기업 문의사항 리스트DTO
+    @Data
+    public static class CompanyQuestionListDTO{
+        private Integer companyId;
+        private String title;
+        private String businessName;
+        private String createdAt;
+        private QuestionEnum state;
+        private String stateColor;
+        private String stateText;
+
+        public CompanyQuestionListDTO(Company company, Question question) {
+            this.companyId = company.getId();
+            this.title = question.getTitle();
+            this.businessName = company.getBusinessName();
+            this.createdAt = formatDate(question.getCreatedAt()); // 년월일만 문자열로 포맷팅
+            this.state = question.getState();
+            setStateColorAndText();
+
+
+        }
+
+        private String formatDate(LocalDateTime dateTime) {
+            // 년, 월, 일을 추출하여 문자열로 반환
+            return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+        }
+
+        private void setStateColorAndText() {
+            switch (state) {
+                case WAIT:
+                    stateColor = "wait"; // 대기중인 경우의 색상 클래스
+                    stateText = "대기중";
+                    break;
+                case COMPLETION:
+                    stateColor = "approval"; // 완료된 경우의 색상 클래스
+                    stateText = "완료";
+                    break;
+                default:
+                    stateColor = ""; // 기본값은 빈 문자열로 설정
+                    break;
+            }
         }
     }
 }

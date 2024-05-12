@@ -57,20 +57,24 @@
                             <tr>
                                 <th scope="col">문의제목</th>
                                 <th scope="col">등록상호명</th>
-                                <th scope="col">기업명</th>
+                                <th scope="col">등록일</th>
                                 <th scope="col">상태</th>
                             </tr>
                             </thead>
                             <tbody>
+                            {{#questionList}}
                             <tr class="review">
-                                <td class="title">특가 설정 어떻게 하는지 궁금합니다!</td>
-                                <td class="content">M to M</td>
-                                <td>Agoda Company Pte</td>
-                                <td><span class="state wait">대기중</span></td>
+                                <td class="title">{{title}}</td>
+                                <td class="content">{{businessName}}</td>
+                                <td>{{createdAt}}</td>
+                                <td>
+                                    {{#state}}<span class="state {{stateColor}}">{{stateText}}</span>{{/state}}
+                                </td>
                                 <td class="link">
-                                    <a href="/user/question-detail"></a>
+                                    <a href="/user/question-detail/{{companyId}}"></a>
                                 </td>
                             </tr>
+                            {{/questionList}}
                             </tbody>
                         </table>
                     </div>
