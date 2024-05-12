@@ -189,7 +189,8 @@ public class AdminController {
     public String questionList(HttpServletRequest request){
           SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
           List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
-
+          Integer listSize = respDTO.size();
+          request.setAttribute("listCount",listSize);
           request.setAttribute("questionList",respDTO);
           return "/admin/customer-c/question";
     }
