@@ -1,0 +1,39 @@
+{{> company/layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> company/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>내 정보 관리</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">회원탈퇴</p>
+                        {{#sessionUser}}
+                        <form action="/company/delete/{{id}}" method="post" style="width: 100%;">
+                            <input type="hidden" name ="id" value="{{id}}">
+                            <div class="withdraw-wrapper">
+                                <div class="withdraw-icon"><i class="fa-solid fa-trash"></i></div>
+                                <p>정말 탈퇴하시겠어요?</p>
+                                <span>탈퇴 버튼 선택시, 계정은 삭제되며 복구되지않습니다.</span>
+                                <div class="button-wrapper">
+                                    <button class="btn black">탈퇴하기</button>
+                                    <button type="button" onclick="history.back()" class="btn black border">취소하기</button>
+                                </div>
+                            </div>
+                        {{/sessionUser}}
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

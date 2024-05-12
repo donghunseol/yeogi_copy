@@ -83,4 +83,9 @@ public class Company {
         this.password = reqDTO.getPassword();
         this.phone = reqDTO.getPhone();
     }
+
+    public void deleteCompany(CompanyRequest.DeleteDTO reqDTO){
+        this.id = reqDTO.getCompanyId();
+        this.state =  CompanyEnum.QUIT;
+    }
 }
