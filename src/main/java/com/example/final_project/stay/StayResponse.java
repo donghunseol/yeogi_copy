@@ -365,6 +365,7 @@ public class StayResponse {
         private List<OverseaDTO> overseas;
 
         public AllList(List<SpecialPriceDTO> specialprices, List<DomesticDTO> domestics, List<OverseaDTO> overseas) {
+
             this.specialprices = specialprices;
             this.domestics = domestics;
             this.overseas = overseas;
@@ -372,11 +373,13 @@ public class StayResponse {
 
         @Data
         public static class SpecialPriceDTO{
+            private Integer stayId;
             private String imageName;
             private String imagePath;
             private String name;
 
             public SpecialPriceDTO(Stay stay, StayImage stayImage) {
+                this.stayId = stay.getId();
                 this.imageName = stayImage.getName();
                 this.imagePath = stayImage.getPath();
                 this.name = stay.getName();
@@ -385,11 +388,13 @@ public class StayResponse {
 
         @Data
         public static class DomesticDTO{
+            private Integer stayId;
             private String imageName;
             private String imagePath;
             private String name;
 
             public DomesticDTO(Stay stay, String imageName, String imagePath) {
+                this.stayId = stay.getId();
                 this.imageName = imageName;
                 this.imagePath = imagePath;
                 this.name = stay.getName();
@@ -398,11 +403,13 @@ public class StayResponse {
 
         @Data
         public static class OverseaDTO{
+           private Integer stayId;
            private String imageName;
            private String imagePath;
            private String name;
 
             public OverseaDTO(Stay stay, StayImage stayImage) {
+                this.stayId = stay.getId();
                 this.imageName = stayImage.getName();
                 this.imagePath = stayImage.getPath();
                 this.name = stay.getName();

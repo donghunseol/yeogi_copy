@@ -4,10 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +19,29 @@ public class AdminController {
     private final HttpSession session;
 
     @GetMapping("/admin")
-    public String login() {
+    public String loginForm() {
         return "/admin/login";
+    }
+
+    @PostMapping("/admin/login")
+    public String login(AdminRequest.LoginDTO reqDTO){
+
+        // 현재 시간 및 날짜 가져오기
+        LocalDateTime now = LocalDateTime.now();
+
+        // 시간 및 날짜
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedTime = now.format(formatter); // 날짜 및 시간
+        String formattedDate = now.format(formatterDate); // 날짜
+
+        SessionAdmin admin = adminService.login(reqDTO);
+
+        session.setAttribute("sessionUser", admin);
+        session.setAttribute("loginTime",formattedTime);
+        session.setAttribute("today",formattedDate);
+
+        return "redirect:/admin/companies";
     }
 
     @GetMapping("/admin/join")
@@ -165,4 +186,9 @@ public class AdminController {
         return response;
     }
 
+    @GetMapping("/admin/company/question")
+    public String questionList(HttpServletRequest request){
+//        SessionAdmin sessionAdmin = session.getAttribute("")
+        return "/admin/customer-c/question";
+    }
 }
