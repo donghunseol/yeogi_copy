@@ -1718,3 +1718,36 @@ textarea.input {
     border-radius: 5px;
     font-size: 16px;
 }
+
+.withdraw-wrapper{
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    background: #fff;
+}
+
+.withdraw-wrapper .withdraw-icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f45858;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+.withdraw-wrapper .withdraw-icon i{
+    color: #fff;
+    font-size: 50px;
+}
+.withdraw-wrapper p{
+    font-size: 22px;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+.withdraw-wrapper span{
+    margin-bottom: 20px;
+    display: block;
+}

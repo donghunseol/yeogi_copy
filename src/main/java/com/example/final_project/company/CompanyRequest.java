@@ -83,4 +83,12 @@ public class CompanyRequest {
         private String phone;
 
     }
+
+    // 회원탈퇴
+    @Data
+    public static class DeleteDTO{
+        private Integer companyId;
+    }
+
+
 }

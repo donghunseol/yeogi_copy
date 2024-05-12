@@ -91,6 +91,22 @@ public class CompanyController {
         return "redirect:/manage/stays";
     }
 
+    // 탈퇴 폼
+    @GetMapping("/company/withdraw")
+    public String withdraw(){
+
+        return "/company/information/withdraw";
+    }
+
+    // 회원탈퇴
+    @PostMapping("/company/delete/{companyId}")
+    public String infoDelete(@PathVariable Integer companyId, CompanyRequest.DeleteDTO reqDTO){
+        SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
+        companyService.deleteCompany(companyId,reqDTO,company);
+
+        return "redirect:/company";
+     }
+
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")
     public String companyStayList(HttpServletRequest request) {

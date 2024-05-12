@@ -2,6 +2,7 @@ package com.example.final_project.company;
 
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.errors.exception.Exception400;
+import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.pay.Pay;
@@ -87,6 +88,25 @@ public class CompanyService {
         company.updateCompany(reqDTO);
 
         return new SessionCompany(company);
+    }
+
+    // 회원탈퇴
+    @Transactional
+    public void deleteCompany(Integer companyId, CompanyRequest.DeleteDTO reqDTO, SessionCompany sessionUser){
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+
+        // 권한처리
+        if (sessionUser.getId() != company.getId()){
+            new Exception401("해당 서비스를 이용할 권한이 없습니다");
+        }
+
+        company.deleteCompany(reqDTO);
+
     }
 
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
