@@ -477,6 +477,8 @@ ul.tab-nav li.current {
     border-radius: 5px;
     width: calc(50% - 10px);
     height: 40px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .btn {
