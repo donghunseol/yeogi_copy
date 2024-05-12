@@ -9,17 +9,15 @@ import java.time.LocalDateTime;
 public class ScrapRequest {
 
     @Data
-    public class ScrapRequestDTO{
+    public static class ScrapRequestDTO{
         private Integer userId;
         private Integer stayId;
-        private LocalDateTime createdAt;
 
 
         public Scrap toEntity(Stay stay,User user){
             return Scrap.builder()
                     .stay(stay)
                     .user(user)
-                    .createdAt(createdAt)
                     .build();
         }
     }

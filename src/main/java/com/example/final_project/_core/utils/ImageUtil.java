@@ -30,6 +30,8 @@ public class ImageUtil {
         }
     }
 
+
+
     // Base64 인코딩된 이미지 데이터를 디코딩하여 바이트 배열로 반환하는 메서드 (디코딩된 이미지의 바이트 배열)
     public static byte[] decodeImageData(String encodedData) {
         return Base64.getDecoder().decode(encodedData);

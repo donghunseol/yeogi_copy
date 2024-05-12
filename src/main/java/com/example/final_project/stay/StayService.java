@@ -76,7 +76,7 @@ public class StayService {
                     StayImage stayImage = new StayImage();
 
                     stayImage.setName(imgFileName);
-                    stayImage.setPath(imgPath.toString());
+                    stayImage.setPath(imgPath.toString().substring(1));
                     stayImage.setStay(stay);
 
                     // 리스트에 추가

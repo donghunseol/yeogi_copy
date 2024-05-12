@@ -45,7 +45,8 @@ public class ScrapService {
 
     }
 
-    // 찜 삭제
+
+    //찜 삭제
     @Transactional
     public void delete(ScrapRequest.ScrapRequestDTO reqDTO, SessionUser sessionUser){
         //1. 인증처리
@@ -63,4 +64,6 @@ public class ScrapService {
 
         scrapRepository.delete(scrap);
     }
+
+
 }

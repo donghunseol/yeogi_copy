@@ -2,6 +2,8 @@ package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.UserEnum;
+import com.example.final_project._core.errors.exception.Exception400;
+import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
@@ -10,6 +12,8 @@ import com.example.final_project.company.SessionCompany;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
 import com.example.final_project.pay.PayResponse;
+import com.example.final_project.question.Question;
+import com.example.final_project.question.QuestionRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.review.Review;
@@ -25,6 +29,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,14 +47,17 @@ public class AdminService {
     private final StayRepository stayRepository;
     private final RoomRepository roomRepository;
     private final StayImageRepository stayImageRepository;
-
+    private final QuestionRepository questionRepository;
 
 
     //로그인
+    @Transactional
     public SessionAdmin login(AdminRequest.LoginDTO reqDTO){
 
         Admin sessionUser = adminRepository.findByIdAndPassword(reqDTO.getName(),reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("해당 관리자를 찾을 수 없습니다"));
+
+        System.out.println(sessionUser);
 
         return new SessionAdmin(sessionUser);
     }
@@ -222,5 +230,63 @@ public class AdminService {
             Integer roomsSize = roomRepository.findByStayId(stay.getId()).size();
             return new AdminResponse.CompanyStayListDTO(stay,roomsSize);
         }).collect(Collectors.toList());
+    }
+
+    //[기업 문의사항 리스트]
+    public List<AdminResponse.CompanyQuestionListDTO> adminCompanyQuestionList(SessionAdmin sessionUser){
+
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        List<Question> questionList = questionRepository.companyQuestionList();
+
+        List<AdminResponse.CompanyQuestionListDTO> resultList = questionList.stream().map(question -> {
+
+            Company company = companyRepository.findById(question.getCompany().getId())
+                    .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 업습니다."));
+            return new AdminResponse.CompanyQuestionListDTO(company,question);
+        }).toList();
+
+        if (resultList == null){
+            resultList = Collections.emptyList();
+        }
+
+        return resultList;
+    }
+
+    //[기업 문의사항 디테일]
+    @Transactional
+    public AdminResponse.CompanyQuestionDetailDTO adminCompanyQuestionDetail(Integer questionId, SessionAdmin sessionUser){
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        Question question = questionRepository.companyQuestionDetail(questionId)
+                .orElseThrow(() -> new Exception404("해당 문의사항을 찾을 수 없습니다."));
+
+        Company company = companyRepository.findById(question.getCompany().getId())
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+
+        return new AdminResponse.CompanyQuestionDetailDTO(company,question);
+    }
+
+    //[기업 문의사항 답글작성]
+
+    @Transactional
+    public void adminQuestionAnswer(SessionAdmin sessionUser, AdminRequest.AdminAnswerDTO reqDTO){
+
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        Question question = questionRepository.findById(reqDTO.getQuesionId())
+                .orElseThrow(() -> new Exception404("해당 문의를 찾을 수 없습니다"));
+
+        question.updateAnswer(reqDTO);
+
+        questionRepository.save(question);
     }
 }

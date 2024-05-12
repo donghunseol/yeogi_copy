@@ -151,13 +151,13 @@
 <script>
 
     // 이미지 다중 업로드
+    const uploadFiles = [];
 
     function getImageFiles(e) {
-        const uploadFiles = [];
         const files = e.currentTarget.files;
         const imagePreview = document.querySelector('.image-preview');
 
-        if ([...files].length + imagePreview.children.length > 4) { // 이미지 개수 확인
+        if ([...files].length + uploadFiles.length > 4) { // 이미지 개수 확인
             alert('이미지는 최대 4개까지 업로드가 가능합니다.');
             return;
         }
@@ -183,6 +183,12 @@
         const uploadName = document.querySelector('.upload-name');
         uploadName.value = fileNames;
         uploadName.disabled = true;
+
+        const newFileList = new DataTransfer();
+        uploadFiles.forEach(file => {
+            newFileList.items.add(file);
+        });
+        e.currentTarget.files = newFileList.files;
     }
 
     function createElement(src, fileName) {

@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project.question.Question;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +42,8 @@ public class AdminController {
         session.setAttribute("loginTime",formattedTime);
         session.setAttribute("today",formattedDate);
 
-        return "redirect:/admin/companies";
-    }
 
-    @GetMapping("/admin/join")
-    public String join() {
-        return "/admin/customer-c/report";
+        return "redirect:/admin/companies";
     }
 
     // 개인 회원 정보 조회 View
@@ -92,6 +89,9 @@ public class AdminController {
     @GetMapping("/admin/companies")
     public String company(HttpServletRequest request) {
         List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
+        Admin admin = (Admin) request.getAttribute("sessionUser");
+        System.out.println(admin);
+
         request.setAttribute("companyList", respDTO);
         request.setAttribute("companyCount", respDTO.size());
         return "/admin/customer-c/join";
@@ -186,9 +186,40 @@ public class AdminController {
         return response;
     }
 
+    // 기업 문의사항 리스트
     @GetMapping("/admin/company/question")
-    public String questionList(HttpServletRequest request){
-//        SessionAdmin sessionAdmin = session.getAttribute("")
-        return "/admin/customer-c/question";
+    public String companyQuestionList(HttpServletRequest request){
+          SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+          List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+          Integer listSize = respDTO.size();
+          request.setAttribute("listCount",listSize);
+          request.setAttribute("questionList",respDTO);
+          return "/admin/customer-c/question";
     }
+
+    // 기업 문의사항 디테일
+    @GetMapping("/admin/company-question/detail/{questionId}")
+    public String companyQuestionDetail(@PathVariable Integer questionId, HttpServletRequest request){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        AdminResponse.CompanyQuestionDetailDTO respDTO = adminService.adminCompanyQuestionDetail(questionId,sessionUser);
+        request.setAttribute("questionDetail",respDTO);
+        return "/admin/customer-c/question-detail";
+    }
+
+    // 관리자 문의사항 답글작성
+    @PostMapping("/admin/answer/company")
+    public String adminQuestionAnswer(AdminRequest.AdminAnswerDTO reqDTO){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        adminService.adminQuestionAnswer(sessionUser,reqDTO);
+
+        String redirectPage;
+
+        if (reqDTO.getCompanyId() != null){
+            // 유저 답글을 다는 경우
+            redirectPage = "redierect:/admin/company/question";
+        }
+
+        return null;
+    }
+
 }

@@ -20,4 +20,13 @@ public class AdminRequest {
         private String password;
     }
 
+
+    // 관리자가 기업에게 답글다는 DTO
+    @Data
+    public static class AdminAnswerDTO{
+        private Integer quesionId;
+        private String answer;
+        private Integer companyId;
+        private Integer userId;
+    }
 }
