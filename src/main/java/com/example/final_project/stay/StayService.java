@@ -62,9 +62,9 @@ public class StayService {
 
         if (reqDTO.getImgFiles() != null) {
             for (MultipartFile imgFile : reqDTO.getImgFiles()) {
-                String imgFileName = UUID.randomUUID()+"_"+imgFile.getOriginalFilename();
+                String imgFileName = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
 
-                Path imgPath = Paths.get("./upload/"+imgFileName);
+                Path imgPath = Paths.get("./upload/" + imgFileName);
 
 
                 try {
@@ -89,7 +89,6 @@ public class StayService {
                 }
             }
         }
-
 
 
         // 2.이미지 등록
@@ -220,9 +219,24 @@ public class StayService {
             Integer person
     ) {
         List<Stay> stayList = stayRepository.findBySearchStay(stayName, stayAddress, roomPrice, person);
-        return stayList.stream()
-                .map(StayResponse.SearchListDTO::new)
-                .toList();
+
+        // 숙소 리스트를 매핑하여 결과 리스트 생성
+        List<StayResponse.SearchListDTO> resultList = stayList.stream()
+                .map(stay -> {
+                    // 각 숙소에 대한 이미지 조회
+                    StayImage stayImage = stayImageRepository.findByStayId(stay.getId()).stream().findFirst().orElse(null);
+                    // stayList 객체 생성
+                    return new StayResponse.SearchListDTO(stay, stayImage);
+                })
+                .collect(Collectors.toList());
+
+        // 결과 리스트가 null이면 빈 리스트로 초기화
+        if (resultList == null) {
+            resultList = Collections.emptyList();
+        }
+
+        // 결과 리스트 반환
+        return resultList;
     }
 
     // 특가숙소
@@ -257,7 +271,7 @@ public class StayService {
     }
 
     // 해외숙소
-    public List<StayResponse.OverseaList> findOverseaListByCategory(){
+    public List<StayResponse.OverseaList> findOverseaListByCategory() {
 
         // 해외 숙소찾기
         List<Stay> overSeaList = stayRepository.findStayByOversea();
@@ -288,7 +302,7 @@ public class StayService {
     }
 
     // 호텔숙소
-    public List<StayResponse.HotelList> findHotelListByCategory(){
+    public List<StayResponse.HotelList> findHotelListByCategory() {
 
         List<Stay> hotelList = stayRepository.findStayByHotel();
 
@@ -317,7 +331,7 @@ public class StayService {
     }
 
     // 캠핑숙소
-    public List<StayResponse.CampingList> findCampingListByCategory(){
+    public List<StayResponse.CampingList> findCampingListByCategory() {
 
         List<Stay> campingList = stayRepository.findStayByCamping();
 
@@ -346,7 +360,7 @@ public class StayService {
     }
 
     // 모텔숙소
-    public List<StayResponse.MotelList> findMotelListByCategory(){
+    public List<StayResponse.MotelList> findMotelListByCategory() {
 
         List<Stay> motelList = stayRepository.findStayByMotel();
 
@@ -375,7 +389,7 @@ public class StayService {
     }
 
     // 펜션숙소
-    public List<StayResponse.PensionList> findPentionByCategory(){
+    public List<StayResponse.PensionList> findPentionByCategory() {
 
         List<Stay> pentionList = stayRepository.findStayByPention();
 
@@ -404,7 +418,7 @@ public class StayService {
     }
 
     // 홈&빌라숙소
-    public  List<StayResponse.HomeAndVillaList> findHomeAndVillaByCategory(){
+    public List<StayResponse.HomeAndVillaList> findHomeAndVillaByCategory() {
 
         List<Stay> homeAndVillaList = stayRepository.findStayByHomeAndVilla();
 
@@ -433,7 +447,7 @@ public class StayService {
     }
 
     // 게스트하우스숙소
-    public List<StayResponse.GuesthouseList> findGuesthouseByCategory(){
+    public List<StayResponse.GuesthouseList> findGuesthouseByCategory() {
 
         List<Stay> guesthouseList = stayRepository.findStayByGuesthouse();
 
@@ -463,7 +477,7 @@ public class StayService {
 
 
     @Transactional
-    public StayResponse.AllList findAllStayWithCategory(){
+    public StayResponse.AllList findAllStayWithCategory() {
 
         // TODO: 이벤트 추가
 
@@ -489,7 +503,7 @@ public class StayService {
                 .filter(stay -> stay.getCategory().equals("해외"))
                 .collect(Collectors.toList());
 
-        System.out.println("해외결과===========================================" +overseaStays.size());
+        System.out.println("해외결과===========================================" + overseaStays.size());
 
 
         List<StayResponse.AllList.OverseaDTO> overseaDTOs = overseaStays.stream()
@@ -504,7 +518,7 @@ public class StayService {
                 .filter(stay -> stay.getRooms().stream().anyMatch(room -> room.getSpecialState() == RoomEnum.APPLIED))
                 .collect(Collectors.toList());
 
-        System.out.println("특가결과===========================================" +specialPriceStays.size());
+        System.out.println("특가결과===========================================" + specialPriceStays.size());
 
 
         List<StayResponse.AllList.SpecialPriceDTO> specialPriceDTOs = specialPriceStays.stream()
@@ -519,6 +533,7 @@ public class StayService {
 
     @Transactional
     public StayResponse.StayDetail findStayDetail(Integer stayId) {
+        System.out.println("숙소 번호 : " + stayId);
         // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
         Stay stay = stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 숙소입니다.")); // 숙소
@@ -549,12 +564,6 @@ public class StayService {
 
         return new StayResponse.StayDetail(stayContentsDTO, roomContentsDTOS);
     }
-
-
-
-
-
-
 
 
 }
