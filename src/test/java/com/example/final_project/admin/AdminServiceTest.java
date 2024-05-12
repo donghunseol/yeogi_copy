@@ -220,7 +220,7 @@ public class AdminServiceTest {
         companyRepository.save(company);
 
         // when
-        adminService.rejectJoinCompany(company.getId());
+        adminService.rejectCompany(company.getId());
 
         // eye
         Optional<Company> companyOP = companyRepository.findById(company.getId());
@@ -255,7 +255,7 @@ public class AdminServiceTest {
         companyRepository.save(company);
 
         // when
-        adminService.activeJoinCompany(company.getId());
+        adminService.activeCompany(company.getId());
 
         // eye
         Optional<Company> updatedcompanyOP = companyRepository.findById(company.getId());

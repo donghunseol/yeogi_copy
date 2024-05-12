@@ -151,6 +151,44 @@ public class CompanyResponse {
       private Integer reservationId; // 예약 번호
       private Integer userId; // 예약한 유저의 번호
       private String stayName; // 예약한 숙소의 이름
+      private Integer roomId; // 예약한 객실의 번호
+      private String roomName; // 예약한 객실의 이름
+      private LocalDate checkInDate; // 체크인 날짜
+      private LocalTime checkInTime; // 체크인 시간
+      private LocalDate checkOutDate; // 체크아웃 날짜
+      private LocalTime checkOutTime; // 체크아웃 시간
+      private String reservationName; // 예약자 대표 이름
+      private Integer payId; // 결제 번호
+      private String payState; // 결제 상태
+
+      public ReservationListDTO(Reservation reservation, Room room, Pay pay) {
+         this.reservationId = reservation.getId();
+         this.userId = reservation.getUser().getId();
+         this.stayName = room.getStay().getName();
+         this.roomId = room.getId();
+         this.roomName = room.getName();
+         this.checkInDate = reservation.getCheckInDate();
+         this.checkInTime = room.getRoomInformation().getCheckIn();
+         this.checkOutDate = reservation.getCheckOutDate();
+         this.checkOutTime = room.getRoomInformation().getCheckOut();
+         this.reservationName = reservation.getReservationName();
+         this.payId = pay.getId();
+         if(pay.getState() == PayEnum.REFUND){
+            this.payState = "예약 취소";
+         } else if(pay.getState() == PayEnum.COMPLETION){
+            this.payState = "예약 완료";
+         } else if(pay.getState() == PayEnum.PROCESSING) {
+            this.payState = "예약 완료";
+         }
+      }
+   }
+
+   // [사이드바의 예약 현황] 로그인한 기업이 등록한 숙소의 예약 내역 상세보기 페이지
+   @Data
+   public static class ReservationDetailDTO{
+      private Integer reservationId; // 예약 번호
+      private Integer userId; // 예약한 유저의 번호
+      private String stayName; // 예약한 숙소의 이름
       private String stayAddress; // 예약한 숙소의 주소
       private Integer roomId; // 예약한 객실의 번호
       private String roomName; // 예약한 객실의 이름
@@ -163,10 +201,10 @@ public class CompanyResponse {
       private Integer payId; // 결제 번호
       private String payState; // 결제 상태
       private LocalDateTime payAt; // 결제 일자
-      private Integer amount; // 결제 금액
-      private String way; // 결제 수단
+      private Integer payAmount; // 결제 금액
+      private String payWay; // 결제 수단
 
-      public ReservationListDTO(Reservation reservation, Room room, Pay pay) {
+      public ReservationDetailDTO(Reservation reservation, Room room, Pay pay) {
          this.reservationId = reservation.getId();
          this.userId = reservation.getUser().getId();
          this.stayName = room.getStay().getName();
@@ -188,8 +226,8 @@ public class CompanyResponse {
             this.payState = "예약 완료";
          }
          this.payAt = pay.getCreatedAt();
-         this.amount = pay.getAmount();
-         this.way = pay.getWay();
+         this.payAmount = pay.getAmount();
+         this.payWay = pay.getWay();
       }
    }
 }

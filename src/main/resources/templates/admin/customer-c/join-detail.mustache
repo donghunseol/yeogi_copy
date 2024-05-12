@@ -72,12 +72,18 @@
                                     </div>
                                     <div class="modal-button-wrapper">
                                         <button type="submit" class="btn black join" onclick="history.back()">뒤로가기</button>
-                                        {{#isBlack}}
-                                            <button class="refuse btn-closer" onclick="removeCompanyFromBlackList({{companyId}})">블랙 리스트에서 제거</button>
-                                        {{/isBlack}}
-                                        {{^isBlack}}
-                                            <button class="approval btn-closer" onclick="addCompanyToBlackList({{companyId}})">블랙 리스트에 등록</button>
-                                        {{/isBlack}}
+                                        {{#isProgressing}}
+                                            <button class="approval btn-closer" onclick="activeCompany({{companyId}})">기업 가입 승인</button>
+                                            <button class="refuse btn-closer" onclick="rejectCompany({{companyId}})">기업 가입 거절</button>
+                                        {{/isProgressing}}
+                                        {{^isProgressing}}
+                                            {{#isBlack}}
+                                                <button class="refuse btn-closer" onclick="removeCompanyFromBlackList({{companyId}})">블랙 리스트에서 제거</button>
+                                            {{/isBlack}}
+                                            {{^isBlack}}
+                                                <button class="approval btn-closer" onclick="addCompanyToBlackList({{companyId}})">블랙 리스트에 등록</button>
+                                            {{/isBlack}}
+                                        {{/isProgressing}}
 
                                     </div>
                                 </div>
@@ -115,6 +121,47 @@
             // 버튼 클릭시 컨텐츠 전환
             activeCont = this.getAttribute('href');
             document.querySelector(activeCont).style.display = 'block';
+        });
+    }
+
+    function activeCompany(companyId) {
+        fetch(`/admin/companies/${companyId}/active`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json', // JSON 요청을 위해 필요
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to active the company.');
+            }
+            return response.json(); // JSON 응답을 파싱
+        })
+        .then(data => {
+            window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+        });
+    }
+
+
+    function rejectCompany(companyId) {
+        fetch(`/admin/companies/${companyId}/reject`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json', // JSON 요청을 위해 필요
+            }
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to reject the company.');
+            }
+            return response.json(); // JSON 응답을 파싱
+        }).then(data => {
+            window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
+        }).catch(error => {
+            console.error('An error occurred:', error);
         });
     }
 
