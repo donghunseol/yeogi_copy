@@ -144,6 +144,7 @@ public class AdminResponse {
         private Integer reportCount; // 신고 받은 횟수
         private String stateMessage; // 상태 메시지 한글
         Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
+        Boolean isProgressing; // true면 기업 승인거절 버튼 활성화 / false면 비활성화
 
         public CompanyDetailDTO(Company company) {
             this.companyId = company.getId();
@@ -156,10 +157,12 @@ public class AdminResponse {
             this.createdAt = company.getCreatedAt();
             this.reportCount = company.getReportCount();
             isBlack = false;
+            isProgressing = false;
             if (company.getState() == CompanyEnum.ACTIVE) {
                 this.stateMessage = "승인";
             } else if (company.getState() == CompanyEnum.PROGRESSING) {
                 this.stateMessage = "대기중";
+                this.isProgressing = true;
             } else if (company.getState() == CompanyEnum.QUIT) {
                 this.stateMessage = "탈퇴";
             } else if (company.getState() == CompanyEnum.REJECT) {

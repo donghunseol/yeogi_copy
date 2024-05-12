@@ -143,7 +143,7 @@ public class AdminService {
 
     // 기업 가입 거절
     @Transactional
-    public void rejectJoinCompany(Integer companyId) {
+    public void rejectCompany(Integer companyId) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.REJECT);
@@ -152,7 +152,7 @@ public class AdminService {
 
     // 기업 가입 승인
     @Transactional
-    public void activeJoinCompany(Integer companyId) {
+    public void activeCompany(Integer companyId) {
         Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
         company.setState(CompanyEnum.ACTIVE);
