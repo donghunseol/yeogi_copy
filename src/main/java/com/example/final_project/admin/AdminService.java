@@ -46,10 +46,13 @@ public class AdminService {
 
 
     //로그인
+    @Transactional
     public SessionAdmin login(AdminRequest.LoginDTO reqDTO){
 
         Admin sessionUser = adminRepository.findByIdAndPassword(reqDTO.getName(),reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("해당 관리자를 찾을 수 없습니다"));
+
+        System.out.println(sessionUser);
 
         return new SessionAdmin(sessionUser);
     }

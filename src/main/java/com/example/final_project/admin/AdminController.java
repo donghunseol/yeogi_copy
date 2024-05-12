@@ -41,6 +41,7 @@ public class AdminController {
         session.setAttribute("loginTime",formattedTime);
         session.setAttribute("today",formattedDate);
 
+
         return "redirect:/admin/companies";
     }
 
@@ -92,6 +93,9 @@ public class AdminController {
     @GetMapping("/admin/companies")
     public String company(HttpServletRequest request) {
         List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
+        Admin admin = (Admin) request.getAttribute("sessionUser");
+        System.out.println(admin);
+
         request.setAttribute("companyList", respDTO);
         request.setAttribute("companyCount", respDTO.size());
         return "/admin/customer-c/join";
