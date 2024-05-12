@@ -232,7 +232,7 @@ public class AdminService {
         }).collect(Collectors.toList());
     }
 
-    //[기업] 문의사항
+    //[기업 문의사항 리스트]
     public List<AdminResponse.CompanyQuestionListDTO> adminCompanyQuestionList(SessionAdmin sessionUser){
 
         if (sessionUser == null){
@@ -253,5 +253,40 @@ public class AdminService {
         }
 
         return resultList;
+    }
+
+    //[기업 문의사항 디테일]
+    @Transactional
+    public AdminResponse.CompanyQuestionDetailDTO adminCompanyQuestionDetail(Integer questionId, SessionAdmin sessionUser){
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        Question question = questionRepository.companyQuestionDetail(questionId)
+                .orElseThrow(() -> new Exception404("해당 문의사항을 찾을 수 없습니다."));
+
+        Company company = companyRepository.findById(question.getCompany().getId())
+                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+
+        return new AdminResponse.CompanyQuestionDetailDTO(company,question);
+    }
+
+    //[기업 문의사항 답글작성]
+
+    @Transactional
+    public void adminQuestionAnswer(SessionAdmin sessionUser, AdminRequest.AdminAnswerDTO reqDTO){
+
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        Question question = questionRepository.findById(reqDTO.getQuesionId())
+                .orElseThrow(() -> new Exception404("해당 문의를 찾을 수 없습니다"));
+
+        question.updateAnswer(reqDTO);
+
+        questionRepository.save(question);
     }
 }

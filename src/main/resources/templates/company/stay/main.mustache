@@ -22,6 +22,8 @@
                                         <img src="{{imagePath}}" alt="숙소사진">
                                     </div>
                                     <div class="loging-content">
+<!--                                        <input type="hidden" value="{{stayId}}" id="stayId"/>-->
+<!--                                        <p class ="fas active" id="LikeIcon-{{stayId}}" onclick="toggleLike()">종하여</p>-->
                                         <div class="txt-wrapper">
                                             <p class="name">{{stayName}}</p>
                                             <span class="address">주소 : {{stayAddress}}</span>
@@ -45,6 +47,59 @@
     </section>
 </main>
 <script>
+
+    //좋아요
+    // function toggleLike() {
+    //     const stayId = $('#stayId').val();
+    //     const likeIcon = $(`#LikeIcon-${stayId}`);
+    //
+    //     if (likeIcon.hasClass("far")) { // 좋아요
+    //         $.ajax({
+    //             type: "post",
+    //             url: `/stay/${stayId}/likes`,
+    //             contentType: "application/json; charset-utf-8",
+    //             data: JSON.stringify({
+    //                 userId: 1,
+    //                 stayId: stayId
+    //             }),
+    //         }).done(res=>{
+    //             console.log(res);
+    //             let likeCountStr = $(`#LikeCount-${stayId}`).text();
+    //             let likeCount = Number(likeCountStr) + 1;
+    //             $(`#LikeCount-${stayId}`).text(likeCount);
+    //
+    //             likeIcon.addClass("fas");
+    //             likeIcon.addClass("active");
+    //             likeIcon.removeClass("far");
+    //         }).fail(error=>{
+    //             console.log("오류", error);
+    //         });
+    //
+    //     } else { // 좋아요취소
+    //
+    //         $.ajax({
+    //             type: "delete",
+    //             url: `/stay/${stayId}/likes`,
+    //             contentType: "application/json; charset-utf-8",
+    //             data: JSON.stringify({
+    //                 userId: 1,
+    //                 stayId: stayId
+    //             }),
+    //         }).done(res=>{
+    //             console.log(res);
+    //             let likeCountStr = $(`#LikeCount-${stayId}`).text();
+    //             let likeCount = Number(likeCountStr) - 1;
+    //             $(`#LikeCount-${stayId}`).text(likeCount);
+    //
+    //             likeIcon.removeClass("fas");
+    //             likeIcon.removeClass("active");
+    //             likeIcon.addClass("far");
+    //         }).fail(error=>{
+    //             console.log("오류", error);
+    //         });
+    //
+    //     }
+    // }
 
 </script>
 </body>

@@ -20,8 +20,8 @@ public class AdminRepositoryTest {
         //when
 
         //then
-        List<Question> companyList = adminRepository.companyQuestionList();
+
         //eye
-        System.out.println(companyList.size());
+
     }
 }

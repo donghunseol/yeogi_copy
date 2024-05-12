@@ -2,7 +2,39 @@
 <body>
 <main role="main">
     <section id="section n1">
-       {{> admin/layout/side}}
+        <aside class="side-bar">
+            <div class="side-content header">
+                <figure>
+                    <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
+                </figure>
+                <span>여어떻노</span>
+            </div>
+            {{#sessionUser}}
+                <div class="side-content info">
+                    <p>관리자 : {{name}}</p>
+                    <p>접속일시: {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
+                    <a href="/logout">로그아웃</a>
+                </div>
+            {{/sessionUser}}
+            <div class="side-menu">
+                <p class="head-menu active"><i class="fa-solid fa-building"></i></i>기업</p>
+                <ul class="sub active">
+                    <li><a href="/admin/companies">가입현황</a></li>
+                    <li><a href="/customer-c/report">리뷰신고</a></li>
+                    <li class="on"><a href="/admin/company/question">문의사항</a></li>
+                    <li><a href="/customer-c/faq">자주묻는 질문</a></li>
+                </ul>
+            </div>
+            <div class="side-menu">
+                <p class="head-menu"><i class="fa-solid fa-user"></i>유저</p>
+                <ul class="sub">
+                    <li><a href="/admin/users">가입현황</a></li>
+                    <li><a href="/admin/join">리뷰신고</a></li>
+                    <li><a href="/customer-u/question">문의사항</a></li>
+                    <li><a href="/customer-u/faq">자주묻는 질문</a></li>
+                </ul>
+            </div>
+        </aside>
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
@@ -17,29 +49,32 @@
                     </div>
                     <div class="tab-item detail">
                         <div class="review-detail-wrapper">
-                            <form action="#" method="#">
-
+                            {{#questionDetail}}
+                            <form action="/admin/answer" method="post">
+                                <input type="hidden" name="id" value="{{questionId}}">
+                                <input type="hidden" name="companyId" value="{{companyId}}">
+                                <input type="hidden" name="state" value="WAIT">
                                 <div class="detail-head">
-                                    <div><p class="title">특가성절 어떻게 하는지 궁금해요!!</p><span>2024.04.21 15:41:21</span></div>
+                                    <div><p class="title">{{title}}</p><span>{{createdAt}}</span></div>
                                 </div>
                                 <div class="detail-content">
                                     <span class="review-title">문의내용</span>
                                     <p class="review-content">
-                                        <b>이번주 평일 특가설정을 하려고하는데 방법을 모르겠어요</b>
+                                        <b>{{content}}</b>
                                         <br>
-                                        <em>작성자 : ssar</em>
+                                        <em>작성자 : {{businessName}}</em>
                                     </p>
                                     <span class="review-title">답변내용</span>
                                     <p class="review-content">
-                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="answer" id="" cols="30" rows="10"></textarea>
                                     </p>
-                                    <!-- <span class="review-title">답변 내용</span> -->
-                                    <!-- <input type="text"> -->
+
                                 </div>
                                 <div class="report-button-wrapper">
                                     <button class ="btn black" type="button" onclick="history.back()">답변완료</button>
                                 </div>
                             </form>
+                            {{/questionDetail}}
                         </div>
                     </div>
                 </div>

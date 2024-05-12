@@ -1,6 +1,7 @@
 package com.example.final_project.question;
 
 import com.example.final_project._core.enums.QuestionEnum;
+import com.example.final_project.admin.AdminRequest;
 import com.example.final_project.company.Company;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -52,5 +53,12 @@ public class Question {
         this.answer = answer;
         this.state = questionEnum;
         this.createdAt = createdAt;
+    }
+
+    public void updateAnswer(AdminRequest.AdminAnswerDTO reqDTO){
+        this.answer = reqDTO.getAnswer();
+        if (state == QuestionEnum.WAIT){
+            this.state = QuestionEnum.COMPLETION;
+        }
     }
 }

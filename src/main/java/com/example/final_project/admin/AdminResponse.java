@@ -290,6 +290,7 @@ public class AdminResponse {
     //관리자 페이지에서 기업 문의사항 리스트DTO
     @Data
     public static class CompanyQuestionListDTO{
+        private Integer questionId;
         private Integer companyId;
         private String title;
         private String businessName;
@@ -299,14 +300,13 @@ public class AdminResponse {
         private String stateText;
 
         public CompanyQuestionListDTO(Company company, Question question) {
+            this.questionId = question.getId();
             this.companyId = company.getId();
             this.title = question.getTitle();
             this.businessName = company.getBusinessName();
             this.createdAt = formatDate(question.getCreatedAt()); // 년월일만 문자열로 포맷팅
             this.state = question.getState();
             setStateColorAndText();
-
-
         }
 
         private String formatDate(LocalDateTime dateTime) {
@@ -330,4 +330,30 @@ public class AdminResponse {
             }
         }
     }
+
+    //관리자 페이지에서 기업 문의사항 디테일
+    @Data
+    public static class CompanyQuestionDetailDTO{
+        private Integer questionid;
+        private Integer companyId;
+        private String title;
+        private String content;
+        private String businessName;
+        private String createdAt;
+
+        public CompanyQuestionDetailDTO(Company company, Question question) {
+            this.questionid = question.getId();
+            this.companyId = company.getId();
+            this.title = question.getTitle();
+            this.content = question.getContent();
+            this.businessName = company.getBusinessName();
+            this.createdAt = formatDate(question.getCreatedAt());
+        }
+        private String formatDate(LocalDateTime dateTime) {
+            // 년, 월, 일을 추출하여 문자열로 반환
+            return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+        }
+    }
+
+
 }

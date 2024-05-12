@@ -26,5 +26,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .setCachePeriod(60 * 60)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
+
+        registry.addResourceHandler("/upload/**") // user 정보를 수정 할때 개방 폴더를 찾기
+                .addResourceLocations("file:./upload/")// 파일 경로 수정 및 해당 폴더 개방
+                .setCachePeriod(60 * 60)
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
     }
 }

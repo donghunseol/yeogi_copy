@@ -24,6 +24,4 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     //이메일 중복 확인
     Company findByEmail(@Param("email") String email);
-
-
 }
