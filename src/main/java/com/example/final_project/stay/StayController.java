@@ -6,6 +6,13 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,11 +30,26 @@ public class StayController {
 
     //숙소 등록
     @PostMapping("/stay/register")
-    public String Register(StayRequest.SaveDTO reqDTO){
+    public String Register(HttpServletRequest request,
+                           @ModelAttribute StayRequest.SaveDTO reqDTO)
+    {
+        System.out.println(reqDTO);
 
+        // 파일 리스트 초기화
+        List<MultipartFile> imgFiles = new ArrayList<>();
+
+        // HttpServletRequest에서 파일을 읽어와서 리스트에 추가
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            if (paramName.startsWith("imgFiles")) {
+                MultipartFile file = ((MultipartHttpServletRequest) request).getFile(paramName);
+                imgFiles.add(file);
+            }
+        }
 
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
-        stayService.register(reqDTO, sessionUser);
+        stayService.register(reqDTO,sessionUser);
 
         return "redirect:/manage/stays";
     }

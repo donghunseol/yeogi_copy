@@ -52,11 +52,11 @@
                                         <div class="file-box">
                                             <span>이미지등록</span>
                                             <ul class="image-preview"></ul>
-                                            <input type="file" id="file" class="real-upload" accept="image/*"
-                                                   required multiple>
-                                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                                            <input name="imgFiles" type="file" id="file" class="real-upload" accept="image/*" required multiple>
+
+                                            <input class="upload-name" value="첨부파일" placeholder="첨부파일" disabled>
                                             <label for="file">파일찾기</label>
-                                            <em class="guide">이미지는 최대4개까지 등록가능합니다<b>*</b></em>
+                                            <em class="guide">이미지는 최대 4개까지 등록가능합니다<b>*</b></em>
                                         </div>
                                     </div>
                                     <div class="content bottom">
@@ -149,7 +149,6 @@
 </main>
 
 <script>
-
 
     // 이미지 다중 업로드
 
