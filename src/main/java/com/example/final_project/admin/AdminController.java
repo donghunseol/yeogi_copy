@@ -143,4 +143,26 @@ public class AdminController {
         request.setAttribute("stayList", respDTO);
         return "/admin/customer-c/stay-list";
     }
+
+
+    // 기업 가입 승인
+    @PutMapping("/admin/companies/{companyId}/active")
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> activeCompany(@PathVariable Integer companyId) {
+        adminService.activeCompany(companyId);
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/companies");
+        return response;
+    }
+
+    // 기업 가입 거절
+    @PutMapping("/admin/companies/{companyId}/reject")
+    @ResponseBody // JSON 또는 다른 응답 본문을 반환하기 위해 필요
+    public Map<String, String> rejectCompany(@PathVariable Integer companyId) {
+        adminService.rejectCompany(companyId);
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/companies");
+        return response;
+    }
+
 }
