@@ -341,6 +341,7 @@ public class AdminResponse {
         private String content;
         private String businessName;
         private String createdAt;
+        private String answer;
 
         public CompanyQuestionDetailDTO(Company company, Question question) {
             this.questionid = question.getId();
@@ -348,7 +349,9 @@ public class AdminResponse {
             this.title = question.getTitle();
             this.content = question.getContent();
             this.businessName = company.getBusinessName();
-            this.createdAt = AdminResponse.formatDate(question.getCreatedAt());
+            this.createdAt = formatDate(question.getCreatedAt());
+            this.answer = question.getAnswer();
+
         }
 
     }

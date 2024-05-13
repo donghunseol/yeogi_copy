@@ -44,21 +44,29 @@ public class UserController {
         return ResponseEntity.ok(new ApiUtil<>(newSessionUser));
     }
 
-    // 로그인한 회원의 예약 내역 페이지 - 목록
+    // 로그인한 회원의 예약 내역 페이지
     @GetMapping("/api/my-reservations")
     public ResponseEntity<?> userReservationList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
+        List<ReservationResponse.ReservationDTO> respDTO = reservationService.userReservationList(sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    // 로그인한 회원의 예약 내역 페이지 - 상세보기
-    @GetMapping("/api/my-reservations/{reservationId}")
-    public ResponseEntity<?> reservationDetail(@PathVariable Integer reservationId) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
+//    // 로그인한 회원의 예약 내역 페이지 - 목록
+//    @GetMapping("/api/my-reservations")
+//    public ResponseEntity<?> userReservationList() {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+//        List<ReservationResponse.ListDTO> respDTO = reservationService.userReservationList(sessionUser);
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
+//
+//    // 로그인한 회원의 예약 내역 페이지 - 상세보기
+//    @GetMapping("/api/my-reservations/{reservationId}")
+//    public ResponseEntity<?> reservationDetail(@PathVariable Integer reservationId) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+//        ReservationResponse.DetailDTO respDTO = reservationService.reservationDetail(sessionUser, reservationId);
+//        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+//    }
 
 
     //어플 메인페이지

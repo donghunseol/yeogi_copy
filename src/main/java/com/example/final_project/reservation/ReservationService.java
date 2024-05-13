@@ -83,29 +83,44 @@ public class ReservationService {
         return new ReservationResponse.DTO(reservation);
     }
 
-    // 예약 내역 조회 (목록)
-    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser) {
+    // 예약 내역 조회
+    public List<ReservationResponse.ReservationDTO> userReservationList(SessionUser sessionUser) {
         List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
-
-        List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
-            return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
+        List<ReservationResponse.ReservationDTO> respDTO = reservationList.stream().map(reservation -> {
+            if (sessionUser.getId() != reservation.getUser().getId()) {
+                throw new Exception401("예약 내역을 열람할 권한이 없습니다");
+            }
+            Pay pay = payRepository.findByReservationId(reservation.getId())
+                    .orElseThrow(() -> new Exception404("결제 내역을 찾을 수 없습니다."));
+            return new ReservationResponse.ReservationDTO(reservation, reservation.getRoom(), pay);
         }).collect(Collectors.toList());
 
         return respDTO;
     }
 
-
-    // 예약 내역 조회 (상세보기)
-    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId) {
-        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
-        if (sessionUser.getId() != reservation.getUser().getId()) {
-            throw new Exception401("예약내역을 열람할 권한이 없습니다");
-        }
-        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
-        Pay pay = null;
-        if (payOP.isPresent()) pay = payOP.get();
-        return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
-    }
+//    // 예약 내역 조회 (목록)
+//    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser) {
+//        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
+//
+//        List<ReservationResponse.ListDTO> respDTO = reservationList.stream().map(reservation -> {
+//            return new ReservationResponse.ListDTO(reservation, reservation.getRoom());
+//        }).collect(Collectors.toList());
+//
+//        return respDTO;
+//    }
+//
+//
+//    // 예약 내역 조회 (상세보기)
+//    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId) {
+//        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
+//        if (sessionUser.getId() != reservation.getUser().getId()) {
+//            throw new Exception401("예약내역을 열람할 권한이 없습니다");
+//        }
+//        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+//        Pay pay = null;
+//        if (payOP.isPresent()) pay = payOP.get();
+//        return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+//    }
 
     // 기업의 예약 현황 확인
     public List<CompanyResponse.ReservationListDTO> compReservationList(SessionCompany sessionCompany) {
