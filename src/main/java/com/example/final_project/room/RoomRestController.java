@@ -14,7 +14,7 @@ public class RoomRestController {
     private final RoomService roomService;
 
     //객실 상세정보
-    @GetMapping("/rooms/{roomId}")
+    @GetMapping("/api/rooms/{roomId}")
     public ResponseEntity<?> detail(@PathVariable Integer roomId){
 
         RoomResponse.Detail respDTO = roomService.detail(roomId);

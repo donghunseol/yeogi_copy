@@ -57,6 +57,10 @@ public class CompanyService {
         //1. 아이디 체크
         Company sessionUser = companyRepository.findByIdAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
+        //2. ENUM 값 체크
+        if (sessionUser.getState().equals("QUIT")){
+
+        }
 
         return new SessionCompany(sessionUser);
     }

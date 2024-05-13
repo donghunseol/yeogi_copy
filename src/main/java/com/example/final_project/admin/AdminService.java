@@ -9,6 +9,8 @@ import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.CompanyRequest;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.faq.Faq;
+import com.example.final_project.faq.FaqRepository;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.pay.PayRepository;
 import com.example.final_project.pay.PayResponse;
@@ -48,7 +50,7 @@ public class AdminService {
     private final RoomRepository roomRepository;
     private final StayImageRepository stayImageRepository;
     private final QuestionRepository questionRepository;
-
+    private final FaqRepository faqRepository;
 
     //로그인
     @Transactional
@@ -57,7 +59,6 @@ public class AdminService {
         Admin sessionUser = adminRepository.findByIdAndPassword(reqDTO.getName(),reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("해당 관리자를 찾을 수 없습니다"));
 
-        System.out.println(sessionUser);
 
         return new SessionAdmin(sessionUser);
     }
@@ -273,7 +274,6 @@ public class AdminService {
     }
 
     //[기업 문의사항 답글작성]
-
     @Transactional
     public void adminQuestionAnswer(SessionAdmin sessionUser, AdminRequest.AdminAnswerDTO reqDTO){
 
@@ -288,5 +288,39 @@ public class AdminService {
         question.updateAnswer(reqDTO);
 
         questionRepository.save(question);
+    }
+
+
+    //[FAQ 리스트]
+    @Transactional
+    public List<AdminResponse.adminFaqListDTO> adminFaqList(SessionAdmin sessionUser){
+
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        List<Faq> faqList = faqRepository.findAll();
+
+        // 가공해서 담기
+        List<AdminResponse.adminFaqListDTO> resultList =
+                faqList.stream().map(AdminResponse.adminFaqListDTO::new).toList();
+
+        return resultList;
+    }
+
+    //[FAQ 디테일]
+    @Transactional
+    public AdminResponse.adminFaqDetail adminFaqDetail(Integer faqId, SessionAdmin sessionUser){
+
+        // 인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        Faq faq = faqRepository.findById(faqId)
+                .orElseThrow(() -> new Exception404("해당 FaQ를 찾을 수 없습니다"));
+
+        return new AdminResponse.adminFaqDetail(faq);
     }
 }

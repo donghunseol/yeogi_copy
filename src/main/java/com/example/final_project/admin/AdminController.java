@@ -189,12 +189,12 @@ public class AdminController {
     // 기업 문의사항 리스트
     @GetMapping("/admin/company/question")
     public String companyQuestionList(HttpServletRequest request){
-          SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-          List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
-          Integer listSize = respDTO.size();
-          request.setAttribute("listCount",listSize);
-          request.setAttribute("questionList",respDTO);
-          return "/admin/customer-c/question";
+       SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+       List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+       Integer listSize = respDTO.size();
+       request.setAttribute("listCount",listSize);
+       request.setAttribute("questionList",respDTO);
+       return "/admin/customer-c/question";
     }
 
     // 기업 문의사항 디테일
@@ -222,4 +222,28 @@ public class AdminController {
         return null;
     }
 
+    //관리자 FAQ 리스트
+    @GetMapping("/admin/faq")
+    public String adminFaqList(HttpServletRequest request){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        List<AdminResponse.adminFaqListDTO> respDTO = adminService.adminFaqList(sessionUser);
+
+        Integer listCount = respDTO.size();
+
+        request.setAttribute("count",listCount);
+        request.setAttribute("faqList",respDTO);
+
+        return "/admin/customer-c/faq";
+    }
+
+    //관리자 FAQ 디테일
+    @GetMapping("/admin/faq/{faqId}")
+    public String adminFaqDetail(@PathVariable Integer faqId, HttpServletRequest request){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        AdminResponse.adminFaqDetail respDTO = adminService.adminFaqDetail(faqId, sessionUser);
+
+        request.setAttribute("faqDetail",respDTO);
+
+        return "/admin/customer-c/faq-detail";
+    }
 }
