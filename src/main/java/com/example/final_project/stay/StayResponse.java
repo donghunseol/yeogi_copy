@@ -1,8 +1,10 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.EventEnum;
 import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
+import com.example.final_project.event.Event;
 import com.example.final_project.option.Option;
 import com.example.final_project.review.Review;
 import com.example.final_project.room.Room;
@@ -11,6 +13,7 @@ import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -367,12 +370,14 @@ public class StayResponse {
         private List<SpecialPriceDTO> specialprices;
         private List<DomesticDTO> domestics;
         private List<OverseaDTO> overseas;
+        private List<EventDTO> events;
 
-        public AllList(List<SpecialPriceDTO> specialprices, List<DomesticDTO> domestics, List<OverseaDTO> overseas) {
+        public AllList(List<SpecialPriceDTO> specialprices, List<DomesticDTO> domestics, List<OverseaDTO> overseas, List<EventDTO> events) {
 
             this.specialprices = specialprices;
             this.domestics = domestics;
             this.overseas = overseas;
+            this.events = events;
         }
 
         @Data
@@ -419,7 +424,35 @@ public class StayResponse {
                 this.name = stay.getName();
             }
         }
+
+        @Data
+        public static class EventDTO{
+            private Integer id;
+            private String name;
+            private String imageName;
+            private String imagePath;
+            private String startDate;
+            private String endDate;
+            private EventEnum state;
+
+            public EventDTO(Event event) {
+                this.id = event.getId();
+                this.name = event.getName();
+                this.imageName = event.getImageName();
+                this.imagePath = event.getImagePath();
+                this.startDate = formatDate(event.getStartDate());
+                this.endDate = formatDate(event.getStartDate());
+                this.state = event.getState();
+            }
+
+            private String formatDate(LocalDate dateTime) {
+                // 년, 월, 일을 추출하여 문자열로 반환
+                return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+            }
+        }
+
     }
+
 
     @Data
     public static class StayDetail {
