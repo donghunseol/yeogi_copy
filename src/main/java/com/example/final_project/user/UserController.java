@@ -3,6 +3,7 @@ package com.example.final_project.user;
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
+import com.example.final_project.stay.StayResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -68,13 +69,12 @@ public class UserController {
 //        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 //    }
 
-
-    //어플 메인페이지
-    @GetMapping("/api/main")
-    public ResponseEntity<?> main(){
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        return null;
-    }
-
+//    // 로그인 한 회원의 알림 목록
+//    @GetMapping("/my-notifications")
+//    public ResponseEntity<?> myNotifications(){
+//
+//
+//        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+//    }
 
 }

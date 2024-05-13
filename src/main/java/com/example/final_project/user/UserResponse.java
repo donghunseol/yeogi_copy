@@ -68,4 +68,12 @@ public class UserResponse {
             this.createdAt = user.getCreatedAt();
         }
     }
+
+//    // 로그인 한 회원의 알림 목록
+//    @Data
+//    public static class Notifications{
+//        private Integer reservationId;
+//        private String
+//
+//    }
 }
