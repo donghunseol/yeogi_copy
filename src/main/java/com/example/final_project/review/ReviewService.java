@@ -12,11 +12,13 @@ import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
+import com.example.final_project.user.SessionUser;
 import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -206,6 +208,33 @@ public class ReviewService {
         review.setStateDeleted(review.getState());
 
         return new ReviewResponse.Delete(review.getState());
+    }
+
+    //유저가 적은 리뷰리스트
+    @Transactional
+    public List<ReviewResponse.ReveiwListDTO> reviewList(Integer userId , SessionUser sessionUser){
+
+        // 1.인증 처리
+        if (sessionUser == null){
+            throw new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        // 2.권한 처리
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다"));
+
+        if (user.getId() != sessionUser.getId()){
+            throw new Exception401("리뷰를 확인할 권한이 없습니다");
+        }
+
+        List<Review> reviewList = reviewRepository.findByUserIdWithUserAndRoom(user.getId());
+
+        List<ReviewResponse.ReveiwListDTO> resultList = reviewList.stream()
+                .map(
+                        ReviewResponse.ReveiwListDTO::new
+                ).toList();
+
+        return  resultList;
     }
 
 }
