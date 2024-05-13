@@ -56,6 +56,7 @@ public class Question {
     }
 
     public void updateAnswer(AdminRequest.AdminAnswerDTO reqDTO){
+        this.id = reqDTO.getId();
         this.answer = reqDTO.getAnswer();
         if (state == QuestionEnum.WAIT){
             this.state = QuestionEnum.COMPLETION;
