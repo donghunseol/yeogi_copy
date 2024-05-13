@@ -209,17 +209,23 @@ public class AdminController {
     // 관리자 문의사항 답글작성
     @PostMapping("/admin/answer/company")
     public String adminQuestionAnswer(AdminRequest.AdminAnswerDTO reqDTO){
+        System.out.println(reqDTO);
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
         adminService.adminQuestionAnswer(sessionUser,reqDTO);
 
-        String redirectPage;
 
-        if (reqDTO.getCompanyId() != null){
-            // 유저 답글을 다는 경우
-            redirectPage = "redierect:/admin/company/question";
-        }
 
-        return null;
+        return "redirect:/admin/company/question";
+
+//      String redirectPage = ""; // 변수 초기화
+//        if (reqDTO.getCompanyId() != null){
+//            // 유저 답글을 다는 경우
+//            redirectPage = "redirect:/admin/company/question"; // 오타 수정: "redierect" -> "redirect"
+//        } else {
+//            // 기타 경우에 대한 처리
+//        }
+//
+//        return redirectPage; // 오타 수정:
     }
 
 }

@@ -273,7 +273,6 @@ public class AdminService {
     }
 
     //[기업 문의사항 답글작성]
-
     @Transactional
     public void adminQuestionAnswer(SessionAdmin sessionUser, AdminRequest.AdminAnswerDTO reqDTO){
 
@@ -282,7 +281,7 @@ public class AdminService {
             new Exception400("로그인이 필요한 서비스입니다");
         }
 
-        Question question = questionRepository.findById(reqDTO.getQuesionId())
+        Question question = questionRepository.findById(reqDTO.getId())
                 .orElseThrow(() -> new Exception404("해당 문의를 찾을 수 없습니다"));
 
         question.updateAnswer(reqDTO);

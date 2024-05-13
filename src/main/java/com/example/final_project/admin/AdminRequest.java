@@ -24,9 +24,7 @@ public class AdminRequest {
     // 관리자가 기업에게 답글다는 DTO
     @Data
     public static class AdminAnswerDTO{
-        private Integer quesionId;
+        private Integer id;
         private String answer;
-        private Integer companyId;
-        private Integer userId;
     }
 }
