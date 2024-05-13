@@ -4,6 +4,7 @@ import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.QuestionEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
+import com.example.final_project.faq.Faq;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.question.Question;
 import com.example.final_project.reservation.Reservation;
@@ -350,12 +351,44 @@ public class AdminResponse {
             this.businessName = company.getBusinessName();
             this.createdAt = formatDate(question.getCreatedAt());
             this.answer = question.getAnswer();
+
         }
-        private String formatDate(LocalDateTime dateTime) {
-            // 년, 월, 일을 추출하여 문자열로 반환
-            return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+
+    }
+
+    // 날짜 자르는 매서드
+    private static String formatDate(LocalDateTime dateTime) {
+        // 년, 월, 일을 추출하여 문자열로 반환
+        return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+    }
+
+    //관리자 페이지에서 기업 FAQ 리스트
+    @Data
+    public static class adminFaqListDTO{
+        private String writer;
+        private String content;
+        private String createdAt;
+
+        public adminFaqListDTO(Faq faq) {
+            this.content = faq.getContent();
+            this.writer = faq.getAdmin().getName();
+            this.createdAt = AdminResponse.formatDate(faq.getCreatedAt());
         }
     }
 
+    //관리자 페이지에서 기업 FAQ 디테일
+    @Data
+    public static class adminFaqDetail{
+        private String createdAt;
+        private String reply;
+        private String writer;
+        private String content;
 
+        public adminFaqDetail(Faq faq) {
+            this.content = faq.getContent();
+            this.createdAt = AdminResponse.formatDate(faq.getCreatedAt());
+            this.reply = faq.getReply();
+            this.writer = faq.getAdmin().getName();
+        }
+    }
 }

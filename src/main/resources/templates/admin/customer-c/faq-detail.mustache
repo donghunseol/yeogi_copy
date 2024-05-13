@@ -19,17 +19,18 @@
                     <div class="tab-item detail">
                         <div class="review-detail-wrapper">
                             <form action="#" method="#">
+                                {{#faqDetail}}
                                 <div class="detail-head">
                                     <div>
-                                        <p class="title">특가설정 어떻게 하는지 궁금해요!!</p><span>2024.04.21 15:41:21</span>
+                                        <p class="title">{{content}}</p><span>{{createdAt}}</span>
                                     </div>
                                 </div>
                                 <div class="detail-content">
                                     <span class="review-title">FAQ 답변</span>
                                     <p class="review-content">
-                                        <b>특가설정은 마이페이지 > 특가설정 > 이동 후 수정 하실 수 있습니다.</b>
+                                        <b>{{reply}}</b>
                                         <br>
-                                        <em>작성자 : ssar</em>
+                                        <em>작성자 : {{writer}}</em>
                                     </p>
                                     <!-- <span class="review-title">답변 내용</span> -->
                                     <!-- <input type="text"> -->
@@ -37,6 +38,7 @@
                                 <div class="report-button-wrapper">
                                     <button class="btn black" type="button" onclick="history.back()">뒤로</button>
                                 </div>
+                                {{/faqDetail}}
                             </form>
                         </div>
                     </div>
