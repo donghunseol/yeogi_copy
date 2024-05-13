@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "report_tb")
 @Entity
-@JsonIgnoreProperties({"review", "company", "stay"})
+//@JsonIgnoreProperties({"review", "company", "stay"})
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +28,12 @@ public class Report {
     @JoinColumn(name = "review_id")
     private Review review; // 리뷰
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User user; // 유저 번호
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company; // 신고한 기업
+    private User user; // 유저 번호
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "company_id")
+//    private Company company; // 신고한 기업
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stay_id")
@@ -51,11 +51,12 @@ public class Report {
 
 
     @Builder
-    public Report(Integer reportId, Review review, Company company, ReportEnum result, LocalDateTime createdAt, String reportContent,Stay stay) {
+    public Report(Integer reportId, Review review, User user, ReportEnum result, LocalDateTime createdAt, String reportContent,Stay stay) {
         this.reportId = reportId;
         this.stay = stay;
         this.review = review;
-        this.company = company;
+        this.user = user;
+//        this.company = company;
         this.result = result;
         this.createdAt = createdAt;
         this.reportContent = reportContent;

@@ -223,12 +223,12 @@ public class AdminController {
         return null;
     }
 
-    // 신고 목록
-    @GetMapping("/admin/reports")
-    public String reportList(HttpServletRequest request){
-        List<Review> respDTOS = adminService.reportedReviewList();
-        request.setAttribute("reportCount", respDTOS.size());
-        request.setAttribute("reportList", respDTOS);
-        return "/admin/review/report";
-    }
+//    // 신고 목록
+//    @GetMapping("/admin/reports")
+//    public String reportList(HttpServletRequest request){
+//        List<Review> respDTOS = adminService.reportedReviewList();
+//        request.setAttribute("reportCount", respDTOS.size());
+//        request.setAttribute("reportList", respDTOS);
+//        return "/admin/review/report";
+//    }
 }

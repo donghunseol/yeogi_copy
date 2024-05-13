@@ -74,7 +74,7 @@ public class ReviewRequest {
         public Report toEntity(User user, Review review){
             return Report.builder()
                     .stay(review.getStay())
-                    .user(user)
+//                    .user(user)
                     .review(review)
                     .reportContent(reportContent)
                     .result(result)

@@ -355,20 +355,20 @@ public class AdminResponse {
             return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
         }
     }
-
-    @Data
-    public static class ReportList {
-        private Integer reportId; // 신고 번호
-        private String reportContent; // 신고 내용
-        private Integer userId; // 작성자의 회원 번호
-        private String username; // 작성자 이름
-//        private
-//        // 처리결과
-//        private Integer reviewId; // 리뷰 번호
-        public ReportList(Report report, Review review) {
-            this.reportId = report.getReportId();
-            this.reportContent = report.getReportContent();
-//            this.reviewId = review.getId();
-        }
-    }
+//
+//    @Data
+//    public static class ReportList {
+//        private Integer reportId; // 신고 번호
+//        private String reportContent; // 신고 내용
+//        private Integer userId; // 작성자의 회원 번호
+//        private String username; // 작성자 이름
+////        private
+////        // 처리결과
+////        private Integer reviewId; // 리뷰 번호
+//        public ReportList(Report report, Review review) {
+//            this.reportId = report.getReportId();
+//            this.reportContent = report.getReportContent();
+////            this.reviewId = review.getId();
+//        }
+//    }
 }
