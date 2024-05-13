@@ -1,5 +1,6 @@
 package com.example.final_project.stay;
 
+import com.example.final_project._core.enums.EventEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
@@ -8,6 +9,8 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
+import com.example.final_project.event.Event;
+import com.example.final_project.event.EventRepository;
 import com.example.final_project.option.Option;
 import com.example.final_project.option.OptionRepository;
 import com.example.final_project.review.Review;
@@ -40,6 +43,7 @@ public class StayService {
     private final ReviewRepository reviewRepository;
     private final RoomRepository roomRepository;
     private final RoomInformationRepository roomInformationRepository;
+    private final EventRepository eventRepository;
 
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
@@ -65,7 +69,6 @@ public class StayService {
                 String imgFileName = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
 
                 Path imgPath = Paths.get("./upload/" + imgFileName);
-
 
                 try {
                     // 업로드 디렉토리가 존재하지 않으면, 서버가 시작될 때 해당 디렉토리를 자동으로 생성
@@ -479,7 +482,12 @@ public class StayService {
     @Transactional
     public StayResponse.AllList findAllStayWithCategory() {
 
-        // TODO: 이벤트 추가
+        // 이벤트
+        List<Event> eventList = eventRepository.findAll();
+        List<StayResponse.AllList.EventDTO> resultList = eventList.stream()
+                .filter(event -> event.getState() == EventEnum.Enable)
+                .map(StayResponse.AllList.EventDTO::new).toList();
+
 
         // 국내 숙소 찾기
         List<Stay> domesticStays = stayRepository.findAll().stream()
@@ -528,7 +536,7 @@ public class StayService {
                 })
                 .collect(Collectors.toList());
 
-        return new StayResponse.AllList(specialPriceDTOs, domesticDTOs, overseaDTOs);
+        return new StayResponse.AllList(specialPriceDTOs, domesticDTOs, overseaDTOs, resultList);
     }
 
     @Transactional
