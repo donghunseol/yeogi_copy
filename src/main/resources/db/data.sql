@@ -169,8 +169,8 @@ values (1, '국내숙소 쿠폰팩', '2024-04-04', '2024-04-15', now(), 'eventTi
 insert into question_tb(user_id, title, content, answer, state, created_at)
 values (1, '취소 수수료에 대한 질문', '안녕하세요, 숙소 예약 후에 긴급 상황이 발생하여 예약을 취소해야 할 경우에 대비해서 취소 수수료에 대해 알고 싶습니다',
         '취소 수수료는 예약한 숙소나 예약 플랫폼에 따라 다를 수 있습니다. 보통 예약 취소는 체크인 날짜 이전에 이루어져야 하며, 취소 수수료는 예약 조건에 따라 달라집니다. 자세한 정보는 숙소 예약 시스템을 통해 확인해 주시기 바랍니다.',
-           'COMPLETION',
-           now()),
+        'COMPLETION',
+        now()),
        (2, '예약 변경에 대한 질문', '예약을 변경하는 경우에 추가 비용이 발생하는지 궁금합니다.',
         '예약 변경에 따른 추가 비용은 예약한 숙소나 예약 플랫폼에 따라 다를 수 있습니다. 일부 숙소는 변경에 따른 추가 비용이 발생할 수 있지만, 다른 숙소는 변경에 따른 비용 없이 변경을 허용할 수도 있습니다. 예약 변경 시 발생할 수 있는 비용에 대해 자세한 내용은 예약한 숙소나 예약 플랫폼에서 확인해 주세요.',
         'COMPLETION',
@@ -186,13 +186,12 @@ values (1, '취소 수수료에 대한 질문', '안녕하세요, 숙소 예약 
 
 --question_tb 더미생성 --답변이 완료되지않은 문의사항(유저)
 insert into question_tb(user_id, title, content, state, created_at)
-values
-    (2, '숙소 예약 변경에 대한 질문', '숙소 예약 후에 예약 일자를 변경할 수 있는 방법이 있나요?', 'WAIT', now()),
-    (3, '결제 방법에 대한 질문', '결제 시 사용 가능한 카드 종류에 대해 알고 싶습니다.', 'WAIT', now()),
-    (3, '환불 절차에 대한 질문', '예약 취소 시 환불 절차에 대해 설명해 주실 수 있나요?', 'WAIT', now());
+values (2, '숙소 예약 변경에 대한 질문', '숙소 예약 후에 예약 일자를 변경할 수 있는 방법이 있나요?', 'WAIT', now()),
+       (3, '결제 방법에 대한 질문', '결제 시 사용 가능한 카드 종류에 대해 알고 싶습니다.', 'WAIT', now()),
+       (3, '환불 절차에 대한 질문', '예약 취소 시 환불 절차에 대해 설명해 주실 수 있나요?', 'WAIT', now());
 
 --question_tb 더미생성 --답변이 완료된 문의사항(회사)
-insert into question_tb(company_id, title, content, answer, state,created_at)
+insert into question_tb(company_id, title, content, answer, state, created_at)
 values (1, '온라인 예약 시스템에 관한 문의',
         '안녕하세요, 서울 호텔의 예약 시스템을 관리하는 데 어떤 도구를 사용하고 계신가요? 예약 관리 및 예약 상태를 관리하는 데 있어서 가장 효율적인 방법이 무엇인지 궁금합니다.',
         '예약 시스템은 현재 예약을 관리하기 위해 자체적인 온라인 예약 플랫폼을 사용하고 있습니다. 이 플랫폼은 예약 관리, 예약 상태 업데이트 및 객실 가용성 확인을 위한 간편한 인터페이스를 제공합니다. 또한 고객이 예약을 쉽게 할 수 있도록 웹사이트와 애플리케이션을 지속적으로 개선하고 있습니다.',
@@ -211,10 +210,9 @@ values (1, '온라인 예약 시스템에 관한 문의',
 
 --question_tb 더미생성 --답변이 완료되지않은 문의사항(회사)
 insert into question_tb(company_id, title, content, state, created_at)
-values
-    (2, '숙소 시설에 대한 문의', '숙소 예약 후에 추가로 시설을 요청할 수 있는 방법이 있나요?', 'WAIT', now()),
-    (3, '객실 청소 주기에 대한 질문', '객실 청소 주기가 어떻게 되는지 알고 싶습니다.', 'WAIT', now()),
-    (3, '결제 오류에 대한 문의', '결제 시 오류가 발생하여 예약이 완료되지 않습니다. 도움을 요청합니다.', 'WAIT', now());
+values (2, '숙소 시설에 대한 문의', '숙소 예약 후에 추가로 시설을 요청할 수 있는 방법이 있나요?', 'WAIT', now()),
+       (3, '객실 청소 주기에 대한 질문', '객실 청소 주기가 어떻게 되는지 알고 싶습니다.', 'WAIT', now()),
+       (3, '결제 오류에 대한 문의', '결제 시 오류가 발생하여 예약이 완료되지 않습니다. 도움을 요청합니다.', 'WAIT', now());
 
 
 -- reservation 더미 생성
@@ -222,13 +220,13 @@ insert into reservation_tb(user_id, room_id, reservation_name, reservation_tel, 
                            created_at)
 values
     -- 5월 24일 이전 예약
-    (1, 1, '홍길동', '01012344321', '2023-12-31', '2024-01-01', now()),
-    (1, 1, '홍길동', '01012344321', '2024-01-01', '2024-01-02', now()),
-    (1, 2, '홍길동', '01012344321', '2024-02-01', '2024-02-02', now()),
-    (2, 3, '임꺽정', '01056788765', '2024-02-03', '2024-02-05', now()),
-    (2, 4, '임꺽정', '01056788765', '2024-02-29', '2024-03-02', now()),
-    (3, 5, '이순신', '01087654321', '2024-03-17', '2024-03-21', now()),
-    (3, 6, '이순신', '01087654321', '2024-04-23', '2025-04-24', now()),
+    (1, 1, '홍길동', '01012344321', '2023-12-31', '2024-01-01', '2023-12-29 13:00:00'),
+    (1, 1, '홍길동', '01012344321', '2024-01-01', '2024-01-02', '2023-12-30 15:00:00'),
+    (1, 2, '홍길동', '01012344321', '2024-02-01', '2024-02-02', '2024-01-01 13:00:00'),
+    (2, 3, '임꺽정', '01056788765', '2024-02-03', '2024-02-05', '2024-01-19 21:00:00'),
+    (2, 4, '임꺽정', '01056788765', '2024-02-29', '2024-03-02', '2024-02-15 14:00:00'),
+    (3, 5, '이순신', '01087654321', '2024-03-17', '2024-03-21', '2024-03-01 21:00:00'),
+    (3, 6, '이순신', '01087654321', '2024-04-23', '2025-04-24', '2024-04-19 09:00:00'),
     -- 5월 24일 이후 예약
     (1, 1, '홍길동', '01012344321', '2024-05-24', '2024-05-25', now()),
     (1, 2, '홍길동', '01012344321', '2024-05-25', '2024-05-30', now()),
@@ -242,13 +240,13 @@ values
 insert into pay_tb(reservation_id, amount, way, state, created_at)
 values
     -- 5월 24일 이전 결제
-    (1, 150000, 'Credit Card', 'COMPLETION', now()),
-    (2, 150000, 'Credit Card', 'COMPLETION', now()),
-    (3, 100000, 'Kakao Pay', 'COMPLETION', now()),
-    (4, 120000, 'Bank Transfer', 'COMPLETION', now()),
-    (5, 80000, 'Kakao Pay', 'COMPLETION', now()),
-    (6, 200000, 'Naver Pay', 'COMPLETION', now()),
-    (7, 180000, 'Naver Pay', 'COMPLETION', now()),
+    (1, 150000, 'Credit Card', 'COMPLETION', '2023-12-29 13:00:00'),
+    (2, 150000, 'Credit Card', 'COMPLETION', '2023-12-30 15:00:00'),
+    (3, 100000, 'Kakao Pay', 'COMPLETION', '2024-01-01 13:00:00'),
+    (4, 120000, 'Bank Transfer', 'COMPLETION', '2024-01-19 21:00:00'),
+    (5, 80000, 'Kakao Pay', 'COMPLETION', '2024-02-15 14:00:00'),
+    (6, 200000, 'Naver Pay', 'COMPLETION', '2024-03-01 21:00:00'),
+    (7, 180000, 'Naver Pay', 'COMPLETION', '2024-04-19 09:00:00'),
 
     -- 5월 24일 이후 결제
     -- On Site Payment 는 현장 결제
@@ -269,7 +267,7 @@ values (1, 1, now()),
        (3, 3, now());
 
 -- review 더미 생성
-insert into review_tb(user_id, stay_id, score, content, is_delete, created_at)
+insert into review_tb(user_id, stay_id, score, content, state, created_at)
 values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (1, 2, 4, '괜찮은 편이에요.', 'FLAWLESS', now()),
        (2, 3, 3, '보통이에요.', 'FLAWLESS', now()),
@@ -277,11 +275,11 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (3, 3, 4, '좋았습니다!', 'FLAWLESS', now());
 
 -- review 대댓글 더미생성
-insert into review_tb(user_id, stay_id, content, is_delete, created_at, parent_id)
+insert into review_tb(user_id, stay_id, content, state, created_at, parent_id)
 values (1, 1, '고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!', 'FLAWLESS', now(), 1);
 
 -- review_comment 더미 생성
--- insert into review_comment_tb (review_id, company_id, content, is_delete, created_at)
+-- insert into review_comment_tb (review_id, company_id, content, state, created_at)
 -- values (1, 1, '감사합니다!', 'FLAWLESS', now()),
 --        (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
 --        (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),

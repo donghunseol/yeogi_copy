@@ -525,7 +525,7 @@ public class StayResponse {
                     this.stayId = review.getStay().getId();
                     this.reviewScore = review.getScore();
                     this.reviewContent = review.getContent();
-                    this.isDelete = review.getIsDelete();
+                    this.isDelete = review.getState();
                     if (review.getParent() != null) {
                         this.reviewParentId = review.getParent().getId();
                     }
