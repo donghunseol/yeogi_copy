@@ -158,12 +158,12 @@ values (1, '예약을 취소하고 싶어요', '예약취소는  앱/웹 > 내�
         '실 결제금액 5만원 이상의 상품을 구매하고 이용 완료까지 하셔야 이용 횟수가 올라가요.더불어, 이용 횟수 반영까지 최대 3일 정도 소요될 수 있어요. ', now());
 
 --event_tb 더미생성
-insert into event_tb(admin_id, name, start_date, end_date, created_at, state)
-values (1, '국내숙소 쿠폰팩', '2024-04-04', '2024-04-15', now(), 'Disable'),
-       (2, '위클리 오픈런', '2024-05-04', '2024-06-15', now(), 'Disable'),
-       (2, '베스트 호텔딜', '2024-02-04', '2024-04-15', now(), 'Disable'),
-       (4, '인기 호텔 최대 5만원할인', '2024-04-04', '2024-04-20', now(), 'Enable'),
-       (4, '피크닉여행 블랙어때', '2024-03-15', '2024-04-27', now(), 'Enable');
+insert into event_tb(admin_id, name, start_date, end_date, created_at, image_name, image_path, image_detail_name,image_detail_path ,state)
+values (1, '국내숙소 쿠폰팩', '2024-04-04', '2024-04-15', now(), 'eventTitle1.png', '/images/event/event_title/eventTitle1.png', 'event1.png','/images/event/event_content/event1.png', 'Disable'),
+       (2, '위클리 오픈런', '2024-05-04', '2024-06-15', now(), 'eventTitle2.png', '/images/event/event_title/eventTitle2.png','event2.png','/images/event/event_content/event2.png', 'Disable'),
+       (2, '베스트 호텔딜', '2024-02-04', '2024-04-15', now(), 'eventTitle3.png', '/images/event/event_title/eventTitle3.png','event3.png','/images/event/event_content/event3.png', 'Disable'),
+       (4, '인기 호텔 최대 5만원할인', '2024-04-04', '2024-04-20', now(),'eventTitle4.png', '/images/event/event_title/eventTitle4.png','event4.png','/images/event/event_content/event4.png', 'Enable'),
+       (4, '피크닉여행 블랙어때', '2024-03-15', '2024-04-27', now(),'eventTitle5.png', '/images/event/event_title/eventTitle5.png','event5.png','/images/event/event_content/event5.png', 'Enable');
 
 --question_tb 더미생성 --답변이 완료된 문의사항(유저)
 insert into question_tb(user_id, title, content, answer, state, created_at)

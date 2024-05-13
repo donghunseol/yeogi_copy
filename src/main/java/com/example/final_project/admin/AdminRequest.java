@@ -27,4 +27,5 @@ public class AdminRequest {
         private Integer id;
         private String answer;
     }
+
 }

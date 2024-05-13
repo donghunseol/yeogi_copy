@@ -85,12 +85,12 @@ public class ReviewService {
         Stay stay = stayRepository.findById(stayId)
                 .orElseThrow(() -> new Exception401("조회할 권한이 없습니다"));
 
-        Company company = companyRepository.findByStayId(stay.getId())
+        Company company = companyRepository.findByStayId(sessionUser.getId())
                 .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
 
         // 2. 권한 처리
         if (sessionUser.getId() != company.getId()){
-            new Exception401("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
+            new Exception400("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
         }
 
         // 3. 리스트 조회
