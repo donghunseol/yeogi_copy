@@ -340,6 +340,7 @@ public class AdminResponse {
         private String content;
         private String businessName;
         private String createdAt;
+        private String answer;
 
         public CompanyQuestionDetailDTO(Company company, Question question) {
             this.questionid = question.getId();
@@ -348,6 +349,7 @@ public class AdminResponse {
             this.content = question.getContent();
             this.businessName = company.getBusinessName();
             this.createdAt = formatDate(question.getCreatedAt());
+            this.answer = question.getAnswer();
         }
         private String formatDate(LocalDateTime dateTime) {
             // 년, 월, 일을 추출하여 문자열로 반환
