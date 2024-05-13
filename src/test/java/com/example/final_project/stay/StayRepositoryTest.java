@@ -1,6 +1,7 @@
 package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.RoomEnum;
+import com.example.final_project._core.errors.exception.Exception404;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,4 +167,17 @@ public class StayRepositoryTest {
 
         System.out.println("결과값 ===============================================" + stayList.size());
     }
+
+
+    @Test
+    public void findByRoomId_test() {
+            // given
+            Integer roomId = 1;
+            // when
+            Stay stay = stayRepository.findStayByRoom(roomId)
+                    .orElseThrow(() -> new Exception404("숙소를 못찾겠습니다"));
+            // eye
+            System.out.println(stay.getCompany().getName());
+            // then
+        }
 }

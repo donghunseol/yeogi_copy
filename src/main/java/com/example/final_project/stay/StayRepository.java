@@ -73,4 +73,7 @@ public interface StayRepository extends JpaRepository<Stay, Integer> {
     List<Stay> findStayBySale(@Param("APPLIED") RoomEnum APPLIED);
 
 
+    @Query("SELECT s FROM Stay s LEFT JOIN FETCH s.rooms ro WHERE ro.id = :roomId")
+    Optional<Stay> findStayByRoom(@Param("roomId") Integer roomId);
+
 }
