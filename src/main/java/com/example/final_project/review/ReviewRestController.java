@@ -5,6 +5,7 @@ import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.company.CompanyRequest;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,4 +50,20 @@ public class ReviewRestController {
         return ResponseEntity.ok()
                 .body(new ApiUtil<>(respDTO));
     }
+
+
+    // 특정 개인이 작성한 리뷰 리스트
+    @GetMapping("/api/users/{userId}/reviews")
+    public ResponseEntity<?> userReviewList (@PathVariable Integer userId){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<ReviewResponse.ReveiwListDTO> respDTO = reviewService.reviewList(userId, sessionUser);
+
+        return ResponseEntity.ok()
+                .body(new ApiUtil<>(respDTO));
+    }
+
+
+
+
+
 }
