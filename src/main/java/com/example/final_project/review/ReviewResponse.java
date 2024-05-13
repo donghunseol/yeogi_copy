@@ -41,11 +41,11 @@ public class ReviewResponse {
             }
         }
 
-        public static ReviewResponse.Save convertReviewToDTO(Review review){
-            return review.getIsDelete().equals("COMPLETE") ?
-                    new ReviewResponse.Save(review.getId(),null,"삭제된 댓글입니다.",null) :
-                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getUser()), review.getContent(), review.getScore());
-        }
+//        public static ReviewResponse.Save convertReviewToDTO(Review review){
+//            return review.getState().equals("FLAWLESS") ?
+//                    new ReviewResponse.Save(review.getId(),null,"삭제된 댓글입니다.",null) :
+//                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getUser()), review.getContent(), review.getScore());
+//        }
 
     }
 
