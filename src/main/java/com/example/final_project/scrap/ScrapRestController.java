@@ -6,9 +6,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/scrap")
+@RequestMapping("/api/scrap") // 주소 앞에 자동으로 붙는다.
 @RestController
 public class ScrapRestController {
 
@@ -32,5 +33,12 @@ public class ScrapRestController {
         scrapService.delete(reqDTO,sessionUser);
 
         return ResponseEntity.ok().body(new ApiUtil<>("좋아요 취소 성공"));
+    }
+
+    @GetMapping("/my-scraps")
+    public ResponseEntity<?> myScrapList(){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<ScrapResponse.ScrapListDTO> respDTO = scrapService.myScrapList(sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

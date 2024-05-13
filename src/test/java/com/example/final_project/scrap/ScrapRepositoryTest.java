@@ -19,7 +19,7 @@ public class ScrapRepositoryTest {
             Integer userId= 1;
             Integer stayId = 1;
             // when
-            Scrap scrap = scrapRepository.findByuserIdWithStayId(userId,stayId).orElseThrow(() -> new Exception404("해당 좋아요를 찾을 수 없습니다"));
+            Scrap scrap = scrapRepository.findByUserIdWithStayId(userId,stayId).orElseThrow(() -> new Exception404("해당 좋아요를 찾을 수 없습니다"));
             // eye
             System.out.println(scrap.getId());
             // then
