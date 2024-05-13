@@ -28,7 +28,7 @@ public class ReviewRequest {
         private String content; // 내용
         private Integer stayId; // 숙소 ID
         private Integer score; // 평점
-        private ReviewEnum isDelete; // 삭제 여부
+        private ReviewEnum state; // 삭제 여부
 
         // SessionUser 또는 SessionCompany를 받을 수 있도록 수정
         public Review toEntity(Object sessionObject, Stay stay) {
@@ -39,7 +39,7 @@ public class ReviewRequest {
                 return Review.builder()
                         .user(user)
                         .stay(stay)
-                        .isDelete(isDelete)
+                        .state(state)
                         .score(score)
                         .content(content)
                         .build();
@@ -50,7 +50,7 @@ public class ReviewRequest {
                 return Review.builder()
                         .company(company) // 기업 정보를 저장
                         .stay(stay)
-                        .isDelete(isDelete)
+                        .state(state)
                         .score(score)
                         .content(content)
                         .build();

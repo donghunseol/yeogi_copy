@@ -190,6 +190,7 @@ public class ReviewService {
         Report report = reqDTO.toEntity(user,review);
 
         reportRepository.save(report);
+        review.setStateReported(review.getState()); // 리뷰의 상태값을 REPORTED로 변경
 
     }
 
@@ -202,9 +203,9 @@ public class ReviewService {
         Review review = reviewRepository.findReviewByIdWithParent(reviewId);
 
         //삭제
-        review.changeIsDeleted(review.getIsDelete());
+        review.setStateDeleted(review.getState());
 
-        return new ReviewResponse.Delete(review.getIsDelete());
+        return new ReviewResponse.Delete(review.getState());
     }
 
 }

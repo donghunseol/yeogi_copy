@@ -59,6 +59,7 @@ public class AdminController {
     @GetMapping("/admin/users/{userId}")
     public String userDetail(@PathVariable Integer userId, HttpServletRequest request) {
         AdminResponse.UserDetailDTO respDTO = adminService.adminUserDetail(userId);
+        System.out.println(respDTO);
         request.setAttribute("userDetail", respDTO);
         return "/admin/customer-u/join-detail";
     }
@@ -102,6 +103,7 @@ public class AdminController {
     public String companyDetail(@PathVariable Integer companyId, HttpServletRequest request) {
         AdminResponse.CompanyDetailDTO respDTO = adminService.adminCompanyDetail(companyId);
         request.setAttribute("companyDetail", respDTO);
+        System.out.println(respDTO);
         return "/admin/customer-c/join-detail";
     }
 
