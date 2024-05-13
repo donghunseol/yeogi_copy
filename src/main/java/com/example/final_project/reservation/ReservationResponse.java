@@ -1,5 +1,6 @@
 package com.example.final_project.reservation;
 
+import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.utils.DateUtil;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.room.Room;
@@ -8,6 +9,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class ReservationResponse {
 
@@ -126,6 +128,8 @@ public class ReservationResponse {
         private String reservationTel; // 예약자 대표 연락처
 
         // pay 관련 내용은 만약 플러터 쪽에서 안 되면 빼는 걸로
+        private Integer payId; // 결제 번호
+        private String payState; // 결제 상태
         private LocalDateTime payAt; // 결제 일자
         private Integer amount; // 결제 금액
         private String way; // 결제 수단
@@ -143,9 +147,22 @@ public class ReservationResponse {
             this.roomName = room.getName();
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
+            this.payId = pay.getId();
             this.payAt = pay.getCreatedAt();
             this.amount = pay.getAmount();
-            this.way = pay.getWay();
+            if(pay.getState().equals(PayEnum.COMPLETION)){
+                this.payState = "결제 완료";
+            }else if(pay.getState().equals(PayEnum.PROCESSING)){
+                this.payState = "결제 진행 중";
+            }else if(pay.getState().equals(PayEnum.REFUND)){
+                this.payState = "환불 처리";
+            }
+            switch (pay.getWay()) {
+                case "Credit Card" -> this.way = "카드 결제";
+                case "Kakao Pay" -> this.way = "카카오페이";
+                case "On Site Payment" -> this.way = "현장 결제";
+                case null, default -> this.way = pay.getWay(); // TODO: 나머지는 추후에 상태값을 한글로 바꾸기
+            }
         }
     }
 }
