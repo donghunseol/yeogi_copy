@@ -6,6 +6,7 @@ import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.question.Question;
+import com.example.final_project.report.Report;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewResponse;
@@ -355,5 +356,19 @@ public class AdminResponse {
         }
     }
 
-
+    @Data
+    public static class ReportList {
+        private Integer reportId; // 신고 번호
+        private String reportContent; // 신고 내용
+        private Integer userId; // 작성자의 회원 번호
+        private String username; // 작성자 이름
+//        private
+//        // 처리결과
+//        private Integer reviewId; // 리뷰 번호
+        public ReportList(Report report, Review review) {
+            this.reportId = report.getReportId();
+            this.reportContent = report.getReportContent();
+//            this.reviewId = review.getId();
+        }
+    }
 }

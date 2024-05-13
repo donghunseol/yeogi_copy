@@ -1,6 +1,7 @@
 package com.example.final_project.admin;
 
 import com.example.final_project.question.Question;
+import com.example.final_project.review.Review;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -222,4 +223,12 @@ public class AdminController {
         return null;
     }
 
+    // 신고 목록
+    @GetMapping("/admin/reports")
+    public String reportList(HttpServletRequest request){
+        List<Review> respDTOS = adminService.reportedReviewList();
+        request.setAttribute("reportCount", respDTOS.size());
+        request.setAttribute("reportList", respDTOS);
+        return "/admin/review/report";
+    }
 }
