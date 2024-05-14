@@ -72,7 +72,7 @@ public class RoomService {
                 optionList.stream().map(RoomResponse.Detail.StayOptionDTO::new).toList();
 
 
-        return new RoomResponse.Detail(room,roomInfoDTO,stayOptionDTOList);
+        return new RoomResponse.Detail(room,roomInfoDTO,stayOptionDTOList,stay);
     }
 
 }
