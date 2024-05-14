@@ -103,7 +103,6 @@ public class AdminController {
     public String companyDetail(@PathVariable Integer companyId, HttpServletRequest request) {
         AdminResponse.CompanyDetailDTO respDTO = adminService.adminCompanyDetail(companyId);
         request.setAttribute("companyDetail", respDTO);
-        System.out.println(respDTO);
         return "/admin/customer-c/join-detail";
     }
 
@@ -133,7 +132,6 @@ public class AdminController {
     @GetMapping("/admin/users/{userId}/reservations")
     public String userReservationList(@PathVariable Integer userId, HttpServletRequest request) {
         List<AdminResponse.UserReservationDTO> respDTO = adminService.adminReservationList(userId);
-        System.out.println(respDTO);
         request.setAttribute("reservationCount", respDTO.size());
         request.setAttribute("reservationList", respDTO);
         return "/admin/customer-u/user-reservations";

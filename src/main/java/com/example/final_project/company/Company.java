@@ -33,7 +33,7 @@ public class Company {
     @Column(nullable = false)
     private String businessAddress; // 사업자 주소
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 13)
     private String phone; // 사업자 전화번호
 
     @Column(nullable = false)

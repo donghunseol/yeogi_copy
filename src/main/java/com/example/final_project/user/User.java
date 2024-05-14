@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false)
     private String name; // 회원 이름
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 13)
     private String phone; // 전화번호
 
     @Enumerated(EnumType.STRING)
