@@ -42,19 +42,23 @@
             password: password
         };
 
-        // AJAX 요청 보내기
         $.ajax({
             type: 'POST',
             url: '/company/login',
             data: formData,
             success: function(response) {
                 // 로그인 성공 시 처리
-                window.location.href = '/manage/stays'; // 대시보드 페이지로 리디렉션
+                if (response.state === 'PROGRESSING') {
+                    alert('로그인 실패 : 해당 계정은 승인 처리 중입니다.');
+                } else if (response.state === 'QUIT') {
+                    alert('로그인 실패 : 해당 계정은 탈퇴 처리되었습니다.');
+                } else {
+                    window.location.href = '/manage/stays'; // 대시보드 페이지로 리디렉션
+                }
             },
             error: function(xhr, status, error) {
                 // 로그인 실패 시 처리
-                alert('로그인 실패 : 해당 계정은 탈퇴 처리되었습니다.');
-
+                alert('로그인 실패 : 해당 계정은 승인 처리 중입니다.');
             }
         });
     });

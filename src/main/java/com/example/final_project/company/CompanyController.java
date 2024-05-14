@@ -44,15 +44,17 @@ public class CompanyController {
         session.setAttribute("sessionUser", company);
         session.setAttribute("loginTime",formattedTime);
         session.setAttribute("today",formattedDate);
+
         return "redirect:/manage/stays";
     }
 
     // 회원가입
     @PostMapping("/company/join")
     public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
-        SessionCompany company = companyService.joinAndLogin(reqDTO);
-        session.setAttribute("sessionUser", company);
-        return "redirect:/manage/stays";
+
+        companyService.join(reqDTO);
+
+        return "redirect:/company";
     }
 
     // 로그인 폼

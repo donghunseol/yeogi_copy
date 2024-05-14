@@ -61,6 +61,12 @@ public class CompanyService {
                 .orElseThrow(() -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
 
         //2. ENUM 값 체크
+
+
+        if (sessionUser.getState() == CompanyEnum.PROGRESSING){
+            throw new Exception401("해당 계정은 승인처리 상태중입니다.");
+        }
+
         if (sessionUser.getState() == CompanyEnum.QUIT){
             throw new Exception403("해당 계정은 탈퇴 처리되었습니다.");
         }
@@ -70,15 +76,14 @@ public class CompanyService {
 
     // 회원가입
     @Transactional
-    public SessionCompany joinAndLogin(CompanyRequest.JoinDTO reqDTO) {
+    public void join(CompanyRequest.JoinDTO reqDTO) {
 
         //회원가입
-        Company joinUser = companyRepository.save(reqDTO.toEntity());
-
-        //로그인
-        return new SessionCompany(joinUser);
+        companyRepository.save(reqDTO.toEntity());
 
     }
+
+
 
     public Company findByEmail(String email) {
         return companyRepository.findByEmail(email);

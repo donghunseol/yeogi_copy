@@ -31,6 +31,10 @@ public class CompanyRestController {
         }
     }
 
+//    @PostMapping("/company/login-check")
+//    public ResponseEntity<?> loginCheck(@RequestBody)
+
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.PayEnum;
 import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project._core.enums.StayEnum;
@@ -15,6 +16,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class CompanyResponse {
+
+   @Data
+   public static class LoginResponseDTO {
+      private SessionCompany sessionCompany;
+      private CompanyEnum state;
+
+      public LoginResponseDTO(SessionCompany sessionCompany, CompanyEnum state) {
+         this.sessionCompany = sessionCompany;
+         this.state = state;
+      }
+
+      // getter, setter 생략
+   }
 
    // [숙소 관리] 로그인한 기업이 등록한 숙소 정보
    @Data
