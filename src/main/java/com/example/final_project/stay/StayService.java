@@ -113,7 +113,7 @@ public class StayService {
         }
     }
 
-    //숙소 등록폼
+    //숙소 수정폼
     public StayResponse.UpdateFormDTO updateForm(Integer stayId, SessionCompany sessionUser) {
         // 1. 인증 처리
         if (sessionUser == null) {
@@ -171,7 +171,6 @@ public class StayService {
                     .toList();
 
             optionRepository.saveAll(options);
-
         }
 
     }
