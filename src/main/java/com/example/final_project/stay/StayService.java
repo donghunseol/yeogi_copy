@@ -6,6 +6,7 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.utils.ImageUtil;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
@@ -61,40 +62,9 @@ public class StayService {
         // 1.숙소등록
         Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
-        // 이미지 파일들을 저장할 리스트
-        List<StayImage> stayImages = new ArrayList<>();
+        // 2. 이미지 등록
+        List<StayImage> stayImages = ImageUtil.uploadStayImages(reqDTO.getImgFiles(), stay);
 
-        if (reqDTO.getImgFiles() != null) {
-            for (MultipartFile imgFile : reqDTO.getImgFiles()) {
-                String imgFileName = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
-
-                Path imgPath = Paths.get("./upload/" + imgFileName);
-
-                try {
-                    // 업로드 디렉토리가 존재하지 않으면, 서버가 시작될 때 해당 디렉토리를 자동으로 생성
-                    Files.createDirectories(imgPath.getParent());
-                    Files.write(imgPath, imgFile.getBytes());
-
-                    // StayImage 엔티티 생성 및 저장
-                    StayImage stayImage = new StayImage();
-
-                    stayImage.setName(imgFileName);
-                    stayImage.setPath(imgPath.toString().substring(1));
-                    stayImage.setStay(stay);
-
-                    // 리스트에 추가
-                    stayImages.add(stayImage);
-
-                } catch (IOException e) {
-                    // 예외가 발생하면 로그를 출력하고 예외를 다시 던집니다.
-                    e.printStackTrace();
-                    throw new RuntimeException("이미지 업로드 중 오류 발생: " + e.getMessage());
-                }
-            }
-        }
-
-
-        // 2.이미지 등록
         try {
             stayImageRepository.saveAll(stayImages);
         } catch (Exception e) {
