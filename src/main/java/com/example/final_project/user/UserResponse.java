@@ -1,6 +1,7 @@
 package com.example.final_project.user;
 
 import com.example.final_project._core.enums.UserEnum;
+import com.example.final_project.reservation.Reservation;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -69,11 +70,18 @@ public class UserResponse {
         }
     }
 
-//    // 로그인 한 회원의 알림 목록
-//    @Data
-//    public static class Notifications{
-//        private Integer reservationId;
-//        private String
-//
-//    }
+    // 로그인 한 회원의 알림 목록
+    @Data
+    public static class Notifications{
+        private Integer reservationId;
+        private LocalDate checkInDate;
+        private LocalDate checkOutDate;
+
+        public Notifications(Reservation reservation) {
+            this.reservationId = reservation.getId();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkOutDate = reservation.getCheckOutDate();
+        }
+
+    }
 }
