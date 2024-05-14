@@ -23,18 +23,17 @@
                                     <p class="title">작성</p>
                                 </div>
                             </div>
-                            <form action="#" method="#">
+                            <form action="/admin/write" method="post">
+                                <input type="hidden" name="id" value="{{sessionUser.id}}">
                                 <div class="detail-content">
                                     <span class="review-title">제목</span>
                                     <p class="review-content">
-                                        <input type="text" class="input">
+                                        <input type="text" class="input" name="title">
                                     </p>
                                     <span class="review-title">내용</span>
                                     <p class="review-content">
-                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="reply" id="" cols="30" rows="10"></textarea>
                                     </p>
-                                    <!-- <span class="review-title">답변 내용</span> -->
-                                    <!-- <input type="text"> -->
                                 </div>
                                     <div class="report-button-wrapper">
                                         <button class="btn black">작성완료</button>

@@ -365,11 +365,13 @@ public class AdminResponse {
     //관리자 페이지에서 기업 FAQ 리스트
     @Data
     public static class adminFaqListDTO{
+        private Integer faqId;
         private String writer;
         private String content;
         private String createdAt;
 
         public adminFaqListDTO(Faq faq) {
+            this.faqId = faq.getId();
             this.content = faq.getContent();
             this.writer = faq.getAdmin().getName();
             this.createdAt = AdminResponse.formatDate(faq.getCreatedAt());
