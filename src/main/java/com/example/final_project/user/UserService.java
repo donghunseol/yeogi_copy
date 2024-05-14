@@ -4,19 +4,23 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.stay.StayRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final StayRepository stayRepository;
+    private final ReservationRepository reservationRepository;
 
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
@@ -79,5 +83,11 @@ public class UserService {
         return new UserResponse.JoinDTO(user);
     }
 
+    public List<UserResponse.Notifications> notifications(SessionUser sessionUser){
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+        List<Reservation> reservationList = reservationRepository.findByUserId(user.getId());
+        return reservationList.stream().map(UserResponse.Notifications::new).collect(Collectors.toList());
+    }
 
 }
