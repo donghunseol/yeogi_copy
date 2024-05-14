@@ -38,7 +38,6 @@ public class CompanyController {
         String formattedTime = now.format(formatter); // 날짜 및 시간
         String formattedDate = now.format(formatterDate); // 날짜
 
-
         SessionCompany company = companyService.login(reqDTO);
 
         session.setAttribute("sessionUser", company);
@@ -50,8 +49,21 @@ public class CompanyController {
     // 회원가입
     @PostMapping("/company/join")
     public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
+
+        // 현재 시간 및 날짜 가져오기
+        LocalDateTime now = LocalDateTime.now();
+
+        // 시간 및 날짜
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedTime = now.format(formatter); // 날짜 및 시간
+        String formattedDate = now.format(formatterDate); // 날짜
+
         SessionCompany company = companyService.joinAndLogin(reqDTO);
         session.setAttribute("sessionUser", company);
+        session.setAttribute("loginTime",formattedTime);
+        session.setAttribute("today",formattedDate);
+
         return "redirect:/manage/stays";
     }
 

@@ -252,4 +252,20 @@ public class AdminController {
 
         return "/admin/customer-c/faq-detail";
     }
+
+    //관리자 FAQ 작성폼
+    @GetMapping("/admin/faq/write-form")
+    public String adminFaqWriteForm(){
+
+        return "/admin/customer-c/faq-write";
+    }
+
+    //TODO FAQ작성
+    //관리자 FAQ 작성
+    @PostMapping("/admin/write")
+    public String adminWrite(){
+
+
+        return "redirect:/admin/faq";
+    }
 }
