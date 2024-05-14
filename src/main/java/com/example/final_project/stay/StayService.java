@@ -114,7 +114,6 @@ public class StayService {
     }
 
     //숙소 등록폼
-    @Transactional
     public StayResponse.UpdateFormDTO updateForm(Integer stayId, SessionCompany sessionUser) {
         // 1. 인증 처리
         if (sessionUser == null) {
@@ -124,7 +123,7 @@ public class StayService {
         Stay stay = stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다."));
 
-        Company company = companyRepository.findByStayId(stay.getId())
+        Company company = companyRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
 
         // 2. 권한 처리

@@ -66,8 +66,9 @@ public class RoomResponse {
         private RoomEnum saleState;
         private RoomInfoDTO information;
         private List<StayOptionDTO> options;
+        private String notice;
 
-        public Detail(Room room, RoomInfoDTO roomInfoDTO, List<StayOptionDTO> stayOptionDTO) {
+        public Detail(Room room, RoomInfoDTO roomInfoDTO, List<StayOptionDTO> stayOptionDTO, Stay stay) {
             this.id = room.getId();
             this.imageName = room.getImageName();
             this.imagePath = room.getImagePath();
@@ -77,6 +78,7 @@ public class RoomResponse {
             this.saleState = room.getSpecialState();
             this.information = roomInfoDTO;
             this.options = stayOptionDTO;
+            this.notice = stay.getInformation();
         }
 
         @Data
