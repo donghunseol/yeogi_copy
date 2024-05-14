@@ -19,7 +19,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Optional<Company> findByIdAndPassword(@Param("email") String email, @Param("password") String password);
 
     // StayId로 Company찾기 쿼리
-    @Query("select c from Company c join fetch Stay s on c.id = s.company.id  where c.id = :stayId ")
+    @Query("select s.company from Stay s where s.id = :stayId")
     Optional<Company> findByStayId(@Param("stayId") Integer stayId);
 
     //이메일 중복 확인

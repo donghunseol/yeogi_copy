@@ -36,7 +36,7 @@ public class RoomService {
 
         //2. 권한처리
         Stay stay =stayRepository.findByStayId(stayId)
-                .orElseThrow(() -> new Exception404("해당 기업이 없습니다"));
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
 
         //객실 등록
         Room room = roomsRepository.save(reqDTO.toEntity(stay));
@@ -58,7 +58,7 @@ public class RoomService {
         RoomInformation roomInformation = roomInformationRepository.findByRoomId(roomId);
 
         Stay stay = stayRepository.findStayByRoom(roomId)
-                .orElseThrow(() -> new Exception404("해당 객실을 찾을 수 없습니다"));
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
 
         // 인포메이션
         RoomResponse.Detail.RoomInfoDTO roomInfoDTO = new RoomResponse.Detail.RoomInfoDTO(roomInformation);
