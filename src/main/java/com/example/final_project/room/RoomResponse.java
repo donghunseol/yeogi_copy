@@ -73,6 +73,18 @@ public class RoomResponse {
             this.imageName = room.getImageName();
             this.imagePath = room.getImagePath();
             this.tier = room.getTier();
+            if (room.getTier().equals("Deluxe")){
+                this.tier = "디럭스";
+            }
+            if (room.getTier().equals("Standard")){
+                this.tier = "스탠다드";
+            }
+            if (room.getTier().equals("Premium")){
+                this.tier = "프리미엄";
+            }
+            if (room.getTier().equals("Family")){
+                this.tier = "패밀리";
+            }
             this.price = room.getPrice();
             this.salePrice = room.getSpecialPrice();
             this.saleState = room.getSpecialState();
