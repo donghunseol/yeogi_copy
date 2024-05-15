@@ -37,6 +37,12 @@ public class RoomInformation {
     @Column(nullable = false)
     private Integer maxPerson; // 최대 인원
 
+    @Column(nullable = false)
+    private String announcement; // 공지
+
+    @Column(nullable = false)
+    private String basicInformation; // 기본 정보
+
     private String moreInfo; // 추가 정보 (ex. 조식 제공)
 
     @CreationTimestamp
@@ -54,7 +60,7 @@ public class RoomInformation {
         this.createdAt = createdAt;
     }
 
-    public RoomInformation(RoomResponse.Detail.RoomInfoDTO roomInfoDTO){
+    public RoomInformation(RoomResponse.Detail.RoomInfoDTO roomInfoDTO) {
         this.minPerson = roomInfoDTO.getMinPerson();
         this.maxPerson = roomInfoDTO.getMaxPerson();
         this.moreInfo = roomInfoDTO.getMoreinfo();
