@@ -77,4 +77,11 @@ public class UserController {
         return ResponseEntity.ok().body(new ApiUtil<>(respDTOS));
     }
 
+    // FAQ리스트
+    @GetMapping("/users/questions")
+    public ResponseEntity<?> questionList(){
+
+        List<UserResponse.FaqListDTO> respDTO = userService.faqList();
+        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+    }
 }

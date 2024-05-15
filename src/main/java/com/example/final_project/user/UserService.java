@@ -4,6 +4,8 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.faq.Faq;
+import com.example.final_project.faq.FaqRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.stay.StayRepository;
@@ -21,6 +23,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
+    private final FaqRepository faqRepository;
 
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
@@ -90,4 +93,10 @@ public class UserService {
         return reservationList.stream().map(UserResponse.Notifications::new).collect(Collectors.toList());
     }
 
+    public List<UserResponse.FaqListDTO> faqList(){
+
+        List<Faq> faqList =  faqRepository.findAllByExcludeComapny();
+
+        return faqList.stream().map(UserResponse.FaqListDTO::new).toList();
+    }
 }
