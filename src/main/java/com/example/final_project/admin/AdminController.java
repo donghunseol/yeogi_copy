@@ -213,8 +213,6 @@ public class AdminController {
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
         adminService.adminQuestionAnswer(sessionUser,reqDTO);
 
-
-
         return "redirect:/admin/company/question";
 
 //      String redirectPage = ""; // 변수 초기화
@@ -263,8 +261,9 @@ public class AdminController {
     //TODO FAQ작성
     //관리자 FAQ 작성
     @PostMapping("/admin/write")
-    public String adminWrite(){
-
+    public String adminWrite(AdminRequest.AdminFaqDTO reqDTO){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        adminService.faqRegister(sessionUser,reqDTO);
 
         return "redirect:/admin/faq";
     }

@@ -323,4 +323,22 @@ public class AdminService {
 
         return new AdminResponse.adminFaqDetail(faq);
     }
+
+    //[FAQ 작성]
+    @Transactional
+    public void faqRegister(SessionAdmin sessionUser,AdminRequest.AdminFaqDTO reqDTO){
+
+        // 1.인증처리
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        // 2. 권한처리
+        Admin admin = adminRepository.findById(reqDTO.getUserId())
+                .orElseThrow(() -> new Exception404("해당 관리자를 찾지 못했습니다."));
+
+        // 3. 작성
+        faqRepository.save(reqDTO.toEntity(admin));
+
+    }
 }

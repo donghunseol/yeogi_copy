@@ -24,11 +24,11 @@
                                 </div>
                             </div>
                             <form action="/admin/write" method="post">
-                                <input type="hidden" name="id" value="{{sessionUser.id}}">
+                                <input type="hidden" name="userId" value="{{sessionUser.id}}">
                                 <div class="detail-content">
                                     <span class="review-title">제목</span>
                                     <p class="review-content">
-                                        <input type="text" class="input" name="title">
+                                        <input name="content" type="text" class="input" >
                                     </p>
                                     <span class="review-title">내용</span>
                                     <p class="review-content">

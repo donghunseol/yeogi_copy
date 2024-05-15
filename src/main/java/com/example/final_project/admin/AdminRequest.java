@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project.faq.Faq;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -28,4 +29,19 @@ public class AdminRequest {
         private String answer;
     }
 
+    //관리자 FAQ 작성 DTO
+    @Data
+    public static class AdminFaqDTO{
+        private Integer userId;
+        private String content;
+        private String reply;
+
+        public Faq toEntity(Admin admin){
+            return Faq.builder()
+                    .admin(admin)
+                    .content(content)
+                    .reply(reply)
+                    .build();
+        }
+    }
 }
