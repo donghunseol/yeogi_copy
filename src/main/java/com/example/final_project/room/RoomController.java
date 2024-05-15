@@ -19,20 +19,20 @@ public class RoomController {
 
     //객실 등록 폼
     @GetMapping("/room/register-form/{stayId}")
-    public String registerForm(@PathVariable Integer stayId, HttpServletRequest request){
+    public String registerForm(@PathVariable Integer stayId, HttpServletRequest request) {
 
-        request.setAttribute("stay",stayId);
+        request.setAttribute("stay", stayId);
 
         return "/company/room/register";
     }
 
     //객실 등록
     @PostMapping("/room/register/{stayId}")
-    public String register(@PathVariable Integer stayId, @ModelAttribute RoomRequest.SaveDTO reqDTO){
+    public String register(@PathVariable Integer stayId, @ModelAttribute RoomRequest.SaveDTO reqDTO) {
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         System.out.println(reqDTO);
-        roomsService.register(stayId,sessionUser,reqDTO);
+        roomsService.register(stayId, sessionUser, reqDTO);
 
-        return "redirect:/manage/stays/"+stayId+"/rooms";
+        return "redirect:/manage/stays/" + stayId + "/rooms";
     }
 }
