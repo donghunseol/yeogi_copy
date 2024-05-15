@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project._core.enums.FaqEnum;
 import com.example.final_project.faq.Faq;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -35,12 +36,13 @@ public class AdminRequest {
         private Integer userId;
         private String content;
         private String reply;
-
+        private FaqEnum classification;
         public Faq toEntity(Admin admin){
             return Faq.builder()
                     .admin(admin)
                     .content(content)
                     .reply(reply)
+                    .classification(classification)
                     .build();
         }
     }

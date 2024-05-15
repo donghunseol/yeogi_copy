@@ -233,6 +233,7 @@ public class AdminService {
         }).collect(Collectors.toList());
     }
 
+
     //[기업 문의사항 리스트]
     public List<AdminResponse.CompanyQuestionListDTO> adminCompanyQuestionList(SessionAdmin sessionUser){
 
@@ -289,7 +290,6 @@ public class AdminService {
 
         questionRepository.save(question);
     }
-
 
     //[FAQ 리스트]
     @Transactional

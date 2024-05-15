@@ -1,6 +1,7 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.FaqEnum;
 import com.example.final_project._core.enums.QuestionEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project.company.Company;
@@ -310,11 +311,12 @@ public class AdminResponse {
             setStateColorAndText();
         }
 
+        // 날짜 파싱 매서드
         private String formatDate(LocalDateTime dateTime) {
             // 년, 월, 일을 추출하여 문자열로 반환
             return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
         }
-
+        // 상태 컬러 설정 매서드
         private void setStateColorAndText() {
             switch (state) {
                 case WAIT:
@@ -368,6 +370,7 @@ public class AdminResponse {
         private Integer faqId;
         private String writer;
         private String content;
+        private FaqEnum classification;
         private String createdAt;
 
         public adminFaqListDTO(Faq faq) {
@@ -375,6 +378,7 @@ public class AdminResponse {
             this.content = faq.getContent();
             this.writer = faq.getAdmin().getName();
             this.createdAt = AdminResponse.formatDate(faq.getCreatedAt());
+            this.classification = faq.getClassification();
         }
     }
 
