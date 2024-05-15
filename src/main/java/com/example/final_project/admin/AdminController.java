@@ -46,6 +46,12 @@ public class AdminController {
         return "redirect:/admin/companies";
     }
 
+    @GetMapping("/admin/logout")
+    public String logout(){
+        session.invalidate();
+        return "/admin";
+    }
+
     // 개인 회원 정보 조회 View
     @GetMapping("/admin/users")
     public String user(HttpServletRequest request) {
