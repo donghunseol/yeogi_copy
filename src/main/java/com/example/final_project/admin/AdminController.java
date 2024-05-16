@@ -1,6 +1,7 @@
 package com.example.final_project.admin;
 
 import com.example.final_project.question.Question;
+import com.example.final_project.review.Review;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -232,6 +233,15 @@ public class AdminController {
 //        return redirectPage; // 오타 수정:
     }
 
+//    // 신고 목록
+//    @GetMapping("/admin/reports")
+//    public String reportList(HttpServletRequest request){
+//        List<Review> respDTOS = adminService.reportedReviewList();
+//        request.setAttribute("reportCount", respDTOS.size());
+//        request.setAttribute("reportList", respDTOS);
+//        return "/admin/review/report";
+//    }
+
     //관리자 FAQ 리스트
     @GetMapping("/admin/faq")
     public String adminFaqList(HttpServletRequest request){
@@ -272,4 +282,5 @@ public class AdminController {
 
         return "redirect:/admin/faq";
     }
+
 }

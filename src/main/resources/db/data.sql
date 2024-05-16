@@ -324,10 +324,10 @@ values (1, 1, '고객님 그런식으로 말씀하시면 안되죠 신고할거�
 --        (2, 3, 'PROCEEDING', now()),
 --        (3, 1, 'PROCEEDING', now());
 -- -- company 가 user review 신고
--- insert into report_tb(review_id, company_id, result, created_at)
--- values (1, 1, 'PROCEEDING', now()),
---        (2, 2, 'PROCEEDING', now()),
---        (3, 3, 'PROCEEDING', now());
+-- insert into report_tb(review_id, user_id, result, created_at, report_content)
+-- values (1, 1, 'PROCEEDING', now(), '마음에 안 들어요'),
+--        (2, 2, 'PROCEEDING', now(), '거짓말하고 있어요'),
+--        (3, 3, 'PROCEEDING', now(), '...');
 
 -- user 가 stay review 신고
 -- insert into report_tb(review_comment_id, user_id, result, created_at)
