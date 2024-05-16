@@ -8,7 +8,6 @@ import com.example.final_project.faq.Faq;
 import com.example.final_project.faq.FaqRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
-import com.example.final_project.stay.StayRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,14 +35,22 @@ public class UserService {
         return jwt;
     }
 
+
+    public User findByEmail(String email){
+
+        return  userRepository.findByEmail(email);
+
+    }
+
+
     // 회원 가입
     @Transactional
     public String joinAndLogin(UserRequest.JoinDTO reqDTO) {
-        Optional<User> userOP = userRepository.findByEmail(reqDTO.getEmail());
+//        Optional<User> userOP = userRepository.findByEmail(reqDTO.getEmail());
 
-        if (userOP.isPresent()) {
-            throw new Exception400("중복된 유저네임입니다");
-        }
+//        if (userOP.isPresent()) {
+//            throw new Exception400("중복된 유저네임입니다");
+//        }
 
         // 회원 가입
         User joinUser = userRepository.save(reqDTO.toEntity());
@@ -78,6 +85,7 @@ public class UserService {
 
         return new UserResponse.LoginDTO(user);
     }
+
 
     public UserResponse.JoinDTO joinByDTO(UserRequest.JoinDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
