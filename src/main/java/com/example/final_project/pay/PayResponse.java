@@ -30,28 +30,22 @@ public class PayResponse {
     public static class StayTotalIncomeDTO {
         private Integer companyId; // 숙소 소유 기업 번호
         private Integer stayId; // 숙소 번호
-        private StayImageDTO path;
-        private String stayName;
+        private String path; // 이미지 경로
+        private String stayName; // 숙소 이름
         private Long totalIncome; // 총 수익
         private Long reservationCount; // 수익이 들어온 예약 수
 
-        public StayTotalIncomeDTO(Integer companyId, Integer stayId, Long totalIncome, Long reservationCount, String stayName, StayImageDTO stayImageDTO) {
+
+        public StayTotalIncomeDTO(Integer companyId, Integer stayId, String path, String stayName, Long totalIncome, Long reservationCount) {
             this.companyId = companyId;
             this.stayId = stayId;
+            this.path = path;
+            this.stayName = stayName;
             this.totalIncome = totalIncome;
             this.reservationCount = reservationCount;
-            this.stayName = stayName;
-            this.path = stayImageDTO;
+
         }
 
-        @Data
-        public static class StayImageDTO{
-            private String path;
-
-            public StayImageDTO(String path) {
-                this.path = path;
-            }
-        }
     }
 
     // 결제 대표 DTO
