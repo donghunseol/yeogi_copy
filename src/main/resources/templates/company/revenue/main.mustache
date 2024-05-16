@@ -55,18 +55,21 @@
                                         <li>
                                             <div class="item company">
                                                 <div class="text-wrapper">
-                                                    <div class="text-item">
+                                                    <div class="img-item">
                                                         <span class="comp-name">{{stayName}}</span>
                                                         <figure>
                                                             <img src="{{path}}">
                                                         </figure>
-
-                                                        <span class="head"><i></i><em>숙소 총 수익</em></span>
-                                                        <span class="body" id="stayIncome">{{totalIncome}}원</span>
                                                     </div>
                                                     <div class="text-item">
-                                                        <span class="head"><i></i><em>숙소 예약 회수</em></span>
-                                                        <span class="body" id="number">{{reservationCount}}개</span>
+                                                        <div class="box">
+                                                            <span class="head"><i></i><em>숙소 총 수익</em></span>
+                                                            <span class="body" id="stayIncome">{{totalIncome}}원</span>
+                                                        </div>
+                                                        <div class="box">
+                                                            <span class="head"><i></i><em>숙소 예약 회수</em></span>
+                                                            <span class="body" id="number">{{reservationCount}}개</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <form action="/manage/stays/{{stayId}}/rooms" method="get"

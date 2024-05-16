@@ -1358,7 +1358,6 @@ p.tab-title {
 .stay-detail .content.bottom ul li {
     width: calc((100% - 40px) / 3);
     background: #f8f8f8;
-    padding: 20px;
     border-radius: 5px;
     margin-right: 20px;
     margin-bottom: 20px;
@@ -1377,18 +1376,21 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item.company .text-wrapper{
     flex-direction: column;
 }
-.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item{
+.stay-detail .content.bottom ul li .item.company .text-wrapper .img-item{
+    display: flex;
     flex-direction: column;
-    width : 100%;
-    padding: 0;
+    width: 100%;
+    align-items: center;
 }
-.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item .comp-name{
-
+.stay-detail .content.bottom ul li .item.company .text-wrapper .img-item .comp-name{
+    font-size: 18px;
+    padding: 20px;
+    color: #333;
 }
-.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure{
+.stay-detail .content.bottom ul li .item.company .text-wrapper .img-item figure{
     width: 100%;
 }
-.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure img{
+.stay-detail .content.bottom ul li .item.company .text-wrapper .img-item figure img{
     width: 100%;
     object-fit: cover;
 }
@@ -1459,16 +1461,25 @@ p.tab-title {
 }
 
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item {
-    margin-top: 10px;
-    width: calc((100% - 5px));
     display: flex;
     align-items: center;
     font-size: 14px;
-    background: #fff;
+    background: #f45858;
     padding: 10px;
     border-radius: 5px;
+    height: 40px;
+    margin-top: 10px;
+    color: #fff;
 }
-
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .box{
+    width: calc((100%) / 2);
+    display: flex;
+    justify-content: center;
+}
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item .box:last-child{
+    margin-right: 0;
+    border-left: 1px solid #fff;
+}
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item:last-child {
     margin-bottom: 0;
 }
