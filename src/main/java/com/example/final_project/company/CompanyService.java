@@ -56,6 +56,7 @@ public class CompanyService {
     // 로그인
     @Transactional
     public SessionCompany login(CompanyRequest.LoginDTO reqDTO) {
+
         //1. 아이디 체크
         Company sessionUser = companyRepository.findByIdAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
@@ -65,18 +66,23 @@ public class CompanyService {
             throw new Exception403("해당 계정은 탈퇴 처리되었습니다.");
         }
 
+        if (sessionUser.getState() == CompanyEnum.PROGRESSING){
+            throw new Exception401("해당 계정은 승인 대기중입니다.");
+        }
+
+        if (sessionUser.getState() == CompanyEnum.BLACK){
+            throw new Exception401("해당 계정은 블랙리스트 처리되었습니다");
+        }
+
         return new SessionCompany(sessionUser);
     }
 
     // 회원가입
     @Transactional
-    public SessionCompany joinAndLogin(CompanyRequest.JoinDTO reqDTO) {
+    public void join(CompanyRequest.JoinDTO reqDTO) {
 
         //회원가입
-        Company joinUser = companyRepository.save(reqDTO.toEntity());
-
-        //로그인
-        return new SessionCompany(joinUser);
+        companyRepository.save(reqDTO.toEntity());
 
     }
 
@@ -208,18 +214,19 @@ public class CompanyService {
 
             if (stayIncome.isEmpty()) {
                 // 예약 내역이 없는 숙소
-                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
-                        .findFirst().orElse(null);
-                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), firstImage != null ? firstImage.getPath() : null, stay.getName(), 0L, 0L);
+//                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
+//                        .findFirst().orElse(null);
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), stay.getName(),0L, 0L);
                 respDTO.add(zeroDTO);
             } else {
                 // 첫 번째 이미지만 사용
-                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
-                        .findFirst().orElse(null);
+//                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
+//                        .findFirst().orElse(null);
                 PayResponse.StayTotalIncomeDTO incomeDTO = stayIncome.get(0);
-                incomeDTO.setPath(firstImage != null ? firstImage.getPath() : null); // 첫 번째 이미지로 설정
+//                incomeDTO.setPath(firstImage != null ? firstImage.getPath() : null); // 첫 번째 이미지로 설정
                 respDTO.add(incomeDTO);
             }
+            System.out.println(respDTO);
         }
 
         return respDTO;

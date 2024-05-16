@@ -43,9 +43,9 @@ public class PayRepositoryTest {
         PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(companyId);
 
         // 만약 조회되는 데이터가 없는 경우
-        if (respDTO == null) {
-            respDTO = new PayResponse.TotalIncomeDTO(companyId, 0L, 0L);
-        }
+//        if (respDTO == null) {
+//            respDTO = new PayResponse.TotalIncomeDTO(companyId, 0L, 0L);
+//        }
 
         // eye
         System.out.println("findByTotalIncome_test : " + respDTO);
@@ -66,11 +66,11 @@ public class PayRepositoryTest {
         List<PayResponse.StayTotalIncomeDTO> respDTO = payRepository.findIncomeByStay(companyId, stayId);
 
         // 만약 조회되는 데이터가 없는 경우
-        if (respDTO == null) {
-            respDTO.stream().map(stay -> {
-                return new PayResponse.StayTotalIncomeDTO(stay.getCompanyId(), stay.getStayId(), 0L, 0L);
-            }).toList();
-        }
+//        if (respDTO == null) {
+//            respDTO.stream().map(stay -> {
+//                return new PayResponse.StayTotalIncomeDTO(stay.getCompanyId(), stay.getStayId(), 0L, 0L);
+//            }).toList();
+//        }
 
         // eye
         System.out.println("findByTotalIncome_test/stayId/1 : " + respDTO);

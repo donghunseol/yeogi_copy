@@ -36,10 +36,10 @@ public class PayResponse {
         private Long reservationCount; // 수익이 들어온 예약 수
 
 
-        public StayTotalIncomeDTO(Integer companyId, Integer stayId, String path, String stayName, Long totalIncome, Long reservationCount) {
+        public StayTotalIncomeDTO(Integer companyId, Integer stayId, String stayName, Long totalIncome, Long reservationCount) {
             this.companyId = companyId;
             this.stayId = stayId;
-            this.path = path;
+//            this.path = path;
             this.stayName = stayName;
             this.totalIncome = totalIncome;
             this.reservationCount = reservationCount;

@@ -52,9 +52,11 @@
                 window.location.href = '/manage/stays'; // 대시보드 페이지로 리디렉션
             },
             error: function(xhr, status, error) {
-                // 로그인 실패 시 처리
-                alert('로그인 실패 : 해당 계정은 탈퇴 처리되었습니다.');
+                const res = xhr.responseJSON;
 
+                // 로그인 실패 시 처리
+                // alert('로그인 실패 : 해당 계정은 탈퇴 처리되었습니다.');
+                alert(`로그인 실패 : ${res.errorMessage}`);
             }
         });
     });

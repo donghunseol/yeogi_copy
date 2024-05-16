@@ -30,17 +30,30 @@ public interface PayRepository extends JpaRepository<Pay, Integer> {
     PayResponse.TotalIncomeDTO findTotalIncome(@Param("companyId") Integer companyId);
 
     // 숙소 수익 조회
+//    @Query("""
+//        SELECT new com.example.final_project.pay.PayResponse$StayTotalIncomeDTO
+//        (p.reservation.room.stay.company.id, p.reservation.room.stay.id, si.path, p.reservation.room.stay.name, SUM(p.amount), COUNT(p.reservation.id))
+//        FROM Pay p
+//        JOIN FETCH Reservation re ON p.reservation.id = re.id
+//        JOIN FETCH Room r ON re.room.id = r.id
+//        JOIN StayImage si ON r.id = si.stay.id
+//        JOIN Stay s ON r.stay.id = s.id
+//        JOIN Company c ON s.company.id = c.id
+//        WHERE c.id = :companyId AND p.state = 'COMPLETION' AND s.id = :stayId
+//        GROUP BY p.reservation.room.stay.company.id, p.reservation.room.stay.id, si.path, p.reservation.room.stay.name
+//        """)
+//    List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(@Param("companyId") Integer companyId, @Param("stayId") Integer stayId);
+
     @Query("""
         SELECT new com.example.final_project.pay.PayResponse$StayTotalIncomeDTO
-        (p.reservation.room.stay.company.id, p.reservation.room.stay.id, si.path, p.reservation.room.stay.name, SUM(p.amount), COUNT(p.reservation.id))
+        (p.reservation.room.stay.company.id, p.reservation.room.stay.id, p.reservation.room.stay.name, SUM(p.amount), COUNT(p.reservation.id))
         FROM Pay p
         JOIN FETCH Reservation re ON p.reservation.id = re.id
         JOIN FETCH Room r ON re.room.id = r.id
-        JOIN StayImage si ON r.id = si.stay.id
         JOIN Stay s ON r.stay.id = s.id
         JOIN Company c ON s.company.id = c.id
         WHERE c.id = :companyId AND p.state = 'COMPLETION' AND s.id = :stayId
-        GROUP BY p.reservation.room.stay.company.id, p.reservation.room.stay.id, si.path, p.reservation.room.stay.name
+        GROUP BY p.reservation.room.stay.company.id, p.reservation.room.stay.id, p.reservation.room.stay.name
         """)
     List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(@Param("companyId") Integer companyId, @Param("stayId") Integer stayId);
 }
