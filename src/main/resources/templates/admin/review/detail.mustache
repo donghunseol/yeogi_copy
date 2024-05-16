@@ -1,0 +1,123 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        <aside class="side-bar">
+            <div class="side-wrapper">
+                <div class="side-content header">
+                    <figure>
+                        <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
+                    </figure>
+                    <span>여어떻노</span>
+                </div>
+                {{#sessionUser}}
+                    <div class="side-content info">
+                        <p>기업이름 : {{businessName}}</p>
+                        <p>접속일시 : {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
+                        <p>승인상태 : {{state}}</p>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                {{/sessionUser}}
+                <div class="side-menu">
+                    <p class="head-menu active"><i class="fa-solid fa-building"></i>숙소관리</p>
+                    <ul class="sub active">
+                        <li class="on"><a href="/manage/stays">숙소관리</a></li>
+                        <li><a href="/reservations/status">예약현황</a></li>
+                        <li><a href="/revenue">매출현황</a></li>
+
+                    </ul>
+                </div>
+                <div class="side-menu">
+                    <p class="head-menu"><i class="fa-solid fa-user"></i>내 정보 관리</p>
+                    <ul class="sub">
+                        <li><a href="/company/information">정보수정</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰관리</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        {{#review}}
+                        <ul class="review-table">
+                            <li>
+                                <div class="review-detail-head">
+                                    <h3>{{name}}</h3>
+                                    <div class="button-wrapper">
+                                        <form action="/review/report-form/{{id}}" method="get">
+                                            <button class="btn black">신고하기</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <p class="reply-icon black">댓글</p>
+                                <div class="review-user-info">
+                                    <span>작성자 : {{writer.name}}</span>
+                                    <span>작성일자 : {{createdAt}}</span>
+                                    <span>누적신고횟수 :{{writer.reportCount}} 회</span>
+                                    <span>별점 : {{score}}점</span>
+                                </div>
+                                <div class="review-content">
+                                    <p class="text">{{content}}</p>
+                                    {{#children}}
+                                        <div class="reply-content">
+                                            <p class="reply-icon">답글</p>
+                                            <div class="reply-user-info">
+                                                <span>작성자 : {{sessionUser.businessName}}</span>
+                                                <div class="review-content-reply">{{content}}</div>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    {{/children}}
+                                    {{^children}}
+                                    <form action="/review/write/{{review.stayId}}" method="post">
+                                        <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                                        <input type="hidden" name="stayId" value="{{stayId}}">
+                                        <input type="hidden" name="score" value="">
+                                        <input type="hidden" name="parentId" value="{{review.id}}">
+                                        <input type="hidden" name="isDelete" value="FLAWLESS">
+                                        <div class="reply-content">
+                                            <p class="reply-icon">답글</p>
+                                            <div class="reply-user-info">
+                                                <span>작성자 : {{sessionUser.businessName}}</span>
+                                            </div>
+                                            <textarea id="newTweetContent" placeholder="답글을 적어주세요."
+                                                      onkeydown="resize(this)" onkeyup="resize(this)"
+                                                      name="content"
+                                            ></textarea>
+                                            <div class="button-wrapper">
+                                                <button>답글달기</button>
+                                            </div>
+                                        </div>
+                                    {{/children}}
+                                    </form>
+                                </div>
+                                <div class="button-wrapper">
+                                    <a class="btn black" href="/reviews/{{id}}">목록보기</a>
+                                </div>
+                            </li>
+                        </ul>
+                        {{/review}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
+    }
+
+</script>
+</body>
+
+</html>

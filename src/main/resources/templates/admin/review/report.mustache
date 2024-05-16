@@ -1,0 +1,106 @@
+{{> company/layout/head}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        <aside class="side-bar">
+            <div class="side-wrapper">
+                <div class="side-content header">
+                    <figure>
+                        <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
+                    </figure>
+                    <span>여어떻노</span>
+                </div>
+                {{#sessionUser}}
+                    <div class="side-content info">
+                        <p>기업이름 : {{businessName}}</p>
+                        <p>접속일시 : {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
+                        <p>승인상태 : {{state}}</p>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                {{/sessionUser}}
+                <div class="side-menu">
+                    <p class="head-menu active"><i class="fa-solid fa-building"></i>숙소관리</p>
+                    <ul class="sub active">
+                        <li class="on"><a href="/manage/stays">숙소관리</a></li>
+                        <li><a href="/reservations/status">예약현황</a></li>
+                        <li><a href="/revenue">매출현황</a></li>
+
+                    </ul>
+                </div>
+                <div class="side-menu">
+                    <p class="head-menu"><i class="fa-solid fa-user"></i>내 정보 관리</p>
+                    <ul class="sub">
+                        <li><a href="/company/information">정보수정</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>리뷰관리</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="#" method="#" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 리뷰 <em>{{reportCount}}</em>개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="45%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="25%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">내용</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">평점</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#reportList}}
+                                <tr class="review">
+                                    <td class="title"><span>{{content}}</span></td>
+                                    <td class="content">{{writer.name}}</td>
+                                    <td>{{score}}점</td>
+                                    <td>{{createdAt}}</td>
+                                    <td class="link">
+                                        <a href="/reviews/detail/{{id}}"></a>
+                                    </td>
+                                </tr>
+                            {{/reportList}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>
+
+
+
+
+
