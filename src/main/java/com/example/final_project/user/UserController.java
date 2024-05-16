@@ -40,8 +40,8 @@ public class UserController {
     //회원가입 시 이메일중복 체크확인
     @GetMapping("/users/username-same-check")
     public @ResponseBody ApiUtil<?> usernameSameCheck(String email){
-        User user = userService.findByEmail(email);
-        if (user == null) {
+        Optional userOp = userService.findByEmail(email);
+        if (userOp == null) {
             return new ApiUtil<>(true);
         } else {
             return new ApiUtil<>(false);

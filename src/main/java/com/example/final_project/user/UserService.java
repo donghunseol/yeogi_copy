@@ -36,9 +36,15 @@ public class UserService {
     }
 
 
-    public User findByEmail(String email){
+    public Optional<User> findByEmail(String email){
 
-        return  userRepository.findByEmail(email);
+        Optional<User> userOP = userRepository.findByEmail(email);
+
+        if (userOP.isPresent()) {
+            throw new Exception400("중복된 유저네임입니다");
+        }
+
+        return userOP;
 
     }
 
@@ -46,11 +52,6 @@ public class UserService {
     // 회원 가입
     @Transactional
     public String joinAndLogin(UserRequest.JoinDTO reqDTO) {
-//        Optional<User> userOP = userRepository.findByEmail(reqDTO.getEmail());
-
-//        if (userOP.isPresent()) {
-//            throw new Exception400("중복된 유저네임입니다");
-//        }
 
         // 회원 가입
         User joinUser = userRepository.save(reqDTO.toEntity());
