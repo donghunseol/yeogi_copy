@@ -2,6 +2,7 @@ package com.example.final_project.room;
 
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.utils.ImageUtil;
 import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.option.Option;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.example.final_project._core.utils.ImageUtil.uploadFile;
 
 @RequiredArgsConstructor
 @Service
@@ -38,12 +41,28 @@ public class RoomService {
         Stay stay =stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
 
+
+        // 이미지 등록
+        String imagePath = null;
+        String imageName = null;
+
+        if (reqDTO.getImageFile() != null) {
+            ImageUtil.FileUploadResult uploadResult = uploadFile("./upload",reqDTO.getImageFile());
+            imagePath = uploadResult.getFilePath();
+            imageName = uploadResult.getFileName();
+        }
+
+
         //객실 등록
         Room room = roomsRepository.save(reqDTO.toEntity(stay));
-        RoomInformation roomInformation = roomInformationRepository.save(reqDTO.toEntity(room));
-        roomsRepository.save(room);
-        roomInformationRepository.save(roomInformation);
+        room.setImageName(imageName);
+        room.setImagePath(imagePath);
 
+        RoomInformation roomInformation = roomInformationRepository.save(reqDTO.toEntity(room));
+
+
+        System.out.println(room);
+        System.out.println(roomInformation);
         return new RoomResponse.Save(room,roomInformation);
     }
 
