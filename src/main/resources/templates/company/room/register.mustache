@@ -48,14 +48,11 @@
                             <div class="cont_area">
                                 <div id="tab1" class="cont" style="display:block;">
                                     <form action="/room/register/{{stayId}}" method="post" enctype="multipart/form-data">
-                                        <!-- TODO 나중에 image 실제로 넣어야함-->
-                                        <input type="hidden" name="imagePath" value ="/images/room1.jpg">
-                                        <input type="hidden" name="imageName" value="room1.jpg">
                                         <div class="file-box">
                                             <span>이미지등록</span>
                                             <ul class="image-preview only"></ul>
-                                            <input type="file" id="file01" class="real-upload" accept="/images/*"
-                                                   required multiple>
+                                            <input type="file" id="file01" class="real-upload" accept="/image/*" name="imageFile"
+                                                   required>
                                             <input class="upload-name" type="text" value="첨부파일" placeholder="첨부파일">
                                             <label for="file01">파일찾기</label>
                                             <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
@@ -131,6 +128,24 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">기본정보</label>
+                                            <div class="input-wrapper">
+                                                <textarea name="basicInformation" id="" cols="30" rows="10" placeholder="ex)더블베드 1개 객실+욕실/17.24평" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">추가정보</label>
+                                            <div class="input-wrapper">
+                                                <textarea name="moreInfo" id="" cols="30" rows="10" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="loging-name">공지사항</label>
+                                            <div class="input-wrapper">
+                                                <textarea name="announcement" id="" cols="30" rows="10" placeholder="ex) 스마트앱 체크인만 가능 비대면 체크인,조식 제공" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                                            </div>
+                                        </div>
                                         <div class="button-wrapper">
                                             <button type="submit" class="btn black join">등록하기</button>
                                         </div>
@@ -148,7 +163,7 @@
 </main>
 <script>
 
-    // 이미지 다중 업로드
+    // 이미지 업로드
     function getImageFiles(e) {
         const files = e.currentTarget.files;
         const imagePreview = e.currentTarget.parentElement.querySelector('.image-preview');
@@ -195,29 +210,9 @@
         return li;
     }
 
-    // 탭메뉴
-    const tabList = document.querySelectorAll('.room-tab_menu .list li');
-    const contents = document.querySelectorAll('.room-tab_menu .cont_area .cont');
-    let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
-
-    for (var i = 0; i < tabList.length; i++) {
-        tabList[i].querySelector('.btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            for (var j = 0; j < tabList.length; j++) {
-                // 나머지 버튼 클래스 제거
-                tabList[j].classList.remove('is_on');
-
-                // 나머지 컨텐츠 display:none 처리
-                contents[j].style.display = 'none';
-            }
-
-            // 버튼 관련 이벤트
-            this.parentNode.classList.add('is_on');
-
-            // 버튼 클릭시 컨텐츠 전환
-            activeCont = this.getAttribute('href');
-            document.querySelector(activeCont).style.display = 'block';
-        });
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
     }
 
 

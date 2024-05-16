@@ -1393,6 +1393,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item.company .text-wrapper .img-item figure img{
     width: 100%;
     object-fit: cover;
+    max-height: 260px;
 }
 
 .stay-detail .content.bottom ul li .room.item {
@@ -1459,8 +1460,12 @@ p.tab-title {
     padding: 10px;
     border-radius: 5px;
 }
-
-.stay-detail .content.bottom ul li .item .text-wrapper .text-item {
+.stay-detail .content.bottom ul li .item .text-wrapper .text-item{
+    width: calc((100% - 10px) / 2);
+    color: #333;
+    background: #fff;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item {
     display: flex;
     align-items: center;
     font-size: 14px;

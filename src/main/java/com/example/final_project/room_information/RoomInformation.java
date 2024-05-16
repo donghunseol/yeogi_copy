@@ -2,6 +2,7 @@ package com.example.final_project.room_information;
 
 import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class RoomInformation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 방 이용 정보 번호
 
+    @JsonIgnore // JSON 직렬화에서 room 필드 제외
     @OneToOne(fetch = FetchType.LAZY, optional = false) // optional = false를 적어야 Not Null이 된다.
     private Room room;
 
@@ -49,7 +51,7 @@ public class RoomInformation {
     private LocalDateTime createdAt; // 방 이용 정보 생성 일자
 
     @Builder
-    public RoomInformation(Integer id, Room room, LocalTime checkIn, LocalTime checkOut, Integer minPerson, Integer maxPerson, String moreInfo, LocalDateTime createdAt) {
+    public RoomInformation(Integer id, Room room, LocalTime checkIn, LocalTime checkOut, Integer minPerson, Integer maxPerson, String moreInfo, LocalDateTime createdAt, String announcement, String basicInformation ) {
         this.id = id;
         this.room = room;
         this.checkIn = checkIn;
@@ -58,6 +60,8 @@ public class RoomInformation {
         this.maxPerson = maxPerson;
         this.moreInfo = moreInfo;
         this.createdAt = createdAt;
+        this.basicInformation = basicInformation;
+        this.announcement = announcement;
     }
 
     public RoomInformation(RoomResponse.Detail.RoomInfoDTO roomInfoDTO) {
