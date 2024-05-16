@@ -306,16 +306,12 @@ values (1, 1, 5, '정말 좋았어요!', 'FLAWLESS', now()),
        (3, 3, 4, '좋았습니다!', 'FLAWLESS', now());
 
 -- review 대댓글 더미생성
-insert into review_tb(user_id, stay_id, content, state, created_at, parent_id)
-values (1, 1, '고객님 그런식으로 말씀하시면 안되죠 신고할거에요!!', 'FLAWLESS', now(), 1);
-
--- review_comment 더미 생성
--- insert into review_comment_tb (review_id, company_id, content, state, created_at)
--- values (1, 1, '감사합니다!', 'FLAWLESS', now()),
---        (2, 1, '조금 더 노력하겠습니다!', 'FLAWLESS', now()),
---        (3, 2, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now()),
---        (4, 2, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now()),
---        (5, 3, '고마워요!', 'FLAWLESS', now());
+insert into review_tb (company_id, stay_id, content, state, created_at, parent_id)
+values (1, 1, '감사합니다!', 'FLAWLESS', now(), 1),
+       (1, 2, '조금 더 노력하겠습니다!', 'FLAWLESS', now(), 2),
+       (2, 3, '보통이면 최고가 되도록 노력하겠습니다!', 'FLAWLESS', now(), 3),
+       (2, 3, '감사합니다 최선을 다하겠습니다!', 'FLAWLESS', now(), 4),
+       (2, 3, '고마워요!', 'FLAWLESS', now(), 5);
 
 -- report 더미 생성
 -- user 가 user review 신고
