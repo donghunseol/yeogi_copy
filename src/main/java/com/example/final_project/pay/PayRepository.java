@@ -19,7 +19,7 @@ public interface PayRepository extends JpaRepository<Pay, Integer> {
     // 전체 수익 조회
     @Query("""
             SELECT new com.example.final_project.pay.PayResponse$TotalIncomeDTO
-            (p.reservation.room.stay.company.id, p.reservation.room.stay.company.businessName,SUM(p.amount), count (p.reservation.id))
+            (p.reservation.room.stay.company.id, p.reservation.room.stay.company.businessName, SUM(p.amount), count (p.reservation.id))
             FROM Pay p
             JOIN FETCH Reservation re ON p.reservation.id = re.id
             JOIN FETCH Room r ON re.room.id = r.id

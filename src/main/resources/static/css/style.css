@@ -1305,7 +1305,8 @@ p.tab-title {
     display: flex;
     align-items: center;
 }
-
+.stay-detail .content.top .text-wrapper p.text-item .img-wrapper{}
+.stay-detail .content.top .text-wrapper p.text-item .img-wrapper img{}
 .stay-detail .content.top .text-wrapper p.text-item:nth-child(1) {
     border-top: 1px solid #ddd;
 }
@@ -1371,6 +1372,25 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item {
     display: flex;
     flex-wrap: wrap;
+}
+.stay-detail .content.bottom ul li .item.company{}
+.stay-detail .content.bottom ul li .item.company .text-wrapper{
+    flex-direction: column;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item{
+    flex-direction: column;
+    width : 100%;
+    padding: 0;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item .comp-name{
+
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure{
+    width: 100%;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure img{
+    width: 100%;
+    object-fit: cover;
 }
 
 .stay-detail .content.bottom ul li .room.item {
