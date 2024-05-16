@@ -21,4 +21,20 @@ public class GpsUtilTest {
 
 
     }
+
+    @Test
+    public void getAddress_test(){
+        // given
+        double[] latAndLon = new double[]{37.5665851, 126.9782038};
+
+        // when
+        String result = GpsUtil.getAddress(latAndLon[0], latAndLon[1]);
+
+        // eye
+        System.out.println("getAddress_test result : " + result);
+
+        // then
+
+
+    }
 }

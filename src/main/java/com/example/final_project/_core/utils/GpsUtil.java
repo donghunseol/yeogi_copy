@@ -63,4 +63,54 @@ public class GpsUtil {
             throw new RuntimeException("No results found");
         }
     }
+
+
+    //
+
+    public static String getAddress(double latitude, double longitude) {
+        try {
+            String jsonResponse = getReverseGeocodingJsonResponse(latitude, longitude);
+            String address = parseAddressFromJson(jsonResponse);
+            System.out.println("Address: " + address);
+            return address;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String getReverseGeocodingJsonResponse(double latitude, double longitude) throws Exception {
+        String latLng = latitude + "," + longitude;
+        String encodedLatLng = URLEncoder.encode(latLng, "UTF-8");
+        String urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + encodedLatLng + "&language=ko&key=" + API_KEY;
+        System.out.println("Request URL: " + urlString);
+
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        InputStreamReader reader = new InputStreamReader(conn.getInputStream());
+        StringBuilder jsonResponse = new StringBuilder();
+        int read;
+        char[] buffer = new char[1024];
+        while ((read = reader.read(buffer)) != -1) {
+            jsonResponse.append(buffer, 0, read);
+        }
+        reader.close();
+
+//        System.out.println("Response JSON: " + jsonResponse.toString()); // 길어서 생략
+
+        return jsonResponse.toString();
+    }
+
+
+    private static String parseAddressFromJson(String jsonResponse) {
+        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+        JsonArray results = jsonObject.getAsJsonArray("results");
+        if (results.size() > 0) {
+            return results.get(0).getAsJsonObject().get("formatted_address").getAsString();
+        } else {
+            System.err.println("No results found in the JSON response.");
+            throw new RuntimeException("No results found");
+        }
+    }
 }
