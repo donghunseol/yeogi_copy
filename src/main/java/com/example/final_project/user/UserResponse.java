@@ -1,6 +1,9 @@
 package com.example.final_project.user;
 
+import com.example.final_project._core.enums.FaqEnum;
 import com.example.final_project._core.enums.UserEnum;
+import com.example.final_project.faq.Faq;
+import com.example.final_project.reservation.Reservation;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -66,6 +69,37 @@ public class UserResponse {
             this.state = user.getState();
             this.birth = user.getBirth();
             this.createdAt = user.getCreatedAt();
+        }
+    }
+
+    // 로그인 한 회원의 알림 목록
+    @Data
+    public static class Notifications{
+        private Integer reservationId;
+        private LocalDate checkInDate;
+        private LocalDate checkOutDate;
+
+        public Notifications(Reservation reservation) {
+            this.reservationId = reservation.getId();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkOutDate = reservation.getCheckOutDate();
+        }
+
+    }
+
+    // FAQList
+    @Data
+    public static class FaqListDTO{
+        private Integer faqId;
+        private FaqEnum classification;
+        private String content;
+        private String reply;
+
+        public FaqListDTO(Faq faq) {
+            this.faqId = faq.getId();
+            this.classification = faq.getClassification();
+            this.content = faq.getContent();
+            this.reply = faq.getReply();
         }
     }
 }

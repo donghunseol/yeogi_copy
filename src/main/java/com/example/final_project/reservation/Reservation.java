@@ -38,7 +38,7 @@ public class Reservation {
     @Column(nullable = false)
     private String reservationName; // 예약자 대표 이름
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 13)
     private String reservationTel; // 예약자 대표 연락처
 
     @CreationTimestamp

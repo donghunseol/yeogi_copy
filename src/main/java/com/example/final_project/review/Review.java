@@ -43,7 +43,7 @@ public class Review {
     private String content; // 내용
 
     @Enumerated(EnumType.STRING)
-    private ReviewEnum isDelete; // 삭제 여부(FLAWLESS : 문제 없는 댓글, COMPLETE: 삭제 됨, FAIL: 삭제 안 됨)
+    private ReviewEnum state; // FLAWLESS : 기본(문제 없는 리뷰), REPORTED : 신고 된 리뷰, DELETED : 삭제한 리뷰
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 리뷰 작성 날짜
@@ -56,14 +56,14 @@ public class Review {
     private List<Review> children = new ArrayList<>(); //자식댓글 (대댓글)
 
     @Builder
-    public Review(Integer id, User user, Company company, Stay stay, Integer score, String content, ReviewEnum isDelete, LocalDateTime createdAt) {
+    public Review(Integer id, User user, Company company, Stay stay, Integer score, String content, ReviewEnum state, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.company = company;
         this.stay = stay;
         this.score = score;
         this.content = content;
-        this.isDelete = isDelete;
+        this.state = state;
         this.createdAt = createdAt;
     }
 
@@ -83,10 +83,17 @@ public class Review {
         this.parent = review;
     }
 
-    public void changeIsDeleted(ReviewEnum isDelete) {
-        if (isDelete == ReviewEnum.FLAWLESS){
-            this.isDelete = ReviewEnum.COMPLETE;
+    public void setStateDeleted(ReviewEnum state) {
+        if (state == ReviewEnum.FLAWLESS){
+            this.state = ReviewEnum.DELETED;
+        }
+
+    }
+    public void setStateReported(ReviewEnum state) {
+        if (state == ReviewEnum.FLAWLESS){
+            this.state = ReviewEnum.REPORTED;
         }
     }
+
 
 }

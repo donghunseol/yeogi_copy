@@ -50,10 +50,8 @@
                     <div class="tab-item detail">
                         <div class="review-detail-wrapper">
                             {{#questionDetail}}
-                            <form action="/admin/answer" method="post">
+                            <form action="/admin/answer/company" method="post">
                                 <input type="hidden" name="id" value="{{questionId}}">
-                                <input type="hidden" name="companyId" value="{{companyId}}">
-                                <input type="hidden" name="state" value="WAIT">
                                 <div class="detail-head">
                                     <div><p class="title">{{title}}</p><span>{{createdAt}}</span></div>
                                 </div>
@@ -64,15 +62,28 @@
                                         <br>
                                         <em>작성자 : {{businessName}}</em>
                                     </p>
+
                                     <span class="review-title">답변내용</span>
-                                    <p class="review-content">
-                                        <textarea name="answer" id="" cols="30" rows="10"></textarea>
-                                    </p>
+                                    {{#answer}}
+                                         <div class="review-content">
+                                             <p>{{answer}}</p>
+                                         </div>
+                                        <div class="report-button-wrapper">
+                                            <button class ="btn black" type="button" onclick="history.back()">뒤로가기</button>
+                                        </div>
+                                    {{/answer}}
+                                    {{^answer}}
+                                        <div class="review-content">
+                                            <textarea name="answer" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                        <div class="report-button-wrapper">
+                                            <button class ="btn black">답변완료</button>
+                                        </div>
+                                    {{/answer}}
+
 
                                 </div>
-                                <div class="report-button-wrapper">
-                                    <button class ="btn black" type="button" onclick="history.back()">답변완료</button>
-                                </div>
+
                             </form>
                             {{/questionDetail}}
                         </div>

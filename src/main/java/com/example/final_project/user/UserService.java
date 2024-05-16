@@ -4,19 +4,25 @@ import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
-import com.example.final_project.stay.StayRepository;
+import com.example.final_project.faq.Faq;
+import com.example.final_project.faq.FaqRepository;
+import com.example.final_project.reservation.Reservation;
+import com.example.final_project.reservation.ReservationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final StayRepository stayRepository;
+    private final ReservationRepository reservationRepository;
+    private final FaqRepository faqRepository;
 
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
@@ -29,14 +35,23 @@ public class UserService {
         return jwt;
     }
 
-    // 회원 가입
-    @Transactional
-    public String joinAndLogin(UserRequest.JoinDTO reqDTO) {
-        Optional<User> userOP = userRepository.findByEmail(reqDTO.getEmail());
+
+    public Optional<User> findByEmail(String email){
+
+        Optional<User> userOP = userRepository.findByEmail(email);
 
         if (userOP.isPresent()) {
             throw new Exception400("중복된 유저네임입니다");
         }
+
+        return userOP;
+
+    }
+
+
+    // 회원 가입
+    @Transactional
+    public String joinAndLogin(UserRequest.JoinDTO reqDTO) {
 
         // 회원 가입
         User joinUser = userRepository.save(reqDTO.toEntity());
@@ -72,6 +87,7 @@ public class UserService {
         return new UserResponse.LoginDTO(user);
     }
 
+
     public UserResponse.JoinDTO joinByDTO(UserRequest.JoinDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
@@ -79,5 +95,17 @@ public class UserService {
         return new UserResponse.JoinDTO(user);
     }
 
+    public List<UserResponse.Notifications> notifications(SessionUser sessionUser){
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+        List<Reservation> reservationList = reservationRepository.findByUserId(user.getId());
+        return reservationList.stream().map(UserResponse.Notifications::new).collect(Collectors.toList());
+    }
 
+    public List<UserResponse.FaqListDTO> faqList(){
+
+        List<Faq> faqList =  faqRepository.findAllByExcludeComapny();
+
+        return faqList.stream().map(UserResponse.FaqListDTO::new).toList();
+    }
 }

@@ -30,4 +30,6 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     @Query("SELECT r FROM Review r JOIN FETCH r.user JOIN FETCH r.stay WHERE r.id = :reviewId")
     Review findByReviewId(@Param("reviewId") Integer reviewId);
 
+
+
 }

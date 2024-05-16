@@ -4,6 +4,7 @@ import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project.user.User;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +42,11 @@ public class ReviewResponse {
             }
         }
 
-        public static ReviewResponse.Save convertReviewToDTO(Review review){
-            return review.getIsDelete().equals("COMPLETE") ?
-                    new ReviewResponse.Save(review.getId(),null,"삭제된 댓글입니다.",null) :
-                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getUser()), review.getContent(), review.getScore());
-        }
+//        public static ReviewResponse.Save convertReviewToDTO(Review review){
+//            return review.getState().equals("FLAWLESS") ?
+//                    new ReviewResponse.Save(review.getId(),null,"삭제된 댓글입니다.",null) :
+//                    new ReviewResponse.Save(review.getId() , new UserDTO(review.getUser()), review.getContent(), review.getScore());
+//        }
 
     }
 
@@ -185,6 +186,29 @@ public class ReviewResponse {
                 this.content = review.getContent();
                 this.score = review.getScore();
             }
+        }
+    }
+
+    // 유저가 적은 리뷰 리스트 응답DTO
+    @Data
+    public static class ReveiwListDTO{
+        private Integer reviewId;
+        private String stayName;
+        private String content;
+        private Integer score;
+        private String createdAt;
+
+        public ReveiwListDTO(Review review) {
+            this.reviewId = review.getId();
+            this.stayName = review.getStay().getName();
+            this.content = review.getContent();
+            this.score = review.getScore();
+            this.createdAt = formatDate(review.getCreatedAt());
+        }
+
+        private String formatDate(LocalDateTime dateTime) {
+            // 년, 월, 일을 추출하여 문자열로 반환
+            return String.format("%04d년 %02d월 %02d일", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
         }
     }
 

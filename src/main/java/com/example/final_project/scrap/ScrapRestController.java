@@ -7,30 +7,39 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
-@RequestMapping("/api/scrap")
+@RequestMapping("/api/scrap") // 주소 앞에 자동으로 붙는다.
 @RestController
 public class ScrapRestController {
 
     private final ScrapService scrapService;
     private final HttpSession session;
 
-    // 좋아요 입력
+    // 스크랩 입력
     @PostMapping("/stay/{stayId}")
-    public ResponseEntity<?> insert(@RequestBody ScrapRequest.ScrapRequestDTO reqDTO){
+    public ResponseEntity<?> insert(@PathVariable Integer stayId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        scrapService.register(reqDTO,sessionUser);
+        scrapService.register(stayId, sessionUser);
 
-        return ResponseEntity.ok().body(new ApiUtil<>("좋아요 성공"));
+        return ResponseEntity.ok().body(new ApiUtil<>("스크랩 성공"));
 
     }
 
-    // 좋아요 삭제
+    // 스크랩 삭제
     @DeleteMapping("/stay/{stayId}")
-    public ResponseEntity<?> delete(@RequestBody ScrapRequest.ScrapRequestDTO reqDTO){
+    public ResponseEntity<?> delete(@PathVariable Integer stayId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        scrapService.delete(reqDTO,sessionUser);
+        scrapService.delete(stayId, sessionUser);
 
-        return ResponseEntity.ok().body(new ApiUtil<>("좋아요 취소 성공"));
+        return ResponseEntity.ok().body(new ApiUtil<>("스크랩 취소 성공"));
+    }
+
+    @GetMapping("/my-scraps")
+    public ResponseEntity<?> myScrapList() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<ScrapResponse.ScrapListDTO> respDTO = scrapService.myScrapList(sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

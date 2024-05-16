@@ -33,6 +33,10 @@ public class Event {
     // @Column(nullable = false) // 나중에 false로 수정
     private String imagePath; // 이벤트 이미지 경로
 
+    private String imageDetailName; // 이벤트 디테일 이미지
+
+    private String imageDetailPath; // 이벤트 디테일 경로
+
     @Column(nullable = false)
     private LocalDate startDate; // 이벤트 시작일
 

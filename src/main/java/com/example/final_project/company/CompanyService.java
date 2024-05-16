@@ -1,8 +1,10 @@
 package com.example.final_project.company;
 
+import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project._core.enums.StayEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
+import com.example.final_project._core.errors.exception.Exception403;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.pay.Pay;
@@ -57,6 +59,11 @@ public class CompanyService {
         //1. 아이디 체크
         Company sessionUser = companyRepository.findByIdAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
+
+        //2. ENUM 값 체크
+        if (sessionUser.getState() == CompanyEnum.QUIT){
+            throw new Exception403("해당 계정은 탈퇴 처리되었습니다.");
+        }
 
         return new SessionCompany(sessionUser);
     }

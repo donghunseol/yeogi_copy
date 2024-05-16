@@ -1,10 +1,16 @@
 package com.example.final_project._core.utils;
 
+import com.example.final_project.stay.Stay;
+import com.example.final_project.stay_image.StayImage;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 public class ImageUtil {
@@ -41,4 +47,44 @@ public class ImageUtil {
     public static String saveImage(String encodedData, String imageName) {
         return saveImage(encodedData, imageName, "./src/main/resources/static/images/");
     }
+
+
+    // -------------------------------------------------------------------------------------------------
+
+    // 숙소 이미지 업로드를 담당하는 메서드
+    public static List<StayImage> uploadStayImages(List<MultipartFile> imgFiles, Stay stay) {
+        List<StayImage> stayImages = new ArrayList<>();
+
+        if (imgFiles != null) {
+            for (MultipartFile imgFile : imgFiles) {
+                String imgFileName = UUID.randomUUID() + "_" + imgFile.getOriginalFilename();
+
+                Path imgPath = Paths.get("./upload/" + imgFileName);
+
+                try {
+                    // 업로드 디렉토리가 존재하지 않으면, 서버가 시작될 때 해당 디렉토리를 자동으로 생성
+                    Files.createDirectories(imgPath.getParent());
+                    Files.write(imgPath, imgFile.getBytes());
+
+                    // StayImage 엔티티 생성 및 저장
+                    StayImage stayImage = new StayImage();
+
+                    stayImage.setName(imgFileName);
+                    stayImage.setPath(imgPath.toString().substring(1));
+                    stayImage.setStay(stay);
+
+                    // 리스트에 추가
+                    stayImages.add(stayImage);
+
+                } catch (IOException e) {
+                    // 예외가 발생하면 로그를 출력하고 예외를 다시 던집니다.
+                    e.printStackTrace();
+                    throw new RuntimeException("이미지 업로드 중 오류 발생: " + e.getMessage());
+                }
+            }
+        }
+
+        return stayImages;
+    }
+
 }
