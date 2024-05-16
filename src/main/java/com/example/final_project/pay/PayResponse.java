@@ -1,6 +1,7 @@
 package com.example.final_project.pay;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project.stay_image.StayImage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,14 +12,17 @@ public class PayResponse {
     @Data
     public static class TotalIncomeDTO {
         private Integer companyId; // 숙소 소유 기업 번호
+        private String companyName;
         private Long totalIncome; // 총 수익
         private Long reservationCount; // 수익이 들어온 예약 수
 
-        public TotalIncomeDTO(Integer companyId, Long totalIncome, Long reservationCount) {
+        public TotalIncomeDTO(Integer companyId, String companyName, Long totalIncome, Long reservationCount) {
             this.companyId = companyId;
+            this.companyName = companyName;
             this.totalIncome = totalIncome;
             this.reservationCount = reservationCount;
         }
+
     }
 
     // 숙소 총 수익 DTO
@@ -26,15 +30,22 @@ public class PayResponse {
     public static class StayTotalIncomeDTO {
         private Integer companyId; // 숙소 소유 기업 번호
         private Integer stayId; // 숙소 번호
+        private String path; // 이미지 경로
+        private String stayName; // 숙소 이름
         private Long totalIncome; // 총 수익
         private Long reservationCount; // 수익이 들어온 예약 수
 
-        public StayTotalIncomeDTO(Integer companyId, Integer stayId, Long totalIncome, Long reservationCount) {
+
+        public StayTotalIncomeDTO(Integer companyId, Integer stayId, String path, String stayName, Long totalIncome, Long reservationCount) {
             this.companyId = companyId;
             this.stayId = stayId;
+            this.path = path;
+            this.stayName = stayName;
             this.totalIncome = totalIncome;
             this.reservationCount = reservationCount;
+
         }
+
     }
 
     // 결제 대표 DTO

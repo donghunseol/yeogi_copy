@@ -1256,7 +1256,41 @@ p.tab-title {
     height: 100%;
     object-fit: cover;
 }
-
+.stay-detail .content.top .text-wrapper.company{
+    height: 200px;
+    width: 100%;
+    margin: 0;
+    flex-direction: row;
+}
+.stay-detail .content.top .text-wrapper.company p.text-item{
+    height: 100%;
+    width: calc((100% - 60px) / 4);
+    margin-right: 20px;
+    border-bottom: none;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+}
+.stay-detail .content.top .text-wrapper.company p.text-item i{
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: #f45858;
+}
+.stay-detail .content .text-wrapper.company p.text-item span.head em{
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+}
+.stay-detail .content .text-wrapper.company p.text-item span.body{
+    font-size: 22px;
+    font-weight: 700;
+}
+.stay-detail .content.top .text-wrapper.company p.text-item:nth-child(1){
+    border-top:0;
+}
 .stay-detail .content.top .text-wrapper {
     margin-left: 20px;
     display: flex;
@@ -1271,7 +1305,8 @@ p.tab-title {
     display: flex;
     align-items: center;
 }
-
+.stay-detail .content.top .text-wrapper p.text-item .img-wrapper{}
+.stay-detail .content.top .text-wrapper p.text-item .img-wrapper img{}
 .stay-detail .content.top .text-wrapper p.text-item:nth-child(1) {
     border-top: 1px solid #ddd;
 }
@@ -1337,6 +1372,25 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item {
     display: flex;
     flex-wrap: wrap;
+}
+.stay-detail .content.bottom ul li .item.company{}
+.stay-detail .content.bottom ul li .item.company .text-wrapper{
+    flex-direction: column;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item{
+    flex-direction: column;
+    width : 100%;
+    padding: 0;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item .comp-name{
+
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure{
+    width: 100%;
+}
+.stay-detail .content.bottom ul li .item.company .text-wrapper .text-item figure img{
+    width: 100%;
+    object-fit: cover;
 }
 
 .stay-detail .content.bottom ul li .room.item {

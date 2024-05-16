@@ -181,9 +181,10 @@ public class CompanyService {
         // 전체 수익 가져오기
         PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
 
+
         // 만약 수익이 전혀 없으면 0을 반환
         if (respDTO == null) {
-            respDTO = new PayResponse.TotalIncomeDTO(company.getId(), 0L, 0L);
+            respDTO = new PayResponse.TotalIncomeDTO(company.getId(),company.getBusinessName(), 0L, 0L);
         }
 
         return respDTO;
@@ -192,27 +193,32 @@ public class CompanyService {
     // 숙소 수익 전체 조회
     public List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(SessionCompany sessionCompany) {
         Company company = companyRepository.findById(sessionCompany.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+                .orElseThrow(() -> new Exception404("존재하지 않는 계정입니다"));
         List<Stay> stays = stayRepository.findByCompanyId(company.getId());
         List<PayResponse.StayTotalIncomeDTO> respDTO = new ArrayList<>();
 
-        // 만약 숙소가 없으면
-        if (stays == null) {
-            throw new Exception404("숙소가 존재 하지 않습니다. 숙소를 먼저 등록 해주세요");
+        if (stays.isEmpty()) {
+            // 숙소가 없는 경우
+            return respDTO; // 빈 리스트 반환
         }
 
-        // 전체 수익 가져오기
         for (Stay stay : stays) {
-            // 미리 저장을 한다
-            List<PayResponse.StayTotalIncomeDTO> saveDTO = payRepository.findIncomeByStay(company.getId(), stay.getId());
+            // 각 숙소의 수익을 조회
+            List<PayResponse.StayTotalIncomeDTO> stayIncome = payRepository.findIncomeByStay(company.getId(), stay.getId());
 
-            if (saveDTO.isEmpty()) {
+            if (stayIncome.isEmpty()) {
                 // 예약 내역이 없는 숙소
-                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), 0L, 0L);
+                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
+                        .findFirst().orElse(null);
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), firstImage != null ? firstImage.getPath() : null, stay.getName(), 0L, 0L);
                 respDTO.add(zeroDTO);
             } else {
-                // 저장된 결과를 모두 저장
-                respDTO.addAll(saveDTO);
+                // 첫 번째 이미지만 사용
+                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
+                        .findFirst().orElse(null);
+                PayResponse.StayTotalIncomeDTO incomeDTO = stayIncome.get(0);
+                incomeDTO.setPath(firstImage != null ? firstImage.getPath() : null); // 첫 번째 이미지로 설정
+                respDTO.add(incomeDTO);
             }
         }
 

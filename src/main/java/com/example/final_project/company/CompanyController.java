@@ -172,6 +172,7 @@ public class CompanyController {
         SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionUser");
         PayResponse.TotalIncomeDTO respDTO = companyService.findTotalIncome(sessionCompany);
         List<PayResponse.StayTotalIncomeDTO> listRespDTO = companyService.findIncomeByStay(sessionCompany);
+        request.setAttribute("stayCount",listRespDTO.size());
         request.setAttribute("totalIncome", respDTO);
         request.setAttribute("stayTotalIncomeList", listRespDTO);
 
