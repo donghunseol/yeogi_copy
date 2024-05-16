@@ -181,9 +181,10 @@ public class CompanyService {
         // 전체 수익 가져오기
         PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
 
+
         // 만약 수익이 전혀 없으면 0을 반환
         if (respDTO == null) {
-            respDTO = new PayResponse.TotalIncomeDTO(company.getId(), 0L, 0L);
+            respDTO = new PayResponse.TotalIncomeDTO(company.getId(),company.getBusinessName(), 0L, 0L);
         }
 
         return respDTO;
@@ -205,10 +206,12 @@ public class CompanyService {
         for (Stay stay : stays) {
             // 미리 저장을 한다
             List<PayResponse.StayTotalIncomeDTO> saveDTO = payRepository.findIncomeByStay(company.getId(), stay.getId());
+            StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
+                    .findFirst().orElse(null);
 
             if (saveDTO.isEmpty()) {
                 // 예약 내역이 없는 숙소
-                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), 0L, 0L);
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), 0L, 0L,stay.getName(),new PayResponse.StayTotalIncomeDTO.StayImageDTO(firstImage.getPath()));
                 respDTO.add(zeroDTO);
             } else {
                 // 저장된 결과를 모두 저장
