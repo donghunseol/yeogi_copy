@@ -24,7 +24,6 @@ public class ScrapRestController {
         scrapService.register(stayId, sessionUser);
 
         return ResponseEntity.ok().body(new ApiUtil<>("스크랩 성공"));
-
     }
 
     // 스크랩 삭제
