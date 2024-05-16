@@ -41,6 +41,8 @@ public class User {
     @Column(nullable = false)
     private Integer reportCount; // 신고 받은 횟수
 
+    private String image; // 회원 이미지(null이면 디폴트 이미지가 추가된다.)
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 유저 가입 일자
 
