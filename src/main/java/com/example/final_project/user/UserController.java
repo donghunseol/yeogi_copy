@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,6 +34,18 @@ public class UserController {
         String jwt = userService.joinAndLogin(reqDTO);
         UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
+    }
+
+
+    //회원가입 시 이메일중복 체크확인
+    @GetMapping("/users/username-same-check")
+    public @ResponseBody ApiUtil<?> usernameSameCheck(String email){
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            return new ApiUtil<>(true);
+        } else {
+            return new ApiUtil<>(false);
+        }
     }
 
     // 회원 정보 수정
