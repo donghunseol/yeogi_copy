@@ -24,11 +24,20 @@
                                 </div>
                             </div>
                             <form action="/admin/write" method="post">
-                                <input type="hidden" name="id" value="{{sessionUser.id}}">
+                                <input type="hidden" name="userId" value="{{sessionUser.id}}">
                                 <div class="detail-content">
+                                    <span class="review-title">분류</span>
+                                    <div class="input-wrapper">
+                                        <select id="select" name="classification" class="margin-n">
+                                            <option value="" disabled selected>분류</option>
+                                            <option value="User">유저</option>
+                                            <option value="Company">기업</option>
+                                            <option value="Common" >공통</option>
+                                        </select>
+                                    </div>
                                     <span class="review-title">제목</span>
                                     <p class="review-content">
-                                        <input type="text" class="input" name="title">
+                                        <input name="content" type="text" class="input" >
                                     </p>
                                     <span class="review-title">내용</span>
                                     <p class="review-content">

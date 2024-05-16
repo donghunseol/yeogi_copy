@@ -46,6 +46,12 @@ public class AdminController {
         return "redirect:/admin/companies";
     }
 
+    @GetMapping("/admin/logout")
+    public String logout(){
+        session.invalidate();
+        return "/admin";
+    }
+
     // 개인 회원 정보 조회 View
     @GetMapping("/admin/users")
     public String user(HttpServletRequest request) {
@@ -213,8 +219,6 @@ public class AdminController {
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
         adminService.adminQuestionAnswer(sessionUser,reqDTO);
 
-
-
         return "redirect:/admin/company/question";
 
 //      String redirectPage = ""; // 변수 초기화
@@ -260,11 +264,11 @@ public class AdminController {
         return "/admin/customer-c/faq-write";
     }
 
-    //TODO FAQ작성
     //관리자 FAQ 작성
     @PostMapping("/admin/write")
-    public String adminWrite(){
-
+    public String adminWrite(AdminRequest.AdminFaqDTO reqDTO){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        adminService.faqRegister(sessionUser,reqDTO);
 
         return "redirect:/admin/faq";
     }

@@ -1,5 +1,6 @@
 package com.example.final_project.faq;
 
+import com.example.final_project._core.enums.FaqEnum;
 import com.example.final_project.admin.Admin;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -30,12 +31,17 @@ public class Faq {
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
+
+    @Enumerated(EnumType.STRING)
+    private FaqEnum classification; // TODO 관리자가 FAQ 작성시 리스트 뿌릴때 분류해서 뿌리려고 추가해놨습니다.
+
     @Builder
-    public Faq(Integer id, Admin admin, String content, String reply, LocalDateTime createdAt) {
+    public Faq(Integer id, Admin admin, String content, String reply, LocalDateTime createdAt, FaqEnum classification) {
         this.id = id;
         this.admin = admin;
         this.content = content;
         this.reply = reply;
         this.createdAt = createdAt;
+        this.classification = classification;
     }
 }

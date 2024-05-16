@@ -23,4 +23,15 @@ public class faqRepositoryTest {
             System.out.println(faqList.size());
             // then
         }
+
+    @Test
+    public void findAllByExcludeComapny_test() {
+        // given
+
+        // when
+        List<Faq> faqList = faqRepository.findAllByExcludeComapny();
+        // eye
+        System.out.println(faqList.size());
+        // then
+    }
 }
