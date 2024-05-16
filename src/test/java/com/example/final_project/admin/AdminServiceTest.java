@@ -269,4 +269,20 @@ public class AdminServiceTest {
 
 
     }
+
+    @Test
+    public void reportedReviewList_test(){
+        // given
+
+
+        // when
+        List<AdminResponse.ReportList> reviewList = adminService.reportedReviewList();
+
+        // eye
+        System.out.println("reportedReviewList_test size : " + reviewList.size());
+
+        // then
+
+
+    }
 }

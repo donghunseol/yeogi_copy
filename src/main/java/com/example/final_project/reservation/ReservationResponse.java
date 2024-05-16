@@ -1,7 +1,6 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.enums.PayEnum;
-import com.example.final_project._core.utils.DateUtil;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.room.Room;
 import lombok.Data;
@@ -9,11 +8,10 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
+import java.util.List;
 
 public class ReservationResponse {
 
-    // 에약 하기 후 데이터
     // 예약 수정 후 데이터
     @Data
     public static class DTO {
@@ -35,6 +33,42 @@ public class ReservationResponse {
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.createdAt = reservation.getCreatedAt();
+        }
+    }
+
+    // 에약 하기 후 데이터
+    @Data
+    public static class SaveDTO {
+        private Integer id; // 예약 번호
+        private Integer userId; // 예약한 유저 번호
+        private Integer roomId; // 예약한 방 번호
+        private LocalDate checkInDate; // 입실 시간
+        private LocalDate checkOutDate; // 퇴실 시간
+        private String reservationName; // 예약한 대표 이름
+        private String reservationTel; // 예약한 대표 전화번호
+        private LocalDateTime createdAt; // 생성된 날짜
+
+        private List<List<LocalDate>> reservedDates; // 이미 예약된 날짜
+
+        public SaveDTO(Reservation reservation, List<List<LocalDate>> reservedDates) {
+            this.id = reservation.getId();
+            this.userId = reservation.getUser().getId();
+            this.roomId = reservation.getRoom().getId();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkOutDate = reservation.getCheckOutDate();
+            this.reservationName = reservation.getReservationName();
+            this.reservationTel = reservation.getReservationTel();
+            this.createdAt = reservation.getCreatedAt();
+
+            if (reservedDates == null) {
+                this.reservedDates = null;
+            } else {
+                this.reservedDates = reservedDates;
+            }
+        }
+
+        public SaveDTO(List<List<LocalDate>> reservedDates) {
+            this.reservedDates = reservedDates;
         }
     }
 
@@ -113,7 +147,7 @@ public class ReservationResponse {
     // 예약 내역 조회 (상세보기)
     // 예약 상세보기 뷰에 필요한 데이터
     @Data
-    public static class ReservationDTO{
+    public static class ReservationDTO {
         private Integer reservationId; // 예약 번호
         private Integer userId; // 예약한 유저의 번호
         private String stayName; // 예약한 숙소의 이름
@@ -138,7 +172,7 @@ public class ReservationResponse {
             this.reservationId = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.stayName = room.getStay().getName();
-            this.stayAddress =  room.getStay().getAddress();
+            this.stayAddress = room.getStay().getAddress();
             this.checkInDate = reservation.getCheckInDate();
             this.checkInTime = room.getRoomInformation().getCheckIn();
             this.checkOutDate = reservation.getCheckOutDate();
@@ -150,11 +184,11 @@ public class ReservationResponse {
             this.payId = pay.getId();
             this.payAt = pay.getCreatedAt();
             this.amount = pay.getAmount();
-            if(pay.getState().equals(PayEnum.COMPLETION)){
+            if (pay.getState().equals(PayEnum.COMPLETION)) {
                 this.payState = "결제 완료";
-            }else if(pay.getState().equals(PayEnum.PROCESSING)){
+            } else if (pay.getState().equals(PayEnum.PROCESSING)) {
                 this.payState = "결제 진행 중";
-            }else if(pay.getState().equals(PayEnum.REFUND)){
+            } else if (pay.getState().equals(PayEnum.REFUND)) {
                 this.payState = "환불 처리";
             }
             switch (pay.getWay()) {

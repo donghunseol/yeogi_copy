@@ -16,6 +16,8 @@ import com.example.final_project.pay.PayRepository;
 import com.example.final_project.pay.PayResponse;
 import com.example.final_project.question.Question;
 import com.example.final_project.question.QuestionRepository;
+import com.example.final_project.report.Report;
+import com.example.final_project.report.ReportRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.review.Review;
@@ -50,7 +52,9 @@ public class AdminService {
     private final RoomRepository roomRepository;
     private final StayImageRepository stayImageRepository;
     private final QuestionRepository questionRepository;
+    private final ReportRepository reportRepository;
     private final FaqRepository faqRepository;
+
 
     //로그인
     @Transactional
@@ -222,6 +226,14 @@ public class AdminService {
 //        }).collect(Collectors.toList());
 //        return respDTO;
 //    }
+
+    // 신고받은 리뷰 찾기
+    public List<AdminResponse.ReportList> reportedReviewList(){
+        List<Report> reportList = reportRepository.findAllWithReviewAndUserAndStay();
+        return reportList.stream().map(report -> {
+            return new AdminResponse.ReportList(report, report.getReview());
+        }).toList();
+    }
 
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
     public List<AdminResponse.CompanyStayListDTO> adminCompanyStayList(Integer companyId){
