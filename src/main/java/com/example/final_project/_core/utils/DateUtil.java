@@ -26,6 +26,8 @@ public class DateUtil {
             allLocalDate.add(startDate.plusDays(i));
         }
 
+        System.out.println("DateUtil : " + allLocalDate);
+
         return allLocalDate;
     }
 
