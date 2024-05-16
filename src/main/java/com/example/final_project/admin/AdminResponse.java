@@ -443,55 +443,7 @@ public class AdminResponse {
         private List<Review> children; // 자식 댓글(대댓글)
 
 
-        public ReportDetail(Report report, Review review) {
-            this.reportId = report.getReportId();
-            this.reportContent = report.getReportContent();
-            this.reportedAt = formatDateTime(report.getCreatedAt());
-            this.stayId = review.getStay().getId();
-            this.stayName = review.getStay().getName();
-            this.userId = report.getUser().getId();
-            this.userEmail = report.getUser().getEmail();
-            this.reviewId = review.getId();
-            this.reviewUserId = review.getUser().getId();
-            this.reviewUserName = review.getUser().getName();
-            this.reportCount = review.getUser().getReportCount();
-            this.score = review.getScore();
-            this.reviewContent = review.getContent();
-            this.reviewCreatedAt = formatDateTime(review.getCreatedAt());
-//            this.children = review.getChildren();
-        }
-
-        // 날짜 파싱 매서드
-        private String formatDateTime(LocalDateTime dateTime) {
-            // 년, 월, 일을 추출하여 문자열로 반환
-            String formatDate = String.format("%04d년 %02d월 %02d일 ", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
-            // 시, 분, 초를 추출하여 문자열로 반환
-            String formatTime = String.format("%02d시 %02d분 %02d초", dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond());
-
-            return formatDate + formatTime;
-        }
-    }
-
-    @Data
-    public static class testReportDetail {
-        private Integer reportId; // 신고 번호
-        private String reportContent; // 신고 내용
-        private String reportedAt; // 신고한 날짜
-        private Integer stayId; // 숙소 번호
-        private String stayName; // 숙소 이름
-        private Integer userId; // 신고한 사람의 회원 번호
-        private String userEmail; // 신고한 사람의 이메일
-        private Integer reviewId; // 리뷰 번호
-        private Integer reviewUserId; // 신고 당한 회원 번호(=리뷰 작성자 번호)
-        private String reviewUserName; // 신고 당한 회원 이름(=리뷰 작성자 이름)
-        private Integer reportCount; // 리뷰 작성자의 신고 당한 횟수
-        private Integer score; // 리뷰 평점
-        private String reviewContent; // 리뷰 내용
-        private String reviewCreatedAt; // 리뷰 작성 날짜
-        private List<Review> children; // 자식 댓글(대댓글)
-
-
-        public testReportDetail(Report report, Review review, User user, Stay stay) {
+        public ReportDetail(Report report, Review review, User user, Stay stay) {
             this.reportId = report.getReportId();
             this.reportContent = report.getReportContent();
             this.reportedAt = formatDateTime(report.getCreatedAt());

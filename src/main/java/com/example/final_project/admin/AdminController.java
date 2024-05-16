@@ -246,7 +246,7 @@ public class AdminController {
     // 신고 상세보기
     @GetMapping("/admin/reports/{reportId}")
     public String reportDetail(HttpServletRequest request, @PathVariable Integer reportId){
-        AdminResponse.testReportDetail respDTO = adminService.testreportedReviewDetail(reportId);
+        AdminResponse.ReportDetail respDTO = adminService.reportedReviewDetail(reportId);
         request.setAttribute("reportDetail", respDTO);
         return "/admin/review/detail";
     }

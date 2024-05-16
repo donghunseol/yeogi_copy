@@ -302,19 +302,4 @@ public class AdminServiceTest {
 
     }
 
-    @Test
-    public void testreportedReviewDetail_test(){
-        // given
-        Integer reportedId = 2;
-
-        // when
-        AdminResponse.testReportDetail resp = adminService.testreportedReviewDetail(reportedId);
-
-        // eye
-        System.out.println("reportedReviewDetail_test result : " + resp.getUserEmail());
-
-        // then
-
-
-    }
 }
