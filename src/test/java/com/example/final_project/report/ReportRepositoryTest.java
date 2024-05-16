@@ -27,4 +27,44 @@ public class ReportRepositoryTest {
 
 
     }
+
+    @Test
+    public void findByIdWithReviewAndUserAndStay_test(){
+        // given
+        Integer reportedId = 2;
+
+        // when
+        Report resp = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
+
+        // eye
+        System.out.println("findByIdWithReviewAndUserAndStay_test reportId : " + resp.getReportId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test reviewId : " + resp.getReview().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test stayId : " + resp.getReview().getStay().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test userId : " + resp.getUser().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test reviewUserId : " + resp.getReview().getUser().getId());
+
+
+        // then
+
+    }
+
+    @Test
+    public void testfindReportDetailById_test(){
+        // given
+        Integer reportedId = 2;
+
+        // when
+        Report resp = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
+
+        // eye
+        System.out.println("findByIdWithReviewAndUserAndStay_test reportId : " + resp.getReportId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test reviewId : " + resp.getReview().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test stayId : " + resp.getReview().getStay().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test userId : " + resp.getUser().getId());
+        System.out.println("findByIdWithReviewAndUserAndStay_test reviewUserId : " + resp.getReview().getUser().getId());
+
+
+        // then
+
+    }
 }

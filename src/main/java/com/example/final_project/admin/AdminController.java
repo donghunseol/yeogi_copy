@@ -243,6 +243,14 @@ public class AdminController {
         return "/admin/review/report";
     }
 
+    // 신고 상세보기
+    @GetMapping("/admin/reports/{reportId}")
+    public String reportDetail(HttpServletRequest request, @PathVariable Integer reportId){
+        AdminResponse.testReportDetail respDTO = adminService.testreportedReviewDetail(reportId);
+        request.setAttribute("reportDetail", respDTO);
+        return "/admin/review/detail";
+    }
+
     //관리자 FAQ 리스트
     @GetMapping("/admin/faq")
     public String adminFaqList(HttpServletRequest request){
