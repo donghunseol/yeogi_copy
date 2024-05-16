@@ -233,14 +233,15 @@ public class AdminController {
 //        return redirectPage; // 오타 수정:
     }
 
-//    // 신고 목록
-//    @GetMapping("/admin/reports")
-//    public String reportList(HttpServletRequest request){
-//        List<Review> respDTOS = adminService.reportedReviewList();
-//        request.setAttribute("reportCount", respDTOS.size());
-//        request.setAttribute("reportList", respDTOS);
-//        return "/admin/review/report";
-//    }
+    // 신고 목록
+    @GetMapping("/admin/reports")
+    public String reportList(HttpServletRequest request){
+        List<AdminResponse.ReportList> respDTOS = adminService.reportedReviewList();
+        System.out.println(respDTOS);
+        request.setAttribute("reportCount", respDTOS.size());
+        request.setAttribute("reportList", respDTOS);
+        return "/admin/review/report";
+    }
 
     //관리자 FAQ 리스트
     @GetMapping("/admin/faq")

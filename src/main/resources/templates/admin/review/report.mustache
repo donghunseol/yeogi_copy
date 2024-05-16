@@ -1,4 +1,4 @@
-{{> company/layout/head}}
+{{> admin/layout/head}}
 
 <body>
 <main role="main">
@@ -13,25 +13,31 @@
                 </div>
                 {{#sessionUser}}
                     <div class="side-content info">
-                        <p>기업이름 : {{businessName}}</p>
-                        <p>접속일시 : {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
-                        <p>승인상태 : {{state}}</p>
+                        <p>관리자 : {{name}}</p>
+                        <p>접속일시: {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
                         <a href="/logout">로그아웃</a>
                     </div>
                 {{/sessionUser}}
                 <div class="side-menu">
-                    <p class="head-menu active"><i class="fa-solid fa-building"></i>숙소관리</p>
-                    <ul class="sub active">
-                        <li class="on"><a href="/manage/stays">숙소관리</a></li>
-                        <li><a href="/reservations/status">예약현황</a></li>
-                        <li><a href="/revenue">매출현황</a></li>
-
+                    <p class="head-menu"><i class="fa-solid fa-building"></i>  기업</p>
+                    <ul class="sub">
+                        <li><a href="/admin/companies">가입현황</a></li>
+                        <li><a href="/admin/company/question">문의사항</a></li>
+                        <li><a href="/customer-c/faq">자주묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-user"></i>내 정보 관리</p>
+                    <p class="head-menu"><i class="fa-solid fa-user"></i>  유저</p>
                     <ul class="sub">
-                        <li><a href="/company/information">정보수정</a></li>
+                        <li><a href="/admin/users">가입현황</a></li>
+                        <li><a href="/customer-u/question">문의사항</a></li>
+                        <li><a href="/customer-u/faq">자주묻는 질문</a></li>
+                    </ul>
+                </div>
+                <div class="side-menu">
+                    <p class="head-menu"><i class="fa-solid fa-marker"></i> 리뷰</p>
+                    <ul class="sub">
+                        <li><a href="/admin/reports">신고 목록</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,7 +46,7 @@
             <div class="content-tab-bar">
                 <div class="tab-content current">
                     <div class="tab-head">
-                        <p>리뷰관리</p>
+                        <p>신고 관리</p>
                     </div>
                     <div class="tab-item">
                         <form action="#" method="#" style="width: 100%;">
@@ -60,28 +66,34 @@
                         </form>
                         <table>
                             <colgroup>
-                                <col width="45%">
-                                <col width="15%">
+                                <col width="5%">
                                 <col width="15%">
                                 <col width="25%">
+                                <col width="20%">
+                                <col width="15%">
+                                <col width="20%">
                             </colgroup>
                             <thead>
                             <tr>
-                                <th scope="col">내용</th>
-                                <th scope="col">작성자</th>
-                                <th scope="col">평점</th>
+                                <th scope="col">신고 번호</th>
+                                <th scope="col">숙소</th>
+                                <th scope="col">신고받은 리뷰</th>
+                                <th scope="col">신고 사유</th>
+                                <th scope="col">신고한 회원</th>
                                 <th scope="col">작성일</th>
                             </tr>
                             </thead>
                             <tbody>
                             {{#reportList}}
                                 <tr class="review">
-                                    <td class="title"><span>{{content}}</span></td>
-                                    <td class="content">{{writer.name}}</td>
-                                    <td>{{score}}점</td>
-                                    <td>{{createdAt}}</td>
+                                    <td class="title"><span>{{reportId}}</span></td>
+                                    <td class="title"><span>{{stayName}}</span></td>
+                                    <td class="content">{{reviewContent}}</td>
+                                    <td class="content">{{reportContent}}</td>
+                                    <td>{{userEmail}}</td>
+                                    <td>{{reportedAt}}</td>
                                     <td class="link">
-                                        <a href="/reviews/detail/{{id}}"></a>
+                                        <a href="/admin/reports/{{reportId}}"></a>
                                     </td>
                                 </tr>
                             {{/reportList}}
