@@ -17,12 +17,16 @@ public class ScrapResponse {
         private UserDTO user;
         private StayDTO stay;
         private LocalDateTime createdAt;
+        private boolean addClass;
 
         public Save(Scrap scrap, UserDTO user, StayDTO stay) {
             this.id = scrap.getId();
             this.user = user;
             this.stay = stay;
             this.createdAt = scrap.getCreatedAt();
+            if (id != null){
+                addClass = true;
+            }
         }
 
         @Data
