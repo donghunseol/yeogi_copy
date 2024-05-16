@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "report_tb")
 @Entity
-//@JsonIgnoreProperties({"review", "company", "stay"})
+@JsonIgnoreProperties({"review", "user", "stay"})
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

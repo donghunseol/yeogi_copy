@@ -383,23 +383,41 @@ public class AdminResponse {
         }
     }
 
-//
-//    @Data
-//    public static class ReportList {
-//        private Integer reportId; // 신고 번호
-//        private String reportContent; // 신고 내용
-//        private Integer userId; // 작성자의 회원 번호
-//        private String username; // 작성자 이름
-////        private
-////        // 처리결과
-////        private Integer reviewId; // 리뷰 번호
-//        public ReportList(Report report, Review review) {
-//            this.reportId = report.getReportId();
-//            this.reportContent = report.getReportContent();
-////            this.reviewId = review.getId();
-//        }
-//    }
+    @Data
+    public static class ReportList {
+        private Integer reportId; // 신고 번호
+        private String reportContent; // 신고 내용
+        private String reportedAt; // 신고한 날짜
+        private Integer stayId; // 숙소 번호
+        private String stayName; // 숙소 이름
+        // 리뷰에 stay만 걸려있어서 숙소에 대한 리뷰를 남기는 걸로 생각 중
+        private Integer userId; // 신고한 사람의 회원 번호
+        private String userEmail; // 신고한 사람의 이메일
+        private Integer reviewId; // 리뷰 번호
+        private String reviewContent; // 리뷰 내용
 
+        public ReportList(Report report, Review review) {
+            this.reportId = report.getReportId();
+            this.reportContent = report.getReportContent();
+            this.reportedAt = formatDateTime(report.getCreatedAt());
+            this.stayId = review.getStay().getId();
+            this.stayName = review.getStay().getName();
+            this.userId = report.getUser().getId();
+            this.userEmail = report.getUser().getEmail();
+            this.reviewId = review.getId();
+            this.reviewContent = review.getContent();
+        }
+
+        // 날짜 파싱 매서드
+        private String formatDateTime(LocalDateTime dateTime) {
+            // 년, 월, 일을 추출하여 문자열로 반환
+            String formatDate = String.format("%04d년 %02d월 %02d일 ", dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
+            // 시, 분, 초를 추출하여 문자열로 반환
+            String formatTime = String.format("%02d시 %02d분 %02d초", dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond());
+
+            return formatDate + formatTime;
+        }
+    }
 
     //관리자 페이지에서 기업 FAQ 디테일
     @Data
