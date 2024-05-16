@@ -212,21 +212,21 @@ public class CompanyService {
             // 각 숙소의 수익을 조회
             List<PayResponse.StayTotalIncomeDTO> stayIncome = payRepository.findIncomeByStay(company.getId(), stay.getId());
 
+            // 이미지 찾기
+            List<StayImage> stayImage = stayImageRepository.findByStayId(stay.getId());
+            String path = (stayImage.isEmpty()) ? null : stayImage.get(0).getPath();
+
+
             if (stayIncome.isEmpty()) {
-                // 예약 내역이 없는 숙소
-//                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
-//                        .findFirst().orElse(null);
-                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), stay.getName(),0L, 0L);
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), stay.getName(), 0L, 0L);
+                zeroDTO.setPath(path);
                 respDTO.add(zeroDTO);
             } else {
-                // 첫 번째 이미지만 사용
-//                StayImage firstImage = stayImageRepository.findByStayId(stay.getId()).stream()
-//                        .findFirst().orElse(null);
-                PayResponse.StayTotalIncomeDTO incomeDTO = stayIncome.get(0);
-//                incomeDTO.setPath(firstImage != null ? firstImage.getPath() : null); // 첫 번째 이미지로 설정
+                PayResponse.StayTotalIncomeDTO incomeDTO = stayIncome.get(0); // 첫 번째 수익 정보만 사용
+                incomeDTO.setPath(path);
                 respDTO.add(incomeDTO);
             }
-            System.out.println(respDTO);
+
         }
 
         return respDTO;
