@@ -1,5 +1,6 @@
 package com.example.final_project.admin;
 
+import com.example.final_project.company.Company;
 import com.example.final_project.question.Question;
 import com.example.final_project.review.Review;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,7 +43,6 @@ public class AdminController {
         session.setAttribute("sessionUser", admin);
         session.setAttribute("loginTime",formattedTime);
         session.setAttribute("today",formattedDate);
-
 
         return "redirect:/admin/companies";
     }
@@ -95,21 +95,29 @@ public class AdminController {
 
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/companies")
-    public String company(HttpServletRequest request) {
-        List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
-        Admin admin = (Admin) request.getAttribute("sessionUser");
-        System.out.println(admin);
+    public String company(HttpServletRequest request,@RequestParam (value = "keyword", defaultValue = "") String keyword) {
+        //TODO 어드민 검색 진행중
+        if (keyword.isBlank()){
+            List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
+            request.setAttribute("companyList", respDTO);
+            request.setAttribute("companyCount", respDTO.size());
+        } else {
+            List<Company> companyList = adminService.serarchKeyword(keyword);
+            request.setAttribute("companyKeywordList", companyList);
+            request.setAttribute("companyCount", companyList.size());
+        }
+        request.setAttribute("keyword",keyword);
 
-        request.setAttribute("companyList", respDTO);
-        request.setAttribute("companyCount", respDTO.size());
         return "/admin/customer-c/join";
     }
 
     // 특정 기업의 정보 상세보기
     @GetMapping("/admin/companies/{companyId}")
     public String companyDetail(@PathVariable Integer companyId, HttpServletRequest request) {
+
         AdminResponse.CompanyDetailDTO respDTO = adminService.adminCompanyDetail(companyId);
         request.setAttribute("companyDetail", respDTO);
+
         return "/admin/customer-c/join-detail";
     }
 
