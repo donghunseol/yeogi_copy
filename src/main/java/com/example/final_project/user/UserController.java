@@ -106,9 +106,11 @@ public class UserController {
     }
 
     // [유저] 문의사항 작성
-    @PostMapping("/user/question")
-    public ResponseEntity<?> questionWrite(){
+    @PostMapping("/api/users/question")
+    public ResponseEntity<?> questionWrite(@RequestBody UserRequest.QuestionSave reqDTO){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        userService.questionWrite(sessionUser,reqDTO);
 
-        return null;
+        return ResponseEntity.ok().body(new ApiUtil<>("문의작성 성공"));
     }
 }

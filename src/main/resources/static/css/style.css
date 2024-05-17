@@ -1820,7 +1820,7 @@ textarea.input {
 }
 .withdraw-wrapper .withdraw-icon i{
     color: #fff;
-    font-size: 50px;
+    font-size: 80px;
 }
 .withdraw-wrapper p{
     font-size: 22px;
@@ -1832,3 +1832,39 @@ textarea.input {
     display: block;
 }
 
+.err-wrapper{
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    background: #fff;
+    position: absolute;
+    width: 500px;
+    border: 1px solid #ddd;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.err-wrapper .err-icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f45858;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+.err-wrapper .err-icon i{
+    color: #fff;
+    font-size: 50px;
+}
+.err-wrapper p{
+    font-size: 22px;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+.err-wrapper span{
+    margin-bottom: 20px;
+    display: block;
+}

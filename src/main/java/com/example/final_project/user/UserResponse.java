@@ -117,4 +117,5 @@ public class UserResponse {
             this.checkOutDate = reservation.getCheckOutDate();
         }
     }
+
 }
