@@ -56,6 +56,7 @@ public class CompanyService {
     // 로그인
     @Transactional
     public SessionCompany login(CompanyRequest.LoginDTO reqDTO) {
+
         //1. 아이디 체크
         Company sessionUser = companyRepository.findByIdAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception404("아이디 및 패스워드가 일치하지않습니다"));
@@ -65,18 +66,23 @@ public class CompanyService {
             throw new Exception403("해당 계정은 탈퇴 처리되었습니다.");
         }
 
+        if (sessionUser.getState() == CompanyEnum.PROGRESSING){
+            throw new Exception401("해당 계정은 승인 대기중입니다.");
+        }
+
+        if (sessionUser.getState() == CompanyEnum.BLACK){
+            throw new Exception401("해당 계정은 블랙리스트 처리되었습니다");
+        }
+
         return new SessionCompany(sessionUser);
     }
 
     // 회원가입
     @Transactional
-    public SessionCompany joinAndLogin(CompanyRequest.JoinDTO reqDTO) {
+    public void join(CompanyRequest.JoinDTO reqDTO) {
 
         //회원가입
-        Company joinUser = companyRepository.save(reqDTO.toEntity());
-
-        //로그인
-        return new SessionCompany(joinUser);
+        companyRepository.save(reqDTO.toEntity());
 
     }
 
@@ -181,9 +187,10 @@ public class CompanyService {
         // 전체 수익 가져오기
         PayResponse.TotalIncomeDTO respDTO = payRepository.findTotalIncome(company.getId());
 
+
         // 만약 수익이 전혀 없으면 0을 반환
         if (respDTO == null) {
-            respDTO = new PayResponse.TotalIncomeDTO(company.getId(), 0L, 0L);
+            respDTO = new PayResponse.TotalIncomeDTO(company.getId(),company.getBusinessName(), 0L, 0L);
         }
 
         return respDTO;
@@ -192,28 +199,34 @@ public class CompanyService {
     // 숙소 수익 전체 조회
     public List<PayResponse.StayTotalIncomeDTO> findIncomeByStay(SessionCompany sessionCompany) {
         Company company = companyRepository.findById(sessionCompany.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+                .orElseThrow(() -> new Exception404("존재하지 않는 계정입니다"));
         List<Stay> stays = stayRepository.findByCompanyId(company.getId());
         List<PayResponse.StayTotalIncomeDTO> respDTO = new ArrayList<>();
 
-        // 만약 숙소가 없으면
-        if (stays == null) {
-            throw new Exception404("숙소가 존재 하지 않습니다. 숙소를 먼저 등록 해주세요");
+        if (stays.isEmpty()) {
+            // 숙소가 없는 경우
+            return respDTO; // 빈 리스트 반환
         }
 
-        // 전체 수익 가져오기
         for (Stay stay : stays) {
-            // 미리 저장을 한다
-            List<PayResponse.StayTotalIncomeDTO> saveDTO = payRepository.findIncomeByStay(company.getId(), stay.getId());
+            // 각 숙소의 수익을 조회
+            List<PayResponse.StayTotalIncomeDTO> stayIncome = payRepository.findIncomeByStay(company.getId(), stay.getId());
 
-            if (saveDTO.isEmpty()) {
-                // 예약 내역이 없는 숙소
-                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), 0L, 0L);
+            // 이미지 찾기
+            List<StayImage> stayImage = stayImageRepository.findByStayId(stay.getId());
+            String path = (stayImage.isEmpty()) ? null : stayImage.get(0).getPath();
+
+
+            if (stayIncome.isEmpty()) {
+                PayResponse.StayTotalIncomeDTO zeroDTO = new PayResponse.StayTotalIncomeDTO(company.getId(), stay.getId(), stay.getName(), 0L, 0L);
+                zeroDTO.setPath(path);
                 respDTO.add(zeroDTO);
             } else {
-                // 저장된 결과를 모두 저장
-                respDTO.addAll(saveDTO);
+                PayResponse.StayTotalIncomeDTO incomeDTO = stayIncome.get(0); // 첫 번째 수익 정보만 사용
+                incomeDTO.setPath(path);
+                respDTO.add(incomeDTO);
             }
+
         }
 
         return respDTO;

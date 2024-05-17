@@ -29,7 +29,7 @@ public class StayRestController {
 
     // [해외 숙소리스트]
     @GetMapping("/stays/oversea")
-    public ResponseEntity<?> overseaList(){
+    public ResponseEntity<?> overseaList() {
         List<StayResponse.OverseaList> respDTO;
         respDTO = stayService.findOverseaListByCategory();
 
@@ -38,7 +38,7 @@ public class StayRestController {
 
     // [호텔 숙소리스트]
     @GetMapping("/stays/hotel")
-    public ResponseEntity<?> hotelList(){
+    public ResponseEntity<?> hotelList() {
         List<StayResponse.HotelList> respDTO;
         respDTO = stayService.findHotelListByCategory();
 
@@ -47,7 +47,7 @@ public class StayRestController {
 
     // [캠핑 숙소리스트]
     @GetMapping("/stays/camping")
-    public ResponseEntity<?> campingList(){
+    public ResponseEntity<?> campingList() {
         List<StayResponse.CampingList> respDTO;
         respDTO = stayService.findCampingListByCategory();
 
@@ -56,7 +56,7 @@ public class StayRestController {
 
     // [모텔 숙소리스트]
     @GetMapping("/stays/motel")
-    public ResponseEntity<?> motelList(){
+    public ResponseEntity<?> motelList() {
         List<StayResponse.MotelList> respDTO;
         respDTO = stayService.findMotelListByCategory();
 
@@ -65,7 +65,7 @@ public class StayRestController {
 
     // [펜션 숙소리스트]
     @GetMapping("/stays/pension")
-    public ResponseEntity<?> pensionList(){
+    public ResponseEntity<?> pensionList() {
         List<StayResponse.PensionList> respDTO;
         respDTO = stayService.findPentionByCategory();
 
@@ -75,7 +75,7 @@ public class StayRestController {
 
     // [홈&빌라 숙소리스트]
     @GetMapping("/stays/home-and-villa")
-    public ResponseEntity<?> homeAndVilla(){
+    public ResponseEntity<?> homeAndVilla() {
         List<StayResponse.HomeAndVillaList> respDTO;
         respDTO = stayService.findHomeAndVillaByCategory();
 
@@ -84,7 +84,7 @@ public class StayRestController {
 
     // [게하 숙소리스트]
     @GetMapping("/stays/guesthouse")
-    public ResponseEntity<?> guesthouse(){
+    public ResponseEntity<?> guesthouse() {
         List<StayResponse.GuesthouseList> respDTO;
         respDTO = stayService.findGuesthouseByCategory();
 
@@ -151,16 +151,15 @@ public class StayRestController {
 
     // 메인페이지
     @GetMapping("/home")
-    public ResponseEntity<?> home(){
+    public ResponseEntity<?> home() {
         StayResponse.AllList respDTO = stayService.findAllStayWithCategory();
 
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
 
-
     // 숙소를 클릭 했을 때 보여지는 숙소 상세보기
     @GetMapping("/stays/{stayId}")
-    public ResponseEntity<?> stayDetail(@PathVariable Integer stayId){
+    public ResponseEntity<?> stayDetail(@PathVariable Integer stayId) {
         StayResponse.StayDetail respDTO = stayService.findStayDetail(stayId);
 
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));

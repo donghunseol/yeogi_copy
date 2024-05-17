@@ -50,21 +50,9 @@ public class CompanyController {
     @PostMapping("/company/join")
     public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
 
-        // 현재 시간 및 날짜 가져오기
-        LocalDateTime now = LocalDateTime.now();
+        companyService.join(reqDTO);
 
-        // 시간 및 날짜
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedTime = now.format(formatter); // 날짜 및 시간
-        String formattedDate = now.format(formatterDate); // 날짜
-
-        SessionCompany company = companyService.joinAndLogin(reqDTO);
-        session.setAttribute("sessionUser", company);
-        session.setAttribute("loginTime",formattedTime);
-        session.setAttribute("today",formattedDate);
-
-        return "redirect:/manage/stays";
+        return "redirect:/company";
     }
 
     // 로그인 폼
@@ -172,8 +160,10 @@ public class CompanyController {
         SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionUser");
         PayResponse.TotalIncomeDTO respDTO = companyService.findTotalIncome(sessionCompany);
         List<PayResponse.StayTotalIncomeDTO> listRespDTO = companyService.findIncomeByStay(sessionCompany);
+        request.setAttribute("stayCount",listRespDTO.size());
         request.setAttribute("totalIncome", respDTO);
         request.setAttribute("stayTotalIncomeList", listRespDTO);
+
 
         return "/company/revenue/main";
     }

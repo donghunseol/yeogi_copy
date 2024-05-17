@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
@@ -29,7 +28,4 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // 댓글 디테일
     @Query("SELECT r FROM Review r JOIN FETCH r.user JOIN FETCH r.stay WHERE r.id = :reviewId")
     Review findByReviewId(@Param("reviewId") Integer reviewId);
-
-
-
 }

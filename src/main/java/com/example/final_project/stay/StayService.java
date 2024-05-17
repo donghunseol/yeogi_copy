@@ -34,6 +34,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.example.final_project._core.utils.ImageUtil.uploadFiles;
+
 @RequiredArgsConstructor
 @Service
 public class StayService {
@@ -63,16 +65,23 @@ public class StayService {
         Stay stay = stayRepository.save(reqDTO.toEntity(company));
 
         // 2. 이미지 등록
-        List<StayImage> stayImages = ImageUtil.uploadStayImages(reqDTO.getImgFiles(), stay);
+        List<MultipartFile> imgFiles = reqDTO.getImgFiles();
+        List<StayImage> stayImages = new ArrayList<>();
 
-        try {
-            stayImageRepository.saveAll(stayImages);
-        } catch (Exception e) {
-            // 예외가 발생하면 로그를 출력하고 예외를 다시 던집니다.
-            e.printStackTrace();
-            throw new RuntimeException("이미지 DB 저장 중 오류 발생: " + e.getMessage());
+        if (imgFiles != null && !imgFiles.isEmpty()) {
+            List<ImageUtil.FileUploadResult> uploadResults = uploadFiles(imgFiles);
+
+            for (ImageUtil.FileUploadResult uploadResult : uploadResults) {
+                StayImage stayImage = new StayImage();
+                stayImage.setName(uploadResult.getFileName());
+                stayImage.setPath(uploadResult.getFilePath());
+                stayImage.setStay(stay);
+
+                stayImages.add(stayImage);
+            }
         }
-
+        stayImageRepository.saveAll(stayImages);
+        System.out.println("결과===========" + stayImages);
         // 3.옵션 등록
         if (reqDTO.getOptions() != null && !reqDTO.getOptions().isEmpty()) {
             List<Option> options = reqDTO.getOptions().stream()

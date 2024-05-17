@@ -426,7 +426,7 @@ public class StayResponse {
         }
 
         @Data
-        public static class EventDTO{
+        public static class EventDTO {
             private Integer id;
             private String name;
             private String imageName;
@@ -520,8 +520,13 @@ public class StayResponse {
 
                 public ReviewDTO(Review review) {
                     this.reviewId = review.getId();
-                    this.userId = review.getUser().getId();
-                    this.userName = review.getUser().getName();
+                    if (review.getUser() == null) {
+                        this.userId = review.getCompany().getId();
+                        this.userName = review.getCompany().getName();
+                    } else {
+                        this.userId = review.getUser().getId();
+                        this.userName = review.getUser().getName();
+                    }
                     this.stayId = review.getStay().getId();
                     this.reviewScore = review.getScore();
                     this.reviewContent = review.getContent();
