@@ -1,8 +1,12 @@
 -- user 더미 생성
+insert into user_tb(email, password, name, phone, state, birth, created_at, report_count, image)
+values ('ssar@nate.com', '1234', '김쌀', '01012341234', 'ACTIVE', '2000-01-01', now(), 0, '/images/ssar.png');
+
 insert into user_tb(email, password, name, phone, state, birth, created_at, report_count)
-values ('ssar@nate.com', '1234', '김쌀', '01012341234', 'ACTIVE', '2000-01-01', now(), 0),
-       ('cos@nate.com', '1234', '이코스', '01012345678', 'ACTIVE', '2003-03-03', now(), 0),
-       ('love@nate.com', '1234', '박러브', '01087654321', 'ACTIVE', '1999-05-05', now(), 0);
+values ('cos@nate.com', '1234', '이코스', '01012345678', 'ACTIVE', '2003-03-03', now(), 0);
+
+insert into user_tb(email, password, name, phone, state, birth, created_at, report_count, image)
+values ('love@nate.com', '1234', '박러브', '01087654321', 'ACTIVE', '1999-05-05', now(), 0, '/images/love.png');
 
 -- company 더미 생성
 insert into company_tb(email, password, business_name, business_number, business_address, phone, name, state,

@@ -108,4 +108,10 @@ public class UserService {
 
         return faqList.stream().map(UserResponse.FaqListDTO::new).toList();
     }
+
+    // 객실 별 예약 조회 (달력)
+    public List<UserResponse.ReservationForCalendarDTO> reservationForCalendar(Integer roomId){
+        List<Reservation> reservationList = reservationRepository.findReservationsByRoomId(roomId);
+        return reservationList.stream().map(UserResponse.ReservationForCalendarDTO::new).collect(Collectors.toList());
+    }
 }
