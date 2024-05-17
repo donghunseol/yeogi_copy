@@ -235,6 +235,13 @@ public class AdminService {
         }).toList();
     }
 
+    // 신고받은 리뷰 중 하나 상세보기
+    public AdminResponse.ReportDetail reportedReviewDetail(Integer reportedId){
+        AdminResponse.ReportDetail resp = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
+        System.out.println(resp);
+        return resp;
+    }
+
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
     public List<AdminResponse.CompanyStayListDTO> adminCompanyStayList(Integer companyId){
         List<Stay> stayList = stayRepository.findByCompanyId(companyId);

@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @Table(name = "review_tb")
 @Entity
-@JsonIgnoreProperties({"user", "stay", "children"})
+@JsonIgnoreProperties({"user", "company", "stay", "children"})
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

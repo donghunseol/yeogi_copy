@@ -102,4 +102,19 @@ public class UserResponse {
             this.reply = faq.getReply();
         }
     }
+
+    // 객실 별 예약 조회 (달력)
+    @Data
+    public static class ReservationForCalendarDTO{
+        private Integer reservationId; // 예약 번호
+        private LocalDate checkInDate; // 입실 날짜
+        private LocalDate checkOutDate; // 퇴실 날짜
+        // 상세보기에서 보여주는 달력이라서 room관련 데이터는 받지 않았다.
+
+        public ReservationForCalendarDTO(Reservation reservation) {
+            this.reservationId = reservation.getId();
+            this.checkInDate = reservation.getCheckInDate();
+            this.checkOutDate = reservation.getCheckOutDate();
+        }
+    }
 }

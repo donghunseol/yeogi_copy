@@ -13,6 +13,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("SELECT r FROM Reservation r WHERE r.room.id = :roomId AND NOT (r.checkOutDate < :startDate OR r.checkInDate > :endDate)")
     List<Reservation> findReservationsByDateRangeAndRoomId(@Param("roomId") Integer roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    // 객실 별 예약 조회(달력)
+    @Query("SELECT r FROM Reservation r WHERE r.room.id = :roomId")
+    List<Reservation> findReservationsByRoomId(@Param("roomId") Integer roomId);
+
     // 유저의 예약 내역 조회 (목록)
     @Query("SELECT r FROM Reservation r JOIN FETCH r.room ro JOIN FETCH ro.stay WHERE r.user.id = :userId")
     List<Reservation> findByUserIdWithRoomAndStay(@Param("userId") Integer userId);
