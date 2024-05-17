@@ -1,6 +1,7 @@
 package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.StayEnum;
+import com.example.final_project._core.utils.GpsUtil;
 import com.example.final_project.company.Company;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
@@ -41,18 +42,22 @@ public class StayRequest {
         private String name;
         private String category;
         private String address;
+        private Double gpsLat; // GPS 좌표(위도)
+        private Double gpsLng; // GPS 좌표(경도)
+        private StayEnum state;
         private String intro;
         private String information;
         private List<String> options;
-        private StayEnum state;
         private List<MultipartFile> imgFiles;
 
         public Stay toEntity(Company company) {
             return Stay.builder()
-                    .state(state)
                     .name(name)
                     .category(category)
                     .address(address)
+                    .gpsLat(GpsUtil.getLatLng(address)[0])
+                    .gpsLng(GpsUtil.getLatLng(address)[1])
+                    .state(state)
                     .intro(intro)
                     .information(information)
                     .company(company)
