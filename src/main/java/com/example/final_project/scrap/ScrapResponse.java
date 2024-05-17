@@ -5,6 +5,11 @@ import com.example.final_project.stay_image.StayImage;
 import lombok.Data;
 
 public class ScrapResponse {
+
+
+
+
+
     // 유저가 스크랩한 숙소 리스트
     @Data
     public static class ScrapListDTO {
