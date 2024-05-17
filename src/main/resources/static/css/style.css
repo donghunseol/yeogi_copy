@@ -1274,6 +1274,9 @@ p.tab-title {
     justify-content: center;
     flex-direction: column;
 }
+.stay-detail .content.top .text-wrapper.company p.text-item:last-child{
+    margin-right: 0;
+}
 .stay-detail .content.top .text-wrapper.company p.text-item i{
     font-size: 60px;
     margin-bottom: 20px;
@@ -1399,6 +1402,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .room.item {
     display: flex;
     flex-wrap: wrap;
+    padding: 20px;
 }
 
 .stay-detail .content.bottom ul li .room.item .button-wrapper {
@@ -1464,17 +1468,19 @@ p.tab-title {
     width: calc((100% - 10px) / 2);
     color: #333;
     background: #fff;
+    height: 40px;
+    display: flex;
+    align-items: center;
 }
 .stay-detail .content.bottom ul li .item.company .text-wrapper .text-item {
     display: flex;
     align-items: center;
     font-size: 14px;
-    background: #f45858;
     padding: 10px;
     border-radius: 5px;
     height: 40px;
     margin-top: 10px;
-    color: #fff;
+    width: 100%;
 }
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item .box{
     width: calc((100%) / 2);
@@ -1483,7 +1489,7 @@ p.tab-title {
 }
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item .box:last-child{
     margin-right: 0;
-    border-left: 1px solid #fff;
+    border-left: 1px solid #333;
 }
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item:last-child {
     margin-bottom: 0;

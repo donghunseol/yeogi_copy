@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 public class ScrapResponse {
 
+
     //좋아요등록 응답 DTO
     @Data
     public static class Save{
@@ -52,7 +53,6 @@ public class ScrapResponse {
 
         }
     }
-
 
 
     // 유저가 스크랩한 숙소 리스트

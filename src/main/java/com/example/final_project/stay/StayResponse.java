@@ -12,6 +12,7 @@ import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.stay_image.StayImage;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -468,7 +469,6 @@ public class StayResponse {
         @Data
         public static class StayContentsDTO {
             private StayDTO stay;
-            // TODO: 찜 필드 추가
             private List<StayImageDTO> stayImageList;
             private List<ReviewDTO> reviewList;
             private List<OptionDTO> optionList;
@@ -486,13 +486,17 @@ public class StayResponse {
                 private String stayName; // 숙소 이름
                 private String information; //숙소 인포메이션
                 private String intro;
+//              @Setter
+//              private boolean isScrap;
 
                 public StayDTO(Stay stay) {
                     this.stayId = stay.getId();
                     this.stayName = stay.getName();
                     this.information = stay.getInformation();
                     this.intro = stay.getIntro();
+
                 }
+
             }
 
             @Data

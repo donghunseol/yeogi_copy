@@ -17,8 +17,6 @@ import java.time.LocalDateTime;
 public class ReviewRequest {
 
 
-
-
     //대댓글 작성 DTO(insert)
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

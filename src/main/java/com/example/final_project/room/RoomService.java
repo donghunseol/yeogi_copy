@@ -57,12 +57,12 @@ public class RoomService {
         Room room = roomsRepository.save(reqDTO.toEntity(stay));
         room.setImageName(imageName);
         room.setImagePath(imagePath);
+        roomsRepository.save(room);
 
         RoomInformation roomInformation = roomInformationRepository.save(reqDTO.toEntity(room));
+        roomInformationRepository.save(roomInformation);
 
 
-        System.out.println(room);
-        System.out.println(roomInformation);
         return new RoomResponse.Save(room,roomInformation);
     }
 

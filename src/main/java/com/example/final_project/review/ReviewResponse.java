@@ -1,6 +1,7 @@
 package com.example.final_project.review;
 
 import com.example.final_project._core.enums.ReviewEnum;
+import com.example.final_project.company.Company;
 import com.example.final_project.user.User;
 import lombok.Data;
 
@@ -106,7 +107,6 @@ public class ReviewResponse {
         private String content;
         private String name;
         private Integer stayId;
-        private Review parent;
         private LocalDateTime createdAt;
         private Integer score;
         private List<Detail> children = new ArrayList<>();
@@ -116,7 +116,6 @@ public class ReviewResponse {
             this.writer = writer;
             this.name = review.getStay().getName();
             this.stayId = review.getStay().getId();
-            this.parent = review.getParent();
             this.content = review.getContent();
             this.createdAt = review.getCreatedAt();
             this.score = review.getScore();
@@ -133,6 +132,11 @@ public class ReviewResponse {
                 this.reportCount = user.getReportCount();
             }
 
+            public UserDTO(Company company) {
+                this.name = company.getName();
+                this.state = String.valueOf(company.getState());
+                this.reportCount = company.getReportCount();
+            }
         }
     }
 
