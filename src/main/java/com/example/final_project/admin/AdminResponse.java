@@ -428,37 +428,16 @@ public class AdminResponse {
     public static class ReportDetail {
         private Integer reportId; // 신고 번호
         private String reportContent; // 신고 내용
+        private ReviewResponse.Detail.UserDTO reporter; // 신고한 회원
         private String reportedAt; // 신고한 날짜
-        private Integer stayId; // 숙소 번호
-        private String stayName; // 숙소 이름
-        private Integer userId; // 신고한 사람의 회원 번호
-        private String userEmail; // 신고한 사람의 이메일
-        private Integer reviewId; // 리뷰 번호
-        private Integer reviewUserId; // 신고 당한 회원 번호(=리뷰 작성자 번호)
-        private String reviewUserName; // 신고 당한 회원 이름(=리뷰 작성자 이름)
-        private Integer reportCount; // 리뷰 작성자의 신고 당한 횟수
-        private Integer score; // 리뷰 평점
-        private String reviewContent; // 리뷰 내용
-        private String reviewCreatedAt; // 리뷰 작성 날짜
-        private List<ChildrenDTO> children; // 자식 댓글(대댓글)
+        private ReviewResponse.Detail review; // 리뷰 번호
 
-
-        public ReportDetail(Report report, List<Review> children, Review review, User user, Stay stay) {
+        public ReportDetail(Report report, ReviewResponse.Detail detail) {
             this.reportId = report.getReportId();
             this.reportContent = report.getReportContent();
+            this.reporter = new ReviewResponse.Detail.UserDTO(report.getUser());
             this.reportedAt = formatDateTime(report.getCreatedAt());
-            this.stayId = stay.getId();
-            this.stayName = stay.getName();
-            this.userId = user.getId();
-            this.userEmail = user.getEmail();
-            this.reviewId = review.getId();
-            this.reviewUserId = review.getUser().getId();
-            this.reviewUserName = review.getUser().getName();
-            this.reportCount = review.getUser().getReportCount();
-            this.score = review.getScore();
-            this.reviewContent = review.getContent();
-            this.reviewCreatedAt = formatDateTime(review.getCreatedAt());
-//            this.children = review.getChildren();
+            this.review = detail;
         }
 
         // 날짜 파싱 매서드
@@ -470,7 +449,6 @@ public class AdminResponse {
 
             return formatDate + formatTime;
         }
-
 
     }
 

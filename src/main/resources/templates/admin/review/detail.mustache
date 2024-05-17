@@ -50,33 +50,46 @@
                     </div>
                     <div class="tab-item company stay">
                         {{#reportDetail}}
-                        <ul class="review-table">
-                            <li>
-                                <p class="reply-icon black">리뷰</p>
-                                <div class="review-user-info">
-                                    <span>작성자 : {{reviewUserName}}</span>
-                                    <span>작성일자 : {{reviewCreatedAt}}</span>
-                                    <span>누적신고횟수 : {{reportCount}}회</span>
-                                    <span>별점 : {{score}}점</span>
-                                </div>
-                                <div class="review-content">
-                                    <p class="text">{{reviewContent}}</p>
-                                    {{#children}}
-                                        <div class="reply-content">
-                                            <p class="reply-icon">답변</p>
-                                            <div class="reply-user-info">
-                                                <span>작성자 : </span>
-                                                <div class="review-content-reply">{{content}}</div>
+                            <ul class="review-table">
+                                <li>
+                                    <div class="review-detail-head">
+                                        <h3>{{review.name}}</h3>
+                                        <div class="review-content">
+                                            <p class="reply-icon black">신고 사유</p>
+                                            <div class="review-user-info">
+                                                <span>작성자 : {{reporter.name}}</span>
+                                                <span>작성일자 : {{reportedAt}}</span>
+                                                <span>누적신고횟수 : {{reporter.reportCount}}회</span>
                                             </div>
-                                            <div></div>
+                                            <p class="text">{{reportContent}}</p>
                                         </div>
-                                    {{/children}}
-                                </div>
-                                <div class="button-wrapper">
-                                    <a class="btn black" onclick="window.history.back()">뒤로가기</a>
-                                </div>
-                            </li>
-                        </ul>
+                                    </div>
+                                    <h3>신고한 리뷰</h3>
+                                    <p class="reply-icon black">댓글</p>
+                                    <div class="review-user-info">
+                                        <span>작성자 : {{review.writer.name}}</span>
+                                        <span>작성일자 : {{review.createdAt}}</span>
+                                        <span>누적신고횟수 : {{review.writer.reportCount}}회</span>
+                                        <span>별점 : {{review.score}}점</span>
+                                    </div>
+                                    <div class="review-content">
+                                        <p class="text">{{review.content}}</p>
+                                        {{#review.children}}
+                                            <div class="reply-content">
+                                                <p class="reply-icon">답글</p>
+                                                <div class="reply-user-info">
+                                                    <span>작성자 : {{writer.name}}</span>
+                                                    <div class="review-content-reply">{{content}}</div>
+                                                </div>
+                                                <div></div>
+                                            </div>
+                                        {{/review.children}}
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a class="btn black" href="/admin/reports">목록보기</a>
+                                    </div>
+                                </li>
+                            </ul>
                         {{/reportDetail}}
                     </div>
 
