@@ -97,4 +97,11 @@ public class UserController {
         List<UserResponse.FaqListDTO> respDTO = userService.faqList();
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
+
+    // 객실 별 예약 조회 (달력)
+    @GetMapping("/room/detail/{roomId}/calendar")
+    public ResponseEntity<?> ReservationForCalendar(@PathVariable Integer roomId){
+        List<UserResponse.ReservationForCalendarDTO> respDTO = userService.reservationForCalendar(roomId);
+        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+    }
 }
