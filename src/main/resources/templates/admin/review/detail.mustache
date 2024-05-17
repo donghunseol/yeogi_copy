@@ -52,6 +52,7 @@
                         {{#reportDetail}}
                         <ul class="review-table">
                             <li>
+                                <p class="reply-icon black">리뷰</p>
                                 <div class="review-user-info">
                                     <span>작성자 : {{reviewUserName}}</span>
                                     <span>작성일자 : {{reviewCreatedAt}}</span>
@@ -60,7 +61,16 @@
                                 </div>
                                 <div class="review-content">
                                     <p class="text">{{reviewContent}}</p>
-
+                                    {{#children}}
+                                        <div class="reply-content">
+                                            <p class="reply-icon">답변</p>
+                                            <div class="reply-user-info">
+                                                <span>작성자 : </span>
+                                                <div class="review-content-reply">{{content}}</div>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    {{/children}}
                                 </div>
                                 <div class="button-wrapper">
                                     <a class="btn black" onclick="window.history.back()">뒤로가기</a>

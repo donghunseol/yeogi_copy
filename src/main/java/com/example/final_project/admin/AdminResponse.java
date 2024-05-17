@@ -440,10 +440,10 @@ public class AdminResponse {
         private Integer score; // 리뷰 평점
         private String reviewContent; // 리뷰 내용
         private String reviewCreatedAt; // 리뷰 작성 날짜
-        private List<Review> children; // 자식 댓글(대댓글)
+        private List<ChildrenDTO> children; // 자식 댓글(대댓글)
 
 
-        public ReportDetail(Report report, Review review, User user, Stay stay) {
+        public ReportDetail(Report report, List<Review> children, Review review, User user, Stay stay) {
             this.reportId = report.getReportId();
             this.reportContent = report.getReportContent();
             this.reportedAt = formatDateTime(report.getCreatedAt());
@@ -470,6 +470,8 @@ public class AdminResponse {
 
             return formatDate + formatTime;
         }
+
+
     }
 
     //관리자 페이지에서 기업 FAQ 디테일
