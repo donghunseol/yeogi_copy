@@ -37,7 +37,11 @@ public class Stay {
     @Column(nullable = false)
     private String address; // 숙소 주소
 
-    private String gps; // 나중에 추가할 필드(좌표)
+    @Column(nullable = false)
+    private Double gpsLat; // GPS 좌표(위도)
+
+    @Column(nullable = false)
+    private Double gpsLng; // GPS 좌표(경도)
 
     @Enumerated(EnumType.STRING)
     // @Column(nullable = false)
@@ -59,12 +63,14 @@ public class Stay {
     private LocalDateTime createdAt; // 숙소 등록 일자
 
     @Builder
-    public Stay(Integer id, Company company, String name, String category, String address, String intro, String information, List<Option> options, LocalDateTime createdAt, StayEnum state) {
+    public Stay(Integer id, Company company, String name, String category, String address, Double gpsLat, Double gpsLng, String intro, String information, List<Option> options, LocalDateTime createdAt, StayEnum state) {
         this.id = id;
         this.company = company;
         this.name = name;
         this.category = category;
         this.address = address;
+        this.gpsLat = gpsLat;
+        this.gpsLng = gpsLng;
         this.intro = intro;
         this.information = information;
         this.options = options;
