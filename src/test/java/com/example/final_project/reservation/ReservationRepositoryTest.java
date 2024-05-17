@@ -24,8 +24,8 @@ public class ReservationRepositoryTest {
         LocalDate endDate = LocalDate.of(2024, 6, 1);
 
         // when
-        List<Reservation> reservations = reservationRepository.findReservationsByDateRangeAndRoomId(roomId, startDate, endDate)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 날짜입니다"));
+        List<Reservation> reservations = reservationRepository.findReservationsByDateRangeAndRoomId(roomId, startDate, endDate);
+//                .orElseThrow(() -> new Exception404("존재 하지 않는 날짜입니다"));
 
         // eye
         System.out.println("findReservationsByDateRangeAndRoomId_test : " + reservations.size());
