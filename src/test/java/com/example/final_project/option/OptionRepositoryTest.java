@@ -19,7 +19,7 @@ public class OptionRepositoryTest {
         //when
         List<Option> optionList = optionRepository.findByStayId(stayId);
         //then
-        System.out.println("결과값================================" + optionList.size());
+//        System.out.println("결과값================================" + optionList.size());
     }
 
 }

@@ -98,7 +98,7 @@ public class ReservationRepositoryTest {
             // when
             Reservation reservation =  reservationRepository.findByStayIdWithUserId(stayId,userId,roomId);
             // eye
-            System.out.println("왜 통과하는건데 ==============" +reservation.getReservationName());
+            // System.out.println("결과 ==============" +reservation.getReservationName());
             // then
             Assertions.assertThat(reservation.getReservationName().equals("감자머리"));
         }
