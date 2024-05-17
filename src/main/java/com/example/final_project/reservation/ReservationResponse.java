@@ -158,6 +158,8 @@ public class ReservationResponse {
         private LocalTime checkOutTime; // 체크아웃 시간
         private Integer roomId; // 예약한 객실의 번호
         private String roomName; // 예약한 객실의 이름
+        private String roomImageName; // 예약한 객실의 이미지 이름
+        private String roomImagePath; // 예약한 객실의 이미지 경로
         private String reservationName; // 예약자 대표 이름
         private String reservationTel; // 예약자 대표 연락처
 
@@ -179,6 +181,8 @@ public class ReservationResponse {
             this.checkOutTime = room.getRoomInformation().getCheckOut();
             this.roomId = reservation.getRoom().getId();
             this.roomName = room.getName();
+            this.roomImageName = room.getImageName();
+            this.roomImagePath = room.getImagePath();
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.payId = pay.getId();
