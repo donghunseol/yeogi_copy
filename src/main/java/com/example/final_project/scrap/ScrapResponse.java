@@ -15,43 +15,21 @@ public class ScrapResponse {
     @Data
     public static class Save{
         private Integer id;
-        private UserDTO user;
-        private StayDTO stay;
+        private Integer userId;
+        private Integer stayId;
         private boolean isScrap;
         private LocalDateTime createdAt;
 
-        public Save(Scrap scrap, UserDTO user, StayDTO stay) {
+        public Save(Scrap scrap) {
             this.id = scrap.getId();
-            this.user = user;
-            this.stay = stay;
+            this.userId = scrap.getUser().getId();
+            this.stayId = scrap.getStay().getId();
             this.createdAt = scrap.getCreatedAt();
             if (id != null){
                 isScrap = true;
             }
         }
 
-        @Data
-        public static class UserDTO{
-            private Integer id;
-            private String name;
-
-            public UserDTO(User user) {
-                this.id = user.getId();
-                this.name = user.getName();
-            }
-        }
-
-        @Data
-        public static class StayDTO{
-            private Integer id;
-            private String businessName;
-
-            public StayDTO(Stay stay) {
-                this.id = stay.getId();
-                this.businessName = stay.getName();
-            }
-
-        }
     }
 
 
