@@ -53,7 +53,7 @@ public class ScrapService {
 
         scrapRepository.save(scrap);
 
-        return new ScrapResponse.Save(scrap,new ScrapResponse.Save.UserDTO(user),new ScrapResponse.Save.StayDTO(stay));
+        return new ScrapResponse.Save(scrap);
     }
 
 

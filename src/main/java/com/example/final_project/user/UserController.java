@@ -91,8 +91,8 @@ public class UserController {
     }
 
     // FAQ리스트
-    @GetMapping("/users/questions")
-    public ResponseEntity<?> questionList(){
+    @GetMapping("/users/faq")
+    public ResponseEntity<?> faqList(){
 
         List<UserResponse.FaqListDTO> respDTO = userService.faqList();
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
@@ -103,5 +103,12 @@ public class UserController {
     public ResponseEntity<?> ReservationForCalendar(@PathVariable Integer roomId){
         List<UserResponse.ReservationForCalendarDTO> respDTO = userService.reservationForCalendar(roomId);
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+    }
+
+    // [유저] 문의사항 작성
+    @PostMapping("/user/question")
+    public ResponseEntity<?> questionWrite(){
+
+        return null;
     }
 }

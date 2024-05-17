@@ -77,4 +77,11 @@ public class UserRequest {
         @Pattern(regexp = "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}")
         private String phone; // 전화번호
     }
+
+    //문의사항 작성 DTO
+    @Data
+    public static class QuestionSave{
+//        private UserDTO user;
+//        private
+    }
 }
