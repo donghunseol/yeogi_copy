@@ -6,6 +6,8 @@ import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.faq.Faq;
 import com.example.final_project.faq.FaqRepository;
+import com.example.final_project.question.Question;
+import com.example.final_project.question.QuestionRepository;
 import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +25,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
     private final FaqRepository faqRepository;
+    private final QuestionRepository questionRepository;
 
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
@@ -113,5 +116,21 @@ public class UserService {
     public List<UserResponse.ReservationForCalendarDTO> reservationForCalendar(Integer roomId){
         List<Reservation> reservationList = reservationRepository.findReservationsByRoomId(roomId);
         return reservationList.stream().map(UserResponse.ReservationForCalendarDTO::new).collect(Collectors.toList());
+    }
+
+    // 문의사항 작성
+    @Transactional
+    public void questionWrite(SessionUser sessionUser,UserRequest.QuestionSave reqDTO){
+        //1. 인증처리
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+        //2. 권한처리
+        if (user == null){
+            throw new Exception401("문의할 권한이 없습니다.");
+        }
+
+        //3. 저장
+        questionRepository.save(reqDTO.toEntity(user));
+
     }
 }

@@ -72,7 +72,9 @@ public class Review {
     }
 
     public void updateWriter(User user) {
-        this.user = user;
+        if (user == null){
+
+        }
     }
 
     public void updateBoard(Stay stay) {

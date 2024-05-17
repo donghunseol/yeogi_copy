@@ -1,5 +1,7 @@
 package com.example.final_project.user;
 
+import com.example.final_project._core.enums.QuestionEnum;
+import com.example.final_project.question.Question;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -78,10 +80,21 @@ public class UserRequest {
         private String phone; // 전화번호
     }
 
-    //문의사항 작성 DTO
+    //[유저]문의사항 작성 DTO
     @Data
     public static class QuestionSave{
-//        private UserDTO user;
-//        private
+        private Integer userId;
+        private String title;
+        private String content;
+        private QuestionEnum state;
+
+        public Question toEntity(User user){
+            return Question.builder()
+                    .questionEnum(state)
+                    .content(content)
+                    .title(title)
+                    .user(user)
+                    .build();
+        }
     }
 }

@@ -21,7 +21,9 @@ public class ReviewRequest {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class ReviewRequestDTO {
+        private Integer id;
         private Integer userId; // 사용자 ID
+        private Integer companyId;
         private Integer parentId; // 부모 댓글 ID
         private String content; // 내용
         private Integer stayId; // 숙소 ID
@@ -49,7 +51,6 @@ public class ReviewRequest {
                         .company(company) // 기업 정보를 저장
                         .stay(stay)
                         .state(state)
-                        .score(score)
                         .content(content)
                         .build();
             } else {
