@@ -41,6 +41,12 @@ public class ReviewResponse {
                 this.name = writer.getName();
                 this.reportCount = writer.getReportCount();
             }
+
+            public UserDTO(Company writer) {
+                this.id = writer.getId();
+                this.name = writer.getBusinessName();
+                this.reportCount = writer.getReportCount();
+            }
         }
 
 //        public static ReviewResponse.Save convertReviewToDTO(Review review){

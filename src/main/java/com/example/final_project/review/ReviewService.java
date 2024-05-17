@@ -40,21 +40,17 @@ public class ReviewService {
     private final ReportRepository reportRepository;
 
 
-    //댓글작성
-
-    //대댓글 작성
+    //댓글 대댓글 작성
     @Transactional
     public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO, Object sessionObject) {
+
         // 1. 인증 처리
         if (sessionObject == null) {
             throw new Exception400("로그인이 필요한 서비스입니다.");
         }
 
         Stay stay = stayRepository.findById(stayId)
-                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다 : " + stayId));
-
-        User user = userRepository.findById(reqDTO.getUserId())
-                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다" + reqDTO.getUserId()));
+                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
 
         Review review = reqDTO.toEntity(sessionObject, stay);
 
@@ -67,14 +63,21 @@ public class ReviewService {
             review.updateParent(parentReview);
         }
 
-        review.updateWriter(user);
         review.updateBoard(stay);
 
         reviewRepository.save(review);
 
+        ReviewResponse.Save.UserDTO writerDTO = null;
+        if (review.getUser() != null){
+            writerDTO = new ReviewResponse.Save.UserDTO(review.getUser());
+        } else if (review.getCompany() != null){
+            writerDTO = new ReviewResponse.Save.UserDTO(review.getCompany());
+        }
 
-        return new ReviewResponse.Save(stayId, new ReviewResponse.Save.UserDTO(user), review.getContent(), review.getScore());
+        return new ReviewResponse.Save(stayId,writerDTO,review.getContent(),review.getScore());
+
     }
+
 
     // 댓글 목록
     @Transactional

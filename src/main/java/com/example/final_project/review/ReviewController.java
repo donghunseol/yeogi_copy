@@ -41,7 +41,7 @@ public class ReviewController {
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         ReviewResponse.Detail respDTO = reviewService.detail(reviewId,sessionUser);
         request.setAttribute("review",respDTO);
-        System.out.println("디테일 값 =========================================================" + respDTO);
+
         return "/company/review/detail";
     }
 
@@ -50,6 +50,7 @@ public class ReviewController {
     public String reviewWrite(@PathVariable Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO){
         Object sessionObject = session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
         reviewService.insert(stayId,reqDTO,sessionObject);
+        System.out.println(reqDTO);
 
         return "redirect:/reviews/"+stayId;
     }
