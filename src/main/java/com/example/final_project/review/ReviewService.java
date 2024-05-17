@@ -148,13 +148,11 @@ public class ReviewService {
         Review review = reviewRepository.findByReviewId(reviewId);
 
         // 3. 리뷰 작성자 정보 생성
-        ReviewResponse.Detail.UserDTO writerDTO;
+        ReviewResponse.Detail.UserDTO writerDTO = null;
         if (review.getUser() != null) {
             writerDTO = new ReviewResponse.Detail.UserDTO(review.getUser());
         } else if (review.getCompany() != null) {
             writerDTO = new ReviewResponse.Detail.UserDTO(review.getCompany());
-        } else {
-            throw new IllegalArgumentException("리뷰 작성자가 없습니다.");
         }
 
         // 4. 리뷰 디테일 정보 생성
@@ -163,14 +161,13 @@ public class ReviewService {
         // 5. 자식 리뷰 리스트 구성
         for (Review childReview : review.getChildren()) {
             Hibernate.initialize(childReview.getStay().getOptions()); // 자식 리뷰의 options 컬렉션 초기화
-            ReviewResponse.Detail.UserDTO childWriterDTO;
-            if (childReview.getUser() != null) {
+            ReviewResponse.Detail.UserDTO childWriterDTO = null;
+            if (childReview.getUser() != null) { // 유저 비었을떄
                 childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getUser());
-            } else if (childReview.getCompany() != null) {
+            } else if (childReview.getCompany() != null) { // 기업 비었을때
                 childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getCompany());
-            } else {
-                throw new IllegalArgumentException("리뷰 작성자가 없습니다.");
             }
+
             ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, childWriterDTO);
             detail.getChildren().add(childDetail);
         }
