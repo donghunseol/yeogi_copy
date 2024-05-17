@@ -17,6 +17,7 @@ import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -143,16 +144,34 @@ public class ReviewService {
             throw new Exception401("로그인이 필요한 서비스입니다.");
         }
 
-        // 2. 리뷰 조회
+        // 2. 리뷰 조회 및 지연 로딩 초기화
         Review review = reviewRepository.findByReviewId(reviewId);
 
+        // 3. 리뷰 작성자 정보 생성
+        ReviewResponse.Detail.UserDTO writerDTO;
+        if (review.getUser() != null) {
+            writerDTO = new ReviewResponse.Detail.UserDTO(review.getUser());
+        } else if (review.getCompany() != null) {
+            writerDTO = new ReviewResponse.Detail.UserDTO(review.getCompany());
+        } else {
+            throw new IllegalArgumentException("리뷰 작성자가 없습니다.");
+        }
+
         // 4. 리뷰 디테일 정보 생성
-        ReviewResponse.Detail.UserDTO writerDTO = new ReviewResponse.Detail.UserDTO(review.getUser());
         ReviewResponse.Detail detail = new ReviewResponse.Detail(review, writerDTO);
 
-        // 5. 리뷰의 자식 댓글 리스트 구성
+        // 5. 자식 리뷰 리스트 구성
         for (Review childReview : review.getChildren()) {
-            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, new ReviewResponse.Detail.UserDTO(childReview.getUser()));
+            Hibernate.initialize(childReview.getStay().getOptions()); // 자식 리뷰의 options 컬렉션 초기화
+            ReviewResponse.Detail.UserDTO childWriterDTO;
+            if (childReview.getUser() != null) {
+                childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getUser());
+            } else if (childReview.getCompany() != null) {
+                childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getCompany());
+            } else {
+                throw new IllegalArgumentException("리뷰 작성자가 없습니다.");
+            }
+            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, childWriterDTO);
             detail.getChildren().add(childDetail);
         }
 

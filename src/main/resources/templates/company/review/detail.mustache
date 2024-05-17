@@ -76,7 +76,7 @@
                                     {{/children}}
                                     {{^children}}
                                     <form action="/review/write/{{review.stayId}}" method="post">
-                                        <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                                        <input type="hidden" name="companyId" value="{{sessionUser.id}}">
                                         <input type="hidden" name="stayId" value="{{stayId}}">
                                         <input type="hidden" name="score" value="">
                                         <input type="hidden" name="parentId" value="{{review.id}}">
@@ -104,7 +104,6 @@
                         </ul>
                         {{/review}}
                     </div>
-
                 </div>
             </div>
         </div>

@@ -20,8 +20,11 @@ import com.example.final_project.room.Room;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.room_information.RoomInformation;
 import com.example.final_project.room_information.RoomInformationRepository;
+import com.example.final_project.scrap.Scrap;
+import com.example.final_project.scrap.ScrapRepository;
 import com.example.final_project.stay_image.StayImage;
 import com.example.final_project.stay_image.StayImageRepository;
+import com.example.final_project.user.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +50,7 @@ public class StayService {
     private final RoomRepository roomRepository;
     private final RoomInformationRepository roomInformationRepository;
     private final EventRepository eventRepository;
+    private final ScrapRepository scrapRepository;
 
     @Transactional
     public void register(StayRequest.SaveDTO reqDTO, SessionCompany sessionUser) {
@@ -523,9 +527,12 @@ public class StayService {
         Stay stay = stayRepository.findByStayId(stayId)
                 .orElseThrow(() -> new Exception404("존재하지 않는 숙소입니다.")); // 숙소
         StayResponse.StayDetail.StayContentsDTO.StayDTO stayDTO = new StayResponse.StayDetail.StayContentsDTO.StayDTO(stay);
+        //TODO 만약에 ssesionUser로 비교하게되면 추가
+//      만약에 boolaen 값 확인하려면 유저가 로그인해서 비교
+//      Optional<Scrap> scrapOp = scrapRepository.findByUserIdWithStayId(sessionUser.getId(),stayId);
+//      boolean isScrap = scrapOp.isPresent();
+//      stayDTO.setScrap(isScrap);
 
-
-        // TODO: 찜 여부 불러오기
         List<StayImage> stayImageList = stayImageRepository.findByStayId(stayId); // 숙소 이미지
         List<StayResponse.StayDetail.StayContentsDTO.StayImageDTO> stayImageDTOS = stayImageList.stream().map(StayResponse.StayDetail.StayContentsDTO.StayImageDTO::new).toList();
 
