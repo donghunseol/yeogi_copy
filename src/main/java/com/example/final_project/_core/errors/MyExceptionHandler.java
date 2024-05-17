@@ -29,7 +29,7 @@ public class MyExceptionHandler {
         log.warn("401 : " + e.getMessage()); // ex) 로그인 실패 다이렉트 메세지 [위험도는 낮지만 주의해야 하는 점이 있다 : 강제로 접속하는 인원이 발생]
         log.warn("IP : " + request.getRemoteAddr()); // 누군지 IP 확인
         log.warn("Agent : " + request.getHeader("User-Agent")); // 장비 확인
-        return "err/401";
+        return "/err/401";
     }
 
     @ExceptionHandler(Exception403.class)
@@ -37,7 +37,7 @@ public class MyExceptionHandler {
     public String ex403(Exception403 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
         log.warn("403 : " + e.getMessage());
-        return "err/403";
+        return "/err/403";
     }
 
     @ExceptionHandler(Exception404.class)
@@ -45,7 +45,7 @@ public class MyExceptionHandler {
     public String ex404(Exception404 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
         log.info("403 : " + e.getMessage());
-        return "err/404";
+        return "/err/404";
     }
 
     @ExceptionHandler(Exception500.class)
@@ -53,7 +53,7 @@ public class MyExceptionHandler {
     public String ex500(Exception500 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
         log.error("500 : " + e.getMessage());
-        return "err/500";
+        return "/err/500";
     }
 
     @ExceptionHandler(Exception.class)
@@ -61,6 +61,6 @@ public class MyExceptionHandler {
     public String unknownServerError(Exception500 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
         log.error("500 : " + e.getMessage());
-        return "err/500";
+        return "/err/500";
     }
 }
