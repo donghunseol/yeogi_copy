@@ -28,7 +28,7 @@ public class ScrapService {
 
     // 찜 등록
     @Transactional
-    public ScrapResponse.SaveDTO register(Integer stayId, SessionUser sessionUser) {
+    public void register(Integer stayId, SessionUser sessionUser) {
 
         //1. 인증처리
         if (sessionUser == null) {
@@ -52,8 +52,6 @@ public class ScrapService {
                 .build();
 
         scrapRepository.save(scrap);
-
-        return new ScrapResponse.SaveDTO(scrap, new ScrapResponse.SaveDTO.UserDTO(user), new ScrapResponse.SaveDTO.StayDTO(stay));
     }
 
 
