@@ -21,9 +21,9 @@ public class ScrapRestController {
     @PostMapping("/stay/{stayId}")
     public ResponseEntity<?> insert(@PathVariable Integer stayId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        scrapService.register(stayId, sessionUser);
+        ScrapResponse.Save respDTO = scrapService.register(stayId, sessionUser);
 
-        return ResponseEntity.ok().body(new ApiUtil<>("스크랩 등록 성공"));
+        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
 
     // 스크랩 삭제
