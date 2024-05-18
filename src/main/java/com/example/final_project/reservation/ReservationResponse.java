@@ -1,6 +1,7 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.enums.RoomEnum;
 import com.example.final_project.pay.Pay;
 import com.example.final_project.room.Room;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class ReservationResponse {
         private Integer id; // 예약 번호
         private Integer userId; // 예약한 유저 번호
         private Integer roomId; // 예약한 방 번호
+        private Integer price;
         private LocalDate checkInDate; // 입실 시간
         private LocalDate checkOutDate; // 퇴실 시간
         private String reservationName; // 예약한 대표 이름
@@ -50,7 +52,7 @@ public class ReservationResponse {
 
         private List<List<LocalDate>> reservedDates; // 이미 예약된 날짜
 
-        public SaveDTO(Reservation reservation, List<List<LocalDate>> reservedDates) {
+        public SaveDTO(Reservation reservation, List<List<LocalDate>> reservedDates, Room room) {
             this.id = reservation.getId();
             this.userId = reservation.getUser().getId();
             this.roomId = reservation.getRoom().getId();
@@ -59,11 +61,16 @@ public class ReservationResponse {
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.createdAt = reservation.getCreatedAt();
-
             if (reservedDates == null) {
                 this.reservedDates = null;
             } else {
                 this.reservedDates = reservedDates;
+            }
+            // 특가 가격 적용 여부에 따라 가격 설정
+            if (room.getSpecialState() == RoomEnum.APPLIED) {
+                this.price = room.getSpecialPrice(); // 특가 가격
+            } else if (room.getSpecialState() == RoomEnum.NOT_APPLIED) {
+                this.price = room.getPrice(); // 일반 가격
             }
         }
 

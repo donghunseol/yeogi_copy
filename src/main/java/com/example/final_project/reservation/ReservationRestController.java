@@ -18,6 +18,7 @@ public class ReservationRestController {
     public ResponseEntity<?> makeReservation(@PathVariable Integer roomId, @RequestBody ReservationRequest.DTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ReservationResponse.SaveDTO respDTO = reservationService.makeReservation(reqDTO, sessionUser, roomId);
+
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

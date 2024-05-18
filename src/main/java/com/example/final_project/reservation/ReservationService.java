@@ -52,6 +52,9 @@ public class ReservationService {
             return new ReservationResponse.SaveDTO(localDates);
         }
 
+        System.out.println("room = " + room.getSpecialPrice());
+        System.out.println("room = " + room.getPrice());
+
         Reservation reservation = reservationRepository.save(reqDTO.toEntity(user, room));
 
         // 예약 시 결제 안된 상태로 결제 데이터 생성
@@ -65,7 +68,7 @@ public class ReservationService {
 
         payRepository.save(pay);
 
-        return new ReservationResponse.SaveDTO(reservation, localDates);
+        return new ReservationResponse.SaveDTO(reservation, localDates,room);
     }
 
     // 예약 수정 하기
