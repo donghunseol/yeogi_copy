@@ -36,8 +36,9 @@
                                 <col width="15%">
                                 <col width="25%">
                                 <col width="20%">
+                                <col width="10%">
                                 <col width="15%">
-                                <col width="20%">
+                                <col width="10%">
                             </colgroup>
                             <thead>
                             <tr>
@@ -47,17 +48,19 @@
                                 <th scope="col">신고 사유</th>
                                 <th scope="col">신고한 회원</th>
                                 <th scope="col">작성일</th>
+                                <th scope="col">현황</th>
                             </tr>
                             </thead>
                             <tbody>
                             {{#reportList}}
                                 <tr class="review">
-                                    <td class="title"><span>{{reportId}}</span></td>
-                                    <td class="title"><span>{{stayName}}</span></td>
+                                    <td class="content"><span>{{reportId}}</span></td>
+                                    <td class="content"><span>{{stayName}}</span></td>
                                     <td class="content">{{reviewContent}}</td>
                                     <td class="content">{{reportContent}}</td>
-                                    <td>{{userEmail}}</td>
-                                    <td>{{reportedAt}}</td>
+                                    <td class="content">{{userEmail}}</td>
+                                    <td class="content">{{reportedAt}}</td>
+                                    <td class="content">{{result}}</td>
                                     <td class="link">
                                         <a href="/admin/reports/{{reportId}}"></a>
                                     </td>
