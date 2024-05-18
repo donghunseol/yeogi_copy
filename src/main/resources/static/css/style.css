@@ -953,6 +953,38 @@ p.login-title {
     width: 90px;
     color: #fff;
     cursor: pointer;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.button-wrapper a.approval {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.button-wrapper a.refuse {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .button-wrapper .border {
@@ -1743,7 +1775,7 @@ em.guide b {
 }
 
 .reply-icon {
-    width: 50px;
+    width: 60px;
     font-size: 12px;
     border: 1px solid #f45858;
     background: #fff;
@@ -1762,19 +1794,32 @@ em.guide b {
 
 .review-detail-head {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
     margin-bottom: 20px;
+    flex-direction: column;
 }
 
 .review-detail-head h3 {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
+.report-header h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.buttons {
+    display: flex;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+    justify-content: center;
+}
 .review-detail-head .button-wrapper {
 }
 

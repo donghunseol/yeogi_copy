@@ -1,6 +1,8 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.ReportEnum;
+import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
@@ -22,6 +24,7 @@ import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.review.Review;
 import com.example.final_project.review.ReviewRepository;
+import com.example.final_project.review.ReviewResponse;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
 import com.example.final_project.stay.StayRepository;
@@ -31,6 +34,7 @@ import com.example.final_project.user.User;
 import com.example.final_project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -236,10 +240,68 @@ public class AdminService {
     }
 
     // 신고받은 리뷰 중 하나 상세보기
+    @Transactional
     public AdminResponse.ReportDetail reportedReviewDetail(Integer reportedId){
-        AdminResponse.ReportDetail resp = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
-        System.out.println(resp);
-        return resp;
+        Report report = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
+
+        // 2. 리뷰 조회 및 지연 로딩 초기화
+        Review review = reviewRepository.findByReviewId(report.getReview().getId());
+
+        // 3. 리뷰 작성자 정보 생성
+        ReviewResponse.Detail.UserDTO writerDTO = null;
+        if (review.getUser() != null) {
+            writerDTO = new ReviewResponse.Detail.UserDTO(review.getUser());
+        } else if (review.getCompany() != null) {
+            writerDTO = new ReviewResponse.Detail.UserDTO(review.getCompany());
+        }
+
+        // 4. 리뷰 디테일 정보 생성
+        ReviewResponse.Detail detail = new ReviewResponse.Detail(review, writerDTO);
+
+        // 5. 자식 리뷰 리스트 구성
+        for (Review childReview : review.getChildren()) {
+            Hibernate.initialize(childReview.getStay().getOptions()); // 자식 리뷰의 options 컬렉션 초기화
+            ReviewResponse.Detail.UserDTO childWriterDTO = null;
+            if (childReview.getUser() != null) { // 유저 비었을떄
+                childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getUser());
+            } else if (childReview.getCompany() != null) { // 기업 비었을때
+                childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getCompany());
+            }
+
+            ReviewResponse.Detail childDetail = new ReviewResponse.Detail(childReview, childWriterDTO);
+            detail.getChildren().add(childDetail);
+        }
+        return new AdminResponse.ReportDetail(report, detail);
+    }
+
+    // 신고 적합(승인)
+    @Transactional
+    public void reportApproval(Integer reportId, Integer reviewId){
+        Report report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 신고입니다"));
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 리뷰입니다."));
+
+        report.setResult(ReportEnum.COMPLETE);
+        reportRepository.save(report);
+
+        review.setState(ReviewEnum.REPORTED);
+        reviewRepository.save(review);
+    }
+
+    // 신고 부적합(거절)
+    @Transactional
+    public void reportRefuse(Integer reportId, Integer reviewId){
+        Report report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 신고입니다"));
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 리뷰입니다."));
+
+        report.setResult(ReportEnum.FAIL);
+        reportRepository.save(report);
+
+        review.setState(ReviewEnum.FLAWLESS);
+        reviewRepository.save(review);
     }
 
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
