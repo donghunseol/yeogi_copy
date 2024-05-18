@@ -47,8 +47,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
             from Reservation r  
             JOIN FETCH r.room ro
             JOIN FETCH r.room.stay s
-            where r.room.stay.name like %:keyword% or r.room.name like %:keyword%
+            where r.room.stay.name like %:keyword% or r.room.name like %:keyword% AND r.room.stay.company.id = :companyId
             """)
-    List<Reservation> findAllKeyword(@Param("keyword") String keyword);
+    List<Reservation> findAllKeyword(@Param("keyword") String keyword, @Param("companyId") Integer companyId);
 
 }
