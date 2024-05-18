@@ -23,24 +23,26 @@
                                     <span>총 문의사항 <em>{{listCount}}</em>개</span>
                                 </li>
                                 <li class="search-right">
-                                    <div class=" duration">
-                                        <label for="daterange">기간</label>
-                                        <input type="text" name="daterange" value="" id="daterange" />
-                                    </div>
+<!--                                    <div class=" duration">-->
+<!--                                        <label for="daterange">기간</label>-->
+<!--                                        <input type="text" name="daterange" value="" id="daterange" />-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <label for="comp-state">문의상태</label>-->
+<!--                                        <select name="state" id="inquiry">-->
+<!--                                            <option value="">전체</option>-->
+<!--                                            <option value="승인">승인</option>-->
+<!--                                            <option value="거절">거절</option>-->
+<!--                                            <option value="대기중">대기중</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
                                     <div>
-                                        <label for="comp-state">문의상태</label>
-                                        <select name="state" id="inquiry">
-                                            <option value="">전체</option>
-                                            <option value="승인">승인</option>
-                                            <option value="거절">거절</option>
-                                            <option value="대기중">대기중</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <div class="tab-input-wrapper">
-                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
-                                            <input class="submit-btn" type="submit" value="Search">
-                                        </div>
+                                        <form action="/admin/company/question" method="get">
+                                            <div class="tab-input-wrapper">
+                                                <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                                <input class="submit-btn" type="submit" value="Search">
+                                            </div>
+                                        </form>
                                     </div>
                                 </li>
                             </ul>
@@ -75,6 +77,19 @@
                                 </td>
                             </tr>
                             {{/questionList}}
+                            {{#searchquestionList}}
+                                <tr class="review">
+                                    <td class="title">{{title}}</td>
+                                    <td class="content">{{businessName}}</td>
+                                    <td>{{createdAt}}</td>
+                                    <td>
+                                        {{#state}}<span class="state {{stateColor}}">{{stateText}}</span>{{/state}}
+                                    </td>
+                                    <td class="link">
+                                        <a href="/admin/company-question/detail/{{questionId}}"></a>
+                                    </td>
+                                </tr>
+                            {{/searchquestionList}}
                             </tbody>
                         </table>
                     </div>

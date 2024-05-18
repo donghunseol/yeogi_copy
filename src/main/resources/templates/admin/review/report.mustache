@@ -5,41 +5,7 @@
     <section id="section n1">
         <aside class="side-bar">
             <div class="side-wrapper">
-                <div class="side-content header">
-                    <figure>
-                        <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
-                    </figure>
-                    <span>여어떻노</span>
-                </div>
-                {{#sessionUser}}
-                    <div class="side-content info">
-                        <p>관리자 : {{name}}</p>
-                        <p>접속일시: {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
-                        <a href="/logout">로그아웃</a>
-                    </div>
-                {{/sessionUser}}
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-building"></i>  기업</p>
-                    <ul class="sub">
-                        <li><a href="/admin/companies">가입현황</a></li>
-                        <li><a href="/admin/company/question">문의사항</a></li>
-                        <li><a href="/customer-c/faq">자주묻는 질문</a></li>
-                    </ul>
-                </div>
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-user"></i>  유저</p>
-                    <ul class="sub">
-                        <li><a href="/admin/users">가입현황</a></li>
-                        <li><a href="/customer-u/question">문의사항</a></li>
-                        <li><a href="/customer-u/faq">자주묻는 질문</a></li>
-                    </ul>
-                </div>
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-marker"></i> 리뷰</p>
-                    <ul class="sub">
-                        <li><a href="/admin/reports">신고 목록</a></li>
-                    </ul>
-                </div>
+                {{> admin/layout/side}}
             </div>
         </aside>
         <div class="content-page">

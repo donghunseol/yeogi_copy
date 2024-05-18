@@ -113,6 +113,28 @@ public class AdminController {
         return "/admin/customer-c/join";
     }
 
+
+    // 기업 문의사항 리스트
+    @GetMapping("/admin/company/question")
+    public String companyQuestionList(HttpServletRequest request,@RequestParam(value = "keyword", defaultValue = "") String keyword){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+
+        if (keyword.isBlank()){
+            List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+            Integer listSize = respDTO.size();
+            request.setAttribute("listCount",listSize);
+            request.setAttribute("questionList",respDTO);
+        }else{
+            List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.searchQuestionKeyword(sessionUser,keyword);
+            Integer listSize = respDTO.size();
+            request.setAttribute("listCount",listSize);
+            request.setAttribute("searchquestionList",respDTO);
+        }
+
+        return "/admin/customer-c/question";
+    }
+
+
     // 특정 기업의 정보 상세보기
     @GetMapping("/admin/companies/{companyId}")
     public String companyDetail(@PathVariable Integer companyId, HttpServletRequest request) {
@@ -203,23 +225,6 @@ public class AdminController {
         return response;
     }
 
-    // 기업 문의사항 리스트
-    @GetMapping("/admin/company/question")
-    public String companyQuestionList(HttpServletRequest request,
-                                      @RequestParam(required = false, defaultValue = "") String inquiry,
-                                      @RequestParam(required = false, defaultValue = "") String keyword
-                                      ){
-
-        System.out.println("inquiry = " + inquiry);
-        System.out.println("keyword = " + keyword);
-
-        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-        List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
-        Integer listSize = respDTO.size();
-        request.setAttribute("listCount",listSize);
-        request.setAttribute("questionList",respDTO);
-        return "/admin/customer-c/question";
-    }
 
     // 기업 문의사항 디테일
     @GetMapping("/admin/company-question/detail/{questionId}")
@@ -239,15 +244,6 @@ public class AdminController {
 
         return "redirect:/admin/company/question";
 
-//      String redirectPage = ""; // 변수 초기화
-//        if (reqDTO.getCompanyId() != null){
-//            // 유저 답글을 다는 경우
-//            redirectPage = "redirect:/admin/company/question"; // 오타 수정: "redierect" -> "redirect"
-//        } else {
-//            // 기타 경우에 대한 처리
-//        }
-//
-//        return redirectPage; // 오타 수정:
     }
 
     // 신고 목록

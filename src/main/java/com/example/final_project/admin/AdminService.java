@@ -149,7 +149,7 @@ public class AdminService {
         return companyList.stream().map(AdminResponse.CompanyKeywordList::new).collect(Collectors.toList());
     }
 
-    
+
     // 특정 기업의 정보 상세보기
     public AdminResponse.CompanyDetailDTO adminCompanyDetail(Integer companyId) {
         Optional<Company> companyOP = companyRepository.findById(companyId);
@@ -326,6 +326,27 @@ public class AdminService {
         }).collect(Collectors.toList());
     }
 
+    // 키워드 search
+    public List<AdminResponse.CompanyQuestionListDTO> searchQuestionKeyword(SessionAdmin sessionUser, String keyword){
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+
+        List<Question> questionList;
+
+        if (keyword.isBlank()){
+            questionList = questionRepository.companyQuestionList();
+        } else {
+            questionList = questionRepository.findAllKeyword(keyword);
+        }
+
+        return questionList.stream().map(question -> {
+            Company company = companyRepository.findById(question.getCompany().getId())
+            .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 업습니다."));
+            return new AdminResponse.CompanyQuestionListDTO(company,question);
+        }).toList();
+
+    }
 
     //[기업 문의사항 리스트]
     public List<AdminResponse.CompanyQuestionListDTO> adminCompanyQuestionList(SessionAdmin sessionUser){
