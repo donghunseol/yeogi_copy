@@ -484,8 +484,11 @@ public class StayResponse {
             public static class StayDTO {
                 private Integer stayId; // 숙소 번호
                 private String stayName; // 숙소 이름
-                private String information; //숙소 인포메이션
+                private String information; // 숙소 인포메이션
                 private String intro;
+                private String address; // 숙소 주소
+                private Double latitude; // 숙소 위도
+                private Double longitude; // 숙소 경도
 //              @Setter
 //              private boolean isScrap;
 
@@ -494,7 +497,9 @@ public class StayResponse {
                     this.stayName = stay.getName();
                     this.information = stay.getInformation();
                     this.intro = stay.getIntro();
-
+                    this.address = stay.getAddress();
+                    this.latitude = stay.getGpsLat();
+                    this.longitude = stay.getGpsLng();
                 }
 
             }
