@@ -289,6 +289,21 @@ public class AdminService {
         reviewRepository.save(review);
     }
 
+    // 신고 부적합(거절)
+    @Transactional
+    public void reportRefuse(Integer reportId, Integer reviewId){
+        Report report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 신고입니다"));
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 리뷰입니다."));
+
+        report.setResult(ReportEnum.FAIL);
+        reportRepository.save(report);
+
+        review.setState(ReviewEnum.FLAWLESS);
+        reviewRepository.save(review);
+    }
+
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
     public List<AdminResponse.CompanyStayListDTO> adminCompanyStayList(Integer companyId){
         List<Stay> stayList = stayRepository.findByCompanyId(companyId);

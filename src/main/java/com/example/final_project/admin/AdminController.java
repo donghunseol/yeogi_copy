@@ -269,6 +269,16 @@ public class AdminController {
         return response;
     }
 
+    // 신고 부적합(거절)
+    @PutMapping("/admin/reports/{reportId}/refuse-review-{reviewId}")
+    @ResponseBody
+    public Map<String, String> reportRefuse(@PathVariable Integer reportId, @PathVariable Integer reviewId) {
+        adminService.reportRefuse(reportId, reviewId);
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/admin/reports");
+        return response;
+    }
+
     //관리자 FAQ 리스트
     @GetMapping("/admin/faq")
     public String adminFaqList(HttpServletRequest request){

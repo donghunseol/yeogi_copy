@@ -89,7 +89,7 @@
                                     <div class="buttons">
                                         {{#isProgressing}}
                                         <div class="button-wrapper">
-                                            <a class="btn refuse" href="/admin/reports">부적합</a>
+                                            <a class="btn refuse" onclick="refuseReport({{reportId}}, {{review.id}})">부적합</a>
                                         </div>
                                         {{/isProgressing}}
                                         <div class="button-wrapper">
@@ -119,6 +119,27 @@
 
     function approvalReport(reportId, reviewId) {
         fetch(`/admin/reports/${reportId}/approval-review-${reviewId}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json', // JSON 요청을 위해 필요
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to approval the report.');
+            }
+            return response.json(); // JSON 응답을 파싱
+        })
+                .then(data => {
+                    window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
+    }
+
+    function refuseReport(reportId, reviewId) {
+        fetch(`/admin/reports/${reportId}/refuse-review-${reviewId}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
