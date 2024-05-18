@@ -42,11 +42,11 @@ public class ReviewResponse {
                 this.reportCount = user.getReportCount();
             }
 
-            public UserDTO(Company company) {
-                this.id = company.getId();
-                this.name = company.getBusinessName();
-                this.reportCount = company.getReportCount();
-            }
+//            public UserDTO(Company company) {
+//                this.id = company.getId();
+//                this.name = company.getBusinessName();
+//                this.reportCount = company.getReportCount();
+//            }
         }
 
 //        public static ReviewResponse.Save convertReviewToDTO(Review review){

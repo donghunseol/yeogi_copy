@@ -33,30 +33,27 @@ public class ReviewRequest {
 
         // SessionUser 또는 SessionCompany를 받을 수 있도록 수정
         public Review toEntity(Object sessionObject, Stay stay) {
+            Review review = new Review();
+            review.setState(state);
+            review.setScore(score);
+            review.setContent(content);
+            review.setStay(stay);
+
             if (sessionObject instanceof SessionUser) {
                 SessionUser sessionUser = (SessionUser) sessionObject;
                 User user = new User();
                 user.setId(sessionUser.getId());
-                return Review.builder()
-                        .user(user)
-                        .stay(stay)
-                        .state(state)
-                        .score(score)
-                        .content(content)
-                        .build();
+                review.setUser(user);
             } else if (sessionObject instanceof SessionCompany) {
                 SessionCompany sessionCompany = (SessionCompany) sessionObject;
                 Company company = new Company();
                 company.setId(sessionCompany.getId());
-                return Review.builder()
-                        .company(company) // 기업 정보를 저장
-                        .stay(stay)
-                        .state(state)
-                        .content(content)
-                        .build();
+                review.setCompany(company);
             } else {
                 throw new IllegalArgumentException("Invalid session object type");
             }
+
+            return review;
         }
     }
 

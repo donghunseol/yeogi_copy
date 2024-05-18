@@ -477,16 +477,44 @@ public class AdminResponse {
     //관리자 keyword 응답 DTO
     @Data
     public static class CompanyKeywordList{
-        private String busineesName;
-        private String phone;
-        private String name;
-        private CompanyEnum state;
-
+        private Integer companyId; // 기업 번호
+        private String email; // 기업 이메일
+        private String businessName; // 등록 상호명
+        private String businessNumber; // 사업자 번호
+        private String businessAddress; // 사업자 주소
+        private String phone; // 사업자 전화번호
+        private String name; // 사업자 이름
+        private LocalDate createdAt; // 생성 일자
+        private String stateMessage; // 상태 메시지 한글
+        private String stateColor; // 상태 메시지 색
+        Boolean isBlack; // true 면 블랙 등록 / false 면 블랙 미등록
         public CompanyKeywordList(Company company) {
-            this.busineesName = company.getBusinessName();
+            this.companyId = company.getId();
+            this.email = company.getEmail();
+            this.businessName = company.getBusinessName();
+            this.businessNumber = company.getBusinessNumber();
+            this.businessAddress = company.getBusinessAddress();
             this.phone = company.getPhone();
             this.name = company.getName();
-            this.state = company.getState();
+            this.createdAt = LocalDate.from(company.getCreatedAt());
+            isBlack = false;
+            if (company.getState() == CompanyEnum.ACTIVE) {
+                this.stateMessage = "승인";
+                this.stateColor = "approval";
+            } else if (company.getState() == CompanyEnum.PROGRESSING) {
+                this.stateMessage = "대기중";
+                this.stateColor = "wait";
+            } else if (company.getState() == CompanyEnum.QUIT) {
+                this.stateMessage = "탈퇴";
+                this.stateColor = "drop-out";
+            } else if (company.getState() == CompanyEnum.REJECT) {
+                this.stateMessage = "거절";
+                this.stateColor = "refuse";
+            } else if (company.getState() == CompanyEnum.BLACK) {
+                this.stateMessage = "블랙";
+                this.stateColor = "black-list";
+                this.isBlack = true;
+            }
         }
     }
 }

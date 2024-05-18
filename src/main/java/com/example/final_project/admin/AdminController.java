@@ -105,7 +105,7 @@ public class AdminController {
         } else {
             List<AdminResponse.CompanyKeywordList> companyList = adminService.serarchKeyword(keyword);
             request.setAttribute("keywordList",companyList);
-            request.setAttribute("keywordCount",companyList.size());
+            request.setAttribute("companyCount",companyList.size());
         }
 
         request.setAttribute("keyword", keyword);
