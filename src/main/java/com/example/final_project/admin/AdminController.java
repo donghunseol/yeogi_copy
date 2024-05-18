@@ -159,28 +159,6 @@ public class AdminController {
         return "/admin/customer-c/question";
     }
 
-    //관리자 FAQ 리스트
-    @GetMapping("/admin/faq")
-    public String adminFaqList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword){
-        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-
-        if (keyword.isBlank()){
-            List<AdminResponse.adminFaqListDTO> respDTO = adminService.adminFaqList(sessionUser);
-            Integer listCount = respDTO.size();
-            request.setAttribute("count",listCount);
-            request.setAttribute("faqList",respDTO);
-        }else{
-            List<AdminResponse.adminFaqListDTO> respDTO = adminService.searchFaqKeyword(sessionUser,keyword);
-            Integer listCount = respDTO.size();
-            request.setAttribute("count",listCount);
-            request.setAttribute("keywordFaqList",respDTO);
-        }
-
-
-
-        return "/admin/customer-c/faq";
-    }
-
 
     // 특정 기업의 정보 상세보기
     @GetMapping("/admin/companies/{companyId}")
@@ -324,7 +302,25 @@ public class AdminController {
     }
 
 
-    //--------
+    //관리자 FAQ 리스트
+    @GetMapping("/admin/faq")
+    public String adminFaqList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+
+        if (keyword.isBlank()){
+            List<AdminResponse.adminFaqListDTO> respDTO = adminService.adminFaqList(sessionUser);
+            Integer listCount = respDTO.size();
+            request.setAttribute("count",listCount);
+            request.setAttribute("faqList",respDTO);
+        }else{
+            List<AdminResponse.adminFaqListDTO> respDTO = adminService.searchFaqKeyword(sessionUser,keyword);
+            Integer listCount = respDTO.size();
+            request.setAttribute("count",listCount);
+            request.setAttribute("keywordFaqList",respDTO);
+        }
+
+        return "/admin/customer-c/faq";
+    }
 
 
     //관리자 FAQ 디테일

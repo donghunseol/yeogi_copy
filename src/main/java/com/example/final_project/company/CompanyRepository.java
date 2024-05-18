@@ -25,7 +25,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     //이메일 중복 확인
     Company findByEmail(@Param("email") String email);
 
-    // 키워드로 컴퍼니찾기
+    // 키워드로 기업찾기
     @Query("""
             select c 
             from Company c  

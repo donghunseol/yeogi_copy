@@ -10,7 +10,7 @@
                         <p>예약 현황</p>
                     </div>
                     <div class="tab-item">
-                        <form action="#" method="#" style="width: 100%;">
+                        <form action="/reservations/status" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
                                     <span>총 예약 건수 <em>{{reservationCount}}</em>건</span>
@@ -55,6 +55,16 @@
                                     <td><span class="detail" onclick="location.href='/reservations/{{reservationId}}'">상세보기</span></td>
                                 </tr>
                             {{/reservationList}}
+                            {{#keywordReservationList}}
+                                <tr>
+                                    <td class="title">{{stayName}} ({{roomName}})</td>
+                                    <td>{{reservationName}}</td>
+                                    <td>{{checkInDate}}  {{checkInTime}}</td>
+                                    <td>{{checkOutDate}}  {{checkOutTime}}</td>
+                                    <td>{{payState}}</td>
+                                    <td><span class="detail" onclick="location.href='/reservations/{{reservationId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordReservationList}}
                             </tbody>
                         </table>
                     </div>
