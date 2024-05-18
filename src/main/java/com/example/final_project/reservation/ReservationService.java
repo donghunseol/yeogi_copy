@@ -153,7 +153,7 @@ public class ReservationService {
             reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(sessionUser.getId());
 
         }else{
-            reservationList = reservationRepository.findAllKeyword(keyword);
+            reservationList = reservationRepository.findAllKeyword(keyword, sessionUser.getId());
         }
 
         return reservationList.stream().map(reservation -> {
