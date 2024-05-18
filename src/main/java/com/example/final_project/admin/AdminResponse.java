@@ -431,6 +431,7 @@ public class AdminResponse {
         private ReviewResponse.Detail.UserDTO reporter; // 신고한 회원
         private String reportedAt; // 신고한 날짜
         private ReviewResponse.Detail review; // 리뷰 번호
+        private Boolean isProgressing; // 진행 여부 체크
 
         public ReportDetail(Report report, ReviewResponse.Detail detail) {
             this.reportId = report.getReportId();
@@ -438,6 +439,10 @@ public class AdminResponse {
             this.reporter = new ReviewResponse.Detail.UserDTO(report.getUser());
             this.reportedAt = formatDateTime(report.getCreatedAt());
             this.review = detail;
+            this.isProgressing = false;
+            if(report.getResult().equals(ReportEnum.PROCEEDING)){
+                this.isProgressing = true;
+            }
         }
 
         // 날짜 파싱 매서드

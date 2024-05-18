@@ -1,6 +1,8 @@
 package com.example.final_project.admin;
 
 import com.example.final_project._core.enums.CompanyEnum;
+import com.example.final_project._core.enums.ReportEnum;
+import com.example.final_project._core.enums.ReviewEnum;
 import com.example.final_project._core.enums.UserEnum;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
@@ -270,6 +272,21 @@ public class AdminService {
             detail.getChildren().add(childDetail);
         }
         return new AdminResponse.ReportDetail(report, detail);
+    }
+
+    // 신고 적합(승인)
+    @Transactional
+    public void reportApproval(Integer reportId, Integer reviewId){
+        Report report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new Exception404("존재 하지 않는 신고입니다"));
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("존재하지 않는 리뷰입니다."));
+
+        report.setResult(ReportEnum.COMPLETE);
+        reportRepository.save(report);
+
+        review.setState(ReviewEnum.REPORTED);
+        reviewRepository.save(review);
     }
 
     // 관리자 페이지에서 특정 기업의 숙소 정보 출력
