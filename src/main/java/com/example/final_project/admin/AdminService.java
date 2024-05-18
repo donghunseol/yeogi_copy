@@ -390,4 +390,16 @@ public class AdminService {
         faqRepository.save(reqDTO.toEntity(admin));
 
     }
+
+
+    // 키워드 search
+    public List<Company> serarchKeyword(String keyword){
+        List<Company> companyList;
+        if (keyword.isBlank()){
+            companyList = companyRepository.findAll();
+        } else{
+            companyList = companyRepository.findAllKeyword(keyword);
+        }
+        return companyList;
+    }
 }
