@@ -29,6 +29,7 @@ public class ReviewRequest {
         private Integer stayId; // 숙소 ID
         private Integer score; // 평점
         private ReviewEnum state; // 삭제 여부
+        private Integer roomId;
 
         // SessionUser 또는 SessionCompany를 받을 수 있도록 수정
         public Review toEntity(Object sessionObject, Stay stay) {

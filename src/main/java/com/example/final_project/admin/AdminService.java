@@ -134,6 +134,18 @@ public class AdminService {
         return companyList.stream().map(AdminResponse.CompanyListDTO::new).collect(Collectors.toList());
     }
 
+    // 키워드 search
+    public List<AdminResponse.CompanyKeywordList> serarchKeyword(String keyword){
+        List<Company> companyList;
+        if (keyword.isBlank()){
+            companyList = companyRepository.findAll();
+        } else{
+            companyList = companyRepository.findAllKeyword(keyword);
+        }
+        return companyList.stream().map(AdminResponse.CompanyKeywordList::new).collect(Collectors.toList());
+    }
+
+    
     // 특정 기업의 정보 상세보기
     public AdminResponse.CompanyDetailDTO adminCompanyDetail(Integer companyId) {
         Optional<Company> companyOP = companyRepository.findById(companyId);
@@ -362,14 +374,5 @@ public class AdminService {
     }
 
 
-    // 키워드 search
-    public List<Company> serarchKeyword(String keyword){
-        List<Company> companyList;
-        if (keyword.isBlank()){
-            companyList = companyRepository.findAll();
-        } else{
-            companyList = companyRepository.findAllKeyword(keyword);
-        }
-        return companyList;
-    }
+
 }

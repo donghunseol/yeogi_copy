@@ -49,6 +49,7 @@ public class Room {
     @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
     private RoomInformation roomInformation;
 
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 객실 등록 날짜
 

@@ -162,7 +162,7 @@ public class ReservationResponse {
         private String roomImagePath; // 예약한 객실의 이미지 경로
         private String reservationName; // 예약자 대표 이름
         private String reservationTel; // 예약자 대표 연락처
-
+        private Integer reviewId;
         // pay 관련 내용은 만약 플러터 쪽에서 안 되면 빼는 걸로
         private Integer payId; // 결제 번호
         private String payState; // 결제 상태
@@ -185,6 +185,7 @@ public class ReservationResponse {
             this.roomImagePath = room.getImagePath();
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
+            this.reviewId =reservation.getReviewid();
             this.payId = pay.getId();
             this.payAt = pay.getCreatedAt();
             this.amount = pay.getAmount();

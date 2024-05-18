@@ -35,17 +35,17 @@ public class ReviewResponse {
             private String name;
             private Integer reportCount;
 
-            public UserDTO(User writer) {
-                this.id = writer.getId();
-                this.email = writer.getEmail();
-                this.name = writer.getName();
-                this.reportCount = writer.getReportCount();
+            public UserDTO(User user) {
+                this.id = user.getId();
+                this.email = user.getEmail();
+                this.name = user.getName();
+                this.reportCount = user.getReportCount();
             }
 
-            public UserDTO(Company writer) {
-                this.id = writer.getId();
-                this.name = writer.getBusinessName();
-                this.reportCount = writer.getReportCount();
+            public UserDTO(Company company) {
+                this.id = company.getId();
+                this.name = company.getBusinessName();
+                this.reportCount = company.getReportCount();
             }
         }
 
