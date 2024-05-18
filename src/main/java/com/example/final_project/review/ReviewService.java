@@ -70,11 +70,12 @@ public class ReviewService {
 
         ReviewResponse.Save.UserDTO writerDTO = null;
         if (review.getUser() != null){
-            writerDTO = new ReviewResponse.Save.UserDTO(review.getUser());
+            User user =userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new Exception404("해당 유저를 찾지 못했습니다"));
+            writerDTO = new ReviewResponse.Save.UserDTO(user);
             Reservation reservation = reservationRepository.findByStayIdWithUserId(reqDTO.getStayId(),reqDTO.getUserId(),reqDTO.getRoomId());
             reservation.setReviewid(review.getId());
         } else if (review.getCompany() != null){
-            writerDTO = new ReviewResponse.Save.UserDTO(review.getCompany());
+
         }
 
         return new ReviewResponse.Save(stayId,writerDTO,review.getContent(),review.getScore());
