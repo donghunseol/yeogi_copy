@@ -405,11 +405,11 @@ public class AdminResponse {
             this.reviewId = review.getId();
             this.reviewContent = review.getContent();
             if(report.getResult().equals(ReportEnum.PROCEEDING)){
-                this.result = "신고 진행 중";
+                this.result = "처리 대기 중";
             }else if(report.getResult().equals(ReportEnum.COMPLETE)){
-                this.result = "신고 완료";
+                this.result = "처리 완료(적합)";
             }else if(report.getResult().equals(ReportEnum.FAIL)){
-                this.result = "신고 실패";
+                this.result = "처리 완료(부적합)";
             }
         }
 
