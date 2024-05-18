@@ -5,41 +5,7 @@
     <section id="section n1">
         <aside class="side-bar">
             <div class="side-wrapper">
-                <div class="side-content header">
-                    <figure>
-                        <img src="/images/main_logo.jpg" alt="이미지 들어가는 공간">
-                    </figure>
-                    <span>여어떻노</span>
-                </div>
-                {{#sessionUser}}
-                    <div class="side-content info">
-                        <p>관리자 : {{name}}</p>
-                        <p>접속일시: {{#sessionUser}}{{loginTime}}{{/sessionUser}}</p>
-                        <a href="/logout">로그아웃</a>
-                    </div>
-                {{/sessionUser}}
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-building"></i>  기업</p>
-                    <ul class="sub">
-                        <li><a href="/admin/companies">가입현황</a></li>
-                        <li><a href="/admin/company/question">문의사항</a></li>
-                        <li><a href="/customer-c/faq">자주묻는 질문</a></li>
-                    </ul>
-                </div>
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-user"></i>  유저</p>
-                    <ul class="sub">
-                        <li><a href="/admin/users">가입현황</a></li>
-                        <li><a href="/customer-u/question">문의사항</a></li>
-                        <li><a href="/customer-u/faq">자주묻는 질문</a></li>
-                    </ul>
-                </div>
-                <div class="side-menu">
-                    <p class="head-menu"><i class="fa-solid fa-marker"></i> 리뷰</p>
-                    <ul class="sub">
-                        <li><a href="/admin/reports">신고 목록</a></li>
-                    </ul>
-                </div>
+                {{> admin/layout/side}}
             </div>
         </aside>
         <div class="content-page">
@@ -49,7 +15,7 @@
                         <p>신고 관리</p>
                     </div>
                     <div class="tab-item">
-                        <form action="#" method="#" style="width: 100%;">
+                        <form action="/admin/reports" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
                                     <span>총 리뷰 <em>{{reportCount}}</em>개</span>
@@ -100,6 +66,19 @@
                                     </td>
                                 </tr>
                             {{/reportList}}
+                            {{#reportKeywordList}}
+                                <tr class="review">
+                                    <td class="title"><span>{{reportId}}</span></td>
+                                    <td class="title"><span>{{stayName}}</span></td>
+                                    <td class="content">{{reviewContent}}</td>
+                                    <td class="content">{{reportContent}}</td>
+                                    <td>{{userEmail}}</td>
+                                    <td>{{reportedAt}}</td>
+                                    <td class="link">
+                                        <a href="/admin/reports/{{reportId}}"></a>
+                                    </td>
+                                </tr>
+                            {{/reportKeywordList}}
                             </tbody>
                         </table>
                     </div>

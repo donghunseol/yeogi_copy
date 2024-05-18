@@ -17,10 +17,10 @@ public class StayRequest {
     // 검색 요청 DTO
     @Data
     public static class SearchDTO {
-        private String name; // 숙소 이름 v
-        private String address; // 숙소 지역 v
-        private Integer price; // 숙소 가격 v
-        private Integer person; // 인원 수 V
+        private String name; // 숙소 이름
+        private String address; // 숙소 지역
+        private Integer price; // 숙소 가격
+        private Integer person; // 인원 수
         private LocalDate checkInDate; // 입실 날짜
         private LocalDate checkOutDate; // 퇴실 날짜
 

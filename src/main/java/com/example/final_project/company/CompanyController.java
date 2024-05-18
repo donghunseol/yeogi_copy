@@ -164,18 +164,25 @@ public class CompanyController {
         request.setAttribute("totalIncome", respDTO);
         request.setAttribute("stayTotalIncomeList", listRespDTO);
 
-
         return "/company/revenue/main";
     }
 
 
     // 예약 현황 확인 (목록)
     @GetMapping("/reservations/status")
-    public String compReservationList(HttpServletRequest request) {
+    public String compReservationList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        List<CompanyResponse.ReservationListDTO> respDTO = reservationService.compReservationList(company);
-        request.setAttribute("reservationCount", respDTO.size());
-        request.setAttribute("reservationList", respDTO);
+
+        if (keyword.isBlank()){
+            List<CompanyResponse.ReservationListDTO> respDTO = reservationService.compReservationList(company);
+            request.setAttribute("reservationCount", respDTO.size());
+            request.setAttribute("reservationList", respDTO);
+        }else {
+            List<CompanyResponse.ReservationListDTO> respDTO = reservationService.reservationByKeyword(company,keyword);
+            request.setAttribute("reservationCount", respDTO.size());
+            request.setAttribute("keywordReservationList", respDTO);
+        }
+
         return "/company/reservation/main";
     }
 

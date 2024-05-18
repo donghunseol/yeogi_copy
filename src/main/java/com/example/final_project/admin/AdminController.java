@@ -56,10 +56,17 @@ public class AdminController {
 
     // 개인 회원 정보 조회 View
     @GetMapping("/admin/users")
-    public String user(HttpServletRequest request) {
-        List<AdminResponse.UserListDTO> respDTO = adminService.adminUserList();
-        request.setAttribute("userCount", respDTO.size());
-        request.setAttribute("userList", respDTO);
+    public String user(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        if (keyword.isBlank()){
+            List<AdminResponse.UserListDTO> respDTO = adminService.adminUserList();
+            request.setAttribute("userCount", respDTO.size());
+            request.setAttribute("userList", respDTO);
+        }else {
+            List<AdminResponse.UserListDTO> respDTO = adminService.adminSearchUserList(keyword);
+            request.setAttribute("keywordList",respDTO);
+            request.setAttribute("userCount",respDTO.size());
+        }
+
         return "/admin/customer-u/join";
     }
 
@@ -94,6 +101,24 @@ public class AdminController {
         return response;
     }
 
+    // 신고 목록
+    @GetMapping("/admin/reports")
+    public String reportList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword){
+
+        if (keyword.isBlank()){
+            List<AdminResponse.ReportList> respDTO = adminService.reportedReviewList();
+            request.setAttribute("reportCount", respDTO.size());
+            request.setAttribute("reportList", respDTO);
+        }else {
+            List<AdminResponse.ReportList> respDTO = adminService.adminsearchReportList(keyword);
+            request.setAttribute("reportCount", respDTO.size());
+            request.setAttribute("reportKeywordList", respDTO);
+        }
+
+        return "/admin/review/report";
+    }
+
+
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/companies")
     public String company(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -103,15 +128,37 @@ public class AdminController {
             request.setAttribute("companyList", respDTO);
             request.setAttribute("companyCount", respDTO.size());
         } else {
-            List<AdminResponse.CompanyKeywordList> companyList = adminService.serarchKeyword(keyword);
-            request.setAttribute("keywordList",companyList);
-            request.setAttribute("companyCount",companyList.size());
+            List<AdminResponse.CompanyKeywordList> respDTO = adminService.serarchCompanyKeyword(keyword);
+            request.setAttribute("keywordList",respDTO);
+            request.setAttribute("companyCount",respDTO.size());
         }
 
         request.setAttribute("keyword", keyword);
 
         return "/admin/customer-c/join";
     }
+
+
+    // 기업 문의사항 리스트
+    @GetMapping("/admin/company/question")
+    public String companyQuestionList(HttpServletRequest request,@RequestParam(value = "keyword", defaultValue = "") String keyword){
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+
+        if (keyword.isBlank()){
+            List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+            Integer listSize = respDTO.size();
+            request.setAttribute("listCount",listSize);
+            request.setAttribute("questionList",respDTO);
+        }else{
+            List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.searchQuestionKeyword(sessionUser,keyword);
+            Integer listSize = respDTO.size();
+            request.setAttribute("listCount",listSize);
+            request.setAttribute("searchquestionList",respDTO);
+        }
+
+        return "/admin/customer-c/question";
+    }
+
 
     // 특정 기업의 정보 상세보기
     @GetMapping("/admin/companies/{companyId}")
@@ -203,23 +250,6 @@ public class AdminController {
         return response;
     }
 
-    // 기업 문의사항 리스트
-    @GetMapping("/admin/company/question")
-    public String companyQuestionList(HttpServletRequest request,
-                                      @RequestParam(required = false, defaultValue = "") String inquiry,
-                                      @RequestParam(required = false, defaultValue = "") String keyword
-                                      ){
-
-        System.out.println("inquiry = " + inquiry);
-        System.out.println("keyword = " + keyword);
-
-        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-        List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
-        Integer listSize = respDTO.size();
-        request.setAttribute("listCount",listSize);
-        request.setAttribute("questionList",respDTO);
-        return "/admin/customer-c/question";
-    }
 
     // 기업 문의사항 디테일
     @GetMapping("/admin/company-question/detail/{questionId}")
@@ -239,26 +269,9 @@ public class AdminController {
 
         return "redirect:/admin/company/question";
 
-//      String redirectPage = ""; // 변수 초기화
-//        if (reqDTO.getCompanyId() != null){
-//            // 유저 답글을 다는 경우
-//            redirectPage = "redirect:/admin/company/question"; // 오타 수정: "redierect" -> "redirect"
-//        } else {
-//            // 기타 경우에 대한 처리
-//        }
-//
-//        return redirectPage; // 오타 수정:
     }
 
-    // 신고 목록
-    @GetMapping("/admin/reports")
-    public String reportList(HttpServletRequest request){
-        List<AdminResponse.ReportList> respDTOS = adminService.reportedReviewList();
-        System.out.println(respDTOS);
-        request.setAttribute("reportCount", respDTOS.size());
-        request.setAttribute("reportList", respDTOS);
-        return "/admin/review/report";
-    }
+    //
 
     // 신고 상세보기
     @GetMapping("/admin/reports/{reportId}")
@@ -288,19 +301,27 @@ public class AdminController {
         return response;
     }
 
+
     //관리자 FAQ 리스트
     @GetMapping("/admin/faq")
-    public String adminFaqList(HttpServletRequest request){
+    public String adminFaqList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword){
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-        List<AdminResponse.adminFaqListDTO> respDTO = adminService.adminFaqList(sessionUser);
 
-        Integer listCount = respDTO.size();
-
-        request.setAttribute("count",listCount);
-        request.setAttribute("faqList",respDTO);
+        if (keyword.isBlank()){
+            List<AdminResponse.adminFaqListDTO> respDTO = adminService.adminFaqList(sessionUser);
+            Integer listCount = respDTO.size();
+            request.setAttribute("count",listCount);
+            request.setAttribute("faqList",respDTO);
+        }else{
+            List<AdminResponse.adminFaqListDTO> respDTO = adminService.searchFaqKeyword(sessionUser,keyword);
+            Integer listCount = respDTO.size();
+            request.setAttribute("count",listCount);
+            request.setAttribute("keywordFaqList",respDTO);
+        }
 
         return "/admin/customer-c/faq";
     }
+
 
     //관리자 FAQ 디테일
     @GetMapping("/admin/faq/{faqId}")
