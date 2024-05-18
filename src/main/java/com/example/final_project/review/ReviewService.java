@@ -77,8 +77,6 @@ public class ReviewService {
             writerDTO = new ReviewResponse.Save.UserDTO(review.getCompany());
         }
 
-
-
         return new ReviewResponse.Save(stayId,writerDTO,review.getContent(),review.getScore());
 
     }
