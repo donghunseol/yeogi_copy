@@ -205,13 +205,20 @@ public class AdminController {
 
     // 기업 문의사항 리스트
     @GetMapping("/admin/company/question")
-    public String companyQuestionList(HttpServletRequest request){
-       SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
-       List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
-       Integer listSize = respDTO.size();
-       request.setAttribute("listCount",listSize);
-       request.setAttribute("questionList",respDTO);
-       return "/admin/customer-c/question";
+    public String companyQuestionList(HttpServletRequest request,
+                                      @RequestParam(required = false, defaultValue = "") String inquiry,
+                                      @RequestParam(required = false, defaultValue = "") String keyword
+                                      ){
+
+        System.out.println("inquiry = " + inquiry);
+        System.out.println("keyword = " + keyword);
+
+        SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
+        List<AdminResponse.CompanyQuestionListDTO> respDTO = adminService.adminCompanyQuestionList(sessionUser);
+        Integer listSize = respDTO.size();
+        request.setAttribute("listCount",listSize);
+        request.setAttribute("questionList",respDTO);
+        return "/admin/customer-c/question";
     }
 
     // 기업 문의사항 디테일

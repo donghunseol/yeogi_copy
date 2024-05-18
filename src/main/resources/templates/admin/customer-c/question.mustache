@@ -29,7 +29,7 @@
                                     </div>
                                     <div>
                                         <label for="comp-state">문의상태</label>
-                                        <select name="state" id="comp-state">
+                                        <select name="state" id="inquiry">
                                             <option value="">전체</option>
                                             <option value="승인">승인</option>
                                             <option value="거절">거절</option>
@@ -84,6 +84,24 @@
     </section>
 </main>
 <script>
+    $(function (){
+        {{#selected}}
+            $("#inquiry").find('option[value="{{state}}"]').attr("selected",true);
+        {{/selected}}
+    });
+
+    function getUrlWithSearchOption(){
+        const inquiry = $('#inquiry').val();
+
+        return `http://localhost:8080/company/question?inquiry=${inquiry}`;
+    }
+
+    // 옵션 선택 시 URL 변경
+    document.getElementById("inquiry").addEventListener("change", function () {
+        var selectedArea = this.options[this.selectedIndex].value;
+
+        window.location.href = getUrlWithSearchOption();
+    });
 
 </script>
 </body>
