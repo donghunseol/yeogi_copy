@@ -41,7 +41,7 @@ public class ReviewController {
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         ReviewResponse.Detail respDTO = reviewService.detail(reviewId,sessionUser);
         request.setAttribute("review",respDTO);
-
+        System.out.println(respDTO);
         return "/company/review/detail";
     }
 

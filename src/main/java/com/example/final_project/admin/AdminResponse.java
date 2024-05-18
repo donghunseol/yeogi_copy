@@ -473,4 +473,20 @@ public class AdminResponse {
         }
     }
 
+
+    //관리자 keyword 응답 DTO
+    @Data
+    public static class CompanyKeywordList{
+        private String busineesName;
+        private String phone;
+        private String name;
+        private CompanyEnum state;
+
+        public CompanyKeywordList(Company company) {
+            this.busineesName = company.getBusinessName();
+            this.phone = company.getPhone();
+            this.name = company.getName();
+            this.state = company.getState();
+        }
+    }
 }

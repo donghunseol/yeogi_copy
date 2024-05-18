@@ -29,6 +29,8 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Room room; // 예약한 객실 번호
 
+    private Integer reviewid;
+
     @Column(nullable = false)
     private LocalDate checkInDate; // 입실 날짜
 
@@ -60,4 +62,5 @@ public class Reservation {
         this.reservationName = reqDTO.getReservationName();
         this.reservationTel = reqDTO.getReservationTel();
     }
+
 }

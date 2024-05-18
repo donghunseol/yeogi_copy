@@ -67,7 +67,15 @@
                                     <td><span class="detail" onclick="location.href='/admin/companies/{{companyId}}'">상세보기</span></td>
                                 </tr>
                             {{/companyList}}
-
+                            {{#companyKeywordList}}
+                                <tr>
+                                    <td class="title">{{businessName}}</td>
+                                    <td>{{phone}}</td>
+                                    <td>{{name}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/companies/{{companyId}}'">상세보기</span></td>
+                                </tr>
+                            {{/companyKeywordList}}
                             </tbody>
                         </table>
                     </div>

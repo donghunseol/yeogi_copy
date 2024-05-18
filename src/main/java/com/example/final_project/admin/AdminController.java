@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -95,18 +96,19 @@ public class AdminController {
 
     // 기업 회원 정보 조회 View
     @GetMapping("/admin/companies")
-    public String company(HttpServletRequest request,@RequestParam (value = "keyword", defaultValue = "") String keyword) {
-        //TODO 어드민 검색 진행중
-        if (keyword.isBlank()){
+    public String company(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+
+        if (keyword.isBlank()) {
             List<AdminResponse.CompanyListDTO> respDTO = adminService.adminCompanyList();
             request.setAttribute("companyList", respDTO);
             request.setAttribute("companyCount", respDTO.size());
         } else {
-            List<Company> companyList = adminService.serarchKeyword(keyword);
-            request.setAttribute("companyKeywordList", companyList);
-            request.setAttribute("companyCount", companyList.size());
+            List<AdminResponse.CompanyKeywordList> companyList = adminService.serarchKeyword(keyword);
+            request.setAttribute("keywordList",companyList);
+            request.setAttribute("keywordCount",companyList.size());
         }
-        request.setAttribute("keyword",keyword);
+
+        request.setAttribute("keyword", keyword);
 
         return "/admin/customer-c/join";
     }

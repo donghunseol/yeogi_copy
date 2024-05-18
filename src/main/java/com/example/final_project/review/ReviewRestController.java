@@ -24,9 +24,9 @@ public class ReviewRestController {
     // 댓글작성
     @PostMapping("/api/review/{stayId}")
     public ResponseEntity<?> insert(@PathVariable Integer stayId, @RequestBody ReviewRequest.ReviewRequestDTO reqDTO){
-        Object sessionObject = session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
+        SessionUser sessionObject = (SessionUser) session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
         ReviewResponse.Save respDTO = reviewService.insert(stayId,reqDTO,sessionObject);
-
+        System.out.println(respDTO);
         return ResponseEntity.ok()
                 .body(new ApiUtil<>(respDTO));
     }

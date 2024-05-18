@@ -8,6 +8,7 @@ import com.example.final_project.company.CompanyRepository;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.report.Report;
 import com.example.final_project.report.ReportRepository;
+import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import com.example.final_project.room.RoomRepository;
 import com.example.final_project.stay.Stay;
@@ -40,9 +41,9 @@ public class ReviewService {
     private final ReportRepository reportRepository;
 
 
-    //댓글 대댓글 작성
+    //댓글 작성
     @Transactional
-    public ReviewResponse.Save insert(Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO, Object sessionObject) {
+    public ReviewResponse.Save insert(Integer stayId,ReviewRequest.ReviewRequestDTO reqDTO, Object sessionObject) {
 
         // 1. 인증 처리
         if (sessionObject == null) {
@@ -70,9 +71,13 @@ public class ReviewService {
         ReviewResponse.Save.UserDTO writerDTO = null;
         if (review.getUser() != null){
             writerDTO = new ReviewResponse.Save.UserDTO(review.getUser());
+            Reservation reservation = reservationRepository.findByStayIdWithUserId(reqDTO.getStayId(),reqDTO.getUserId(),reqDTO.getRoomId());
+            reservation.setReviewid(review.getId());
         } else if (review.getCompany() != null){
             writerDTO = new ReviewResponse.Save.UserDTO(review.getCompany());
         }
+
+
 
         return new ReviewResponse.Save(stayId,writerDTO,review.getContent(),review.getScore());
 
