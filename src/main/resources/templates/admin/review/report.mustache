@@ -15,7 +15,7 @@
                         <p>신고 관리</p>
                     </div>
                     <div class="tab-item">
-                        <form action="#" method="#" style="width: 100%;">
+                        <form action="/admin/reports" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
                                     <span>총 리뷰 <em>{{reportCount}}</em>개</span>
@@ -63,6 +63,19 @@
                                     </td>
                                 </tr>
                             {{/reportList}}
+                            {{#reportKeywordList}}
+                                <tr class="review">
+                                    <td class="title"><span>{{reportId}}</span></td>
+                                    <td class="title"><span>{{stayName}}</span></td>
+                                    <td class="content">{{reviewContent}}</td>
+                                    <td class="content">{{reportContent}}</td>
+                                    <td>{{userEmail}}</td>
+                                    <td>{{reportedAt}}</td>
+                                    <td class="link">
+                                        <a href="/admin/reports/{{reportId}}"></a>
+                                    </td>
+                                </tr>
+                            {{/reportKeywordList}}
                             </tbody>
                         </table>
                     </div>

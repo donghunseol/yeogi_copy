@@ -16,7 +16,7 @@
                         <p>가입현황</p>
                     </div>
                     <div class="tab-item">
-                        <form action="#" method="#" style="width: 100%;">
+                        <form action="/admin/users" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
                                     <span>총 회원<em> {{userCount}}</em>명</span>
@@ -58,6 +58,15 @@
                                     <td><span class="detail" onclick="location.href='/admin/users/{{userId}}'">상세보기</span></td>
                                 </tr>
                             {{/userList}}
+                            {{#keywordList}}
+                                <tr>
+                                    <td class="title">{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{reportCount}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/users/{{userId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordList}}
                             </tbody>
                         </table>
                     </div>

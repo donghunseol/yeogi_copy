@@ -139,16 +139,39 @@ public class AdminService {
     }
 
     // 키워드 search
-    public List<AdminResponse.CompanyKeywordList> serarchKeyword(String keyword){
+    public List<AdminResponse.CompanyKeywordList> serarchCompanyKeyword(String keyword){
         List<Company> companyList;
         if (keyword.isBlank()){
             companyList = companyRepository.findAll();
         } else{
             companyList = companyRepository.findAllKeyword(keyword);
         }
-        return companyList.stream().map(AdminResponse.CompanyKeywordList::new).collect(Collectors.toList());
+        return companyList.stream().map(AdminResponse.CompanyKeywordList::new).toList();
     }
 
+    // 키워드 search 유저
+    public List<AdminResponse.UserListDTO> adminSearchUserList(String keyword){
+        List<User> userList;
+        if (keyword.isBlank()){
+            userList = userRepository.findAll();
+        }else {
+            userList =  userRepository.findAllKeyword(keyword);
+        }
+        return userList.stream().map(AdminResponse.UserListDTO::new).toList();
+    }
+    @Transactional
+    //키워드 search 신고
+    public List<AdminResponse.ReportList> adminsearchReportList(String keyword){
+        List<Report> reportList;
+
+        if (keyword.isBlank()){
+            reportList = reportRepository.findAllWithReviewAndUserAndStay();
+        }else {
+            reportList = reportRepository.findAllKeyword(keyword);
+        }
+
+        return reportList.stream().map(report -> new AdminResponse.ReportList(report,report.getReview())).toList();
+    }
 
     // 특정 기업의 정보 상세보기
     public AdminResponse.CompanyDetailDTO adminCompanyDetail(Integer companyId) {
@@ -348,6 +371,22 @@ public class AdminService {
 
     }
 
+    // 키워드 faq search
+    public List<AdminResponse.adminFaqListDTO> searchFaqKeyword(SessionAdmin sessionUser, String keyword){
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+        List<Faq> faqList;
+
+        if (keyword.isBlank()){
+            faqList =  faqRepository.findAll();
+        }else{
+            faqList = faqRepository.findAllKeyword(keyword);
+        }
+        return faqList.stream().map(AdminResponse.adminFaqListDTO::new).toList();
+    }
+
+
     //[기업 문의사항 리스트]
     public List<AdminResponse.CompanyQuestionListDTO> adminCompanyQuestionList(SessionAdmin sessionUser){
 
@@ -423,6 +462,7 @@ public class AdminService {
         return resultList;
     }
 
+
     //[FAQ 디테일]
     @Transactional
     public AdminResponse.adminFaqDetail adminFaqDetail(Integer faqId, SessionAdmin sessionUser){
@@ -455,6 +495,7 @@ public class AdminService {
         faqRepository.save(reqDTO.toEntity(admin));
 
     }
+
 
 
 
