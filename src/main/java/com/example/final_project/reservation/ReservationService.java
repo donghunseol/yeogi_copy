@@ -113,17 +113,17 @@ public class ReservationService {
 //    }
 //
 //
-//    // 예약 내역 조회 (상세보기)
-//    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId) {
-//        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
-//        if (sessionUser.getId() != reservation.getUser().getId()) {
-//            throw new Exception401("예약내역을 열람할 권한이 없습니다");
-//        }
-//        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
-//        Pay pay = null;
-//        if (payOP.isPresent()) pay = payOP.get();
-//        return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
-//    }
+    // 예약 내역 조회 (상세보기)
+    public ReservationResponse.DetailDTO reservationDetail(SessionUser sessionUser, Integer reservationId) {
+        Reservation reservation = reservationRepository.findByReservationIdWithRoomAndStay(reservationId);
+        if (sessionUser.getId() != reservation.getUser().getId()) {
+            throw new Exception401("예약내역을 열람할 권한이 없습니다");
+        }
+        Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+        Pay pay = null;
+        if (payOP.isPresent()) pay = payOP.get();
+        return new ReservationResponse.DetailDTO(reservation, reservation.getRoom(), pay);
+    }
 
     // 기업의 예약 현황 확인
     public List<CompanyResponse.ReservationListDTO> compReservationList(SessionCompany sessionCompany) {
