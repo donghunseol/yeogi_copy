@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -15,5 +16,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // 회원 가입
     Optional<User> findByEmail(@Param("email") String email);
 
-//    User findByEmail(@Param("email") String email);
+    // 키워드로 유저찾기
+    @Query("""
+            select u 
+            from User u  
+            where u.name like %:keyword% or u.email like %:keyword%
+            """)
+    List<User> findAllKeyword(@Param("keyword") String keyword);
 }

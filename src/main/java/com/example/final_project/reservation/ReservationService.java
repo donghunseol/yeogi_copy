@@ -1,6 +1,7 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.DateUtil;
@@ -104,6 +105,7 @@ public class ReservationService {
         return respDTO;
     }
 
+
 //    // 예약 내역 조회 (목록)
 //    public List<ReservationResponse.ListDTO> userReservationList(SessionUser sessionUser) {
 //        List<Reservation> reservationList = reservationRepository.findByUserIdWithRoomAndStay(sessionUser.getId());
@@ -138,6 +140,31 @@ public class ReservationService {
             return new CompanyResponse.ReservationListDTO(reservation, reservation.getRoom(), pay);
         }).collect(Collectors.toList());
     }
+
+    // keyword 예약찾기
+    public List<CompanyResponse.ReservationListDTO> reservationByKeyword(SessionCompany sessionUser, String keyword){
+
+        if (sessionUser == null){
+            new Exception400("로그인이 필요한 서비스입니다");
+        }
+        List<Reservation> reservationList;
+
+        if (keyword.isBlank()){
+            reservationList = reservationRepository.findByCompanyIdWithRoomAndStay(sessionUser.getId());
+
+        }else{
+            reservationList = reservationRepository.findAllKeyword(keyword, sessionUser.getId());
+        }
+
+        return reservationList.stream().map(reservation -> {
+            Optional<Pay> payOP = payRepository.findByReservationId(reservation.getId());
+            Pay pay = null;
+            if (payOP.isPresent()) pay = payOP.get();
+            return new CompanyResponse.ReservationListDTO(reservation,reservation.getRoom(),pay);
+        }).toList();
+
+    }
+
 
     // 기업의 예약 현황 상세정보 확인
     public CompanyResponse.ReservationDetailDTO comReservationDetail(Integer reservationId) {

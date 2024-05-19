@@ -1,5 +1,6 @@
 package com.example.final_project.reservation;
 
+import com.example.final_project.company.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,5 +40,15 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     // 로그인 한 회원의 알림 목록
     @Query("SELECT r FROM Reservation r WHERE r.user.id = :userId")
     List<Reservation> findByUserId(@Param("userId") Integer userId);
+
+    // 키워드로 예약찾기
+    @Query("""
+            select r
+            from Reservation r  
+            JOIN FETCH r.room ro
+            JOIN FETCH r.room.stay s
+            where r.room.stay.name like %:keyword% or r.room.name like %:keyword% AND r.room.stay.company.id = :companyId
+            """)
+    List<Reservation> findAllKeyword(@Param("keyword") String keyword, @Param("companyId") Integer companyId);
 
 }

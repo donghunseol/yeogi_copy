@@ -23,10 +23,6 @@
                                     <span>총 FAQ<em> {{count}} </em>개</span>
                                 </li>
                                 <li class="search-right">
-                                    <div class=" duration">
-                                        <label for="daterange">기간</label>
-                                        <input type="text" name="daterange" value="" id="daterange" />
-                                    </div>
                                     <div>
                                         <div class="tab-input-wrapper">
                                             <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
@@ -60,6 +56,17 @@
                                 </td>
                             </tr>
                             {{/faqList}}
+                            {{#keywordFaqList}}
+                                <tr class="review">
+                                    <td class="title"><span style="color: #f45858">[ {{classification}} ]</span> {{content}}</td>
+                                    <td class="content">{{writer}}</td>
+                                    <td>{{createdAt}}</td>
+                                    <td class="link">
+                                        <a href="/admin/faq/{{faqId}}"></a>
+                                    </td>
+                                </tr>
+                            {{/keywordFaqList}}
+
                             </tbody>
                         </table>
                     </div>

@@ -1,6 +1,7 @@
 package com.example.final_project.report;
 
 import com.example.final_project.admin.AdminResponse;
+import com.example.final_project.company.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +21,13 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     @Query("SELECT r, re FROM Report r JOIN FETCH Review re ON r.review.id = re.id WHERE r.reportId = :reportId")
     Report findByIdWithReview(@Param("reportId") Integer reportId);
 
+    // 키워드로 신고내역찾기
+    @Query("""
+    select r
+    from Report r 
+    JOIN FETCH r.stay s 
+    JOIN FETCH r.user u
+    where s.name like %:keyword% or u.email like %:keyword%
+    """)
+    List<Report> findAllKeyword(@Param("keyword") String keyword);
 }
