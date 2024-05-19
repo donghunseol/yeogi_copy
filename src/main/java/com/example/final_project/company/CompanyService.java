@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -150,7 +151,14 @@ public class CompanyService {
 
     // [숙소 관리 - 숙소 상세보기] 로그인한 기업이 등록한 특정 숙소 상세보기 (객실 정보)
     public List<CompanyResponse.CompanyStayDetailDTO> companyStayDetailList(Integer stayId) {
-        return roomRepository.findAndCountByStayId(stayId);
+        List<Room> roomList = roomRepository.findByStayId(stayId);
+
+        Map<String, List<Room>> roomsGroupedByTier = roomList.stream()
+                .collect(Collectors.groupingBy(Room::getTier));
+
+        return roomsGroupedByTier.entrySet().stream()
+                .map(entry -> new CompanyResponse.CompanyStayDetailDTO(stayId, entry.getKey(), entry.getValue().size()))
+                .collect(Collectors.toList());
     }
 
     // [숙소 관리 - 숙소 상세보기 - 객실 상세보기] 로그인한 기업이 등록한 특정 숙소의 객실 상세보기

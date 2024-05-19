@@ -27,22 +27,22 @@ public class RoomRepositoryTest {
         System.out.println("findByStayId_test getLast.id : " + roomList.getLast().getId());
     }
 
-    @Test
-    public void findAndCountByStayId_test(){
-        // given
-        Integer stayId = 1;
-
-        // when
-        List<CompanyResponse.CompanyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
-
-        // eye
-        System.out.println("<<<findAndCountByStayId_test>>>");
-        respDTO.forEach(System.out::println);
-
-        // then
-        Assertions.assertThat(respDTO.getFirst().getRoomTier()).isEqualTo("Deluxe");
-
-    }
+//    @Test
+//    public void findAndCountByStayId_test(){
+//        // given
+//        Integer stayId = 1;
+//
+//        // when
+//        List<CompanyResponse.CompanyStayDetailDTO> respDTO = roomRepository.findAndCountByStayId(stayId);
+//
+//        // eye
+//        System.out.println("<<<findAndCountByStayId_test>>>");
+//        respDTO.forEach(System.out::println);
+//
+//        // then
+//        Assertions.assertThat(respDTO.getFirst().getRoomTier()).isEqualTo("Deluxe");
+//
+//    }
 
     @Test
     public void findByStayIdAndTier_test(){

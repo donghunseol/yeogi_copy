@@ -42,16 +42,12 @@ public class CompanyResponse {
    @Data
    public static class CompanyStayDetailDTO {
       private Integer stayId; // 숙소 번호
-      private Integer roomId; // 객실 번호
-      private String roomImagePath; // 객실 이미지 경로
       private String roomTier; // 객실 등급
-      private Long tierCount; // 티어 갯수
+      private Integer tierCount; // 티어 갯수
 
-      public CompanyStayDetailDTO(Room room, Long tierCount){
-         this.stayId = room.getStay().getId();
-         this.roomId = room.getId();
-         this.roomImagePath = room.getImagePath();
-         this.roomTier = room.getTier();
+      public CompanyStayDetailDTO(Integer stayId, String tier, Integer tierCount){
+         this.stayId = stayId;
+         this.roomTier = tier;
          this.tierCount = tierCount;
       }
    }

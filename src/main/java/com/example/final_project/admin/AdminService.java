@@ -277,9 +277,10 @@ public class AdminService {
     // 신고받은 리뷰 중 하나 상세보기
     @Transactional
     public AdminResponse.ReportDetail reportedReviewDetail(Integer reportedId){
+        // 1. 신고 조회
         Report report = reportRepository.findByIdWithReviewAndUserAndStay(reportedId);
 
-        // 2. 리뷰 조회 및 지연 로딩 초기화
+        // 2. 리뷰 조회
         Review review = reviewRepository.findByReviewId(report.getReview().getId());
 
         // 3. 리뷰 작성자 정보 생성
@@ -297,9 +298,9 @@ public class AdminService {
         for (Review childReview : review.getChildren()) {
             Hibernate.initialize(childReview.getStay().getOptions()); // 자식 리뷰의 options 컬렉션 초기화
             ReviewResponse.Detail.UserDTO childWriterDTO = null;
-            if (childReview.getUser() != null) { // 유저 비었을떄
+            if (childReview.getUser() != null) { // 유저 비었을 때
                 childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getUser());
-            } else if (childReview.getCompany() != null) { // 기업 비었을때
+            } else if (childReview.getCompany() != null) { // 기업 비었을 때
                 childWriterDTO = new ReviewResponse.Detail.UserDTO(childReview.getCompany());
             }
 
