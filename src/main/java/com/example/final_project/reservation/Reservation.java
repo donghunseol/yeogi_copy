@@ -29,7 +29,7 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Room room; // 예약한 객실 번호
 
-    private Integer reviewid;
+    private Integer reviewid; // 리뷰 번호
 
     @Column(nullable = false)
     private LocalDate checkInDate; // 입실 날짜
@@ -46,8 +46,11 @@ public class Reservation {
     @CreationTimestamp
     private LocalDateTime createdAt; // 예약완료된 시간
 
+    @Column(nullable = false)
+    private Integer amountToPay; // 예약한 객실의 가격(결제 예정 금액)
+
     @Builder
-    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, String reservationName, String reservationTel, LocalDateTime createdAt) {
+    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, String reservationName, String reservationTel, LocalDateTime createdAt, Integer amountToPay) {
         this.id = id;
         this.user = user;
         this.room = room;
@@ -56,6 +59,7 @@ public class Reservation {
         this.reservationName = reservationName;
         this.reservationTel = reservationTel;
         this.createdAt = createdAt;
+        this.amountToPay = amountToPay;
     }
 
     public void updateReservation(ReservationRequest.UpdateDTO reqDTO) {

@@ -9,6 +9,8 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+import static com.example.final_project._core.enums.RoomEnum.APPLIED;
+
 public class ReservationRequest {
 
     // 예약하기 DTO
@@ -36,16 +38,33 @@ public class ReservationRequest {
         @Pattern(regexp = "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}")
         private String reservationTel; // 예약자 전화번호
 
+        @NotEmpty(message = "객실 가격을 입력해주세요")
+        private Integer amountToPay; // 결제할 객실 가격
+
         // 예약한 유저와 예약할 방을 매개변수로 받는다
         public Reservation toEntity(User user, Room room) {
-            return Reservation.builder()
-                    .user(user)
-                    .room(room)
-                    .checkInDate(this.checkInDate)
-                    .checkOutDate(this.checkOutDate)
-                    .reservationName(this.reservationName)
-                    .reservationTel(this.reservationTel)
-                    .build();
+            if(room.getSpecialState().equals(APPLIED)) {
+                return Reservation.builder()
+                        .user(user)
+                        .room(room)
+                        .checkInDate(this.checkInDate)
+                        .checkOutDate(this.checkOutDate)
+                        .reservationName(this.reservationName)
+                        .reservationTel(this.reservationTel)
+                        .amountToPay(room.getSpecialPrice())
+                        .build();
+            }else{
+                return Reservation.builder()
+                        .user(user)
+                        .room(room)
+                        .checkInDate(this.checkInDate)
+                        .checkOutDate(this.checkOutDate)
+                        .reservationName(this.reservationName)
+                        .reservationTel(this.reservationTel)
+                        .amountToPay(room.getPrice())
+                        .build();
+            }
+
         }
     }
 
