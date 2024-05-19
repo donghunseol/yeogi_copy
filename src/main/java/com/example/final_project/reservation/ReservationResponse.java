@@ -43,12 +43,13 @@ public class ReservationResponse {
         private Integer id; // 예약 번호
         private Integer userId; // 예약한 유저 번호
         private Integer roomId; // 예약한 방 번호
-        private Integer price;
+//        private Integer price;
         private LocalDate checkInDate; // 입실 시간
         private LocalDate checkOutDate; // 퇴실 시간
         private String reservationName; // 예약한 대표 이름
         private String reservationTel; // 예약한 대표 전화번호
         private LocalDateTime createdAt; // 생성된 날짜
+        private Integer amountToPay; // 결제할 금액
 
         private List<List<LocalDate>> reservedDates; // 이미 예약된 날짜
 
@@ -61,17 +62,18 @@ public class ReservationResponse {
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.createdAt = reservation.getCreatedAt();
+            this.amountToPay = reservation.getAmountToPay();
             if (reservedDates == null) {
                 this.reservedDates = null;
             } else {
                 this.reservedDates = reservedDates;
             }
-            // 특가 가격 적용 여부에 따라 가격 설정
-            if (room.getSpecialState() == RoomEnum.APPLIED) {
-                this.price = room.getSpecialPrice(); // 특가 가격
-            } else if (room.getSpecialState() == RoomEnum.NOT_APPLIED) {
-                this.price = room.getPrice(); // 일반 가격
-            }
+//            // 특가 가격 적용 여부에 따라 가격 설정
+//            if (room.getSpecialState() == RoomEnum.APPLIED) {
+//                this.price = room.getSpecialPrice(); // 특가 가격
+//            } else if (room.getSpecialState() == RoomEnum.NOT_APPLIED) {
+//                this.price = room.getPrice(); // 일반 가격
+//            }
         }
 
         public SaveDTO(List<List<LocalDate>> reservedDates) {
