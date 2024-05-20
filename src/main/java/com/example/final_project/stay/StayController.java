@@ -3,8 +3,10 @@ package com.example.final_project.stay;
 import com.example.final_project.company.SessionCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -31,7 +33,7 @@ public class StayController {
     //숙소 등록
     @PostMapping("/stay/register")
     public String Register(HttpServletRequest request,
-                           @ModelAttribute StayRequest.SaveDTO reqDTO)
+                           @Valid @ModelAttribute StayRequest.SaveDTO reqDTO, Errors errors)
     {
         System.out.println(reqDTO);
 
@@ -67,7 +69,7 @@ public class StayController {
 
     //숙소 업데이트
     @PostMapping("/stay/update/{stayId}")
-    public String Update(@PathVariable Integer stayId, StayRequest.UpdateDTO reqDTO){
+    public String Update(@PathVariable Integer stayId, @Valid StayRequest.UpdateDTO reqDTO, Errors errors){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
         stayService.update(stayId, sessionUser, reqDTO);
 

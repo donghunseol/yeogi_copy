@@ -4,8 +4,10 @@ import com.example.final_project.pay.PayResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,7 @@ public class CompanyController {
 
     // 로그인
     @PostMapping("/company/login")
-    public String login(CompanyRequest.LoginDTO reqDTO) {
+    public String login(@Valid CompanyRequest.LoginDTO reqDTO, Errors errors) {
 
         // 현재 시간 및 날짜 가져오기
         LocalDateTime now = LocalDateTime.now();
@@ -48,7 +50,7 @@ public class CompanyController {
 
     // 회원가입
     @PostMapping("/company/join")
-    public String joinCompany(CompanyRequest.JoinDTO reqDTO) {
+    public String joinCompany(@Valid CompanyRequest.JoinDTO reqDTO, Errors errors) {
 
         companyService.join(reqDTO);
 
@@ -84,7 +86,7 @@ public class CompanyController {
 
     // 정보수정
     @PostMapping("/information/update/{companyId}")
-    public String infoUpdate(@PathVariable Integer companyId, CompanyRequest.UpdateDTO reqDTO) {
+    public String infoUpdate(@PathVariable Integer companyId, @Valid CompanyRequest.UpdateDTO reqDTO, Errors errors) {
         SessionCompany company = companyService.updateCompany(companyId, reqDTO);
         session.setAttribute("sessionUser", company);
 
@@ -100,7 +102,7 @@ public class CompanyController {
 
     // 회원탈퇴
     @PostMapping("/company/delete/{companyId}")
-    public String infoDelete(@PathVariable Integer companyId, CompanyRequest.DeleteDTO reqDTO) {
+    public String infoDelete(@PathVariable Integer companyId, @Valid CompanyRequest.DeleteDTO reqDTO, Errors errors) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
         companyService.deleteCompany(companyId, reqDTO, company);
 
