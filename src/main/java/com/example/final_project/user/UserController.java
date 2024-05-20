@@ -5,8 +5,10 @@ import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
 import com.example.final_project.stay.StayResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class UserController {
 
     // 회원 로그인
     @PostMapping("/users/login")
-    public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO) {
         String jwt = userService.login(reqDTO);
         UserResponse.LoginDTO respDTO = userService.loginByDTO(reqDTO);
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
@@ -30,7 +32,12 @@ public class UserController {
 
     // 회원 가입
     @PostMapping("/users/join")
-    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
+    public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors errors) {
+
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
+        }
+
         String jwt = userService.joinAndLogin(reqDTO);
         UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
