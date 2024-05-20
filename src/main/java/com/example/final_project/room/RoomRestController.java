@@ -15,7 +15,7 @@ public class RoomRestController {
 
     //객실 상세정보
     @GetMapping("/room/detail/{roomId}")
-    public ResponseEntity<?> detail(@PathVariable Integer roomId){
+    public ResponseEntity<?> roomDetail(@PathVariable Integer roomId){
 
         RoomResponse.Detail respDTO = roomService.detail(roomId);
 
