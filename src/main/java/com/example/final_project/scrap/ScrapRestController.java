@@ -3,8 +3,10 @@ package com.example.final_project.scrap;
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

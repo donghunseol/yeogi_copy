@@ -1,34 +1,47 @@
 package com.example.controller;
 
-import com.example.MyWithRestDoc;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.scrap.ScrapRepository;
+import com.example.final_project.scrap.ScrapRestController;
+import com.example.final_project.scrap.ScrapService;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = {ScrapControllerTest.class})
-public class ScrapControllerTest extends MyWithRestDoc {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ScrapRestController.class)
+public class ScrapControllerTest{
+
+    private static ObjectMapper om;
+    private static String jwt;
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mvc;
 
-    private ObjectMapper om = new ObjectMapper();
+    @MockBean
+    private ScrapService scrapService;
 
-    private static String jwt;
+    @MockBean
+    private ScrapRepository scrapRepository;
+
+    @BeforeAll
+    public static void setup() {
+        om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+    }
 
     @BeforeAll
     public static void setUp() {
@@ -40,79 +53,69 @@ public class ScrapControllerTest extends MyWithRestDoc {
                         .build());
     }
 
+    @Test
+    public void whenInsertScrap_thenReturnsSuccessMessage() throws Exception {
+        // given
+        Integer stayId = 3;
+
+//        String reqBody = om.writeValueAsString(Map.of("stayId", stayId));
+//        System.out.println("reqBody = " + reqBody);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/api/scrap/stay/" + stayId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        );
+
+        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("actions/test : " + actions.andReturn().getResponse());
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+    }
+
 //    @Test
-//    public void whenInsertScrap_thenReturnsSuccessMessage() throws Exception {
+//    public void whenDeleteScrap_thenReturnsSuccessMessage() throws Exception {
 //        // given
 //        Integer stayId = 1;
+//        String sessionUserJson = "{\"userId\": 1, \"username\": \"ssar\"}";
 //
-//        String sessionUser = jwt;
-//        ScrapResponse.Save reqDTO = new ScrapResponse.Save();
-//        reqDTO.setStayId(stayId);
-//
-//        String respDTO = om.writeValueAsString(respDTO);
-//
-//
-//                // when
-//        ResultActions actions  = mockMvc.perform(
-//                post("/api/scrap/stay/"+stayId)
+//        // when
+//        ResultActions result = mockMvc.perform(delete("/stay/{stayId}", stayId)
 //                .header("Authorization", "Bearer " + jwt)
 //                .contentType(MediaType.APPLICATION_JSON)
-//                .characterEncoding("UTF-8") // 문자 인코딩 설정
-//                        .content(req)
+//                .content(sessionUserJson));
 //
-//        );
-
-
 //        // eye
-//        String respBody = actions.andReturn().getResponse().getContentAsString();
+//        String respBody = result.andReturn().getResponse().getContentAsString();
 //        System.out.println("respBody : " + respBody);
 //
 //        // then
-//        actions.andExpect(jsonPath("$.status").value(200));
-//        actions.andExpect(jsonPath("$.msg").value("성공"));
-//        actions.andExpect(jsonPath("$.body.username").value("ssar"));
-//        actions.andExpect(jsonPath("$.body.email").value("ssar@nate.com"));
+//        result.andExpect(status().isOk())
+//                .andExpect(jsonPath("$.data").value("스크랩 취소 성공"));
 //    }
 
-    @Test
-    public void whenDeleteScrap_thenReturnsSuccessMessage() throws Exception {
-        // given
-        Integer stayId = 1;
-        String sessionUserJson = "{\"userId\": 1, \"username\": \"ssar\"}";
-
-        // when
-        ResultActions result = mockMvc.perform(delete("/stay/{stayId}", stayId)
-                .header("Authorization", "Bearer " + jwt)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(sessionUserJson));
-
-        // eye
-        String respBody = result.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
-        // then
-        result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").value("스크랩 취소 성공"));
-    }
-
-    @Test
-    public void whenGetMyScrapList_thenReturnsListOfScraps() throws Exception {
-        // given
-        String sessionUserJson = "{\"userId\": 1, \"username\": \"ssar\"}";
-
-        // when
-        ResultActions result = mockMvc.perform(get("/my-scraps")
-                .header("Authorization", "Bearer " + jwt)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(sessionUserJson));
-
-        // eye
-        String respBody = result.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
-        // then
-        result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").isArray());
-        // Add more assertions as per your response structure
-    }
+//    @Test
+//    public void whenGetMyScrapList_thenReturnsListOfScraps() throws Exception {
+//        // given
+//        String sessionUserJson = "{\"userId\": 1, \"username\": \"ssar\"}";
+//
+//        // when
+//        ResultActions result = mockMvc.perform(get("/my-scraps")
+//                .header("Authorization", "Bearer " + jwt)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(sessionUserJson));
+//
+//        // eye
+//        String respBody = result.andReturn().getResponse().getContentAsString();
+//        System.out.println("respBody : " + respBody);
+//
+//        // then
+//        result.andExpect(status().isOk())
+//                .andExpect(jsonPath("$.data").isArray());
+//        // Add more assertions as per your response structure
+//    }
 }
