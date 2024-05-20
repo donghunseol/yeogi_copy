@@ -9,7 +9,9 @@ import com.example.final_project.user.SessionUser;
 import com.example.final_project.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,14 +31,10 @@ public class PayControllerTest extends MyWithRestDoc {
     private static ObjectMapper om;
     private static String jwt;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setUp() {
         om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
-    }
-
-    @BeforeAll
-    public static void setUp() {
         jwt = JwtUtil.userCreate(
                 User.builder()
                         .id(1)
@@ -49,7 +47,7 @@ public class PayControllerTest extends MyWithRestDoc {
     @Test
     public void pay_progress_test() throws Exception {
         //given
-        Integer payId = 1;
+        Integer payId = 2;
         PayRequest.DTO reqDTO = new PayRequest.DTO();
         reqDTO.setAmount(10000);
         reqDTO.setWay("Credit Card");
@@ -119,7 +117,6 @@ public class PayControllerTest extends MyWithRestDoc {
         ResultActions actions = mvc.perform(
                 put("/api/reservation/refund/" +payId)
                        .header("Authorization", "Bearer " + jwt)
-
         );
         //then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -201,12 +198,11 @@ public class PayControllerTest extends MyWithRestDoc {
     }
 
 
-    // 결제 환불 및 예약 취소 실패 - 이미 환불된 경우
+    // 결제 환불 및 예약 취소 실패 - 이미 이용한 경우
     @Test
     public void pay_refund_fail_already_completion_test() throws Exception {
         //given
-        Integer payId = 3;
-
+        Integer payId = 1;
 
         //when
         ResultActions actions = mvc.perform(

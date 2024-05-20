@@ -1,0 +1,343 @@
+= 블로그 RestAPI
+sdhcoding <ehdgns5647@naver.com>
+1.0, 05.21, 2024: AsciiDoc article template
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:user: user-controller-test
+:stay: stay-controller-test
+:room: room-controller-test
+:reservation: reservation-controller-test
+:pay: pay-controller-test
+:scrap: scrap-controller-test
+:event: event-controller-test
+
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 유저
+
+=== 회원가입
+
+==== 요청 예시
+include::{snippets}/{user}/join_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/join_success_test/http-response.adoc[]
+
+=== 회원가입 유저 이메일 중복체크
+
+==== 요청 예시
+include::{snippets}/{user}/username_same_check_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/username_same_check_success_test/http-response.adoc[]
+
+=== 로그인
+
+==== 요청 예시
+include::{snippets}/{user}/login_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/login_success_test/http-response.adoc[]
+
+=== 로그인 실패
+
+==== 요청 예시
+include::{snippets}/{user}/login_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/login_fail_test/http-response.adoc[]
+
+=== 로그인한 회원의 예약 내역 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/user_reservation_list_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/user_reservation_list_test/http-response.adoc[]
+
+=== 로그인한 회원의 예약 내역 페이지 - 상세보기
+
+==== 요청 예시
+include::{snippets}/{user}/reservation_detail_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/reservation_detail_success_test/http-response.adoc[]
+
+=== 로그인 한 회원의 알림 목록
+
+==== 요청 예시
+include::{snippets}/{user}/my_notifications_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/my_notifications_test/http-response.adoc[]
+
+=== FAQ 리스트
+
+==== 요청 예시
+include::{snippets}/{user}/faq_list_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/faq_list_test/http-response.adoc[]
+
+=== 객실 별 예약 조회 (달력)
+
+==== 요청 예시
+include::{snippets}/{user}/reservation_for_calendar_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/reservation_for_calendar_success_test/http-response.adoc[]
+
+=== 문의사항 작성
+
+==== 요청 예시
+include::{snippets}/{user}/question_write_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/question_write_success_test/http-response.adoc[]
+
+
+== 숙소
+
+=== 숙소 메인페이지
+
+==== 요청 예시
+include::{snippets}/{stay}/main_home/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/main_home/http-response.adoc[]
+
+=== 숙소 특가리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/sale_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/sale_stay_list/http-response.adoc[]
+
+=== 숙소 해외리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/oversea_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/oversea_stay_list/http-response.adoc[]
+
+=== 숙소 호텔리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/hotel_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/hotel_stay_list/http-response.adoc[]
+
+=== 숙소 캠핑리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/camping_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/camping_stay_list/http-response.adoc[]
+
+=== 숙소 모텔리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/motel_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/motel_stay_list/http-response.adoc[]
+
+=== 숙소 팬션리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/pension_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/pension_stay_list/http-response.adoc[]
+
+=== 숙소 홈&빌라리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/home_and_villa_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/home_and_villa_stay_list/http-response.adoc[]
+
+=== 숙소 게하리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/guesthouse_stay_list/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/guesthouse_stay_list/http-response.adoc[]
+
+=== 숙소 검색리스트
+
+==== 요청 예시
+include::{snippets}/{stay}/search_stay/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/search_stay/http-response.adoc[]
+
+=== 숙소 상세보기
+
+==== 요청 예시
+include::{snippets}/{stay}/stay_detail/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{stay}/stay_detail/http-response.adoc[]
+
+
+== 방
+
+=== 방 상세보기
+
+==== 요청 예시
+include::{snippets}/{room}/room_detail_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{room}/room_detail_success_test/http-response.adoc[]
+
+
+== 예약
+
+=== 예약 성공
+
+==== 요청 예시
+include::{snippets}/{reservation}/make_reservation_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{reservation}/make_reservation_test/http-response.adoc[]
+
+== 결제
+
+=== 결제 성공
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_progress_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_progress_test/http-response.adoc[]
+
+=== 결제 실패
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_progress_failure_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_progress_failure_test/http-response.adoc[]
+
+=== 결제 환불 및 예약 취소 성공
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_refund_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_refund_test/http-response.adoc[]
+
+=== 결제 환불 및 예약 취소 실패 - 권한 없음
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_refund_right_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_refund_right_fail_test/http-response.adoc[]
+
+=== 결제 환불 및 예약 취소 실패 - 존재 하지 않는 결제 내역
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_refund_fail_empty_pay_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_refund_fail_empty_pay_test/http-response.adoc[]
+
+=== 결제 환불 및 예약 취소 실패 - 이미 환불된 경우
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_refund_fail_already_refunded_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_refund_fail_already_refunded_test/http-response.adoc[]
+
+=== 결제 환불 및 예약 취소 실패 - 이미 이용한 경우
+
+==== 요청 예시
+include::{snippets}/{pay}/pay_refund_fail_already_completion_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{pay}/pay_refund_fail_already_completion_test/http-response.adoc[]
+
+
+
+== 찜하기
+
+=== 찜 리스트
+
+==== 요청 예시
+include::{snippets}/{scrap}/when-get-my-scrap-list_then-returns-list-of-scraps/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{scrap}/when-get-my-scrap-list_then-returns-list-of-scraps/http-response.adoc[]
+
+=== 찜 등록 성공
+
+==== 요청 예시
+include::{snippets}/{scrap}/when-insert-scrap_then-returns-success-message/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{scrap}/when-insert-scrap_then-returns-success-message/http-response.adoc[]
+
+
+=== 찜 등록 실패 - 이미 찜 등록된 숙소
+
+==== 요청 예시
+include::{snippets}/{scrap}/when-insert_scrap_already_message/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{scrap}/when-insert_scrap_already_message/http-response.adoc[]
+
+=== 숙소 찜 취소 성공
+
+==== 요청 예시
+include::{snippets}/{scrap}/when-delete-scrap_then-returns-success-message/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{scrap}/when-delete-scrap_then-returns-success-message/http-response.adoc[]
+
+=== 숙소 찜 취소 실패
+
+==== 요청 예시
+include::{snippets}/{scrap}/when_delete_scrap_delete_already_message/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{scrap}/when_delete_scrap_delete_already_message/http-response.adoc[]
+
+== 이벤트
+
+=== 이벤트 리스트
+
+==== 요청 예시
+include::{snippets}/{event}/event_list_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{event}/event_list_test/http-response.adoc[]
+
+=== 이벤트 상세 보기 성공
+
+==== 요청 예시
+include::{snippets}/{event}/event_detail_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{event}/event_detail_success_test/http-response.adoc[]
+
+=== 이벤트 상세 보기 실패
+
+==== 요청 예시
+include::{snippets}/{event}/event_detail_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{event}/event_detail_fail_test/http-response.adoc[]

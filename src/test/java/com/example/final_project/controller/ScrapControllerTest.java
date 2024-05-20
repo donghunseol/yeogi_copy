@@ -38,6 +38,37 @@ public class ScrapControllerTest extends MyWithRestDoc {
                         .password("1234")
                         .build());
     }
+
+    // 숙소목록 첫번째 리스트
+    @Test
+    public void whenGetMyScrapList_thenReturnsListOfScraps() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/api/scrap/my-scraps")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("actions/test : " + responseBody);
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.msg").value("성공"));
+        actions.andExpect(jsonPath("$.body[0].scrapId").value(1));
+        actions.andExpect(jsonPath("$.body[0].stayId").value(1));
+        actions.andExpect(jsonPath("$.body[0].stayName").value("호텔 블루 하버"));
+        actions.andExpect(jsonPath("$.body[0].stayAddress").value("부산시 해운대구 좌동순환로 99 (좌동)"));
+        actions.andExpect(jsonPath("$.body[0].stayIntro").value("해운대 최고의 오션뷰를 자랑하는 숙소!"));
+        actions.andExpect(jsonPath("$.body[0].stayImageId").value(1));
+        actions.andExpect(jsonPath("$.body[0].stayImageName").value("hotel1.png"));
+        actions.andExpect(jsonPath("$.body[0].stayImagePath").value("/images/hotel/hotel1.png"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+    }
+
     // 찜 등록
     @Test
     public void whenInsertScrap_thenReturnsSuccessMessage() throws Exception {
@@ -67,7 +98,7 @@ public class ScrapControllerTest extends MyWithRestDoc {
     @Test
     public void whenInsert_scrap_already_message() throws Exception {
         // given
-        Integer stayId = 1;
+        Integer stayId = 10;
 
         // when
         System.out.println("jwt : "+jwt);
@@ -92,7 +123,7 @@ public class ScrapControllerTest extends MyWithRestDoc {
     public void whenDeleteScrap_thenReturnsSuccessMessage() throws Exception {
 
         // given
-        Integer stayId = 1;
+        Integer stayId = 2;
 
         // when
         ResultActions actions = mvc.perform(
@@ -135,35 +166,4 @@ public class ScrapControllerTest extends MyWithRestDoc {
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-
-    // 숙소목록 첫번쨰 리스트
-    @Test
-    public void whenGetMyScrapList_thenReturnsListOfScraps() throws Exception {
-        // given
-
-
-        // when
-        ResultActions actions = mvc.perform(
-                get("/api/scrap/my-scraps")
-                        .header("Authorization", "Bearer " + jwt)
-        );
-
-        // eye
-        String responseBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("actions/test : " + responseBody);
-
-        // then
-        actions.andExpect(jsonPath("$.status").value(200));
-        actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body[0].scrapId").value("1"));
-        actions.andExpect(jsonPath("$.body[0].stayId").value("1"));
-        actions.andExpect(jsonPath("$.body[0].stayName").value("호텔 블루 하버"));
-        actions.andExpect(jsonPath("$.body[0].stayAddress").value("부산시 해운대구 좌동순환로 99 (좌동)"));
-        actions.andExpect(jsonPath("$.body[0].stayIntro").value("해운대 최고의 오션뷰를 자랑하는 숙소!"));
-        actions.andExpect(jsonPath("$.body[0].stayImageId").value("1"));
-        actions.andExpect(jsonPath("$.body[0].stayImageName").value("hotel1.png"));
-        actions.andExpect(jsonPath("$.body[0].stayImagePath").value("/images/hotel/hotel1.png"));
-        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
-
-    }
 }
