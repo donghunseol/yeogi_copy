@@ -124,55 +124,47 @@
   <td align=center>회원가입</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/2a01cb76-fa09-47a9-83c3-9b75258a28a4"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/32d444cc-1615-43a7-a21c-3aac5c56e724"  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
-  <td align=center>네이버 로그인</td>
-  <td align=center>게시글 작성</td>
+  <td align=center>로그인</td>
+  <td align=center>로그아웃</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/d4af0bc4-0558-4e20-bb10-7e7e1cf0be1e"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/18f2a282-4b58-4107-ab4f-b62f60c5cdc9"  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
-  <td align=center>계좌등록</td>
-  <td align=center>위치기반 게시글</td>
+  <td align=center>숙소 선택하기</td>
+  <td align=center>룸 선택하기</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/e393137f-3017-4928-a205-a2682c1ed827"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/339d7e08-0a49-4ffe-9d1e-d7f86a0b7f44"  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
-  <td align=center>참가하기</td>
-  <td align=center>참가자 결정</td>
+  <td align=center>예약하기</td>
+  <td align=center>결제하기</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/1e2d50b4-2134-4fea-96fc-d21f573944d2"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/54e5adab-37ed-49c6-940d-4cee331cd41f"  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
-  <td align=center>채팅</td>
-  <td align=center>결제</td>
+  <td align=center>검색하기</td>
+  <td align=center>부가기능</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/498bc465-ff86-4063-92cf-e57981c6b254"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/1549f700-3876-4626-9964-46bbcc349432"  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
-  <td align=center>내 지역 수정</td>
-  <td align=center>관심게시글</td>
+  <td align=center>스크랩</td>
+  <td align=center>주변 검색하기</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/9d3400d3-858a-4abf-b90a-dee2218bd867"  width="256" height="455"/></td>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/38d91dec-bfd8-441b-a0fb-18cd83c1f145"  width="256" height="455"/></td>
-</tr>
-<tr>
-  <td align=center>내 카테고리 수정</td>
-  <td></td>
-</tr>
-<tr>
-  <td><img src="https://github.com/Hoseok-Seong/Hoseok-Seong/assets/93416157/0695a961-ec39-414e-a513-60fbf138b325"  width="256" height="455"/></td>
-  <td></td>
+  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src=" "  width="256" height="455"/></td>
 </tr>
 </table>
