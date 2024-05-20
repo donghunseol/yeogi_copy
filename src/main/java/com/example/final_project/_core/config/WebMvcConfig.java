@@ -11,6 +11,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        System.out.println("인터셉터 등록됨============================================================");
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("");

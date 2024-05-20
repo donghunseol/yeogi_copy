@@ -22,9 +22,9 @@ public class ScrapRestController {
     // 스크랩 입력
     @PostMapping("/stay/{stayId}")
     public ResponseEntity<?> insert(@PathVariable Integer stayId) {
+
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.Save respDTO = scrapService.register(stayId, sessionUser);
-
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
 
