@@ -3,8 +3,10 @@ package com.example.final_project.scrap;
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +22,9 @@ public class ScrapRestController {
     // 스크랩 입력
     @PostMapping("/stay/{stayId}")
     public ResponseEntity<?> insert(@PathVariable Integer stayId) {
+
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         ScrapResponse.Save respDTO = scrapService.register(stayId, sessionUser);
-
         return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
     }
 

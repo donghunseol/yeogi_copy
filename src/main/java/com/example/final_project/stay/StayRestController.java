@@ -139,14 +139,14 @@ public class StayRestController {
 //        return ResponseEntity.ok(new ApiUtil<>(respDTO));
 //    }
 
-    // 숙소 삭제
-    @PutMapping("/api/cancel/{stayId}")
-    public ResponseEntity<?> delete(@PathVariable Integer stayId) {
-        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
-        StayResponse.Delete respDTO = stayService.delete(stayId, sessionCompany);
-
-        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
-    }
+//    // 숙소 삭제
+//    @PutMapping("/cancel/{stayId}")
+//    public ResponseEntity<?> delete(@PathVariable Integer stayId) {
+//        SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionCompany");
+//        StayResponse.Delete respDTO = stayService.delete(stayId, sessionCompany);
+//
+//        return ResponseEntity.ok().body(new ApiUtil<>(respDTO));
+//    }
 
 
     // 메인페이지
