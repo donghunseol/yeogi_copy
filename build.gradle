@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.example'
@@ -54,4 +55,21 @@ tasks.named('test') {
 
 jar { // .jar 파일을 하나만 생성되도록
     enabled = false
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs' // /static/docs로 복사!
+    }
 }

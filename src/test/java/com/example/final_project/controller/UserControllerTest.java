@@ -1,30 +1,32 @@
-package com.example.final_project.user;
+package com.example.final_project.controller;
 
+import com.example.final_project.MyWithRestDoc;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.user.User;
+import com.example.final_project.user.UserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import java.time.LocalDate;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserControllerTest {
+public class UserControllerTest extends MyWithRestDoc {
 
     private static ObjectMapper om;
     public static String jwt;
-
-    @Autowired
-    private MockMvc mvc;
 
     @BeforeAll
     public static void setup() {
@@ -62,11 +64,10 @@ public class UserControllerTest {
         // then
         actions.andExpect(status().isOk()); // header 검증
         actions.andExpect(result -> result.getResponse().getHeader("Authorization").contains("Bearer " + jwt));
-
-
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.email").value("ssar@nate.com"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -95,10 +96,11 @@ public class UserControllerTest {
         actions.andExpect(status().isUnauthorized()); // header 검증
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
-    public void join_test() throws Exception {
+    public void join_success_test() throws Exception {
         // given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
         reqDTO.setEmail("code@naver.com");
@@ -131,11 +133,12 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body.state").value("ACTIVE"));
         actions.andExpect(jsonPath("$.body.birth").value("2020-02-02"));
         actions.andExpect(jsonPath("$.body.reportCount").value(0));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원가입 시 이메일중복 체크확인
     @Test
-    public void username_same_check_test() throws Exception {
+    public void username_same_check_success_test() throws Exception {
         // given
         String email = "ssar@nate.com";
 
@@ -156,12 +159,12 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body").value(false));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 회원 정보 수정
     @Test
-    public void update_test() throws Exception {
+    public void update_success_test() throws Exception {
         // given
         Integer userId = 1;
         UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
@@ -188,6 +191,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body.id").value(1));
         actions.andExpect(jsonPath("$.body.name").value("coding"));
         actions.andExpect(jsonPath("$.body.phone").value("010-2244-6688"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -230,13 +234,13 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body[0].payAt").value("2023-12-29T13:00:00"));
         actions.andExpect(jsonPath("$.body[0].amount").value(150000));
         actions.andExpect(jsonPath("$.body[0].way").value("카드 결제"));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
     // 로그인한 회원의 예약 내역 페이지 - 상세보기
     @Test
-    public void reservation_detail_test() throws Exception {
+    public void reservation_detail_success_test() throws Exception {
         // given
         Integer reservationId = 1;
 
@@ -269,7 +273,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body.payAt").value("2023-12-29T13:00:00"));
         actions.andExpect(jsonPath("$.body.amount").value(150000));
         actions.andExpect(jsonPath("$.body.way").value("Credit Card"));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -295,7 +299,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body[0].reservationId").value(1));
         actions.andExpect(jsonPath("$.body[0].checkInDate").value("2023-12-31"));
         actions.andExpect(jsonPath("$.body[0].checkOutDate").value("2024-01-01"));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -322,13 +326,13 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body[0].classification").value("User"));
         actions.andExpect(jsonPath("$.body[0].content").value("예약을 취소하고 싶어요"));
         actions.andExpect(jsonPath("$.body[0].reply").value("예약취소는  앱/웹 > 내정보 > 예약/구매내역에서 직접 가능합니다."));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
     // 객실 별 예약 조회 (달력)
     @Test
-    public void reservation_for_calendar_test() throws Exception {
+    public void reservation_for_calendar_success_test() throws Exception {
         // given
         Integer roomId = 1;
 
@@ -348,13 +352,13 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.body[0].reservationId").value(1));
         actions.andExpect(jsonPath("$.body[0].checkInDate").value("2023-12-31"));
         actions.andExpect(jsonPath("$.body[0].checkOutDate").value("2024-01-01"));
-
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
     // [유저] 문의사항 작성
     @Test
-    public void question_write_test() throws Exception {
+    public void question_write_success_test() throws Exception {
         // given
         UserRequest.QuestionSave reqDTO = new UserRequest.QuestionSave();
         reqDTO.setUserId(1);
@@ -380,6 +384,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body").value("문의작성 성공"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
