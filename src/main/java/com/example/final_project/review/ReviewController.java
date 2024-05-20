@@ -7,8 +7,10 @@ import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +49,7 @@ public class ReviewController {
 
     //댓글 작성
     @PostMapping("/review/write/{stayId}")
-    public String reviewWrite(@PathVariable Integer stayId, ReviewRequest.ReviewRequestDTO reqDTO){
+    public String reviewWrite(@PathVariable Integer stayId, @Valid ReviewRequest.ReviewRequestDTO reqDTO, Errors errors){
         Object sessionObject = session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
         reviewService.insert(stayId,reqDTO,sessionObject);
         System.out.println(reqDTO);
@@ -68,7 +70,7 @@ public class ReviewController {
 
     //댓글 신고
     @PostMapping("/review/report/{reviewId}")
-    public String reviewReport(@PathVariable Integer reviewId,ReviewRequest.ReportRequestDTO reqDTO){
+    public String reviewReport(@PathVariable Integer reviewId, @Valid ReviewRequest.ReportRequestDTO reqDTO, Errors errors){
         SessionCompany sessionUser = (SessionCompany) session.getAttribute("sessionUser");
 
         reviewService.reportSave(reviewId,sessionUser,reqDTO);

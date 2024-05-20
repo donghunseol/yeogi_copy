@@ -36,6 +36,7 @@ public class RoomControllerTest extends MyWithRestDoc {
                         .build());
     }
 
+    // 룸 상세보기 성공
     @Test
     public void room_detail_success_test() throws Exception {
         // given
