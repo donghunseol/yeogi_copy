@@ -1,45 +1,41 @@
 package com.example.controller;
 
+import com.example.MyWithRestDoc;
 import com.example.final_project._core.enums.CompanyEnum;
-import com.example.final_project._core.errors.exception.Exception404;
-import com.example.final_project.company.CompanyRequest;
-import com.example.final_project.company.CompanyService;
-import com.example.final_project.company.SessionCompany;
+import com.example.final_project.company.*;
+import com.example.final_project.reservation.ReservationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.OngoingStubbing;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
-@SpringBootTest(classes = CompanyControllerTest.class)
+@DisplayName("기업 API")
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
-
-public class CompanyControllerTest {
+@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {CompanyController.class, CompanyService.class})
+public class CompanyControllerTest extends MyWithRestDoc {
 
     @Autowired
     private MockMvc mvc;
@@ -48,6 +44,16 @@ public class CompanyControllerTest {
 
     @MockBean
     private CompanyService companyService;
+
+    @MockBean
+    private CompanyEnum companyEnum;
+
+    @MockBean
+    private CompanyRepository companyRepository;
+
+    @MockBean
+    private ReservationService reservationService;
+
     private static MockHttpSession session;
 
     @BeforeAll
@@ -60,13 +66,62 @@ public class CompanyControllerTest {
                 .businessName("Test Business")
                 .businessNumber("1234567890")
                 .businessAddress("123 Test St.")
-                .phone("123-456-7890")
+                .phone("123-4567-8910")
                 .name("Test Company")
                 .state(CompanyEnum.ACTIVE)
                 .reportCount(0)
                 .createdAt(LocalDateTime.now())
                 .build();
         session.setAttribute("sessionUser", sessionCompany);
+    }
+
+    @DisplayName("로그인 성공")
+    @Test
+    public void testLogin() throws Exception {
+        // Given
+        CompanyRequest.LoginDTO loginDTO = new CompanyRequest.LoginDTO();
+        loginDTO.setEmail("com1@nate.com");
+        loginDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(loginDTO);
+
+        // When
+        ResultActions actions = mvc.perform(post("/company/login")
+                .content(reqBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session)
+        ); // 세션 설정
+
+        // Then
+        actions.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/manage/stays"))
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(document);
+    }
+
+    @DisplayName("로그인 실패")
+    @Test
+    public void testLoginFailure() throws Exception {
+        // Given
+        CompanyRequest.LoginDTO loginDTO = new CompanyRequest.LoginDTO();
+        loginDTO.setEmail("csdfsd@nate.com");
+        loginDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(loginDTO);
+
+        System.out.println("loginDTO : " + loginDTO);
+        System.out.println("reqBody : " + reqBody);
+
+        Mockito.when(companyRepository.findByIdAndPassword(anyString(), anyString()))
+                .thenReturn(Optional.empty());
+
+        // When
+        ResultActions actions = mvc.perform(post("/company/login")
+                .content(reqBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session));
+
+        // Then
+        actions.andExpect(status().isNotFound());
     }
 
 //    @Test
@@ -121,34 +176,29 @@ public class CompanyControllerTest {
 //        actions.andExpect(status().isNotFound()); // Expecting a 404 error
 //    }
 
+    @Test
+    public void testJoinCompany() throws Exception {
+        CompanyRequest.JoinDTO joinDTO = new CompanyRequest.JoinDTO();
+        joinDTO.setEmail("newcompany@example.com");
+        joinDTO.setPassword("newpassword");
+        joinDTO.setBusinessName("New Business");
+        joinDTO.setBusinessNumber("0987654321");
+        joinDTO.setBusinessAddress("456 New St.");
+        joinDTO.setPhone("098-765-4321");
+        joinDTO.setName("New Company");
 
-//    @Test
-//    public void testJoinCompany() throws Exception {
-//        CompanyRequest.JoinDTO joinDTO = new CompanyRequest.JoinDTO();
-//        joinDTO.setEmail("ssar123@nate.com");
-//        joinDTO.setPassword("1234");
-//        joinDTO.setBusinessName("뉴 비니지스 회사");
-//        joinDTO.setBusinessNumber("0987654321");
-//        joinDTO.setBusinessAddress("456 New St.");
-//        joinDTO.setPhone("098-765-4321");
-//        joinDTO.setName("뉴 숙박");
-//
-//        String reqBody = om.writeValueAsString(joinDTO);
-//
-//        ResultActions actions = mvc.perform(post("/company/join")
-//                .content(reqBody)
-//                .contentType(MediaType.APPLICATION_JSON));
-//
-//        actions.andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/company"));
-//    }
+        String reqBody = om.writeValueAsString(joinDTO);
+
+        ResultActions actions = mvc.perform(post("/company/join").content(reqBody).contentType(MediaType.APPLICATION_JSON));
+
+        actions.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/company"));
+    }
 
     @Test
     public void testLogout() throws Exception {
         ResultActions actions = mvc.perform(get("/logout").session(session));
 
-        actions.andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/company"));
+        actions.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/company"));
     }
 
 //    @Test

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.example'
@@ -22,6 +23,9 @@ repositories {
 }
 
 dependencies {
+    // API 문서화
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
     implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final' // 최신 버전으로 대체 가능
     implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0' // jwt 사용
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
@@ -49,4 +53,30 @@ tasks.named('test') {
 
 jar { // .jar 파일을 하나만 생성되도록
     enabled = false
+}
+
+
+// API 문서화
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+
+tasks.named('test') {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        // src/docs/asciidoc == from 경로
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs'    // /static/docs로 복사!
+    }
 }
