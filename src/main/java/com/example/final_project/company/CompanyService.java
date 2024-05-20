@@ -165,7 +165,7 @@ public class CompanyService {
     public List<CompanyResponse.CompanyRoomDetailDTO> companyRoomDetail(Integer stayId, String tier) {
         List<Room> roomList = roomRepository.findByStayIdAndTier(stayId, tier);
         return roomList.stream().map(room -> {
-            Pay pay = payRepository.findByRoomId(room.getId(), LocalDate.of(2023, 12, 31));
+            Pay pay = payRepository.findByRoomId(room.getId(), LocalDate.now());
             return new CompanyResponse.CompanyRoomDetailDTO(room, pay);
         }).collect(Collectors.toList());
     }
