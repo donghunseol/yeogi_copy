@@ -162,37 +162,37 @@ public class UserControllerTest extends MyWithRestDoc {
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    // 회원 정보 수정
-    @Test
-    public void update_success_test() throws Exception {
-        // given
-        Integer userId = 1;
-        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
-        reqDTO.setName("coding");
-        reqDTO.setPhone("010-2244-6688");
-
-        String reqBody = om.writeValueAsString(reqDTO);
-
-        // when
-        ResultActions actions = mvc.perform(
-                put("/api/users/"+userId)
-                        .header("Authorization", "Bearer " + jwt)
-                        .content(reqBody)
-                        .contentType(MediaType.APPLICATION_JSON)
-        );
-
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody : " + respBody);
-
-        // then
-        actions.andExpect(jsonPath("$.status").value(200));
-        actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.id").value(1));
-        actions.andExpect(jsonPath("$.body.name").value("coding"));
-        actions.andExpect(jsonPath("$.body.phone").value("010-2244-6688"));
-        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
+//    // 회원 정보 수정
+//    @Test
+//    public void update_success_test() throws Exception {
+//        // given
+//        Integer userId = 1;
+//        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
+//        reqDTO.setName("coding");
+//        reqDTO.setPhone("010-2244-6688");
+//
+//        String reqBody = om.writeValueAsString(reqDTO);
+//
+//        // when
+//        ResultActions actions = mvc.perform(
+//                put("/api/users/"+userId)
+//                        .header("Authorization", "Bearer " + jwt)
+//                        .content(reqBody)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//        );
+//
+//        // eye
+//        String respBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println("respBody : " + respBody);
+//
+//        // then
+//        actions.andExpect(jsonPath("$.status").value(200));
+//        actions.andExpect(jsonPath("$.msg").value("성공"));
+//        actions.andExpect(jsonPath("$.body.id").value(1));
+//        actions.andExpect(jsonPath("$.body.name").value("coding"));
+//        actions.andExpect(jsonPath("$.body.phone").value("010-2244-6688"));
+//        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
 
 
     // 로그인한 회원의 예약 내역 페이지

@@ -2,7 +2,9 @@ package com.example.final_project.controller;
 
 import com.example.final_project.MyWithRestDoc;
 import com.example.final_project._core.utils.JwtUtil;
+import com.example.final_project.reservation.ReservationRequest;
 import com.example.final_project.user.User;
+import com.example.final_project.user.UserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
@@ -10,18 +12,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class RoomControllerTest extends MyWithRestDoc {
+public class ReservationControllerTest extends MyWithRestDoc {
+
     private static ObjectMapper om;
     public static String jwt;
 
@@ -37,14 +42,26 @@ public class RoomControllerTest extends MyWithRestDoc {
     }
 
     @Test
-    public void room_detail_success_test() throws Exception {
+    public void make_reservation_test() throws Exception {
         // given
         Integer roomId = 1;
+        ReservationRequest.DTO reqDTO = new ReservationRequest.DTO();
+        reqDTO.setUserId(1);
+        reqDTO.setRoomId(1);
+        reqDTO.setCheckInDate(LocalDate.of(2024, 5, 18));
+        reqDTO.setCheckOutDate(LocalDate.of(2024, 5, 19));
+        reqDTO.setReservationName("곽두팔");
+        reqDTO.setReservationTel("010-1133-5577");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+//        System.out.println("reqBody : " + reqBody);
 
         // when
         ResultActions actions = mvc.perform(
-                get("/room/detail/" + roomId )
+                post("/api/reservation/"+ roomId)
                         .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
         );
 
         // eye
@@ -54,21 +71,14 @@ public class RoomControllerTest extends MyWithRestDoc {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.id").value(1));
-        actions.andExpect(jsonPath("$.body.imageName").value("room1.jpg"));
-        actions.andExpect(jsonPath("$.body.imagePath").value("/images/room1.jpg"));
-        actions.andExpect(jsonPath("$.body.tier").value("디럭스"));
-        actions.andExpect(jsonPath("$.body.price").value(150000));
-        actions.andExpect(jsonPath("$.body.salePrice").value(130000));
-        actions.andExpect(jsonPath("$.body.saleState").value("APPLIED"));
-        actions.andExpect(jsonPath("$.body.information.minPerson").value(2));
-        actions.andExpect(jsonPath("$.body.information.maxPerson").value(3));
-        actions.andExpect(jsonPath("$.body.information.announcement").value("스마트앱 체크인만 가능 비대면 체크인, 대면시 추가요금발생  여기어때 발송 입퇴실시간 무관:하이원 발송 시간 확인"));
-        actions.andExpect(jsonPath("$.body.information.basicInformation").value("더블베드 1개 객실+욕실/17.24평"));
-        actions.andExpect(jsonPath("$.body.information.moreInfo").value("조식 제공"));
-        actions.andExpect(jsonPath("$.body.options[0].name").value("수영장"));
-        actions.andExpect(jsonPath("$.body.options[0].iconName").value("waterLadder"));
-        actions.andExpect(jsonPath("$.body.notice").value("객실 내 취사 금지"));
+        actions.andExpect(jsonPath("$.body.id").value(14));
+        actions.andExpect(jsonPath("$.body.userId").value(1));
+        actions.andExpect(jsonPath("$.body.roomId").value(1));
+        actions.andExpect(jsonPath("$.body.checkInDate").value("2024-05-18"));
+        actions.andExpect(jsonPath("$.body.checkOutDate").value("2024-05-19"));
+        actions.andExpect(jsonPath("$.body.reservationName").value("곽두팔"));
+        actions.andExpect(jsonPath("$.body.reservationTel").value("010-1133-5577"));
+        actions.andExpect(jsonPath("$.body.price").value(130000));
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

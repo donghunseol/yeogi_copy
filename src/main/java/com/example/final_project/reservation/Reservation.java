@@ -46,11 +46,8 @@ public class Reservation {
     @CreationTimestamp
     private LocalDateTime createdAt; // 예약완료된 시간
 
-    @Column(nullable = false)
-    private Integer amountToPay; // 예약한 객실의 가격(결제 예정 금액)
-
     @Builder
-    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, String reservationName, String reservationTel, LocalDateTime createdAt, Integer amountToPay) {
+    public Reservation(Integer id, User user, Room room, LocalDate checkInDate, LocalDate checkOutDate, String reservationName, String reservationTel, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.room = room;
@@ -59,7 +56,6 @@ public class Reservation {
         this.reservationName = reservationName;
         this.reservationTel = reservationTel;
         this.createdAt = createdAt;
-        this.amountToPay = amountToPay;
     }
 
     public void updateReservation(ReservationRequest.UpdateDTO reqDTO) {
