@@ -31,6 +31,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         // Bearer jwt토큰 -> 띄워쓰기를 유의해서 보자! 프로토콜 이다!
         jwt = jwt.replace("Bearer ", "");
 
+        System.out.println("==========JWT");
+        System.out.println(jwt);
+        System.out.println("==========JWT");
         // 검증
         try {
             DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("yeoeotteohno")).build().verify(jwt);
@@ -38,28 +41,22 @@ public class LoginInterceptor implements HandlerInterceptor {
 
             // claim 을 이용하여 role 의 값에 따라 company 와 user, admin 구분
             if ("admin".equals(role)) {
-                System.out.println("admin");
+                System.out.println("admin================================");
                 SessionAdmin sessionAdmin = JwtUtil.adminVerify(jwt);
                 HttpSession session = request.getSession();
                 session.setAttribute("sessionAdmin", sessionAdmin);
             } else if ("company".equals(role)) {
-                System.out.println("company");
+                System.out.println("company================================");
                 SessionCompany sessionCompany = JwtUtil.companyVerify(jwt);
                 HttpSession session = request.getSession();
                 session.setAttribute("sessionCompany", sessionCompany);
             } else {
-                System.out.println("user");
+                System.out.println("user================================");
                 SessionUser sessionUser = JwtUtil.userVerify(jwt);
                 // 임시 세선 (jsessionId 는 필요 없다!)
                 HttpSession session = request.getSession();
                 session.setAttribute("sessionUser", sessionUser);
             }
-
-            System.out.println("out");
-            SessionUser sessionUser = JwtUtil.userVerify(jwt);
-            // 임시 세선 (jsessionId 는 필요 없다!)
-            HttpSession session = request.getSession();
-            session.setAttribute("sessionUser", sessionUser);
             
             return true;
         } catch (TokenExpiredException e) {

@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.final_project.controller;
 
 import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project.company.*;
