@@ -24,7 +24,7 @@ public class UserController {
 
     // 회원 로그인
     @PostMapping("/users/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         String jwt = userService.login(reqDTO);
         UserResponse.LoginDTO respDTO = userService.loginByDTO(reqDTO);
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
@@ -57,7 +57,7 @@ public class UserController {
 
     // 회원 정보 수정
     @PutMapping("/api/users/{userId}")
-    public ResponseEntity<?> update(@PathVariable Integer userId, @RequestBody UserRequest.UpdateDTO reqDTO) {
+    public ResponseEntity<?> update(@PathVariable Integer userId, @Valid @RequestBody UserRequest.UpdateDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.update(sessionUser, reqDTO, userId);
         session.setAttribute("sessionUser", newSessionUser);
@@ -114,7 +114,7 @@ public class UserController {
 
     // [유저] 문의사항 작성
     @PostMapping("/api/users/question")
-    public ResponseEntity<?> questionWrite(@RequestBody UserRequest.QuestionSave reqDTO){
+    public ResponseEntity<?> questionWrite(@Valid @RequestBody UserRequest.QuestionSave reqDTO, Errors errors){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         userService.questionWrite(sessionUser,reqDTO);
 

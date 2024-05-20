@@ -7,8 +7,10 @@ import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class ReviewRestController {
 
     // 댓글작성
     @PostMapping("/api/review/{stayId}")
-    public ResponseEntity<?> insert(@PathVariable Integer stayId, @RequestBody ReviewRequest.ReviewRequestDTO reqDTO){
+    public ResponseEntity<?> insert(@PathVariable Integer stayId, @Valid @RequestBody ReviewRequest.ReviewRequestDTO reqDTO, Errors errors){
         SessionUser sessionObject = (SessionUser) session.getAttribute("sessionUser"); // 세션에서 사용자 또는 기업 정보 가져오기
         ReviewResponse.Save respDTO = reviewService.insert(stayId,reqDTO,sessionObject);
         System.out.println(respDTO);
