@@ -48,6 +48,7 @@ dependencies {
 }
 
 tasks.named('test') {
+    outputs.dir snippetsDir
     useJUnitPlatform()
 }
 
@@ -59,12 +60,6 @@ jar { // .jar 파일을 하나만 생성되도록
 // API 문서화
 ext {
     set('snippetsDir', file("build/generated-snippets"))
-}
-
-
-tasks.named('test') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
 }
 
 tasks.named('asciidoctor') {
