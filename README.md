@@ -1,38 +1,38 @@
-# [숙박 중계 플랫폼] 여어떻노.
+# 🏨 [숙박 중계 플랫폼] 여어떻노.
 
 <hr>
 
 ![yeoeotteohno_logo](https://github.com/donghunseol/yeogi_copy/blob/master/src/main/resources/static/images/myPageBanner.png?raw=true)
 
-# 프로젝트 소개
+# 📖 프로젝트 소개
 
 <hr>
 
 > `여어떻노`는 **누구나 사용 가능한 숙박 중계 플랫폼**입니다.</br>
 > 카테고리 별 다양한 숙소를 예약하고 결제하는 숙박 중계 플랫폼입니다.</br>
 
-# 프로젝트 목표
+# 📈 프로젝트 목표
 
 <hr>
 
-- Model을 ResponseEntity 응답
-- ResponseEntity ORM
-- JSON으로 변환
-- image base64로 변환
-- JUnit 테스트
-- AOP(유효성검사)
-- JWT
-- MVC 패턴을 사용한 SSR 구현
-- MVVM 패턴을 이용한 Flutter 서버 통신
-- 통합 테스트 (API 문서 (RestDoc))
+- `Model을 ResponseEntity 응답`
+- `ResponseEntity ORM`
+- `JSON으로 변환`
+- `image base64로 변환`
+- `JUnit 테스트`
+- `AOP(유효성검사)`
+- `JWT`
+- `MVC 패턴을 사용한 SSR 구현`
+- `MVVM 패턴을 이용한 Flutter 서버 통신`
+- `통합 테스트 (API 문서 (RestDoc))`
 
-# 시연영상
+# 📽️ 시연영상
 
 <hr>
 
 - 추가 예정
 
-# 발표자료
+# 📚 발표자료
 
 <hr>
 
@@ -43,7 +43,7 @@
 <hr>
 - 2024.04.17 ~ 2024.05.22
 
-# 팀원 소개
+# 👨‍👩‍👧‍👧 팀원 소개
 
 <hr>
 
@@ -68,7 +68,7 @@
 | <img src="https://avatars.githubusercontent.com/u/78337301?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/118310514?v=4" alt="profile" width="100" height="100"> | 
 |                              [@greenpig4b](https://github.com/greenpig4b)                               |                               [@minmeanmin](https://github.com/minmeanmin)                               |
 
-# 기술 스택
+# ⚙️ 기술 스택
 
 <hr>
 
@@ -103,25 +103,7 @@
 ![Slack](https://img.shields.io/badge/-Slack-purple?logo=slack&logoColor=white)
 ![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
 
-# 계획
-
-<hr>
-
-1. JPA ORM DTO Interceptor
-    1. JPA 전환
-        1. Repository
-        2. Test (JUnit)
-    2. Server
-        1. DTO 연동 응답
-        2. Interceptor 생성
-2. Handler (JPA 테스트 코드 진행)
-3. RestAPI 전환
-4. AOP 적용
-5. JWT 적용
-6. 통합 테스트
-7. 배포 세팅
-
-## 브랜치 전략
+# 🛠️ 브랜치 전략
 
 <hr>
 
@@ -129,8 +111,12 @@
 - 작업을 완료 후 Merge 전 `코드 리뷰 진행` 및 `피드백`
 - 브랜치 명은 각 인원별 `패키지/기능/이니셜`로 컨벤션을 맞춰 진행
 
-# ERD
+# 🔐 ERD
 
 <hr>
 
-![image](https://github.com/minmeanmin/human_cloud_web_project1/assets/118310514/bada12df-d904-4781-90b6-05bb224a0034)
+![image](https://github.com/donghunseol/yeogi_copy/blob/master/src/main/resources/static/images/erd.png?raw=true)
+
+# 🎞️ 시나리오 GIF
+
+<hr>
