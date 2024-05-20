@@ -3,11 +3,15 @@
 
 ![yeoeotteohno_logo](https://github.com/donghunseol/yeogi_copy/blob/master/src/main/resources/static/images/myPageBanner.png?raw=true)
 
+<br>
+
 # 📖 프로젝트 소개
 
 
 > `여어떻노`는 **누구나 사용 가능한 숙박 중계 플랫폼**입니다.</br>
 > 카테고리 별 다양한 숙소를 예약하고 결제하는 숙박 중계 플랫폼입니다.</br>
+
+<br>
 
 # 📈 프로젝트 목표
 
@@ -23,6 +27,8 @@
 - `MVVM 패턴을 이용한 Flutter 서버 통신`
 - `통합 테스트 (API 문서 (RestDoc))`
 
+<br>
+
 # 📽️ 시연영상
 
 
@@ -30,12 +36,15 @@
 
 # 📚 발표자료
 
-
 [1조_Final_Project_PPT.pdf](https://docs.google.com/presentation/d/1dyOqbiTzfzQTIHUKZB99VtqL2FCe_kyf/edit?usp=drive_link&ouid=104872751959430579271&rtpof=true&sd=true)
+
+<br>
 
 # ⏰ 프로젝트 기간
 
 - 2024.04.17 ~ 2024.05.22
+
+<br>
 
 # 👨‍👩‍👧‍👧 팀원 소개
 
@@ -60,6 +69,8 @@
 |:-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
 | <img src="https://avatars.githubusercontent.com/u/78337301?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/118310514?v=4" alt="profile" width="100" height="100"> | 
 |                              [@greenpig4b](https://github.com/greenpig4b)                               |                               [@minmeanmin](https://github.com/minmeanmin)                               |
+
+<br>
 
 # ⚙️ 기술 스택
 
@@ -95,6 +106,8 @@
 ![Slack](https://img.shields.io/badge/-Slack-purple?logo=slack&logoColor=white)
 ![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
 
+<br>
+
 # 🛠️ 브랜치 전략
 
 
@@ -102,11 +115,14 @@
 - 작업을 완료 후 Merge 전 `코드 리뷰 진행` 및 `피드백`
 - 브랜치 명은 각 인원별 `패키지/기능/이니셜`로 컨벤션을 맞춰 진행
 
-# 🔐 ERD
+<br>
 
+# 🔐 ERD
 
 ![image](https://github.com/donghunseol/yeogi_copy/blob/master/src/main/resources/static/images/erd.png?raw=true)
 
+<br>
+
 # 🎞️ 시나리오 GIF
 
-<hr>
+
