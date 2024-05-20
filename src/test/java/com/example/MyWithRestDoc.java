@@ -21,14 +21,14 @@ public class MyWithRestDoc {
     protected RestDocumentationResultHandler document;
 
     @BeforeEach
-    private void setUp(WebApplicationContext webApplicationContext,
-                       RestDocumentationContextProvider restDocumentation) {
+    public void setup(WebApplicationContext webApplicationContext,
+                      RestDocumentationContextProvider restDocumentation) {
         this.document = MockMvcRestDocumentation.document("{class-name}/{method-name}",
                 Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                 Preprocessors.preprocessResponse(Preprocessors.prettyPrint()));
-
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
+                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(),
+                        true))
                 .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
                 // .apply(SecurityMockMvcConfigurers.springSecurity())
                 .alwaysDo(document)
