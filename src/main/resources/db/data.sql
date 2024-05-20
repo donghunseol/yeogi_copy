@@ -309,7 +309,8 @@ values (1, 1, now()),
        (1, 2, now()),
        (2, 2, now()),
        (2, 3, now()),
-       (3, 3, now());
+       (3, 3, now()),
+       (1, 10, now());
 
 -- review 더미 생성
 insert into review_tb(user_id, stay_id, score, content, state, created_at)

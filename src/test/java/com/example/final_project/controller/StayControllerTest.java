@@ -215,7 +215,7 @@ public class StayControllerTest extends MyWithRestDoc {
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    // 게하리스트
+    // 검색리스트
     @Test
     public void search_stay() throws Exception {
         // given
