@@ -3,10 +3,12 @@ package com.example.final_project.user;
 import com.example.final_project._core.enums.UserEnum;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Data
 public class SessionUser {
     private Integer id; // 유저 번호
@@ -37,4 +39,5 @@ public class SessionUser {
         this.birth = user.getBirth();
         this.createdAt = user.getCreatedAt();
     }
+
 }
