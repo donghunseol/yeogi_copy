@@ -1,4 +1,4 @@
-![스플래시화면](https://github.com/donghunseol/yeogi_copy/assets/153582315/acd1b7b9-a7dd-4d8e-a16a-e6ce19a4f99d)# 🏨 [숙박 중계 플랫폼] 여어떻노.
+# 🏨 [숙박 중계 플랫폼] 여어떻노.
 
 ![yeoeotteohno_logo](https://github.com/donghunseol/yeogi_copy/blob/master/src/main/resources/static/images/myPageBanner.png?raw=true)
 
