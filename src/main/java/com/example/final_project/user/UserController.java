@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO));
     }
 
-    // 회원 가입 후 로그인
+    // 회원 가입
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
         String jwt = userService.joinAndLogin(reqDTO);
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     // 회원 정보 수정
-    @PutMapping("/users/{userId}")
+    @PutMapping("/api/users/{userId}")
     public ResponseEntity<?> update(@PathVariable Integer userId, @RequestBody UserRequest.UpdateDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         SessionUser newSessionUser = userService.update(sessionUser, reqDTO, userId);

@@ -59,6 +59,7 @@ public class UserResponse {
         private String phone; // 전화번호
         private UserEnum state; // 상태 (ACTIVE : 회원 유지, QUIT : 회원 탈퇴, BLACK : 신고 받아서 제한된 회원)
         private LocalDate birth; // 생년월일
+        private Integer reportCount; // 신고 받은 횟수
         private LocalDateTime createdAt; // 유저 가입 일자
 
         public JoinDTO(User user) {
@@ -68,6 +69,7 @@ public class UserResponse {
             this.phone = user.getPhone();
             this.state = user.getState();
             this.birth = user.getBirth();
+            this.reportCount = user.getReportCount();
             this.createdAt = user.getCreatedAt();
         }
     }
