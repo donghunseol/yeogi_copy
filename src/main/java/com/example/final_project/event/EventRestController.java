@@ -27,7 +27,7 @@ public class EventRestController {
 
     //이벤트 디테일
     @GetMapping("/event/detail/{eventId}")
-    public ResponseEntity<?> detail(@PathVariable Integer eventId){
+    public ResponseEntity<?> eventDetail(@PathVariable Integer eventId){
 
         EventResponse.EventDetailDTO respDTO = eventService.eventDetail(eventId);
 
