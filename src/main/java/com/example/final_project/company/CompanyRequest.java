@@ -11,7 +11,7 @@ public class CompanyRequest {
 
     // 회원가입
     @Data
-    public static class JoinDTO{
+    public static class JoinDTO {
 
         private Integer reportCount;
         private CompanyEnum state;
@@ -42,7 +42,7 @@ public class CompanyRequest {
         @NotEmpty(message = "사업자 주소를 입력해주세요")
         private String businessAddress; // 사업자 주소
 
-        public Company toEntity(){
+        public Company toEntity() {
             return Company.builder()
                     .state(this.state)
                     .reportCount(this.reportCount)
@@ -59,7 +59,7 @@ public class CompanyRequest {
 
     // 로그인
     @Data
-    public static class LoginDTO{
+    public static class LoginDTO {
         @NotEmpty
         @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
         private String email;
@@ -68,11 +68,17 @@ public class CompanyRequest {
         @Size(min = 4, max = 20)
         private String password;
 
+        public Company toEntity() {
+            return Company.builder()
+                    .email(this.email)
+                    .password(this.password)
+                    .build();
+        }
     }
 
     // 업데이트
     @Data
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         private Integer companyId;
         @NotEmpty(message = "비밀번호를 입력해주세요")
         @Size(min = 3, max = 20, message = "비밀번호는 3자 이상이거나 20자를 초과할 수 없습니다")
@@ -86,7 +92,7 @@ public class CompanyRequest {
 
     // 회원탈퇴
     @Data
-    public static class DeleteDTO{
+    public static class DeleteDTO {
         private Integer companyId;
     }
 

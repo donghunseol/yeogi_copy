@@ -1,7 +1,6 @@
 package com.example.final_project.company;
 
 import com.example.final_project.pay.PayResponse;
-import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,8 +40,9 @@ public class CompanyController {
         SessionCompany company = companyService.login(reqDTO);
 
         session.setAttribute("sessionUser", company);
-        session.setAttribute("loginTime",formattedTime);
-        session.setAttribute("today",formattedDate);
+        session.setAttribute("loginTime", formattedTime);
+        session.setAttribute("today", formattedDate);
+
         return "redirect:/manage/stays";
     }
 
@@ -93,19 +93,19 @@ public class CompanyController {
 
     // 탈퇴 폼
     @GetMapping("/company/withdraw")
-    public String withdraw(){
+    public String withdraw() {
 
         return "/company/information/withdraw";
     }
 
     // 회원탈퇴
     @PostMapping("/company/delete/{companyId}")
-    public String infoDelete(@PathVariable Integer companyId, CompanyRequest.DeleteDTO reqDTO){
+    public String infoDelete(@PathVariable Integer companyId, CompanyRequest.DeleteDTO reqDTO) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
-        companyService.deleteCompany(companyId,reqDTO,company);
+        companyService.deleteCompany(companyId, reqDTO, company);
 
         return "redirect:/company";
-     }
+    }
 
     // [숙소 관리] 로그인한 기업이 등록한 숙소 조회
     @GetMapping("/manage/stays")
@@ -125,7 +125,7 @@ public class CompanyController {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
 
-        if(tier.isBlank()){
+        if (tier.isBlank()) {
             CompanyResponse.CompanyStayListDTO stayRespDTO = companyService.companyStay(stayId);
             request.setAttribute("stayList", stayRespDTO);
 
@@ -160,7 +160,7 @@ public class CompanyController {
         SessionCompany sessionCompany = (SessionCompany) session.getAttribute("sessionUser");
         PayResponse.TotalIncomeDTO respDTO = companyService.findTotalIncome(sessionCompany);
         List<PayResponse.StayTotalIncomeDTO> listRespDTO = companyService.findIncomeByStay(sessionCompany);
-        request.setAttribute("stayCount",listRespDTO.size());
+        request.setAttribute("stayCount", listRespDTO.size());
         request.setAttribute("totalIncome", respDTO);
         request.setAttribute("stayTotalIncomeList", listRespDTO);
 
@@ -173,12 +173,12 @@ public class CompanyController {
     public String compReservationList(HttpServletRequest request, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         SessionCompany company = (SessionCompany) session.getAttribute("sessionUser");
 
-        if (keyword.isBlank()){
+        if (keyword.isBlank()) {
             List<CompanyResponse.ReservationListDTO> respDTO = reservationService.compReservationList(company);
             request.setAttribute("reservationCount", respDTO.size());
             request.setAttribute("reservationList", respDTO);
-        }else {
-            List<CompanyResponse.ReservationListDTO> respDTO = reservationService.reservationByKeyword(company,keyword);
+        } else {
+            List<CompanyResponse.ReservationListDTO> respDTO = reservationService.reservationByKeyword(company, keyword);
             request.setAttribute("reservationCount", respDTO.size());
             request.setAttribute("keywordReservationList", respDTO);
         }
