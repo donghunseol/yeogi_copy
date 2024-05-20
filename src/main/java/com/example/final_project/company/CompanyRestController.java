@@ -1,8 +1,10 @@
 package com.example.final_project.company;
 
 import com.example.final_project._core.utils.ApiUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -13,7 +15,7 @@ public class CompanyRestController {
 
     //로그인
    @PostMapping("/jwt-login")
-    public ResponseEntity<?> login(@RequestBody CompanyRequest.LoginDTO reqDTO){
+    public ResponseEntity<?> login(@Valid @RequestBody CompanyRequest.LoginDTO reqDTO, Errors errors){
 
         String jwt = companyService.jwtlogin(reqDTO);
 
