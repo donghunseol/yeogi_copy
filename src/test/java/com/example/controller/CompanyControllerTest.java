@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.MyWithRestDoc;
 import com.example.final_project._core.enums.CompanyEnum;
 import com.example.final_project.company.*;
 import com.example.final_project.reservation.ReservationService;
@@ -35,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {CompanyController.class, CompanyService.class})
-public class CompanyControllerTest extends MyWithRestDoc {
+public class CompanyControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -94,8 +93,7 @@ public class CompanyControllerTest extends MyWithRestDoc {
 
         // Then
         actions.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/manage/stays"))
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(document);
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @DisplayName("로그인 실패")
