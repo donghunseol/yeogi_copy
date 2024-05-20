@@ -7,14 +7,21 @@ import com.example.final_project.user.UserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import javax.xml.validation.Validator;
 import java.time.LocalDate;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -103,7 +110,7 @@ public class UserControllerTest extends MyWithRestDoc {
     public void join_success_test() throws Exception {
         // given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
-        reqDTO.setEmail("code@naver.com");
+        reqDTO.setEmail("ccar@nate.com");
         reqDTO.setPassword("13579");
         reqDTO.setName("code");
         reqDTO.setPhone("010-1133-5577");
@@ -111,6 +118,12 @@ public class UserControllerTest extends MyWithRestDoc {
 
         String reqBody = om.writeValueAsString(reqDTO);
 //        System.out.println("reqBody : " + reqBody);
+
+        Errors errors = new BeanPropertyBindingResult(reqDTO, "reqDTO");
+        if (errors.hasErrors()) {
+            throw new IllegalArgumentException("유효하지 않은 요청입니다: " + errors.getAllErrors());
+        }
+
 
         // when
         ResultActions actions = mvc.perform(
@@ -127,7 +140,7 @@ public class UserControllerTest extends MyWithRestDoc {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.id").value(4));
-        actions.andExpect(jsonPath("$.body.email").value("code@naver.com"));
+        actions.andExpect(jsonPath("$.body.email").value("ccar@nate.com"));
         actions.andExpect(jsonPath("$.body.name").value("code"));
         actions.andExpect(jsonPath("$.body.phone").value("010-1133-5577"));
         actions.andExpect(jsonPath("$.body.state").value("ACTIVE"));

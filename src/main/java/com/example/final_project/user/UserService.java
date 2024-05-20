@@ -12,8 +12,10 @@ import com.example.final_project.reservation.Reservation;
 import com.example.final_project.reservation.ReservationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class UserService {
+
 
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
@@ -40,7 +43,7 @@ public class UserService {
 
 
     public Optional<User> findByEmail(String email){
-
+        
         Optional<User> userOP = userRepository.findByEmail(email);
 
         if (userOP.isPresent()) {
