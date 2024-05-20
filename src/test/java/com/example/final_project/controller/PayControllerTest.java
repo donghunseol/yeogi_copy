@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static com.example.final_project._core.enums.PayEnum.REFUND;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -70,6 +71,7 @@ public class PayControllerTest extends MyWithRestDoc {
         actions.andExpect(jsonPath("$.body.amount").value("10000"));
         actions.andExpect(jsonPath("$.body.way").value("Credit Card"));
         actions.andExpect(jsonPath("$.body.state").value("PROCESSING"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //결제실패
@@ -103,6 +105,7 @@ public class PayControllerTest extends MyWithRestDoc {
         //then
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("결제를 진행할 권한이 없습니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //결제 환불 및 예약 취소
@@ -124,6 +127,7 @@ public class PayControllerTest extends MyWithRestDoc {
         actions.andExpect(jsonPath("$.body.id").value("8"));
         actions.andExpect(jsonPath("$.body.reservationId").value("8"));
         actions.andExpect(jsonPath("$.body.state").value("REFUND"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //결제 환불 및 예약 취소 실패
@@ -144,6 +148,7 @@ public class PayControllerTest extends MyWithRestDoc {
         System.out.println("$.status()");
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("예약을 취소할 권한이 없습니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -166,6 +171,7 @@ public class PayControllerTest extends MyWithRestDoc {
         System.out.println("$.status()");
         actions.andExpect(jsonPath("$.status").value(404));
         actions.andExpect(jsonPath("$.errorMessage").value("존재하지 않는 결제 내역입니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -191,6 +197,7 @@ public class PayControllerTest extends MyWithRestDoc {
         //then
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("이미 취소된 예약입니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -210,5 +217,6 @@ public class PayControllerTest extends MyWithRestDoc {
         //then
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("이미 이용한 숙소입니다"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
