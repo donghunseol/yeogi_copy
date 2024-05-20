@@ -1,12 +1,11 @@
 package com.example.final_project.admin;
 
-import com.example.final_project.company.Company;
-import com.example.final_project.question.Question;
-import com.example.final_project.review.Review;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -14,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,7 +26,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/login")
-    public String login(AdminRequest.LoginDTO reqDTO){
+    public String login(@Valid AdminRequest.LoginDTO reqDTO, Errors errors){
 
         // 현재 시간 및 날짜 가져오기
         LocalDateTime now = LocalDateTime.now();
@@ -262,7 +260,7 @@ public class AdminController {
 
     // 관리자 문의사항 답글작성
     @PostMapping("/admin/answer/company")
-    public String adminQuestionAnswer(AdminRequest.AdminAnswerDTO reqDTO){
+    public String adminQuestionAnswer(@Valid AdminRequest.AdminAnswerDTO reqDTO, Errors errors){
         System.out.println(reqDTO);
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
         adminService.adminQuestionAnswer(sessionUser,reqDTO);
@@ -343,7 +341,7 @@ public class AdminController {
 
     //관리자 FAQ 작성
     @PostMapping("/admin/write")
-    public String adminWrite(AdminRequest.AdminFaqDTO reqDTO){
+    public String adminWrite(@Valid AdminRequest.AdminFaqDTO reqDTO, Errors errors){
         SessionAdmin sessionUser = (SessionAdmin) session.getAttribute("sessionUser");
         adminService.faqRegister(sessionUser,reqDTO);
 
