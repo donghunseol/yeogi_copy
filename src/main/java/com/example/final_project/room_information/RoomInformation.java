@@ -67,6 +67,6 @@ public class RoomInformation {
     public RoomInformation(RoomResponse.Detail.RoomInfoDTO roomInfoDTO) {
         this.minPerson = roomInfoDTO.getMinPerson();
         this.maxPerson = roomInfoDTO.getMaxPerson();
-        this.moreInfo = roomInfoDTO.getMoreinfo();
+        this.moreInfo = roomInfoDTO.getMoreInfo();
     }
 }

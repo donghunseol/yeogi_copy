@@ -99,14 +99,14 @@ public class RoomResponse {
             private Integer maxPerson;
             private String announcement;
             private String basicInformation;
-            private String moreinfo;
+            private String moreInfo;
 
             public RoomInfoDTO(RoomInformation roomInformation) {
                 this.minPerson = roomInformation.getMinPerson();
                 this.maxPerson = roomInformation.getMaxPerson();
                 this.announcement = roomInformation.getAnnouncement();
                 this.basicInformation = roomInformation.getBasicInformation();
-                this.moreinfo = roomInformation.getMoreInfo();
+                this.moreInfo = roomInformation.getMoreInfo();
             }
         }
 
