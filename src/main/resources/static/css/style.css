@@ -5,7 +5,7 @@
 /* 로그인페이지 */
 .login-form {
     width: 450px;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
     position: absolute;
@@ -1385,18 +1385,21 @@ p.tab-title {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .stay-detail .content.bottom ul li.unkwon {
 }
 
 .stay-detail .content.bottom ul li {
-    width: calc((100% - 40px) / 3);
-    background: #f8f8f8;
+    width: calc((100%));
     border-radius: 5px;
     margin-right: 20px;
     margin-bottom: 20px;
     height: fit-content;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: #fff;
 }
 
 .stay-detail .content.bottom ul li:nth-child(3n) {
@@ -1406,6 +1409,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .stay-detail .content.bottom ul li .item.company{}
 .stay-detail .content.bottom ul li .item.company .text-wrapper{
@@ -1480,9 +1484,8 @@ p.tab-title {
 
 .stay-detail .content.bottom ul li .item .text-wrapper {
     display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+    flex-direction: column;
+    width: 50%;
     justify-content: space-between;
 }
 
@@ -1913,3 +1916,17 @@ textarea.input {
     margin-bottom: 20px;
     display: block;
 }
+
+.list-title{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    margin-bottom: 20px;
+    background: #f8f8f8;
+}
+.list-title dd{
+    width: 30%;
+}
+.list-title dd:nth-child(1){}
+.list-title dd:nth-child(2){}
+.list-title dd:nth-child(3){}

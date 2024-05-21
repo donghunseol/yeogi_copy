@@ -147,7 +147,7 @@ public class ReservationResponse {
             this.reservationName = reservation.getReservationName();
             this.reservationTel = reservation.getReservationTel();
             this.payAt = pay.getCreatedAt();
-            this.amount = reservation.getAmountToPay();
+            this.amount = pay.getAmount();
             this.way = pay.getWay();
             this.reviewId = reservation.getReviewid();
         }
