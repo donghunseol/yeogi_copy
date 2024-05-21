@@ -380,7 +380,7 @@ public class AdminService {
         List<Faq> faqList;
 
         if (keyword.isBlank()){
-            faqList =  faqRepository.findAll();
+            faqList =  faqRepository.findAllList();
         }else{
             faqList = faqRepository.findAllKeyword(keyword);
         }
