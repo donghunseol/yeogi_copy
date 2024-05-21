@@ -124,7 +124,7 @@
   <td align=center>회원가입</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/ba794e96-2750-47aa-8e56-588fafe07e1d"  width="256" height="455"/></td>
   <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
@@ -140,7 +140,7 @@
   <td align=center>룸 선택하기</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/929550b6-2a5a-45f1-b535-c24cea2f1e75"  width="256" height="455"/></td>
   <td><img src=" "  width="256" height="455"/></td>
 </tr>
 <tr>
