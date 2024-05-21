@@ -125,15 +125,15 @@
 </tr>
 <tr>
   <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/ba794e96-2750-47aa-8e56-588fafe07e1d"  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/9fa098c2-8e61-4290-b81a-9bc447542a7d"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>로그인</td>
   <td align=center>로그아웃</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/baf287d6-59f9-437e-be45-d51fd2e0c1c2"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/e51caa27-5f99-4811-bd60-a091b59e89f0"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>숙소 선택하기</td>
@@ -141,30 +141,30 @@
 </tr>
 <tr>
   <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/929550b6-2a5a-45f1-b535-c24cea2f1e75"  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/34328614-db6a-4cf9-853a-5429f1742b55"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>예약하기</td>
   <td align=center>결제하기</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/f74b1e79-a04e-44ac-87c6-b0b017873aa1"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/f3e957cd-4189-4bb7-937b-702099e82e58"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>검색하기</td>
   <td align=center>부가기능</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/410a4740-dc9a-4368-88da-c70ee6764c31"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/8f096a70-d6d9-4f02-ba2e-b26e8761093e"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>스크랩</td>
   <td align=center>주변 검색하기</td>
 </tr>
 <tr>
-  <td><img src=" "  width="256" height="455"/></td>
-  <td><img src=" "  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/03d45f69-8b3a-4fc7-a298-05f23fa68cf4"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/e30e586c-b80c-4765-8e39-9c46647a8d68"  width="256" height="455"/></td>
 </tr>
 </table>
