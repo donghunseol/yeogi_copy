@@ -68,7 +68,7 @@ public class CompanyService {
         }
 
         if (sessionUser.getState() == CompanyEnum.PROGRESSING){
-            throw new Exception401("해당 계정은 승인 대기중입니다.");
+            throw new Exception401("해당 계정은 승인 대기중입니다. TEL :010-5533-1223에 문의해주세요");
         }
 
         if (sessionUser.getState() == CompanyEnum.BLACK){

@@ -5,7 +5,7 @@
 /* 로그인페이지 */
 .login-form {
     width: 450px;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
     position: absolute;
@@ -1385,20 +1385,31 @@ p.tab-title {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .stay-detail .content.bottom ul li.unkwon {
 }
 
 .stay-detail .content.bottom ul li {
-    width: calc((100% - 40px) / 3);
-    background: #f8f8f8;
+    width: calc((100%));
     border-radius: 5px;
     margin-right: 20px;
     margin-bottom: 20px;
     height: fit-content;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: #fff;
 }
+.stay-detail .content.bottom ul.room{
 
+}
+.stay-detail .content.bottom ul.room li{
+    width: calc((100% - 60px) / 3);
+    border: none;
+    background: #f8f8f8;
+    padding: 0;
+}
 .stay-detail .content.bottom ul li:nth-child(3n) {
     margin-right: 0;
 }
@@ -1406,6 +1417,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .stay-detail .content.bottom ul li .item.company{}
 .stay-detail .content.bottom ul li .item.company .text-wrapper{
@@ -1442,7 +1454,6 @@ p.tab-title {
 }
 
 .stay-detail .content.bottom ul li .item .button-wrapper {
-    margin-top: 10px;
 }
 
 .stay-detail .content.bottom ul li .item .button-wrapper button {
@@ -1472,7 +1483,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .room.item .text-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 200px;
     margin-left: 20px;
     width: calc(100% - 220px);
     justify-content: space-between;
@@ -1481,9 +1492,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .item .text-wrapper {
     display: flex;
     flex-direction: row;
-    height: 100%;
     width: 100%;
-    justify-content: space-between;
 }
 
 .stay-detail .content.bottom ul li .room.item .text-wrapper .text-item {
@@ -1496,11 +1505,14 @@ p.tab-title {
     padding: 10px;
     border-radius: 5px;
 }
+.stay-detail .content.bottom ul li .room.item .text-wrapper .text-item:nth-child(1){
+    margin-top: 0;
+}
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item{
-    width: calc((100% - 10px) / 2);
     color: #333;
     background: #fff;
     height: 40px;
+    width: 170px;
     display: flex;
     align-items: center;
 }
@@ -1912,4 +1924,22 @@ textarea.input {
 .err-wrapper span{
     margin-bottom: 20px;
     display: block;
+}
+
+.list-title{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    margin-bottom: 20px;
+    background: #f8f8f8;
+}
+.list-title dd{
+    width:150px;
+}
+.list-title dd:nth-child(1){}
+.list-title dd:nth-child(2){}
+.list-title dd:nth-child(3){
+    margin-left: auto;
+    text-align: center;
+    width: 100px;
 }

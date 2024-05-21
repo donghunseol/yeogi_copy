@@ -80,6 +80,11 @@
                                 <p class="sub-title">객실리스트</p>
                                 <a href="/room/register-form/{{stayList.stayId}}">객실추가하기</a>
                             </div>
+                            <dl class="list-title">
+                                <dd>객실등급</dd>
+                                <dd>객실개수</dd>
+                                <dd>상세보기</dd>
+                            </dl>
                             <ul>
                                 <!-- <li class="unknown">
                                     <div class="item">
@@ -91,20 +96,21 @@
                                         <div class="item">
                                             <div class="text-wrapper">
                                                 <p class="text-item">
-                                                    <span class="head"><i></i><em>객실 등급</em></span>
+<!--                                                    <span class="head"><i></i><em>객실 등급</em></span>-->
                                                     <span class="body">{{roomTier}}</span>
                                                 </p>
                                                 <p class="text-item">
-                                                    <span class="head"><i></i><em>객실 개수</em></span>
+<!--                                                    <span class="head"><i></i><em>객실 개수</em></span>-->
                                                     <span class="body">{{tierCount}}개</span>
                                                 </p>
+                                                <form action="/manage/stays/{{stayId}}/rooms" method="get" style="width: 100px; margin-left: auto">
+                                                    <input type="hidden" name="tier" value="{{roomTier}}"/>
+                                                    <div class="button-wrapper">
+                                                        <button class="btn black">상세보기</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <form action="/manage/stays/{{stayId}}/rooms" method="get" style="width: 100%;">
-                                                <input type="hidden" name="tier" value="{{roomTier}}"/>
-                                                <div class="button-wrapper">
-                                                    <button class="btn black">상세보기</button>
-                                                </div>
-                                            </form>
+
                                         </div>
                                     </li>
                                 {{/detailList}}
