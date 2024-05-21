@@ -1,5 +1,6 @@
 package com.example.final_project.room;
 
+import com.example.final_project._core.errors.exception.ApiException404;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project._core.utils.ImageUtil;
@@ -72,12 +73,12 @@ public class RoomService {
     public RoomResponse.Detail detail(Integer roomId){
         // 룸찾기
         Room room = roomsRepository.findById(roomId)
-                .orElseThrow(() -> new Exception404("해당 객실을 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 객실을 찾을 수 없습니다"));
 
         RoomInformation roomInformation = roomInformationRepository.findByRoomId(roomId);
 
         Stay stay = stayRepository.findStayByRoom(roomId)
-                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 숙소를 찾을 수 없습니다"));
 
         // 인포메이션
         RoomResponse.Detail.RoomInfoDTO roomInfoDTO = new RoomResponse.Detail.RoomInfoDTO(roomInformation);

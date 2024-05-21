@@ -2,12 +2,14 @@
 
 package com.example.final_project.review;
 
+import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.SessionCompany;
 import com.example.final_project.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -24,6 +26,11 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
     private final HttpSession session;
+
+    @GetMapping("/test")
+    public String test(){
+        throw new Exception404("test");
+    }
 
 
     // 해당 숙소의 리뷰(댓글) 목록

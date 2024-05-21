@@ -1,8 +1,6 @@
 package com.example.final_project.user;
 
-import com.example.final_project._core.errors.exception.Exception400;
-import com.example.final_project._core.errors.exception.Exception401;
-import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.errors.exception.*;
 import com.example.final_project._core.utils.JwtUtil;
 import com.example.final_project.faq.Faq;
 import com.example.final_project.faq.FaqRepository;
@@ -33,7 +31,7 @@ public class UserService {
     // 로그인 기능
     public String login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+                .orElseThrow(() -> new ApiException401("인증되지 않았습니다"));
 
         String jwt = JwtUtil.userCreate(user);
         JwtUtil.userVerify(jwt);
@@ -47,7 +45,7 @@ public class UserService {
         Optional<User> userOP = userRepository.findByEmail(email);
 
         if (userOP.isPresent()) {
-            throw new Exception400("중복된 유저네임입니다");
+            throw new ApiException400("중복된 유저네임입니다");
         }
 
         return userOP;
@@ -73,11 +71,11 @@ public class UserService {
     @Transactional
     public SessionUser update(SessionUser sessionUser, UserRequest.UpdateDTO reqDTO, Integer userId) {
         User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 유저입니다"));
 
         // 권한 체크
         if (user.getId() != userId) {
-            throw new Exception401("유저 정보를 수정할 권한이 없습니다");
+            throw new ApiException401("유저 정보를 수정할 권한이 없습니다");
         }
 
         // 수정
@@ -88,7 +86,7 @@ public class UserService {
 
     public UserResponse.LoginDTO loginByDTO(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+                .orElseThrow(() -> new ApiException401("인증되지 않았습니다"));
 
         return new UserResponse.LoginDTO(user);
     }
@@ -96,14 +94,14 @@ public class UserService {
 
     public UserResponse.JoinDTO joinByDTO(UserRequest.JoinDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다"));
+                .orElseThrow(() -> new ApiException401("인증되지 않았습니다"));
 
         return new UserResponse.JoinDTO(user);
     }
 
     public List<UserResponse.Notifications> notifications(SessionUser sessionUser){
         User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 유저입니다"));
         List<Reservation> reservationList = reservationRepository.findByUserId(user.getId());
         return reservationList.stream().map(UserResponse.Notifications::new).collect(Collectors.toList());
     }
@@ -126,10 +124,10 @@ public class UserService {
     public void questionWrite(SessionUser sessionUser,UserRequest.QuestionSave reqDTO){
         //1. 인증처리
         User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 유저입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 유저입니다"));
         //2. 권한처리
         if (user == null){
-            throw new Exception401("문의할 권한이 없습니다.");
+            throw new ApiException401("문의할 권한이 없습니다.");
         }
 
         //3. 저장

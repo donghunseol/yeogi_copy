@@ -1,6 +1,7 @@
 package com.example.final_project.event;
 
 import com.example.final_project._core.enums.EventEnum;
+import com.example.final_project._core.errors.exception.ApiException404;
 import com.example.final_project._core.errors.exception.Exception404;
 import com.example.final_project.stay.StayResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class EventService {
     public EventResponse.EventDetailDTO eventDetail(Integer eventId){
 
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new Exception404("해당 이벤트를 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 이벤트를 찾을 수 없습니다"));
 
         return new EventResponse.EventDetailDTO(event);
     }

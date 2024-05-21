@@ -22,13 +22,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: false
     properties:
       hibernate:
         default_batch_fetch_size: 10
-    defer-datasource-initialization: true
+        dialect: org.hibernate.dialect.MySQL8Dialect # JPA 방언 설정
     open-in-view: false
 
 logging:
   level:
-    '[com.example.project_v2]': INFO # 이 패키지 이하의 로그만 수집 하겠다 라는 의미 ([]안의 패키지 설정 가능)
+    org.hibernate.orm.jdbc.bind: INFO # 배포하고 나면 INFO 부터 보면 된다.
+    com.example.final_project: INFO # 이 패키지 이하의 로그만 수집 하겠다 라는 의미 ([]안의 패키지 설정 가능)

@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice // 데이터 응답
 public class MyApiExceptionHandler {
 
-    @ExceptionHandler(Exception400.class)
-    public ResponseEntity<?> badRequest(Exception400 e) {
+    @ExceptionHandler(ApiException400.class)
+    public ResponseEntity<?> badRequest(ApiException400 e) {
         return new ResponseEntity<>(e.body(), e.status());
     }
 
-    @ExceptionHandler(Exception401.class)
-    public ResponseEntity<?> unAuthorized(Exception401 e) {
+    @ExceptionHandler(ApiException401.class)
+    public ResponseEntity<?> unAuthorized(ApiException401 e) {
         return new ResponseEntity<>(e.body(), e.status());
     }
 
-    @ExceptionHandler(Exception403.class)
-    public ResponseEntity<?> forbidden(Exception403 e) {
+    @ExceptionHandler(ApiException403.class)
+    public ResponseEntity<?> forbidden(ApiException403 e) {
         return new ResponseEntity<>(e.body(), e.status());
     }
 
-    @ExceptionHandler(Exception404.class)
-    public ResponseEntity<?> notFound(Exception404 e) {
+    @ExceptionHandler(ApiException404.class)
+    public ResponseEntity<?> notFound(ApiException404 e) {
         return new ResponseEntity<>(e.body(), e.status());
     }
 
-    @ExceptionHandler(Exception500.class)
-    public ResponseEntity<?> serverError(Exception500 e) {
+    @ExceptionHandler(ApiException500.class)
+    public ResponseEntity<?> serverError(ApiException500 e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(e.body(), e.status());
     }

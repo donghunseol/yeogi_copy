@@ -2,10 +2,7 @@ package com.example.final_project.stay;
 
 import com.example.final_project._core.enums.EventEnum;
 import com.example.final_project._core.enums.RoomEnum;
-import com.example.final_project._core.errors.exception.Exception400;
-import com.example.final_project._core.errors.exception.Exception401;
-import com.example.final_project._core.errors.exception.Exception403;
-import com.example.final_project._core.errors.exception.Exception404;
+import com.example.final_project._core.errors.exception.*;
 import com.example.final_project._core.utils.ImageUtil;
 import com.example.final_project.company.Company;
 import com.example.final_project.company.CompanyRepository;
@@ -525,7 +522,7 @@ public class StayService {
         System.out.println("숙소 번호 : " + stayId);
         // section1 (숙소 이름, 찜 여부, 숙소 이미지, 숙소 리뷰, 숙소 편의시설)
         Stay stay = stayRepository.findByStayId(stayId)
-                .orElseThrow(() -> new Exception404("존재하지 않는 숙소입니다.")); // 숙소
+                .orElseThrow(() -> new ApiException404("존재하지 않는 숙소입니다.")); // 숙소
         StayResponse.StayDetail.StayContentsDTO.StayDTO stayDTO = new StayResponse.StayDetail.StayContentsDTO.StayDTO(stay);
         //TODO 만약에 ssesionUser로 비교하게되면 추가
 //      만약에 boolaen 값 확인하려면 유저가 로그인해서 비교

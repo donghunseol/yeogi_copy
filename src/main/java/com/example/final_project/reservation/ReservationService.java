@@ -1,6 +1,7 @@
 package com.example.final_project.reservation;
 
 import com.example.final_project._core.enums.PayEnum;
+import com.example.final_project._core.errors.exception.ApiException404;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
@@ -38,9 +39,9 @@ public class ReservationService {
     @Transactional
     public ReservationResponse.SaveDTO makeReservation(ReservationRequest.DTO reqDTO, SessionUser sessionUser, Integer roomId) {
         User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception404("존재 하지 않는 계정입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 계정입니다"));
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 방입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 방입니다"));
 
         // 겹치는 예약 날짜 확인
         System.out.println("예약 입실 일자 : " + reqDTO.getCheckInDate());
@@ -76,11 +77,11 @@ public class ReservationService {
     @Transactional
     public ReservationResponse.DTO modifyReservation(ReservationRequest.UpdateDTO reqDTO, SessionUser sessionUser, Integer reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new Exception404("존재 하지 않는 예약입니다"));
+                .orElseThrow(() -> new ApiException404("존재 하지 않는 예약입니다"));
 
         // 예약한 유저와 로그인한 유저가 같은 인원인지 확인하는 권한 체크
         if (sessionUser.getId() != reservation.getUser().getId()) {
-            throw new Exception401("예약을 수정할 권한이 없습니다");
+            throw new ApiException404("예약을 수정할 권한이 없습니다");
         }
 
         // 수정

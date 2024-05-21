@@ -1,5 +1,6 @@
 package com.example.final_project.review;
 
+import com.example.final_project._core.errors.exception.ApiException404;
 import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.errors.exception.Exception401;
 import com.example.final_project._core.errors.exception.Exception404;
@@ -20,7 +21,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +47,11 @@ public class ReviewService {
 
         // 1. 인증 처리
         if (sessionObject == null) {
-            throw new Exception400("로그인이 필요한 서비스입니다.");
+            throw new ApiException404("로그인이 필요한 서비스입니다.");
         }
 
         Stay stay = stayRepository.findById(stayId)
-                .orElseThrow(() -> new Exception404("해당 숙소를 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 숙소를 찾을 수 없습니다"));
 
         Review review = reqDTO.toEntity(sessionObject, stay);
 
@@ -60,7 +60,7 @@ public class ReviewService {
 
         if (reqDTO.getParentId() != null) {
             parentReview = reviewRepository.findById(reqDTO.getParentId())
-                    .orElseThrow(() -> new Exception404("해당 리뷰아이디를 찾을 수 없습니다. : " + reqDTO.getParentId()));
+                    .orElseThrow(() -> new ApiException404("해당 리뷰아이디를 찾을 수 없습니다. : " + reqDTO.getParentId()));
             review.updateParent(parentReview);
         }
 
@@ -70,7 +70,7 @@ public class ReviewService {
 
         ReviewResponse.Save.UserDTO writerDTO = null;
         if (review.getUser() != null){
-            User user =userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new Exception404("해당 유저를 찾지 못했습니다"));
+            User user =userRepository.findById(reqDTO.getUserId()).orElseThrow(() -> new ApiException404("해당 유저를 찾지 못했습니다"));
             writerDTO = new ReviewResponse.Save.UserDTO(user);
             Reservation reservation = reservationRepository.findByStayIdWithUserId(reqDTO.getStayId(),reqDTO.getUserId(),reqDTO.getRoomId());
             reservation.setReviewid(review.getId());
@@ -89,18 +89,18 @@ public class ReviewService {
 
         // 1. 인증 처리
         if (sessionUser == null){
-            new Exception401("로그인이 필요한 서비스입니다.");
+            throw new ApiException404("로그인이 필요한 서비스입니다.");
         }
 
         Stay stay = stayRepository.findById(stayId)
-                .orElseThrow(() -> new Exception401("조회할 권한이 없습니다"));
+                .orElseThrow(() -> new ApiException404("조회할 권한이 없습니다"));
 
         Company company = companyRepository.findByStayId(sessionUser.getId())
-                .orElseThrow(() -> new Exception404("해당 기업을 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 기업을 찾을 수 없습니다"));
 
         // 2. 권한 처리
         if (sessionUser.getId() != company.getId()){
-            new Exception400("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
+            throw new ApiException404("해당 기업의 리뷰를 조회 할 권한이 없습니다.");
         }
 
         // 3. 리스트 조회
@@ -187,7 +187,7 @@ public class ReviewService {
     public ReviewResponse.ReportForm reportForm(Integer reviewId,SessionCompany sessionUser){
         // 1. 인증 처리
         if (sessionUser == null) {
-            throw new Exception401("로그인이 필요한 서비스입니다.");
+            throw new ApiException404("로그인이 필요한 서비스입니다.");
         }
 
         // 2. 댓글 조회
@@ -202,7 +202,7 @@ public class ReviewService {
 
         // 1. 인증 처리
         if (sessionUser == null) {
-            throw new Exception401("로그인이 필요한 서비스입니다.");
+            throw new ApiException404("로그인이 필요한 서비스입니다.");
         }
 
         // 2. 댓글 조회
@@ -210,7 +210,7 @@ public class ReviewService {
 
         // 3. 유저 찾기
         User user = userRepository.findById(review.getUser().getId())
-                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다"));
+                .orElseThrow(() -> new ApiException404("해당 유저를 찾을 수 없습니다"));
 
         Report report = reqDTO.toEntity(user,review);
 
