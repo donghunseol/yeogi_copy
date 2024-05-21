@@ -1401,7 +1401,15 @@ p.tab-title {
     padding: 20px;
     background: #fff;
 }
+.stay-detail .content.bottom ul.room{
 
+}
+.stay-detail .content.bottom ul.room li{
+    width: calc((100% - 60px) / 3);
+    border: none;
+    background: #f8f8f8;
+    padding: 0;
+}
 .stay-detail .content.bottom ul li:nth-child(3n) {
     margin-right: 0;
 }
@@ -1446,7 +1454,6 @@ p.tab-title {
 }
 
 .stay-detail .content.bottom ul li .item .button-wrapper {
-    margin-top: 10px;
 }
 
 .stay-detail .content.bottom ul li .item .button-wrapper button {
@@ -1476,7 +1483,7 @@ p.tab-title {
 .stay-detail .content.bottom ul li .room.item .text-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 200px;
     margin-left: 20px;
     width: calc(100% - 220px);
     justify-content: space-between;
@@ -1484,9 +1491,8 @@ p.tab-title {
 
 .stay-detail .content.bottom ul li .item .text-wrapper {
     display: flex;
-    flex-direction: column;
-    width: 50%;
-    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
 }
 
 .stay-detail .content.bottom ul li .room.item .text-wrapper .text-item {
@@ -1499,11 +1505,14 @@ p.tab-title {
     padding: 10px;
     border-radius: 5px;
 }
+.stay-detail .content.bottom ul li .room.item .text-wrapper .text-item:nth-child(1){
+    margin-top: 0;
+}
 .stay-detail .content.bottom ul li .item .text-wrapper .text-item{
-    width: calc((100% - 10px) / 2);
     color: #333;
     background: #fff;
     height: 40px;
+    width: 170px;
     display: flex;
     align-items: center;
 }
@@ -1925,8 +1934,12 @@ textarea.input {
     background: #f8f8f8;
 }
 .list-title dd{
-    width: 30%;
+    width:150px;
 }
 .list-title dd:nth-child(1){}
 .list-title dd:nth-child(2){}
-.list-title dd:nth-child(3){}
+.list-title dd:nth-child(3){
+    margin-left: auto;
+    text-align: center;
+    width: 100px;
+}
