@@ -23,6 +23,9 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.xml.validation.Validator;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -110,20 +113,14 @@ public class UserControllerTest extends MyWithRestDoc {
     public void join_success_test() throws Exception {
         // given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
-        reqDTO.setEmail("ccar@nate.com");
+        reqDTO.setEmail("cccc@nate.com"); // @필요함
         reqDTO.setPassword("13579");
         reqDTO.setName("code");
         reqDTO.setPhone("010-1133-5577");
-        reqDTO.setBirth(LocalDate.of(2020, 2, 2));
+        LocalDate birthDate = LocalDate.of(2020, 2, 2);
+        reqDTO.setBirth(birthDate);
 
         String reqBody = om.writeValueAsString(reqDTO);
-//        System.out.println("reqBody : " + reqBody);
-
-        Errors errors = new BeanPropertyBindingResult(reqDTO, "reqDTO");
-        if (errors.hasErrors()) {
-            throw new IllegalArgumentException("유효하지 않은 요청입니다: " + errors.getAllErrors());
-        }
-
 
         // when
         ResultActions actions = mvc.perform(
@@ -140,7 +137,7 @@ public class UserControllerTest extends MyWithRestDoc {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
         actions.andExpect(jsonPath("$.body.id").value(4));
-        actions.andExpect(jsonPath("$.body.email").value("ccar@nate.com"));
+        actions.andExpect(jsonPath("$.body.email").value("cccc@nate.com"));
         actions.andExpect(jsonPath("$.body.name").value("code"));
         actions.andExpect(jsonPath("$.body.phone").value("010-1133-5577"));
         actions.andExpect(jsonPath("$.body.state").value("ACTIVE"));
@@ -335,10 +332,10 @@ public class UserControllerTest extends MyWithRestDoc {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body[0].faqId").value(1));
+        actions.andExpect(jsonPath("$.body[0].faqId").value(5));
         actions.andExpect(jsonPath("$.body[0].classification").value("User"));
-        actions.andExpect(jsonPath("$.body[0].content").value("예약을 취소하고 싶어요"));
-        actions.andExpect(jsonPath("$.body[0].reply").value("예약취소는  앱/웹 > 내정보 > 예약/구매내역에서 직접 가능합니다."));
+        actions.andExpect(jsonPath("$.body[0].content").value("상품을 결제했는데 이용 횟수가 올라가지않아요"));
+        actions.andExpect(jsonPath("$.body[0].reply").value("실 결제금액 5만원 이상의 상품을 구매하고 이용 완료까지 하셔야 이용 횟수가 올라가요.더불어, 이용 횟수 반영까지 최대 3일 정도 소요될 수 있어요. "));
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 

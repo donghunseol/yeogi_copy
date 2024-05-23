@@ -44,7 +44,7 @@ public class MyExceptionHandler {
     @GetMapping("/404")
     public String ex404(Exception404 e, HttpServletRequest request) {
         request.setAttribute("msg", e.getMessage());
-        log.info("403 : " + e.getMessage());
+        log.info("404 : " + e.getMessage());
         return "/err/404";
     }
 

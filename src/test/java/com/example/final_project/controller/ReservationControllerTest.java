@@ -203,7 +203,7 @@ public class ReservationControllerTest extends MyWithRestDoc {
         Integer reservationId = 100;
         ReservationRequest.UpdateDTO reqDTO = new ReservationRequest.UpdateDTO();
         reqDTO.setReservationName("곽두팔");
-        reqDTO.setReservationTel("01033526645");
+        reqDTO.setReservationTel("010-3352-6645");
 
 
         String reqBody = om.writeValueAsString(reqDTO);
@@ -218,6 +218,7 @@ public class ReservationControllerTest extends MyWithRestDoc {
         );
 
         // eye
+
         String respBody = actions.andReturn().getResponse().getContentAsString();
         System.out.println("respBody : " + respBody);
 
