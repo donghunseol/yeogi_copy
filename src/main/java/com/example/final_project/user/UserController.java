@@ -1,5 +1,6 @@
 package com.example.final_project.user;
 
+import com.example.final_project._core.errors.exception.Exception400;
 import com.example.final_project._core.utils.ApiUtil;
 import com.example.final_project.reservation.ReservationResponse;
 import com.example.final_project.reservation.ReservationService;
@@ -8,7 +9,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +24,6 @@ public class UserController {
     private final ReservationService reservationService;
     private final HttpSession session;
 
-
     // 회원 로그인
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
@@ -33,10 +35,6 @@ public class UserController {
     // 회원 가입
     @PostMapping("/users/join")
     public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors errors) {
-
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(errors.getAllErrors());
-        }
 
         String jwt = userService.joinAndLogin(reqDTO);
         UserResponse.JoinDTO respDTO = userService.joinByDTO(reqDTO);

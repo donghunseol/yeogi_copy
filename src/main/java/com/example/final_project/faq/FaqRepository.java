@@ -13,7 +13,7 @@ public interface FaqRepository extends JpaRepository<Faq, Integer> {
     List<Faq> findAllList();
 
     // 공통 및 유저를 위한 FAQ 리스트
-    @Query("SELECT f FROM Faq f WHERE f.classification <> 'Company' order by f.id desc ")
+    @Query("SELECT f FROM Faq f WHERE f.classification <> 'Company' order by f.id desc")
     List<Faq> findAllByExcludeComapny();
 
     // keyword 검색
