@@ -32,7 +32,7 @@
 
 # 📚 발표자료
 
-[1조_Final_Project_PPT.pdf]((https://docs.google.com/presentation/d/123c3apdcGlRTxGU_gEJx5LY1YTvMXYoL/edit?usp=drive_link&ouid=104872751959430579271&rtpof=true&sd=true))
+[1조_Final_Project_PPT.pdf](https://docs.google.com/presentation/d/123c3apdcGlRTxGU_gEJx5LY1YTvMXYoL/edit?usp=drive_link&ouid=104872751959430579271&rtpof=true&sd=true)
 
 <br>
 
