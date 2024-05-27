@@ -125,7 +125,7 @@
 </tr>
 <tr>
   <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/ba794e96-2750-47aa-8e56-588fafe07e1d"  width="256" height="455"/></td>
-  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/9fa098c2-8e61-4290-b81a-9bc447542a7d"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/223892f7-2ae2-4083-958a-f39b585e0e0a"  width="256" height="455"/></td>
 </tr>
 <tr>
   <td align=center>로그인</td>
@@ -148,7 +148,7 @@
   <td align=center>결제하기</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/f74b1e79-a04e-44ac-87c6-b0b017873aa1"  width="256" height="455"/></td>
+  <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/f66821a5-d7c9-41e6-9c9d-25530c90c7fb"  width="256" height="455"/></td>
   <td><img src="https://github.com/donghunseol/yeogi_copy/assets/153582315/f3e957cd-4189-4bb7-937b-702099e82e58"  width="256" height="455"/></td>
 </tr>
 <tr>
