@@ -28,7 +28,7 @@
 
 # 📽️ 시연영상
 
-- 추가 예정
+[1조 시연 영상](https://youtu.be/iYL5NhQxDjg?si=1U2-tsvSTIc7Yysz)
 
 # 📚 발표자료
 
