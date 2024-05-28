@@ -110,7 +110,7 @@ public class PayControllerTest extends MyWithRestDoc {
     @Test
     public void pay_refund_test() throws Exception {
         //given
-        Integer payId = 8;
+        Integer payId = 14;
 
         //when
         System.out.println("jwt : "+jwt);
@@ -121,8 +121,8 @@ public class PayControllerTest extends MyWithRestDoc {
         //then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.id").value("8"));
-        actions.andExpect(jsonPath("$.body.reservationId").value("8"));
+        actions.andExpect(jsonPath("$.body.id").value("14"));
+        actions.andExpect(jsonPath("$.body.reservationId").value("14"));
         actions.andExpect(jsonPath("$.body.state").value("REFUND"));
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

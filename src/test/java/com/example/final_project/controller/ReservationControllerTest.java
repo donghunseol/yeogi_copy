@@ -70,7 +70,7 @@ public class ReservationControllerTest extends MyWithRestDoc {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.msg").value("성공"));
-        actions.andExpect(jsonPath("$.body.id").value(14));
+        actions.andExpect(jsonPath("$.body.id").value(15));
         actions.andExpect(jsonPath("$.body.userId").value(1));
         actions.andExpect(jsonPath("$.body.roomId").value(1));
         actions.andExpect(jsonPath("$.body.checkInDate").value("2024-05-18"));
