@@ -41,3 +41,15 @@ jobs:
       # 눈으로 체크
       - name: list
         run: ls
+
+      # AWS 배포 시 필요
+      - name: Deploy tp EB
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }} # AWS에 로그인 해서 KEY 두 개를 받아온다. {{}} 를 2개 쓰면 Github의 환경변수를 가져오는 것이다.
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: yogi # 엘라스틱빈스톡 이름
+          environment_name: Yogi-env # 환경 이름
+          version_label: ${{ github.run_number }} # 현재 날짜 설정 이것도 Github 환경변수
+          region: ap-northeast-2
+          deployment_package: deploy/deploy.zip # 압축 파일이 deploy 안에 있으니
