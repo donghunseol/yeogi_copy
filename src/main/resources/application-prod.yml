@@ -26,4 +26,4 @@ spring:
 logging:
   level:
     org.hibernate.orm.jdbc.bind: INFO # 배포하고 나면 INFO 부터 보면 된다.
-    com.com.example.final_project: DEBUG # DEBUG 이상의 에러 뜨도록 설정
+    com.example.final_project: DEBUG # DEBUG 이상의 에러 뜨도록 설정
